@@ -46,6 +46,30 @@
       "revId": "62f78f4fa3d8e6d535e78bdcf4827557255bc5e2",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_af3deebd",
+        "filename": "third_party/android/Android.mk.template",
+        "patchSetId": 1
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-05-18T14:44:14Z",
+      "side": 1,
+      "message": "To be precise, the absolute path would not help. There are other solutions, but they have been discarded because they were not convenient in VIXL.",
+      "parentUuid": "fafc7978_4f4d6272",
+      "range": {
+        "startLine": 224,
+        "startChar": 20,
+        "endLine": 224,
+        "endChar": 25
+      },
+      "revId": "62f78f4fa3d8e6d535e78bdcf4827557255bc5e2",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
