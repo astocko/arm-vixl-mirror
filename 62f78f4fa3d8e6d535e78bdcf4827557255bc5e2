@@ -118,6 +118,30 @@
       "revId": "62f78f4fa3d8e6d535e78bdcf4827557255bc5e2",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_6ff826e6",
+        "filename": "third_party/android/Android.mk.template",
+        "patchSetId": 1
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1000194
+      },
+      "writtenOn": "2016-05-18T15:21:25Z",
+      "side": 1,
+      "message": "But the test-runner is faulty as it is. Isn\u0027t it?\n\nWhat we are doing with these cd ... ../../ are just some hacks to get it working. The whole point of having this template inside vixl was so that Android is an example of how you can integrate vixl inside your OS/distro (which might be using a different build system, like android does).\n\nThere are indeed no __ANDROID__ tags in vixl. That is wired I thought I have added some for the macros in globas.h they should be printing stuff to logcat rather then stdout. \n\nI will be putting together a patch for those soon.",
+      "parentUuid": "fafc7978_2fee1e23",
+      "range": {
+        "startLine": 224,
+        "startChar": 20,
+        "endLine": 224,
+        "endChar": 25
+      },
+      "revId": "62f78f4fa3d8e6d535e78bdcf4827557255bc5e2",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
