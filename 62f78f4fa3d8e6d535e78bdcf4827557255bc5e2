@@ -94,6 +94,30 @@
       "revId": "62f78f4fa3d8e6d535e78bdcf4827557255bc5e2",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_2fee1e23",
+        "filename": "third_party/android/Android.mk.template",
+        "patchSetId": 1
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-05-18T15:15:08Z",
+      "side": 1,
+      "message": "I can\u0027t find any ANDROID defines in VIXL.\nThe test runner is not a bash script.\n\nWhat I meant by \"it does not help\" is that even if we add a mechanism to point to the files the test-runner looks for, we will need a similar modification in Android.mk to point to it. So why bother adding more complexity to the test-runner code?",
+      "parentUuid": "fafc7978_0f623ad8",
+      "range": {
+        "startLine": 224,
+        "startChar": 20,
+        "endLine": 224,
+        "endChar": 25
+      },
+      "revId": "62f78f4fa3d8e6d535e78bdcf4827557255bc5e2",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
