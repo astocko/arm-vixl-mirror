@@ -70,6 +70,30 @@
       "revId": "62f78f4fa3d8e6d535e78bdcf4827557255bc5e2",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_0f623ad8",
+        "filename": "third_party/android/Android.mk.template",
+        "patchSetId": 1
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1000194
+      },
+      "writtenOn": "2016-05-18T14:53:02Z",
+      "side": 1,
+      "message": "Why would it not help? Isn\u0027t this issue related to the path? So the test trying to read $PWD/... ?\n\nWe already have an __ANDROID__ and such like things in vixl. So maybe at the point we do a read we can have \n\nread(TEST_FILE_PATH);\n\nifndef TEST_FILE_PATH\n#define TEST_FILE_PATH $PWD\n#endif \n\n\nand we can build the vixl-test-runner using -DTEST_FILE_PATH\u003d$(LOCAL_PATH)/path_to_test_script.",
+      "parentUuid": "fafc7978_af3deebd",
+      "range": {
+        "startLine": 224,
+        "startChar": 20,
+        "endLine": 224,
+        "endChar": 25
+      },
+      "revId": "62f78f4fa3d8e6d535e78bdcf4827557255bc5e2",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
