@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fafc7978_68bc9c6d",
+        "filename": "benchmarks/bench-branch-masm.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-05-24T08:01:21Z",
+      "side": 1,
+      "message": "I am preparing a separate patch to sort/fix the `#include` directives.",
+      "parentUuid": "fafc7978_88b900ec",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 20
+      },
+      "revId": "4f765e7d1e41484d25ea0fcf09625d29c4bafe6d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fafc7978_a8b4c4f2",
         "filename": "src/a64/assembler-a64.cc",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2016-05-23T21:58:55Z",
       "side": 1,
       "message": "while at it you can add a black line in between these.",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 16
+      },
+      "revId": "4f765e7d1e41484d25ea0fcf09625d29c4bafe6d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fafc7978_48c1d8e3",
+        "filename": "src/a64/assembler-a64.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-05-24T08:01:21Z",
+      "side": 1,
+      "message": "See other comment.",
+      "parentUuid": "fafc7978_a8b4c4f2",
       "range": {
         "startLine": 28,
         "startChar": 0,
