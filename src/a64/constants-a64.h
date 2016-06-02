@@ -51,13 +51,14 @@ R(24) R(25) R(26) R(27) R(28) R(29) R(30) R(31)
 
 #define INSTRUCTION_FIELDS_LIST(V_)                        \
   /* Register fields */                                    \
-  V_(Rd, 4, 0, Bits)    /* Destination register.        */ \
-  V_(Rn, 9, 5, Bits)    /* First source register.       */ \
-  V_(Rm, 20, 16, Bits)  /* Second source register.      */ \
-  V_(Ra, 14, 10, Bits)  /* Third source register.       */ \
-  V_(Rt, 4, 0, Bits)    /* Load/store register.         */ \
-  V_(Rt2, 14, 10, Bits) /* Load/store second register.  */ \
-  V_(Rs, 20, 16, Bits)  /* Exclusive access status.     */ \
+  V_(Rd, 4, 0, Bits)    /* */                              \
+  V_(Rn, 9, 5, Bits)    /* */                              \
+  V_(Rm, 20, 16, Bits)  /* */                              \
+  V_(Ra, 14, 10, Bits)  /* */                              \
+  V_(Rt, 4, 0, Bits)    /* */                              \
+  V_(Rt2, 14, 10, Bits) /* */                              \
+  V_(Rs, 20, 16, Bits)  /* */                              \
+  V_(Rs, 20, 16, Bits)  /* */                              \
                                                            \
   /* Common bits */                                        \
   V_(SixtyFourBits, 31, 31, Bits)                          \
