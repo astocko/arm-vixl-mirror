@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_a06ea494",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-06-07T10:39:07Z",
+      "side": 1,
+      "message": "Can you fix the TODO now?",
+      "revId": "2f0f40f43a26707ce9d842a6a896242c8992fa83",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
