@@ -16,6 +16,24 @@
       "revId": "2f0f40f43a26707ce9d842a6a896242c8992fa83",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_800f20e1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-06-07T11:26:47Z",
+      "side": 1,
+      "message": "Done.\nI wanted to check that the commit id reported on gerrit was correct (after the submission).",
+      "parentUuid": "da01753e_a06ea494",
+      "revId": "2f0f40f43a26707ce9d842a6a896242c8992fa83",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
