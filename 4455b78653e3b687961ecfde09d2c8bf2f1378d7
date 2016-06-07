@@ -16,6 +16,24 @@
       "revId": "4455b78653e3b687961ecfde09d2c8bf2f1378d7",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_c04ac826",
+        "filename": "test/a64/test-assembler-a64.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 8740,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-06-07T10:05:20Z",
+      "side": 1,
+      "message": "Sounds fine.",
+      "parentUuid": "da01753e_80ca809f",
+      "revId": "4455b78653e3b687961ecfde09d2c8bf2f1378d7",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
