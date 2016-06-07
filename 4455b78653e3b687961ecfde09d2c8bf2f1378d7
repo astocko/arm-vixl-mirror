@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_80ca809f",
+        "filename": "test/a64/test-assembler-a64.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 8740,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-06-07T08:36:26Z",
+      "side": 1,
+      "message": "The name isn\u0027t ideal, and looking at the previous test, the categorisation is slightly wrong anyway. (\u0027csel_imm\u0027 contains register-or-operand tests, for example.)\n\nA reasonable starting point would be csel_reg, csel_imm and csel_mixed. What do you think?",
+      "revId": "4455b78653e3b687961ecfde09d2c8bf2f1378d7",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
