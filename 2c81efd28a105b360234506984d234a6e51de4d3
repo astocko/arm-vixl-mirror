@@ -16,6 +16,24 @@
       "revId": "2c81efd28a105b360234506984d234a6e51de4d3",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_e6ba8409",
+        "filename": "src/a64/macro-assembler-a64.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 585,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-06-09T13:50:15Z",
+      "side": 1,
+      "message": "Yes, much better. I had not checked the assembler constructor.",
+      "parentUuid": "da01753e_46d0b053",
+      "revId": "2c81efd28a105b360234506984d234a6e51de4d3",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
