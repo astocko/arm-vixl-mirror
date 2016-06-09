@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_46d0b053",
+        "filename": "src/a64/macro-assembler-a64.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 585,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-06-09T13:31:04Z",
+      "side": 1,
+      "message": "Instead, it would probably be better to add a default constructor, which in turn calls the Assembler\u0027s default constructor. The CodeBuffer already has a default constructor (with a capacity of 4KB), so we should probably re-use that to keep these values in sync.",
+      "revId": "2c81efd28a105b360234506984d234a6e51de4d3",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
