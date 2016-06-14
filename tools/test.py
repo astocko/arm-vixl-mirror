@@ -1,6 +1,6 @@
 #!/usr/bin/env python2.7
 
-# Copyright 2015, ARM Limited
+# Copyright 2016, ARM Limited
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -359,7 +359,7 @@ def PrintStatus(success):
 
 
 if __name__ == '__main__':
-  util.require_program('scons')
+  util.claim_program('scons')
   rc = 0
 
   args = BuildOptions()
