@@ -95,6 +95,24 @@
     },
     {
       "key": {
+        "uuid": "da01753e_73bbf372",
+        "filename": "src/a64/macro-assembler-a64.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2210,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-06-17T14:40:34Z",
+      "side": 1,
+      "message": "Perhaps, but note that we don\u0027t have any micro-architecture-specific behaviour in VIXL. In any case, it\u0027s not natural alignment, but twice the natural alignment that we want. That is, if we\u0027re handling W registers, we want the ldp/stp instructions to be 8-byte aligned, otherwise they can span 64- or 16-byte boundaries just like X register operations could.\n\nI think it\u0027s clear to state that we want 2n-byte operations to be 2n-byte aligned, where the registers are n bytes wide. That\u0027s as close we can get to avoiding the boundaries anyway.\n\nThe best guarantee we have on the base register is that it is 16-byte aligned (for the stack pointer); there\u0027s no point talking about 64-bit boundaries because at this point we have no way to influence them.",
+      "parentUuid": "da01753e_53bcef6c",
+      "revId": "28698fa4cccb84a7b0dca3d10cfcc7780059e970",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_53606f35",
         "filename": "src/a64/macro-assembler-a64.cc",
         "patchSetId": 1
@@ -159,6 +177,24 @@
       "side": 1,
       "message": "Extra parentheses where? Around \"registers.GetCount() % 2 !\u003d 0\"? As for the hard-coded alignment sizes, the 16 byte one is independent of the register sizes (as mentioned, it is a microarchitectural constraint), so I don\u0027t see how to replace it. I will fix the 8 byte one.",
       "parentUuid": "da01753e_1320a7f6",
+      "revId": "28698fa4cccb84a7b0dca3d10cfcc7780059e970",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_93b65789",
+        "filename": "src/a64/macro-assembler-a64.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2213,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-06-17T14:40:34Z",
+      "side": 1,
+      "message": "\"((registers.GetCount() % 2) !\u003d 0)\"\n\nYes, I know it\u0027s unambiguous, but the parentheses made the behaviour more obvious and thus faster to read. (It\u0027s also VIXL style.)",
+      "parentUuid": "da01753e_d388dfc8",
       "revId": "28698fa4cccb84a7b0dca3d10cfcc7780059e970",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
