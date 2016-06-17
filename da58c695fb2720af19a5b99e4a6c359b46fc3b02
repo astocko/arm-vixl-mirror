@@ -16,6 +16,24 @@
       "revId": "da58c695fb2720af19a5b99e4a6c359b46fc3b02",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_f3724348",
+        "filename": "src/a32/macro-assembler-a32.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-06-17T10:10:27Z",
+      "side": 0,
+      "message": "I still think we should do that. I created a JIRA issue for this VIXL1-115, which is a better way to track this than a TODO.",
+      "parentUuid": "da01753e_338deb32",
+      "revId": "da58c695fb2720af19a5b99e4a6c359b46fc3b02",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
