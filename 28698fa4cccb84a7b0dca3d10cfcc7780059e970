@@ -22,6 +22,91 @@
       "revId": "28698fa4cccb84a7b0dca3d10cfcc7780059e970",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_f3736313",
+        "filename": "src/a64/macro-assembler-a64.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2209,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-06-17T12:54:02Z",
+      "side": 1,
+      "message": "I\u0027m not sure that this algorithm is quite right. For example, it does the wrong thing if the base register is unaligned. (That is likely if using a custom stack pointer, for example.)\n\nV8 provides another interesting real-world example: The base register of a tagged value is never aligned, but we fix it in the offset. base+offset is aligned, but neither component is.",
+      "revId": "28698fa4cccb84a7b0dca3d10cfcc7780059e970",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_3365eb45",
+        "filename": "src/a64/macro-assembler-a64.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2210,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-06-17T12:54:02Z",
+      "side": 1,
+      "message": "I think it would suffice to just say that we try to keep accesses aligned wherever possible. The logic should also apply sensibly if we have registers of different sizes.",
+      "revId": "28698fa4cccb84a7b0dca3d10cfcc7780059e970",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_53606f35",
+        "filename": "src/a64/macro-assembler-a64.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2212,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-06-17T12:54:02Z",
+      "side": 1,
+      "message": "During the week, I spoke to Alexandre about this, and we discussed the possibility of handling sequences like str+stp+stp+str, where the location is unaligned but there are an even number of registers. With a long enough register list, it might be better to add an extra operation in order to keep the majority of the accesses aligned.",
+      "revId": "28698fa4cccb84a7b0dca3d10cfcc7780059e970",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_1320a7f6",
+        "filename": "src/a64/macro-assembler-a64.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2213,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-06-17T12:54:02Z",
+      "side": 1,
+      "message": "Extra parentheses would make this much clearer.\n\nI don\u0027t like the hard-coded alignment sizes. (As discussed above, this function handles all register sizes.)",
+      "revId": "28698fa4cccb84a7b0dca3d10cfcc7780059e970",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_935ad781",
+        "filename": "src/a64/macro-assembler-a64.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2222,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-06-17T12:54:02Z",
+      "side": 1,
+      "message": "Again, this assumes the use of X registers.",
+      "revId": "28698fa4cccb84a7b0dca3d10cfcc7780059e970",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
