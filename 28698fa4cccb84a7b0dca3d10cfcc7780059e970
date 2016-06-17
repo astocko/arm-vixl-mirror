@@ -149,6 +149,24 @@
     },
     {
       "key": {
+        "uuid": "da01753e_d30bbf29",
+        "filename": "src/a64/macro-assembler-a64.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2210,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-06-17T15:47:49Z",
+      "side": 1,
+      "message": "I\u0027ll have to think about it. We can discuss it when I\u0027m in the office on Monday if you like.",
+      "parentUuid": "da01753e_53634f1a",
+      "revId": "28698fa4cccb84a7b0dca3d10cfcc7780059e970",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_53606f35",
         "filename": "src/a64/macro-assembler-a64.cc",
         "patchSetId": 1
@@ -267,6 +285,24 @@
       "side": 1,
       "message": "Actually, in this case I\u0027d rather drop the \" !\u003d 0\" completely.",
       "parentUuid": "da01753e_d3761fd8",
+      "revId": "28698fa4cccb84a7b0dca3d10cfcc7780059e970",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_331deb74",
+        "filename": "src/a64/macro-assembler-a64.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2213,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-06-17T15:47:49Z",
+      "side": 1,
+      "message": "We always explicitly check against 0, nullptr and suchlike. Consistency is more important than saving a few characters.",
+      "parentUuid": "da01753e_d35d7f4a",
       "revId": "28698fa4cccb84a7b0dca3d10cfcc7780059e970",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
