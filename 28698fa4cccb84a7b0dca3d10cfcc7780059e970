@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_731133ac",
+        "filename": "src/a64/macro-assembler-a64.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 1000234
+      },
+      "writtenOn": "2016-06-17T12:22:07Z",
+      "side": 1,
+      "message": "\"clang-format\" suggested this.",
+      "range": {
+        "startLine": 299,
+        "startChar": 32,
+        "endLine": 300,
+        "endChar": 5
+      },
+      "revId": "28698fa4cccb84a7b0dca3d10cfcc7780059e970",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
