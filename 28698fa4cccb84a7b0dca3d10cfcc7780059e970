@@ -113,6 +113,24 @@
     },
     {
       "key": {
+        "uuid": "da01753e_53634f1a",
+        "filename": "src/a64/macro-assembler-a64.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2210,
+      "author": {
+        "id": 1000234
+      },
+      "writtenOn": "2016-06-17T15:14:38Z",
+      "side": 1,
+      "message": "In the next revision I was going to check for the following conditions:\nloc.GetOffset() % reg_size \u003d\u003d 0\nloc.GetOffset() % 2 * reg_size !\u003d 0\nregisters.GetCount() % 2 !\u003d 0\nloc.GetBaseRegister().IsSP()\n!IsAligned\u003c16\u003e(loc.GetOffset())\nreg_size \u003c 16\n\nIn this case we can definitely influence 64 byte boundaries (never crossing 16 byte boundaries with a 16 byte stride ensures it).\n\nOr would you rather prefer to enforce the simple constraint about 2n-byte operations (i.e. only the first three conditions from the list above)? Of course, it has the drawback that the assembler might rearrange the code, even though it is unnecessary.",
+      "parentUuid": "da01753e_73bbf372",
+      "revId": "28698fa4cccb84a7b0dca3d10cfcc7780059e970",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_53606f35",
         "filename": "src/a64/macro-assembler-a64.cc",
         "patchSetId": 1
