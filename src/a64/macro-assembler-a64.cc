@@ -296,7 +296,8 @@ EmissionCheckScope::~EmissionCheckScope() {
 }
 
 
-MacroAssembler::MacroAssembler() :
+MacroAssembler::MacroAssembler()
+    :
 #ifdef VIXL_DEBUG
       allow_macro_instructions_(true),
 #endif
@@ -2205,6 +2206,21 @@ void MacroAssembler::LoadStoreCPURegListHelper(LoadStoreCPURegListAction op,
 
   MemOperand loc = BaseMemOperandForLoadStoreCPURegList(registers, mem, &temps);
 
+  // Loads that cross a 64 byte boundary and stores that cross a 16 byte
+  // boundary are a performance issue on some microarchitectures; on the
+  // other hand, we don't want to insert an extra operation, which will
+  // happen if the number of registers is even.
+  if (!IsAligned<16>(loc.GetOffset()) && registers.GetCount() % 2 != 0 &&
+      IsAligned<8>(loc.GetOffset())) {
+    if (op == kStore) {
+      Str(registers.PopLowestIndex(), loc);
+    } else {
+      VIXL_ASSERT(op == kLoad);
+      Ldr(registers.PopLowestIndex(), loc);
+    }
+    loc.AddOffset(registers.GetRegisterSizeInBytes());
+    VIXL_ASSERT(IsAligned<16>(loc.GetOffset()));
+  }
   while (registers.GetCount() >= 2) {
     const CPURegister& dst0 = registers.PopLowestIndex();
     const CPURegister& dst1 = registers.PopLowestIndex();
