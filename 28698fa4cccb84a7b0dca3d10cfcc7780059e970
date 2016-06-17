@@ -42,6 +42,24 @@
     },
     {
       "key": {
+        "uuid": "da01753e_f38fe3ca",
+        "filename": "src/a64/macro-assembler-a64.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2209,
+      "author": {
+        "id": 1000234
+      },
+      "writtenOn": "2016-06-17T14:21:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da01753e_f3736313",
+      "revId": "28698fa4cccb84a7b0dca3d10cfcc7780059e970",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_3365eb45",
         "filename": "src/a64/macro-assembler-a64.cc",
         "patchSetId": 1
@@ -53,6 +71,24 @@
       "writtenOn": "2016-06-17T12:54:02Z",
       "side": 1,
       "message": "I think it would suffice to just say that we try to keep accesses aligned wherever possible. The logic should also apply sensibly if we have registers of different sizes.",
+      "revId": "28698fa4cccb84a7b0dca3d10cfcc7780059e970",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_53bcef6c",
+        "filename": "src/a64/macro-assembler-a64.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2210,
+      "author": {
+        "id": 1000234
+      },
+      "writtenOn": "2016-06-17T14:21:09Z",
+      "side": 1,
+      "message": "I don\u0027t think that the purpose of this code will be clear to an unfamiliar reader without mentioning that it is a microarchitectural constraint. IMHO if I just mention alignment (without qualifying), people will just assume the natural data type alignment, which is definitely not the idea, so it will only serve to create further confusion.",
+      "parentUuid": "da01753e_3365eb45",
       "revId": "28698fa4cccb84a7b0dca3d10cfcc7780059e970",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
@@ -76,6 +112,24 @@
     },
     {
       "key": {
+        "uuid": "da01753e_b3855baf",
+        "filename": "src/a64/macro-assembler-a64.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2212,
+      "author": {
+        "id": 1000234
+      },
+      "writtenOn": "2016-06-17T14:21:09Z",
+      "side": 1,
+      "message": "I haven\u0027t done the necessary testing to determine the threshold value, so currently I have chosen a conservative approach (i.e. apply the change only to an odd number of registers), which never introduces regressions.",
+      "parentUuid": "da01753e_53606f35",
+      "revId": "28698fa4cccb84a7b0dca3d10cfcc7780059e970",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_1320a7f6",
         "filename": "src/a64/macro-assembler-a64.cc",
         "patchSetId": 1
@@ -93,6 +147,24 @@
     },
     {
       "key": {
+        "uuid": "da01753e_d388dfc8",
+        "filename": "src/a64/macro-assembler-a64.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2213,
+      "author": {
+        "id": 1000234
+      },
+      "writtenOn": "2016-06-17T14:21:09Z",
+      "side": 1,
+      "message": "Extra parentheses where? Around \"registers.GetCount() % 2 !\u003d 0\"? As for the hard-coded alignment sizes, the 16 byte one is independent of the register sizes (as mentioned, it is a microarchitectural constraint), so I don\u0027t see how to replace it. I will fix the 8 byte one.",
+      "parentUuid": "da01753e_1320a7f6",
+      "revId": "28698fa4cccb84a7b0dca3d10cfcc7780059e970",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_935ad781",
         "filename": "src/a64/macro-assembler-a64.cc",
         "patchSetId": 1
@@ -104,6 +176,24 @@
       "writtenOn": "2016-06-17T12:54:02Z",
       "side": 1,
       "message": "Again, this assumes the use of X registers.",
+      "revId": "28698fa4cccb84a7b0dca3d10cfcc7780059e970",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_139387fb",
+        "filename": "src/a64/macro-assembler-a64.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2222,
+      "author": {
+        "id": 1000234
+      },
+      "writtenOn": "2016-06-17T14:21:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da01753e_935ad781",
       "revId": "28698fa4cccb84a7b0dca3d10cfcc7780059e970",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
