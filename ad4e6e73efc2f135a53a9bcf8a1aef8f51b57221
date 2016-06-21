@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_a941680d",
+        "filename": "src/a64/macro-assembler-a64.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2214,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-06-21T08:54:56Z",
+      "side": 1,
+      "message": "We should also document Alexandre\u0027s justification for not making this exclusive to sp. Something along these lines: \"The alignment of the base pointer is unknown here, but we assume that it\u0027s more likely to be aligned than unaligned.\"",
+      "revId": "ad4e6e73efc2f135a53a9bcf8a1aef8f51b57221",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_09bb540f",
+        "filename": "src/a64/macro-assembler-a64.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2215,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-06-21T08:54:56Z",
+      "side": 1,
+      "message": "I\u0027m not sure if this check is worthwhile.\n\nIf the offset is not naturally aligned, Ldp() and Stp() will insert extra instructions to calculate the address, but they\u0027ll do it every time. That is, you\u0027ll get terrible code anyway, so there\u0027s no point worrying about whether to do extra access first or last.\n\nIt might be worth converting the natural alignment check to an assertion, but I think this will be inconvenient for some use-cases.",
+      "revId": "ad4e6e73efc2f135a53a9bcf8a1aef8f51b57221",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_a9ca089f",
+        "filename": "src/a64/macro-assembler-a64.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2217,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-06-21T08:54:56Z",
+      "side": 1,
+      "message": "((registers.GetCount() % 2) !\u003d 0)",
+      "revId": "ad4e6e73efc2f135a53a9bcf8a1aef8f51b57221",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
