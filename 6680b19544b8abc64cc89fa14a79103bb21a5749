@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_281a8d6e",
+        "filename": "src/globals-vixl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-07-01T13:37:15Z",
+      "side": 1,
+      "message": "Can we concatenate the line with the message?",
+      "revId": "6680b19544b8abc64cc89fa14a79103bb21a5749",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
