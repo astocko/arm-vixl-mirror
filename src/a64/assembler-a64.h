@@ -1207,7 +1207,11 @@ enum LoadStoreScalingOption {
 // Assembler.
 class Assembler {
  public:
-  Assembler(size_t capacity = 4 * KBytes,
+  static const size_t kDefaultBufferCapacity = 4 * KBytes;
+
+  explicit Assembler(
+      PositionIndependentCodeOption pic = PositionIndependentCode);
+  Assembler(size_t capacity = kDefaultBufferCapacity,
             PositionIndependentCodeOption pic = PositionIndependentCode);
   Assembler(byte* buffer,
             size_t capacity,

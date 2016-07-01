@@ -102,12 +102,11 @@ namespace aarch64 {
 // Run tests with the simulator.
 
 #define SETUP()                                                                \
-  MacroAssembler masm(BUF_SIZE);                                               \
+  MacroAssembler masm;                                                         \
   SETUP_COMMON()
 
-#define SETUP_CUSTOM(size, pic)                                                \
-  byte* buf = new byte[size + BUF_SIZE];                                       \
-  MacroAssembler masm(buf, size + BUF_SIZE, pic);                              \
+#define SETUP_CUSTOM(pic)                                                      \
+  MacroAssembler masm(pic);                                                    \
   SETUP_COMMON()
 
 #define SETUP_COMMON()                                                         \
@@ -154,26 +153,17 @@ namespace aarch64 {
 #define RUN()                                                                  \
   simulator->RunFrom(masm.GetStartAddress<Instruction*>())
 
-#define RUN_CUSTOM() RUN()
-
-#define TEARDOWN() TEARDOWN_COMMON()
-
-#define TEARDOWN_CUSTOM()                                                      \
-  delete[] buf;                                                                \
-  TEARDOWN_COMMON()
-
-#define TEARDOWN_COMMON()                                                      \
+#define TEARDOWN()                                                             \
   delete simulator;
 
 #else  // ifdef VIXL_INCLUDE_SIMULATOR.
 // Run the test on real hardware or models.
 #define SETUP()                                                                \
-  MacroAssembler masm(BUF_SIZE);                                               \
+  MacroAssembler masm;                                                         \
   SETUP_COMMON()
 
-#define SETUP_CUSTOM(size, pic)                                                \
-  ExecutableMemory code(size + BUF_SIZE);                                      \
-  MacroAssembler masm(code.GetBuffer(), code.GetSize() + BUF_SIZE, pic);       \
+#define SETUP_CUSTOM(pic)                                                      \
+  MacroAssembler masm(pic);                                                    \
   SETUP_COMMON()
 
 #define SETUP_COMMON()                                                         \
@@ -205,13 +195,9 @@ namespace aarch64 {
     code.Execute();                                                            \
   }
 
-// The generated code was written directly into `code`, execute it directly.
-#define RUN_CUSTOM()                                                           \
-  code.Execute()
-
 #define TEARDOWN()
 
-#define TEARDOWN_CUSTOM()
+#define TEARDOWN()
 
 #endif  // ifdef VIXL_INCLUDE_SIMULATOR.
 
@@ -1743,7 +1729,7 @@ TEST(adrp) {
   Label start;
   Label label_1, label_2, label_3;
 
-  SETUP_CUSTOM(2 * kPageSize, PageOffsetDependentCode);
+  SETUP_CUSTOM(PageOffsetDependentCode);
   START();
 
   // Waste space until the start of a page.
@@ -1785,7 +1771,7 @@ TEST(adrp) {
 
   VIXL_ASSERT(masm.GetSizeOfCodeGeneratedSince(&start) < kPageSize);
   END();
-  RUN_CUSTOM();
+  RUN();
 
   uint64_t expected = reinterpret_cast<uint64_t>(
       AlignDown(masm.GetLabelAddress<uint64_t*>(&start), kPageSize));
@@ -1799,7 +1785,7 @@ TEST(adrp) {
   ASSERT_EQUAL_64(expected, x7);
   ASSERT_EQUAL_64(expected, x8);
 
-  TEARDOWN_CUSTOM();
+  TEARDOWN();
 }
 
 
@@ -1815,7 +1801,7 @@ static void AdrpPageBoundaryHelper(unsigned offset_into_page) {
   const int kEndPage = 16;
   const int kMaxCodeSize = (kEndPage - kStartPage + 2) * kPageSize;
 
-  SETUP_CUSTOM(kMaxCodeSize, PageOffsetDependentCode);
+  SETUP_CUSTOM(PageOffsetDependentCode);
   START();
 
   Label test;
@@ -1869,7 +1855,7 @@ static void AdrpPageBoundaryHelper(unsigned offset_into_page) {
   // all have produced the same result.
 
   END();
-  RUN_CUSTOM();
+  RUN();
 
   uintptr_t expected =
       AlignDown(masm.GetLabelAddress<uintptr_t>(&test), kPageSize);
@@ -1877,7 +1863,7 @@ static void AdrpPageBoundaryHelper(unsigned offset_into_page) {
   ASSERT_EQUAL_64(expected, x1);
   ASSERT_EQUAL_NZCV(ZCFlag);
 
-  TEARDOWN_CUSTOM();
+  TEARDOWN();
 }
 
 
@@ -1896,7 +1882,7 @@ static void AdrpOffsetHelper(int64_t offset) {
   const size_t kPageOffsetMask = kPageSize - 1;
   const int kMaxCodeSize = 2 * kPageSize;
 
-  SETUP_CUSTOM(kMaxCodeSize, PageOffsetDependentCode);
+  SETUP_CUSTOM(PageOffsetDependentCode);
   START();
 
   Label page;
@@ -1927,7 +1913,7 @@ static void AdrpOffsetHelper(int64_t offset) {
   }
 
   END();
-  RUN_CUSTOM();
+  RUN();
 
   uintptr_t expected =
       masm.GetLabelAddress<uintptr_t>(&page) + (kPageSize * offset);
@@ -1935,7 +1921,7 @@ static void AdrpOffsetHelper(int64_t offset) {
   ASSERT_EQUAL_64(expected, x1);
   ASSERT_EQUAL_NZCV(ZCFlag);
 
-  TEARDOWN_CUSTOM();
+  TEARDOWN();
 }
 
 
@@ -16196,7 +16182,7 @@ TEST(branch_and_link_tagged) {
 
 
 TEST(branch_tagged_and_adr_adrp) {
-  SETUP_CUSTOM(BUF_SIZE, PageOffsetDependentCode);
+  SETUP_CUSTOM(PageOffsetDependentCode);
   START();
 
   Label loop, loop_entry, done;
@@ -16229,11 +16215,11 @@ TEST(branch_tagged_and_adr_adrp) {
   __ Bind(&done);
 
   END();
-  RUN_CUSTOM();
+  RUN();
 
   ASSERT_EQUAL_64(1 << kAddressTagWidth, x1);
 
-  TEARDOWN_CUSTOM();
+  TEARDOWN();
 }
 
 TEST(neon_3same_addp) {
