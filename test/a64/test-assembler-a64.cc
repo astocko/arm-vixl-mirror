@@ -102,7 +102,7 @@ namespace aarch64 {
 // Run tests with the simulator.
 
 #define SETUP()                                                                \
-  MacroAssembler masm(BUF_SIZE);                                               \
+  MacroAssembler masm;                                                         \
   SETUP_COMMON()
 
 #define SETUP_CUSTOM(size, pic)                                                \
@@ -168,7 +168,7 @@ namespace aarch64 {
 #else  // ifdef VIXL_INCLUDE_SIMULATOR.
 // Run the test on real hardware or models.
 #define SETUP()                                                                \
-  MacroAssembler masm(BUF_SIZE);                                               \
+  MacroAssembler masm;                                                         \
   SETUP_COMMON()
 
 #define SETUP_CUSTOM(size, pic)                                                \
@@ -16196,7 +16196,7 @@ TEST(branch_and_link_tagged) {
 
 
 TEST(branch_tagged_and_adr_adrp) {
-  SETUP_CUSTOM(BUF_SIZE, PageOffsetDependentCode);
+  SETUP_CUSTOM(kPageSize, PageOffsetDependentCode);
   START();
 
   Label loop, loop_entry, done;
