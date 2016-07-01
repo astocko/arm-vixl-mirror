@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da01753e_8874599d",
+        "filename": "AUTHORS",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-07-01T13:57:56Z",
+      "side": 1,
+      "message": "Why not \"*@google.com\"? This is a corporate address, isn\u0027t it?",
+      "revId": "219a5b929e38b5682c2c085e6de00b658be896f0",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
