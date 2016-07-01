@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "da01753e_2831edec",
+        "filename": "src/a64/assembler-a64.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1210,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-07-01T13:49:30Z",
+      "side": 1,
+      "message": "Fixed.",
+      "parentUuid": "da01753e_0813495d",
+      "revId": "1d186a018adecfe6760b06c9a7443d5c6a85bd7f",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_e80fe52c",
         "filename": "src/a64/assembler-a64.h",
         "patchSetId": 2
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "da01753e_e836c5e6",
+        "filename": "src/a64/assembler-a64.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1215,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-07-01T13:49:30Z",
+      "side": 1,
+      "message": "Fixed.",
+      "parentUuid": "da01753e_e80fe52c",
+      "range": {
+        "startLine": 1212,
+        "startChar": 0,
+        "endLine": 1215,
+        "endChar": 73
+      },
+      "revId": "1d186a018adecfe6760b06c9a7443d5c6a85bd7f",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da01753e_a80e7d32",
         "filename": "test/a64/test-assembler-a64.cc",
         "patchSetId": 2
@@ -53,6 +95,24 @@
       "writtenOn": "2016-07-01T13:33:25Z",
       "side": 1,
       "message": "I was going to suggest that we could probably remove BUF_SIZE now, but then I saw your comment on the first patch. I think it should still be possible to remove BUF_SIZE, though, as long as we keep the ability to override the size in SETUP_CUSTOM.",
+      "revId": "1d186a018adecfe6760b06c9a7443d5c6a85bd7f",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da01753e_6852d514",
+        "filename": "test/a64/test-assembler-a64.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-07-01T13:49:30Z",
+      "side": 1,
+      "message": "Fixed.",
+      "parentUuid": "da01753e_a80e7d32",
       "revId": "1d186a018adecfe6760b06c9a7443d5c6a85bd7f",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
