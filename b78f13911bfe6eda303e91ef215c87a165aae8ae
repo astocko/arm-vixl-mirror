@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba068154_10654445",
+        "filename": "tools/generate_simulator_traces.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000219
+      },
+      "writtenOn": "2016-07-04T09:16:17Z",
+      "side": 1,
+      "message": "Since this goes into generated trace files, shouldn\u0027t this be 2016 instead of 2015?",
+      "revId": "b78f13911bfe6eda303e91ef215c87a165aae8ae",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
