@@ -693,6 +693,8 @@ class MacroAssembler : public Assembler {
   // applied in the Operand.
   Operand MoveImmediateForShiftedOp(const Register& dst, int64_t imm);
 
+  void Move(const Location& dst, const Location& src);
+
   // Synthesises the address represented by a MemOperand into a register.
   void ComputeAddress(const Register& dst, const MemOperand& mem_op);
 
@@ -3240,8 +3242,14 @@ class UseScratchRegisterScope {
   VRegister AcquireD() { return AcquireNextAvailable(availablefp_).D(); }
 
 
-  Register AcquireSameSizeAs(const Register& reg);
-  VRegister AcquireSameSizeAs(const VRegister& reg);
+  Register AcquireRegisterOfSize(int size_in_bits);
+  Register AcquireSameSizeAs(const Register& reg) {
+    return AcquireRegisterOfSize(reg.GetSizeInBits());
+  }
+  VRegister AcquireVRegisterOfSize(int size_in_bits);
+  VRegister AcquireSameSizeAs(const VRegister& reg) {
+    return AcquireVRegisterOfSize(reg.GetSizeInBits());
+  }
 
 
   // Explicitly release an acquired (or excluded) register, putting it back in
