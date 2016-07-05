@@ -24,6 +24,8 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+#include <sys/mman.h>
+
 #include "code-buffer-vixl.h"
 #include "utils-vixl.h"
 
@@ -32,8 +34,13 @@ namespace vixl {
 
 CodeBuffer::CodeBuffer(size_t capacity) : managed_(true), capacity_(capacity) {
   VIXL_CHECK(capacity_ != 0);
-  buffer_ = reinterpret_cast<byte*>(malloc(capacity_));
-  VIXL_CHECK(buffer_ != NULL);
+  buffer_ = reinterpret_cast<byte*>(mmap(NULL,
+                                         capacity,
+                                         PROT_READ | PROT_WRITE | PROT_EXEC,
+                                         MAP_PRIVATE | MAP_ANONYMOUS,
+                                         -1,
+                                         0));
+  VIXL_CHECK(buffer_ != MAP_FAILED);
   // Aarch64 instructions must be word aligned, we assert the default allocator
   // always returns word align memory.
   VIXL_ASSERT(IsWordAligned(buffer_));
@@ -56,7 +63,7 @@ CodeBuffer::CodeBuffer(void* buffer, size_t capacity)
 CodeBuffer::~CodeBuffer() {
   VIXL_ASSERT(!IsDirty());
   if (managed_) {
-    free(buffer_);
+    munmap(buffer_, capacity_);
   }
 }
 
@@ -107,8 +114,9 @@ void CodeBuffer::Grow(size_t new_capacity) {
   VIXL_ASSERT(managed_);
   VIXL_ASSERT(new_capacity > capacity_);
   size_t size = GetCursorOffset();
-  buffer_ = static_cast<byte*>(realloc(buffer_, new_capacity));
-  VIXL_CHECK(buffer_ != NULL);
+  buffer_ = static_cast<byte*>(
+      mremap(buffer_, capacity_, new_capacity, MREMAP_MAYMOVE));
+  VIXL_CHECK(buffer_ != MAP_FAILED);
 
   cursor_ = buffer_ + size;
   capacity_ = new_capacity;

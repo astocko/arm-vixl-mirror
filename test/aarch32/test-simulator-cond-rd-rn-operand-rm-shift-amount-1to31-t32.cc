@@ -91,15 +91,11 @@
   __ Bx(lr);   \
   __ FinalizeCode();
 
-// Copy the generated code into a memory area garanteed to be executable before
-// executing it.
-#define RUN()                                                  \
-  {                                                            \
-    ExecutableMemory code(masm.GetBuffer().GetCursorOffset()); \
-    code.Write(masm.GetBuffer().GetOffsetAddress<byte*>(0),    \
-               masm.GetBuffer().GetCursorOffset());            \
-    int pcs_offset = masm.IsT32() ? 1 : 0;                     \
-    code.Execute(pcs_offset);                                  \
+#define RUN()                                                      \
+  {                                                                \
+    int pcs_offset = masm.IsT32() ? 1 : 0;                         \
+    ExecuteMemory(masm.GetBuffer().GetOffsetAddress<byte*>(0),     \
+                  masm.GetBuffer().GetCursorOffset(), pcs_offset); \
   }
 
 #define TEARDOWN()
