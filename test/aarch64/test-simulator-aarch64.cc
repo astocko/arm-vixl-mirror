@@ -116,10 +116,12 @@ namespace aarch64 {
     size_t buffer_length = masm.GetCursorOffset();                             \
     void (*test_function)(void);                                               \
                                                                                \
+    masm.SetBufferExecutable();                                                \
     CPU::EnsureIAndDCacheCoherency(buffer_start, buffer_length);               \
     VIXL_STATIC_ASSERT(sizeof(buffer_start) == sizeof(test_function));         \
     memcpy(&test_function, &buffer_start, sizeof(buffer_start));               \
     test_function();                                                           \
+    masm.SetBufferWritable();                                                  \
   }
 
 #define TEARDOWN()

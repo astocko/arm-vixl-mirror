@@ -75,6 +75,10 @@ class Assembler : public Instructions {
         has_32_dregs_(true),
         buffer_(buffer, size) {}
   virtual ~Assembler() {}
+  // Set the permissions of the buffer to read+execute.
+  void SetBufferExecutable() { buffer_.SetExecutable(); }
+  // Set the permissions of the buffer to read+write.
+  void SetBufferWritable() { buffer_.SetWritable(); }
   void UseInstructionSet(InstructionSet isa) {
     VIXL_ASSERT((isa_ == isa) || (GetCursorOffset() == 0));
     isa_ = isa;

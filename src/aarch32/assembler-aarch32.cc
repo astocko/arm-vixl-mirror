@@ -43,6 +43,7 @@ extern "C" {
 namespace vixl {
 namespace aarch32 {
 
+
 void Assembler::EmitT32_16(uint16_t instr) {
   VIXL_ASSERT(buffer_.Is16bitAligned());
   buffer_.Emit16(instr);

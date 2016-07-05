@@ -620,7 +620,6 @@ class MacroAssembler : public Assembler {
   // called before executing or copying code from the buffer.
   void FinalizeCode();
 
-
   // Constant generation helpers.
   // These functions return the number of instructions required to move the
   // immediate into the destination register. Also, if the masm pointer is
