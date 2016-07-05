@@ -22059,5 +22059,44 @@ TEST(move_immediate_helpers) {
   MacroAssembler::OneInstrMoveImmediateHelper(NULL, x1, 0xabcdef);
 }
 
+
+TEST(location) {
+  SETUP();
+
+  int64_t data[3] = { 0xbadbeef, 0xabc, 0xbadbeef };
+  size_t element_size = sizeof(data[0]);
+
+  START();
+  __ Mov(x0, 0);
+  __ Mov(x1, 1);
+  __ Mov(x2, 2);
+  __ Mov(x3, 3);
+
+  __ Move(Location(x0), Location(x2));
+  __ Move(Location(w1), Location(w3));
+
+  __ Mov(x10, reinterpret_cast<intptr_t>(&data[0]));
+  __ Move(Location(x11), Location(MemOperand(x10, 1 * element_size), element_size));
+
+  __ Mov(x20, 0xf00d);
+  __ Move(Location(MemOperand(x10, 2 * element_size), element_size), Location(x20));
+
+  END();
+
+  RUN();
+
+  ASSERT_EQUAL_64(2, x2);
+  ASSERT_EQUAL_64(2, x0);
+  ASSERT_EQUAL_64(3, x1);
+  ASSERT_EQUAL_64(3, x3);
+  ASSERT_EQUAL_64(0xabc, x11);
+  VIXL_CHECK(data[0] == 0xbadbeef);
+  VIXL_CHECK(data[1] == 0xabc);
+  VIXL_CHECK(data[2] == 0xf00d);
+
+  TEARDOWN();
+}
+
+
 }  // namespace aarch64
 }  // namespace vixl

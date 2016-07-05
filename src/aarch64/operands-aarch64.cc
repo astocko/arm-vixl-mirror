@@ -371,7 +371,9 @@ MemOperand::MemOperand(Register base, int64_t offset, AddrMode addrmode)
       addrmode_(addrmode),
       shift_(NO_SHIFT),
       extend_(NO_EXTEND) {
-  VIXL_ASSERT(base.Is64Bits() && !base.IsZero());
+  // This constructor allows `NoReg` as a base register to create an invalid
+  // `MemOperand`.
+  VIXL_ASSERT(base.IsNone() || (base.Is64Bits() && !base.IsZero()));
 }
 
 
