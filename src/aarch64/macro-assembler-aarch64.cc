@@ -1552,6 +1552,59 @@ Operand MacroAssembler::MoveImmediateForShiftedOp(const Register& dst,
 }
 
 
+void MacroAssembler::Move(const Location& dst, const Location& src) {
+  if (dst.Equals(src)) {
+    return;
+  }
+
+  VIXL_ASSERT(dst.IsValid() && src.IsValid());
+
+  // The sizes of the locations must match exactly.
+  size_t dst_size = dst.IsCPURegister() ? dst.GetCPURegister().GetSizeInBits()
+                                        : dst.GetMemOperandSize() * 8;
+  size_t src_size = src.IsCPURegister() ? src.GetCPURegister().GetSizeInBits()
+                                        : src.GetMemOperandSize() * 8;
+  VIXL_ASSERT(dst_size == src_size);
+  USE(src_size);
+  size_t location_size = dst_size;
+  VIXL_ASSERT(location_size <= kXRegSize);
+
+  if (dst.IsCPURegister() && src.IsCPURegister()) {
+    CPURegister dst_reg = dst.GetCPURegister();
+    CPURegister src_reg = src.GetCPURegister();
+    if (dst_reg.IsRegister() && src_reg.IsRegister()) {
+      Mov(Register(dst_reg), Register(src_reg));
+    } else if (dst_reg.IsVRegister() && src_reg.IsVRegister()) {
+      Fmov(VRegister(dst_reg), VRegister(src_reg));
+    } else {
+      VIXL_UNREACHABLE_WITH_MSG("Invalid combination of registers.");
+    }
+    return;
+  }
+
+  if (dst.IsMemOperand() && src.IsMemOperand()) {
+    UseScratchRegisterScope temps;
+    CPURegister temp;
+    if (temps.HasAvailableRegisters()) {
+      temp = temps.AcquireRegisterOfSize(location_size);
+    } else {
+      temp = temps.AcquireVRegisterOfSize(location_size);
+    }
+    Ldr(temp, src.GetMemOperand());
+    Str(temp, dst.GetMemOperand());
+    return;
+  }
+
+  VIXL_ASSERT((dst.IsCPURegister() ^ src.IsCPURegister()) &&
+              (dst.IsMemOperand() ^ src.IsMemOperand()));
+  if (dst.IsCPURegister()) {
+    Ldr(dst.GetCPURegister(), src.GetMemOperand());
+  } else {
+    Str(src.GetCPURegister(), dst.GetMemOperand());
+  }
+}
+
+
 void MacroAssembler::ComputeAddress(const Register& dst,
                                     const MemOperand& mem_op) {
   // We cannot handle pre-indexing or post-indexing.
@@ -2649,15 +2702,15 @@ bool UseScratchRegisterScope::IsAvailable(const CPURegister& reg) const {
 }
 
 
-Register UseScratchRegisterScope::AcquireSameSizeAs(const Register& reg) {
+Register UseScratchRegisterScope::AcquireRegisterOfSize(int size_in_bits) {
   int code = AcquireNextAvailable(available_).GetCode();
-  return Register(code, reg.GetSizeInBits());
+  return Register(code, size_in_bits);
 }
 
 
-FPRegister UseScratchRegisterScope::AcquireSameSizeAs(const FPRegister& reg) {
+FPRegister UseScratchRegisterScope::AcquireVRegisterOfSize(int size_in_bits) {
   int code = AcquireNextAvailable(availablefp_).GetCode();
-  return FPRegister(code, reg.GetSizeInBits());
+  return FPRegister(code, size_in_bits);
 }
 
 

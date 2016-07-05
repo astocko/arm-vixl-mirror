@@ -83,11 +83,17 @@ const int MBytes = 1024 * KBytes;
     fprintf(stderr, "UNREACHABLE\t"); \
     VIXL_ABORT();                     \
   } while (false)
+#define VIXL_UNREACHABLE_WITH_MSG(msg) \
+  do {                                 \
+    fprintf(stderr, "UNREACHABLE\t");  \
+    VIXL_ABORT_WITH_MSG(msg);          \
+  } while (false)
 #else
 #define VIXL_ASSERT(condition) ((void)0)
 #define VIXL_CHECK(condition) assert(condition)
 #define VIXL_UNIMPLEMENTED() ((void)0)
 #define VIXL_UNREACHABLE() ((void)0)
+#define VIXL_UNREACHABLE_WITH_MSG(unused_msg) ((void)0)
 #endif
 // This is not as powerful as template based assertions, but it is simple.
 // It assumes that the descriptions are unique. If this starts being a problem,
