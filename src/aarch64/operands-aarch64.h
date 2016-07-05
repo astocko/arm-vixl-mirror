@@ -778,6 +778,8 @@ class Operand {
 // MemOperand represents the addressing mode of a load or store instruction.
 class MemOperand {
  public:
+  // This constructor accepts `NoReg` as the base register to create an invalid
+  // `MemOperand`.
   explicit MemOperand(Register base,
                       int64_t offset = 0,
                       AddrMode addrmode = Offset);
@@ -850,6 +852,69 @@ class MemOperand {
   Shift shift_;
   Extend extend_;
   unsigned shift_amount_;
+};
+
+
+// This an abstraction that can represent a register or memory location. The
+// `MacroAssembler` provides helpers to move data between `Location`s.
+class Location {
+ public:
+  explicit Location(const CPURegister& reg)
+      : cpu_register_(reg), mem_op_(NoReg), mem_op_size_(0) {}
+
+  explicit Location(const MemOperand& mem_op, size_t mem_op_size = 0)
+      : cpu_register_(NoReg), mem_op_(mem_op), mem_op_size_(mem_op_size) {
+    VIXL_ASSERT(mem_op_size_ <= kXRegSize);
+  }
+
+  static Location InvalidLocation() { return Location(NoReg); }
+
+  bool IsValid() const { return cpu_register_.IsValid() != mem_op_.IsValid(); }
+
+  bool Equals(const Location& other) const {
+    if (!IsValid() || !other.IsValid()) {
+      return false;
+    }
+    if (IsCPURegister() && other.IsCPURegister()) {
+      return GetCPURegister().Is(other.GetCPURegister());
+    } else if (IsMemOperand() && other.IsMemOperand()) {
+      return GetMemOperand().Equals(other.GetMemOperand()) &&
+             (GetMemOperandSize() == other.GetMemOperandSize());
+    }
+    return false;
+  }
+
+  bool IsCPURegister() const {
+    VIXL_ASSERT(IsValid());
+    return cpu_register_.IsValid();
+  }
+
+  bool IsMemOperand() const {
+    VIXL_ASSERT(IsValid());
+    return mem_op_.IsValid();
+  }
+
+  CPURegister GetCPURegister() const {
+    VIXL_ASSERT(IsCPURegister());
+    return cpu_register_;
+  }
+
+  MemOperand GetMemOperand() const {
+    VIXL_ASSERT(IsMemOperand());
+    return mem_op_;
+  }
+
+  size_t GetMemOperandSize() const {
+    VIXL_ASSERT(IsMemOperand());
+    return mem_op_size_;
+  }
+
+ private:
+  CPURegister cpu_register_;
+  MemOperand mem_op_;
+  // The size of the memory region pointed to, in bytes.
+  // We only support sizes up to X/D register sizes.
+  size_t mem_op_size_;
 };
 }
 }  // namespace vixl::aarch64
