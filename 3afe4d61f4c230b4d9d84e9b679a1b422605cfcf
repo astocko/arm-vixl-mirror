@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba068154_364de073",
+        "filename": "tools/test.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-07-06T14:04:57Z",
+      "side": 1,
+      "message": "If a user doesn\u0027t have Clang installed, the fast mode will just fail. It would probably be better to sort tested_compilers such that clang++ appears first (if at all).",
+      "revId": "3afe4d61f4c230b4d9d84e9b679a1b422605cfcf",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
