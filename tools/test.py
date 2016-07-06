@@ -371,11 +371,13 @@ if __name__ == '__main__':
   if args.fast:
     def SetFast(option, specified, default):
       option.val_test_choices = \
-        [default[0] if specified == 'all' else specified[0]]
-    SetFast(environment_option_compiler, args.compiler, config.tested_compilers)
-    SetFast(build_option_mode, args.mode, config.build_options_modes)
-    SetFast(build_option_standard, args.std, config.tested_cpp_standards)
-    SetFast(runtime_option_debugger, args.debugger, ['on', 'off'])
+        [default if specified == 'all' else specified[0]]
+    # `g++` is very slow to compile a few aarch32 test files.
+    SetFast(environment_option_compiler, args.compiler, 'clang++')
+    # Test with the latest C++ standard supported.
+    SetFast(build_option_standard, args.std, 'c++14')
+    SetFast(build_option_mode, args.mode, 'debug')
+    SetFast(runtime_option_debugger, args.debugger, 'on')
 
   if not args.nolint and not args.fast:
     rc |= RunLinter()
