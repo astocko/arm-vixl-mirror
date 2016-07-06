@@ -41,7 +41,7 @@ dir_aarch32_examples   = os.path.join(dir_root, 'examples/aarch32')
 # The full list of available build modes.
 build_options_modes = ['release', 'debug']
 # The list of C++ standard to test for.
-tested_cpp_standards = ['c++98', 'c++11']
+tested_cpp_standards = ['c++98', 'c++11', 'c++14']
 # The list of compilers tested.
 tested_compilers = ['g++', 'clang++']
 
