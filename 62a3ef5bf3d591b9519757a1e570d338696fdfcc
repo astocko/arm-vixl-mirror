@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba068154_1679bc93",
+        "filename": "tools/config.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-07-06T14:26:45Z",
+      "side": 1,
+      "message": "Unfortunately, neither Clang 3.4-1ubuntu3 nor GCC 4.8.4-2ubuntu1~14.04.3 (provided with Ubuntu 14.04) doesn\u0027t accept \"c++14\", so test.py fails. I think that\u0027s why C++14 wasn\u0027t already in the list.\n\nI\u0027m not sure how to fix this, but I think we need test.py to work on Ubuntu 14.04.",
+      "revId": "62a3ef5bf3d591b9519757a1e570d338696fdfcc",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
