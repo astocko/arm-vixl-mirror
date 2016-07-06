@@ -16,6 +16,29 @@
       "revId": "3afe4d61f4c230b4d9d84e9b679a1b422605cfcf",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_56e22404",
+        "filename": "tools/test.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 1000194
+      },
+      "writtenOn": "2016-07-06T17:54:09Z",
+      "side": 1,
+      "message": "I think this is a bad idea, or you assume that the user of this scripts has a very up to date machine.",
+      "range": {
+        "startLine": 378,
+        "startChar": 4,
+        "endLine": 378,
+        "endChar": 52
+      },
+      "revId": "3afe4d61f4c230b4d9d84e9b679a1b422605cfcf",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
