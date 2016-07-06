@@ -22,7 +22,7 @@ flags = [
   '-pedantic',
   '-Wno-newline-eof',
   '-Wwrite-strings',
-  '-std=c++11',
+  '-std=c++14',
   '-x', 'c++'
 ]
 
