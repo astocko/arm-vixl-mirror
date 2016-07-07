@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ba068154_f6e4f8ad",
+        "filename": "tools/test.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-07-07T07:57:13Z",
+      "side": 1,
+      "message": "I find that acceptable.\n`clang++` is required to pass the tests anyway. `--fast` is a convenient way for developers to get quick results. With `clang++` missing, one can still do `./tools/test.py --fast --compiler\u003dg++`.\n\nAlso, the `--fast` option is not documented in the README, so it is not what new users are likely to run first.",
+      "parentUuid": "ba068154_364de073",
+      "revId": "3afe4d61f4c230b4d9d84e9b679a1b422605cfcf",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba068154_56e22404",
         "filename": "tools/test.py",
         "patchSetId": 2
@@ -30,6 +48,30 @@
       "writtenOn": "2016-07-06T17:54:09Z",
       "side": 1,
       "message": "I think this is a bad idea, or you assume that the user of this scripts has a very up to date machine.",
+      "range": {
+        "startLine": 378,
+        "startChar": 4,
+        "endLine": 378,
+        "endChar": 52
+      },
+      "revId": "3afe4d61f4c230b4d9d84e9b679a1b422605cfcf",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_b6da70e7",
+        "filename": "tools/test.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-07-07T07:57:13Z",
+      "side": 1,
+      "message": "That shouldn\u0027t have been there.",
+      "parentUuid": "ba068154_56e22404",
       "range": {
         "startLine": 378,
         "startChar": 4,
