@@ -35,7 +35,7 @@
 #include "aarch64/assembler-aarch64.h"
 #include "aarch64/debugger-aarch64.h"
 #include "aarch64/instrument-aarch64.h"
-#include "aarch64/simulator-constants-aarch64.h"
+#include "aarch64/simulator-aarch64.h"
 
 
 #define LS_MACRO_LIST(V)                                     \
@@ -3001,6 +3001,14 @@ class MacroAssembler : public Assembler {
 
   LiteralPool* GetLiteralPool() { return &literal_pool_; }
 
+  // Support for simulated runtime calls.
+
+#if defined(VIXL_INCLUDE_SIMULATOR) && defined(VIXL_ABI_SUPPORT)
+  // TODO: Rename s/R/ReturnType/g and s/Ps/ParameterTypes/g?
+  template<typename R, typename... Ps>
+  void CallRuntime(R(*function)(Ps...));
+#endif
+
  protected:
   // Helper used to query information about code generation and to generate
   // code for `csel`.
@@ -3325,6 +3333,29 @@ class UseScratchRegisterScope {
   }
 };
 
+// TODO: wrong #if
+#if defined(VIXL_INCLUDE_SIMULATOR) && defined(VIXL_ABI_SUPPORT)
+template<typename R, typename... Ps>
+void MacroAssembler::CallRuntime(R(*function)(Ps...)) {
+  uint64_t runtime_call_wraper_address =
+      reinterpret_cast<uint64_t>(&(Simulator::SimulateRuntimeCallWrapper<R, Ps...>));
+  uint64_t function_address = reinterpret_cast<uint64_t>(function);
+
+  CodeBufferCheckScope scope(this,
+                             kInstructionSize + 2 * sizeof(uint64_t),
+                             CodeBufferCheckScope::kCheck,
+                             CodeBufferCheckScope::kExactSize);
+  Label start;
+  bind(&start);
+  hlt(kRuntimeCallOpcode);
+  VIXL_ASSERT(GetSizeOfCodeGeneratedSince(&start) == kRuntimeCallWrapperOffset);
+  dc64(runtime_call_wraper_address);
+  VIXL_ASSERT(GetSizeOfCodeGeneratedSince(&start) == kRuntimeCallFunctionOffset);
+  dc64(function_address);
+  VIXL_ASSERT(GetSizeOfCodeGeneratedSince(&start) ==
+              kRuntimeCallFunctionOffset + kRuntimeCallAddressSize);
+}
+#endif
 
 }  // namespace aarch64
 
