@@ -1233,6 +1233,76 @@ class Simulator : public DecoderVisitor {
     WriteQRegister(code, value, log_mode);
   }
 
+  template <typename T>
+  T ReadRegister(Register reg, Reg31Mode r31mode = Reg31IsZeroRegister) const {
+    return ReadRegister<T>(reg.GetCode(), r31mode);
+  }
+
+  template <typename T>
+  void WriteRegister(Register reg,
+                     T value,
+                     RegLogMode log_mode = LogRegWrites,
+                     Reg31Mode r31mode = Reg31IsZeroRegister) {
+    WriteRegister<T>(reg.GetCode(), value, log_mode, r31mode);
+  }
+
+  template <typename T>
+  T ReadVRegister(VRegister vreg) const {
+    return ReadVRegister<T>(vreg.GetCode());
+  }
+
+  template <typename T>
+  void WriteVRegister(VRegister vreg,
+                      T value,
+                      RegLogMode log_mode = LogRegWrites) {
+    WriteVRegister<T>(vreg.GetCode(), value, log_mode);
+  }
+
+  template <typename T>
+  T ReadCPURegister(CPURegister reg) const {
+    if (reg.IsVRegister()) {
+      return ReadVRegister<T>(VRegister(reg));
+    } else {
+      return ReadRegister<T>(Register(reg));
+    }
+  }
+
+  template <typename T>
+  void WriteCPURegister(CPURegister reg,
+                        T value,
+                        RegLogMode log_mode = LogRegWrites,
+                        Reg31Mode r31mode = Reg31IsZeroRegister) {
+    if (reg.IsVRegister()) {
+      WriteVRegister<T>(reg.GetCode(), value, log_mode);
+    } else {
+      WriteRegister<T>(reg.GetCode(), value, log_mode, r31mode);
+    }
+  }
+
+  uint64_t ComputeMemOperandAddress(const MemOperand& mem_op) const;
+
+  template <typename T>
+  T ReadLocation(Location location) const {
+    if (location.IsRegister()) {
+      return ReadCPURegister<T>(location.GetRegister());
+    } else {
+      VIXL_ASSERT(location.IsMemOperand());
+      return Memory::Read<T>(ComputeMemOperandAddress(location.GetMemOperand()));
+    }
+  }
+
+  // TODO: double check logging modes
+  template <typename T>
+  void WriteLocation(Location location, T value) {
+    if (location.IsRegister()) {
+      WriteCPURegister<T>(location.GetRegister(), value);
+    } else {
+      VIXL_ASSERT(location.IsMemOperand());
+      uint64_t address = ComputeMemOperandAddress(location.GetMemOperand());
+      Memory::Write(address, value);
+    }
+  }
+
   bool ReadN() const { return nzcv_.GetN() != 0; }
   VIXL_DEPRECATED("ReadN", bool N() const) { return ReadN(); }
 
@@ -1617,16 +1687,12 @@ class Simulator : public DecoderVisitor {
   int64_t ShiftOperand(unsigned reg_size,
                        int64_t value,
                        Shift shift_type,
-                       unsigned amount);
-  int64_t Rotate(unsigned reg_width,
-                 int64_t value,
-                 Shift shift_type,
-                 unsigned amount);
+                       unsigned amount) const;
   int64_t ExtendValue(unsigned reg_width,
                       int64_t value,
                       Extend extend_type,
-                      unsigned left_shift = 0);
-  uint16_t PolynomialMult(uint8_t op1, uint8_t op2);
+                      unsigned left_shift = 0) const;
+  uint16_t PolynomialMult(uint8_t op1, uint8_t op2) const;
 
   void ld1(VectorFormat vform, LogicVRegister dst, uint64_t addr);
   void ld1(VectorFormat vform, LogicVRegister dst, int index, uint64_t addr);
