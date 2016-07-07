@@ -27,13 +27,24 @@
 #ifndef VIXL_AARCH64_SIMULATOR_AARCH64_H_
 #define VIXL_AARCH64_SIMULATOR_AARCH64_H_
 
+
 #include "globals-vixl.h"
 #include "utils-vixl.h"
 
+#include "aarch64/abi-aarch64.h"
 #include "aarch64/disasm-aarch64.h"
 #include "aarch64/instructions-aarch64.h"
 #include "aarch64/instrument-aarch64.h"
 #include "aarch64/simulator-constants-aarch64.h"
+
+// These `#include` directives depend on `aarch64/abi-aarch64.h`.
+#ifdef VIXL_ABI_SUPPORT
+#include <tuple>
+#if __cplusplus >= 201402L
+// Required for `std::index_sequence`
+#include <utility>
+#endif
+#endif
 
 namespace vixl {
 namespace aarch64 {
@@ -1597,6 +1608,62 @@ class Simulator : public DecoderVisitor {
     print_exclusive_access_warning_ = false;
   }
 
+#ifdef VIXL_ABI_SUPPORT
+// Runtime call emulation support.
+
+#if __cplusplus < 201402L
+#error \
+    "TODO(UNIMPLEMENTED): `index_sequence` is available from C++14, but we can emulate the behaviour from C++11."
+#endif
+
+  // TODO: s/Ps/P/g ?
+  template <typename R, typename... Ps, std::size_t... I>
+  R DoRuntimeCall(R (*function)(Ps...),
+                  std::tuple<Ps...> arguments,
+                  std::index_sequence<I...>) {
+    return function(std::get<I>(arguments)...);
+  }
+
+  template <typename R, typename... Ps>
+  void RuntimeCallNonVoid(R (*function)(Ps...)) {
+    ABI abi;
+    std::tuple<Ps...> argument_locations{
+        ReadLocation<Ps>(abi.GetNextParameterLocation<Ps>())...};
+    R return_value = DoRuntimeCall(function,
+                                   argument_locations,
+                                   std::index_sequence_for<Ps...>{});
+    WriteLocation(abi.GetReturnLocation<R>(), return_value);
+  }
+
+  template <typename R, typename... Ps>
+  void RuntimeCallVoid(R (*function)(Ps...)) {
+    ABI abi;
+    std::tuple<Ps...> argument_locations{
+        ReadLocation<Ps>(abi.GetNextParameterLocation<Ps>())...};
+    DoRuntimeCall(function,
+                  argument_locations,
+                  std::index_sequence_for<Ps...>{});
+  }
+
+  template <typename R, typename... Ps>
+  struct RuntimeCallStructHelper {
+    static void Wrapper(Simulator* simulator, void* function_pointer) {
+      R (*function)(Ps...) = reinterpret_cast<R (*)(Ps...)>(function_pointer);
+      simulator->RuntimeCallNonVoid(function);
+    }
+  };
+
+  // Partial specialization when the return type is `void`.
+  template <typename... Ps>
+  struct RuntimeCallStructHelper<void, Ps...> {
+    static void Wrapper(Simulator* simulator, void* function_pointer) {
+      void (*function)(Ps...) =
+          reinterpret_cast<void (*)(Ps...)>(function_pointer);
+      simulator->RuntimeCallVoid(function);
+    }
+  };
+#endif
+
  protected:
   const char* clr_normal;
   const char* clr_flag_name;
@@ -2831,6 +2898,9 @@ class Simulator : public DecoderVisitor {
 
   // Pseudo Printf instruction
   void DoPrintf(const Instruction* instr);
+
+  // Simulate a runtime call.
+  void DoRuntimeCall(const Instruction* instr);
 
   // Processor state ---------------------------------------
 
