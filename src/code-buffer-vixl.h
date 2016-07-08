@@ -34,7 +34,7 @@
 
 namespace vixl {
 
-class CodeBuffer {
+ class CodeBuffer {
  public:
   static const size_t kDefaultCapacity = 4 * KBytes;
 
