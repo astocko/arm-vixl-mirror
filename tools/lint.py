@@ -27,6 +27,7 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import argparse
+import fnmatch
 import hashlib
 import multiprocessing
 import os
@@ -217,9 +218,10 @@ def is_linter_input(filename):
 
 def GetDefaultFilesToLint():
   if git.is_git_repository_root(config.dir_root):
-    default_tracked_files = git.get_tracked_files().split()
-    default_tracked_files = filter(is_linter_input, default_tracked_files)
-    return 0, default_tracked_files
+    files = git.get_tracked_files().split()
+    files = filter(is_linter_input, files)
+    files = FilterOutTestTracesHeaders(files)
+    return 0, files
   else:
     printer.Print(printer.COLOUR_ORANGE + 'WARNING: This script is not run ' \
                   'from its Git repository. The linter will not run.' + \
@@ -244,6 +246,16 @@ def WriteCachedResults(results):
     pickle.dump(results, pkl_file)
 
 
+def FilterOutTestTracesHeaders(files):
+  def IsTraceHeader(f):
+    relative_aarch32_traces_path = os.path.relpath(config.dir_aarch32_traces,'.')
+    relative_aarch64_traces_path = os.path.relpath(config.dir_aarch64_traces,'.')
+    return \
+      fnmatch.fnmatch(f, os.path.join(relative_aarch32_traces_path, '*.h')) or \
+      fnmatch.fnmatch(f, os.path.join(relative_aarch64_traces_path, '*.h'))
+  return filter(lambda f: not IsTraceHeader(f), files)
+
+
 def RunLinter(files, jobs=1, progress_prefix='', uncached=False):
   results = {} if uncached else ReadCachedResults()
 
@@ -254,7 +266,6 @@ def RunLinter(files, jobs=1, progress_prefix='', uncached=False):
 
   WriteCachedResults(results)
   return rc
-
 
 
 if __name__ == '__main__':
