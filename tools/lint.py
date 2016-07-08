@@ -27,6 +27,7 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import argparse
+import fnmatch
 import hashlib
 import multiprocessing
 import os
@@ -238,6 +239,17 @@ def WriteCachedResults(results):
     pickle.dump(results, pkl_file)
 
 
+def FilterOutTestTracesHeaders(files):
+  def IsTraceHeader(f):
+    relative_aarch32_traces_path = os.path.relpath(config.dir_aarch32_traces,'.')
+    relative_aarch64_traces_path = os.path.relpath(config.dir_aarch64_traces,'.')
+    return \
+      fnmatch.fnmatch(f, os.path.join(relative_aarch32_traces_path, '*.h')) or \
+      fnmatch.fnmatch(f, os.path.join(relative_aarch64_traces_path, '*.h'))
+  return filter(lambda f: not IsTraceHeader(f), files)
+
+
+
 if __name__ == '__main__':
   # Parse the arguments.
   args = BuildOptions()
@@ -247,6 +259,7 @@ if __name__ == '__main__':
     retcode, files = GetDefaultTrackedFiles()
     if retcode:
       sys.exit(retcode)
+    files = FilterOutTestTracesHeaders(files)
 
   results = {} if args.uncached else ReadCachedResults()
 
