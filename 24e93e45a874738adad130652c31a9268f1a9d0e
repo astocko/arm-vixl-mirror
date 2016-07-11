@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba068154_e4a9e27c",
+        "filename": "tools/test.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-07-11T09:10:49Z",
+      "side": 1,
+      "message": "I\u0027m be tempted to suggest that this should be enabled by default if --fast is specified, but I don\u0027t think it has any effect with --fast anyway.",
+      "range": {
+        "startLine": 229,
+        "startChar": 2,
+        "endLine": 230,
+        "endChar": 70
+      },
+      "revId": "24e93e45a874738adad130652c31a9268f1a9d0e",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_a49fda4f",
+        "filename": "tools/test.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-07-11T09:10:49Z",
+      "side": 1,
+      "message": "Just one blank line is needed here, I think.",
+      "revId": "24e93e45a874738adad130652c31a9268f1a9d0e",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
