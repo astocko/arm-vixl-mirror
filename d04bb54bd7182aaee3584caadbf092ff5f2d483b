@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba068154_84b61689",
+        "filename": "tools/lint.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-07-11T14:25:17Z",
+      "side": 1,
+      "message": "Is \"outerr\" an appropriate name? This is just the subprocess\u0027s stdout, isn\u0027t it?",
+      "revId": "d04bb54bd7182aaee3584caadbf092ff5f2d483b",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_64bb3273",
+        "filename": "tools/lint.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-07-11T14:25:17Z",
+      "side": 1,
+      "message": "That looks a bit fragile, though I realise that it will only match on the last line. Nonetheless, is it worth including \"Total errors found\" in this pattern?",
+      "revId": "d04bb54bd7182aaee3584caadbf092ff5f2d483b",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
