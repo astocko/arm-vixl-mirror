@@ -782,6 +782,11 @@ Uint64::Uint64(Uint128 data) : data_(data.ToUint64().Get()) {}
 
 Int64 BitCount(Uint32 value);
 
+inline unsigned RoundUp(unsigned value, unsigned modulo) {
+  VIXL_ASSERT(IsPowerOf2(modulo));
+  return (value + (modulo - 1)) & -modulo;
+}
+
 }  // namespace vixl
 
 #endif  // VIXL_UTILS_H
