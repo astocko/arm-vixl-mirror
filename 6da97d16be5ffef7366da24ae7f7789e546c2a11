@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba068154_04fce63d",
+        "filename": "tools/lint.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-07-11T14:18:19Z",
+      "side": 1,
+      "message": "\"--full\" or \"--{no-}cache\" would be better, I think.",
+      "revId": "6da97d16be5ffef7366da24ae7f7789e546c2a11",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_e4f8c24b",
+        "filename": "tools/lint.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-07-11T14:18:19Z",
+      "side": 1,
+      "message": "Why does \"+\" need a trailing backslash, but not \"%\"? Can we be more consistent here, or does Python require it this way?",
+      "range": {
+        "startLine": 172,
+        "startChar": 0,
+        "endLine": 173,
+        "endChar": 66
+      },
+      "revId": "6da97d16be5ffef7366da24ae7f7789e546c2a11",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_a4851aaf",
+        "filename": "tools/lint.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-07-11T14:18:19Z",
+      "side": 1,
+      "message": "\"CacheResults\" is probably clearer and more accurate, though then you lose the read/write symmetry.",
+      "revId": "6da97d16be5ffef7366da24ae7f7789e546c2a11",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_c4881ec9",
+        "filename": "tools/lint.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-07-11T14:18:19Z",
+      "side": 1,
+      "message": "\"cached\u003dTrue\" makes more sense than \"uncached\u003dFalse\".",
+      "revId": "6da97d16be5ffef7366da24ae7f7789e546c2a11",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
