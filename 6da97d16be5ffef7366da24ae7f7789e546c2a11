@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ba068154_e47d62b3",
+        "filename": "tools/lint.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-07-11T15:12:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba068154_04fce63d",
+      "revId": "6da97d16be5ffef7366da24ae7f7789e546c2a11",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba068154_e4f8c24b",
         "filename": "tools/lint.py",
         "patchSetId": 3
@@ -30,6 +48,30 @@
       "writtenOn": "2016-07-11T14:18:19Z",
       "side": 1,
       "message": "Why does \"+\" need a trailing backslash, but not \"%\"? Can we be more consistent here, or does Python require it this way?",
+      "range": {
+        "startLine": 172,
+        "startChar": 0,
+        "endLine": 173,
+        "endChar": 66
+      },
+      "revId": "6da97d16be5ffef7366da24ae7f7789e546c2a11",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_444a6e84",
+        "filename": "tools/lint.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-07-11T15:12:52Z",
+      "side": 1,
+      "message": "Apparently it does not need a backslash. Removed.",
+      "parentUuid": "ba068154_e4f8c24b",
       "range": {
         "startLine": 172,
         "startChar": 0,
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "ba068154_6449728b",
+        "filename": "tools/lint.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-07-11T15:12:52Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "ba068154_a4851aaf",
+      "revId": "6da97d16be5ffef7366da24ae7f7789e546c2a11",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba068154_c4881ec9",
         "filename": "tools/lint.py",
         "patchSetId": 3
@@ -70,6 +130,24 @@
       "writtenOn": "2016-07-11T14:18:19Z",
       "side": 1,
       "message": "\"cached\u003dTrue\" makes more sense than \"uncached\u003dFalse\".",
+      "revId": "6da97d16be5ffef7366da24ae7f7789e546c2a11",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_04586655",
+        "filename": "tools/lint.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-07-11T15:12:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba068154_c4881ec9",
       "revId": "6da97d16be5ffef7366da24ae7f7789e546c2a11",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
