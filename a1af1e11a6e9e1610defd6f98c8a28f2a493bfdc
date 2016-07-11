@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba068154_04aa2619",
+        "filename": "tools/lint.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-07-11T14:29:27Z",
+      "side": 1,
+      "message": "FilterOutTestTraceHeaders",
+      "revId": "a1af1e11a6e9e1610defd6f98c8a28f2a493bfdc",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
