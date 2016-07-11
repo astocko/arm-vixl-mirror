@@ -22,6 +22,30 @@
       "revId": "14cc2c64853b816f776428ab936bb06898c4ca88",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_e4d722ec",
+        "filename": "tools/test.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-07-11T09:34:07Z",
+      "side": 1,
+      "message": "True. I removed this part of the help message.",
+      "parentUuid": "ba068154_24e2cad5",
+      "range": {
+        "startLine": 211,
+        "startChar": 62,
+        "endLine": 214,
+        "endChar": 43
+      },
+      "revId": "14cc2c64853b816f776428ab936bb06898c4ca88",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
