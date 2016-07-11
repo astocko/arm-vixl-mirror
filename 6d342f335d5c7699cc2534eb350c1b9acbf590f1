@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba068154_04f2269a",
+        "filename": "test/aarch32/config/template-simulator-aarch32.cc.in",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-07-11T10:43:59Z",
+      "side": 1,
+      "message": "As it stands, this comment looks redundant. It could say something like \"execute the generated code from the MacroAssembler\u0027s automatic code buffer\", or you could just remove it. (The same comment applies in many other files.)",
+      "revId": "6d342f335d5c7699cc2534eb350c1b9acbf590f1",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_64033274",
+        "filename": "test/aarch32/config/template-simulator-aarch32.cc.in",
+        "patchSetId": 1
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-07-11T10:43:59Z",
+      "side": 1,
+      "message": "The alignment is wrong.",
+      "revId": "6d342f335d5c7699cc2534eb350c1b9acbf590f1",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_442b8eeb",
+        "filename": "test/aarch32/test-assembler-aarch32.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-07-11T10:43:59Z",
+      "side": 1,
+      "message": "Alignment.",
+      "revId": "6d342f335d5c7699cc2534eb350c1b9acbf590f1",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
