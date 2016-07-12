@@ -19,6 +19,40 @@
     },
     {
       "key": {
+        "uuid": "ba068154_aa78432c",
+        "filename": "src/aarch64/macro-assembler-aarch64.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1587,
+      "author": {
+        "id": 1000222
+      },
+      "writtenOn": "2016-07-12T17:11:01Z",
+      "side": 1,
+      "message": "Why a VRegister?",
+      "revId": "baa125e1a9b6f0fd84e93295c36b65222c88387f",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_4a2b97eb",
+        "filename": "src/aarch64/operands-aarch64.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 860,
+      "author": {
+        "id": 1000222
+      },
+      "writtenOn": "2016-07-12T17:11:01Z",
+      "side": 1,
+      "message": "I\u0027m not sure about \"Location\"; I originally thought this patch was going to be about Label. How about \"Slot\"?",
+      "revId": "baa125e1a9b6f0fd84e93295c36b65222c88387f",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba068154_0af22f9a",
         "filename": "src/aarch64/operands-aarch64.h",
         "patchSetId": 5
