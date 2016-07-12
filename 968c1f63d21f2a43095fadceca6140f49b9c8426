@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba068154_6a149bf5",
+        "filename": "src/aarch64/operands-aarch64.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 835,
+      "author": {
+        "id": 1000222
+      },
+      "writtenOn": "2016-07-12T15:41:09Z",
+      "side": 1,
+      "message": "You don\u0027t need extra parentheses around the regoffset_ clause.",
+      "revId": "968c1f63d21f2a43095fadceca6140f49b9c8426",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
