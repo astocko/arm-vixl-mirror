@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba068154_3f8f7325",
+        "filename": "tools/lint.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1000226
+      },
+      "writtenOn": "2016-07-12T10:21:44Z",
+      "side": 1,
+      "message": "hash is also the name of a builtin function, can you find another name? This applies a few times in this file.",
+      "revId": "e5231b23af197e5871abad97281777501930b72f",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_dfd747ec",
+        "filename": "tools/lint.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1000226
+      },
+      "writtenOn": "2016-07-12T10:21:44Z",
+      "side": 1,
+      "message": "When you specify \u0027--no-cache\u0027 you pass {} as cached_results. {} is not None but all this work is unnecessary so how about adding \u0027and len(cached_results) !\u003d 0\u0027?",
+      "revId": "e5231b23af197e5871abad97281777501930b72f",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_7ffe1b6d",
+        "filename": "tools/lint.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1000226
+      },
+      "writtenOn": "2016-07-12T10:21:44Z",
+      "side": 1,
+      "message": "I tend to write this as using operator.itemgetter(1) instead of the lambda but you r version is probably easier to read.",
+      "revId": "e5231b23af197e5871abad97281777501930b72f",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_1fe26fd5",
+        "filename": "tools/lint.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1000226
+      },
+      "writtenOn": "2016-07-12T10:21:44Z",
+      "side": 1,
+      "message": "maybe [Write/Dump/Store]CacheResult for symmetry and clarity.",
+      "revId": "e5231b23af197e5871abad97281777501930b72f",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
