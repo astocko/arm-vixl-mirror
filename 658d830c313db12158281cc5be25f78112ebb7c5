@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba068154_2a3c5393",
+        "filename": "tools/lint.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1000226
+      },
+      "writtenOn": "2016-07-12T15:23:25Z",
+      "side": 1,
+      "message": "how about using re.match?",
+      "revId": "658d830c313db12158281cc5be25f78112ebb7c5",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
