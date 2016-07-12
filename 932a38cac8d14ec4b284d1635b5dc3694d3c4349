@@ -16,6 +16,24 @@
       "revId": "932a38cac8d14ec4b284d1635b5dc3694d3c4349",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_7f6d7b04",
+        "filename": "tools/lint.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-07-12T13:28:02Z",
+      "side": 1,
+      "message": "I suppose you mean \"where there is no error\".\n\nWe don\u0027t really need to re-run cpplint on unchanged files with errors. We do to display the errors. So I thought I\u0027d keep all the results there. But realistically I don\u0027t think that we will improve on it, so I can get rid of it.",
+      "parentUuid": "ba068154_ffa96b25",
+      "revId": "932a38cac8d14ec4b284d1635b5dc3694d3c4349",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
