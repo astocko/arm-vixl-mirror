@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ba068154_bfda43e7",
+        "filename": "tools/lint.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-07-12T12:18:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba068154_3f8f7325",
+      "revId": "e5231b23af197e5871abad97281777501930b72f",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba068154_dfd747ec",
         "filename": "tools/lint.py",
         "patchSetId": 4
@@ -30,6 +48,24 @@
       "writtenOn": "2016-07-12T10:21:44Z",
       "side": 1,
       "message": "When you specify \u0027--no-cache\u0027 you pass {} as cached_results. {} is not None but all this work is unnecessary so how about adding \u0027and len(cached_results) !\u003d 0\u0027?",
+      "revId": "e5231b23af197e5871abad97281777501930b72f",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_9fd77fbf",
+        "filename": "tools/lint.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-07-12T12:18:40Z",
+      "side": 1,
+      "message": "Thanks. Improved the code regarding this.",
+      "parentUuid": "ba068154_dfd747ec",
       "revId": "e5231b23af197e5871abad97281777501930b72f",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
@@ -64,6 +100,24 @@
       "writtenOn": "2016-07-12T10:21:44Z",
       "side": 1,
       "message": "maybe [Write/Dump/Store]CacheResult for symmetry and clarity.",
+      "revId": "e5231b23af197e5871abad97281777501930b72f",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_dfe1079c",
+        "filename": "tools/lint.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-07-12T12:18:40Z",
+      "side": 1,
+      "message": "I used `Write` before, but Jacob suggested this name.\nI don\u0027t mind much here.",
+      "parentUuid": "ba068154_1fe26fd5",
       "revId": "e5231b23af197e5871abad97281777501930b72f",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
