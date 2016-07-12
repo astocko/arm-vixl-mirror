@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba068154_eab52b32",
+        "filename": "tools/lint.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1000226
+      },
+      "writtenOn": "2016-07-12T15:02:59Z",
+      "side": 1,
+      "message": "while we are doing clean up, should this be IsLinterInput?",
+      "revId": "f1db346a34187d5e2f8547a0d387bdd946364b50",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
