@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba068154_ffa96b25",
+        "filename": "tools/lint.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1000226
+      },
+      "writtenOn": "2016-07-12T13:18:33Z",
+      "side": 1,
+      "message": "Why do you store errors? Any plan to use this later on? Currently this fields only serve to discard the cache entry if it is not 0. So why simply not adding an entry in the cache when there is an error. This would simplify the code. WDYT?",
+      "revId": "932a38cac8d14ec4b284d1635b5dc3694d3c4349",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
