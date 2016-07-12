@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba068154_aaf4c387",
+        "filename": "src/aarch64/macro-assembler-aarch64.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1580,
+      "author": {
+        "id": 1000226
+      },
+      "writtenOn": "2016-07-12T17:09:51Z",
+      "side": 1,
+      "message": "This should probably be unimplemented not unreachable",
+      "revId": "baa125e1a9b6f0fd84e93295c36b65222c88387f",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_0af22f9a",
+        "filename": "src/aarch64/operands-aarch64.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 872,
+      "author": {
+        "id": 1000226
+      },
+      "writtenOn": "2016-07-12T17:09:51Z",
+      "side": 1,
+      "message": "did you intend to use bitwise operator with boolean. It will work though.",
+      "revId": "baa125e1a9b6f0fd84e93295c36b65222c88387f",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
