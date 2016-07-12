@@ -16,6 +16,24 @@
       "revId": "968c1f63d21f2a43095fadceca6140f49b9c8426",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_4a2c374b",
+        "filename": "src/aarch64/operands-aarch64.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 835,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-07-12T15:51:14Z",
+      "side": 1,
+      "message": "Fixed.",
+      "parentUuid": "ba068154_6a149bf5",
+      "revId": "968c1f63d21f2a43095fadceca6140f49b9c8426",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
