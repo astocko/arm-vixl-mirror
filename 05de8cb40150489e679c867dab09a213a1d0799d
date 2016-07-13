@@ -1,0 +1,157 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba068154_05db401c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-07-13T14:23:54Z",
+      "side": 1,
+      "message": "AArch64",
+      "revId": "05de8cb40150489e679c867dab09a213a1d0799d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_e5d71cec",
+        "filename": "examples/aarch64/examples.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-07-13T14:23:54Z",
+      "side": 1,
+      "message": "examples",
+      "revId": "05de8cb40150489e679c867dab09a213a1d0799d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_4504287e",
+        "filename": "examples/aarch64/simulated-runtime-calls.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-07-13T14:23:54Z",
+      "side": 1,
+      "message": "`overloaded_function` might be a better name; the function is not ambiguous in normal use.",
+      "revId": "05de8cb40150489e679c867dab09a213a1d0799d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_25092496",
+        "filename": "examples/aarch64/simulated-runtime-calls.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-07-13T14:23:54Z",
+      "side": 1,
+      "message": "appropriate",
+      "revId": "05de8cb40150489e679c867dab09a213a1d0799d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_85fe106a",
+        "filename": "src/aarch64/macro-assembler-aarch64.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 3346,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-07-13T14:23:54Z",
+      "side": 1,
+      "message": "wrapper",
+      "revId": "05de8cb40150489e679c867dab09a213a1d0799d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_65032c74",
+        "filename": "src/aarch64/macro-assembler-aarch64.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 3350,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-07-13T14:23:54Z",
+      "side": 1,
+      "message": "Use of this scope utility in this way is discouraged. (See doc/design/code-generation.md for details.) We haven\u0027t spent the time to actually sort everything out yet, but in this case, InstructionAccurateScope would be more suitable.",
+      "revId": "05de8cb40150489e679c867dab09a213a1d0799d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_c5f7788b",
+        "filename": "src/aarch64/simulator-aarch64.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-07-13T14:23:54Z",
+      "side": 1,
+      "message": "They\u0027re standard headers; how can they depend on abi-aarch64.h?",
+      "revId": "05de8cb40150489e679c867dab09a213a1d0799d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_a5f4f487",
+        "filename": "src/aarch64/simulator-aarch64.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 1620,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-07-13T14:23:54Z",
+      "side": 1,
+      "message": "Could we test VIXL_ABI_SUPPORT and then assert C++11? That way, if someone tries to enable VIXL_ABI_SUPPORT without C++11 they\u0027d actually get a proper error.",
+      "revId": "05de8cb40150489e679c867dab09a213a1d0799d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_05f2209a",
+        "filename": "src/aarch64/simulator-aarch64.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 1630,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-07-13T14:23:54Z",
+      "side": 1,
+      "message": "It\u0027s unwise to define symbols that start with \"__\". Why not just call it \"local_index_sequence\"?",
+      "revId": "05de8cb40150489e679c867dab09a213a1d0799d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
