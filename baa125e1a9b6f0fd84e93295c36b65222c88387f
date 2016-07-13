@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "ba068154_25a004f4",
+        "filename": "src/aarch64/macro-assembler-aarch64.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1580,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-07-13T10:54:49Z",
+      "side": 1,
+      "message": "Ok fine with me.",
+      "parentUuid": "ba068154_25792494",
+      "revId": "baa125e1a9b6f0fd84e93295c36b65222c88387f",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba068154_aa78432c",
         "filename": "src/aarch64/macro-assembler-aarch64.cc",
         "patchSetId": 5
@@ -102,6 +120,24 @@
       "side": 1,
       "message": "Perhaps we should have an AcquireCPURegisterOfSize for cases like this, were we don\u0027t actually care which bank the register comes from.",
       "parentUuid": "ba068154_4a4a7784",
+      "revId": "baa125e1a9b6f0fd84e93295c36b65222c88387f",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_65aa0cd6",
+        "filename": "src/aarch64/macro-assembler-aarch64.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1587,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-07-13T10:54:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba068154_856e10c8",
       "revId": "baa125e1a9b6f0fd84e93295c36b65222c88387f",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
@@ -161,6 +197,24 @@
     },
     {
       "key": {
+        "uuid": "ba068154_c5ae58e7",
+        "filename": "src/aarch64/operands-aarch64.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 860,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-07-13T10:54:49Z",
+      "side": 1,
+      "message": "Really. I felt `Location` was less memory-focussed. I\u0027ll come to have a chat. This can be fixed by a simple search and replace.",
+      "parentUuid": "ba068154_e5471c4a",
+      "revId": "baa125e1a9b6f0fd84e93295c36b65222c88387f",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba068154_0af22f9a",
         "filename": "src/aarch64/operands-aarch64.h",
         "patchSetId": 5
@@ -208,6 +262,24 @@
       "side": 1,
       "message": "Although this will work, I find it somewhat surprising because of the types involved. Instead, why not use \"!\u003d\"?\n\n    return cpu_register_.IsValid() !\u003d mem_op_.IsValid();",
       "parentUuid": "ba068154_8a445f75",
+      "revId": "baa125e1a9b6f0fd84e93295c36b65222c88387f",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_a5ab54d5",
+        "filename": "src/aarch64/operands-aarch64.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 872,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-07-13T10:54:49Z",
+      "side": 1,
+      "message": "My bad. Sorry.",
+      "parentUuid": "ba068154_4574289c",
       "revId": "baa125e1a9b6f0fd84e93295c36b65222c88387f",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
