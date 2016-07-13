@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ba068154_ea7d2bb3",
+        "filename": "src/aarch64/macro-assembler-aarch64.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1580,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-07-13T08:15:33Z",
+      "side": 1,
+      "message": "Until we define it, moving between a core to FP register has no meaning. Does it mean moving exact bits? Does it mean converting? If so with what rounding mode?\nSo I think it is correct to have UNREACHABLE here. If we define what the behaviour should be then it can become UNIMPLEMENTED.",
+      "parentUuid": "ba068154_aaf4c387",
+      "revId": "baa125e1a9b6f0fd84e93295c36b65222c88387f",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba068154_aa78432c",
         "filename": "src/aarch64/macro-assembler-aarch64.cc",
         "patchSetId": 5
@@ -30,6 +48,24 @@
       "writtenOn": "2016-07-12T17:11:01Z",
       "side": 1,
       "message": "Why a VRegister?",
+      "revId": "baa125e1a9b6f0fd84e93295c36b65222c88387f",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_4a4a7784",
+        "filename": "src/aarch64/macro-assembler-aarch64.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1587,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-07-13T08:15:33Z",
+      "side": 1,
+      "message": "`Register` would be fine as well. I used `VRegister` with the assumption that there is generally less pressure on them, ie. would less often take the scratch from VIXL.\nI will improve it to check what scratch registers (both core and FP) are available.",
+      "parentUuid": "ba068154_aa78432c",
       "revId": "baa125e1a9b6f0fd84e93295c36b65222c88387f",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "ba068154_2a4f3394",
+        "filename": "src/aarch64/operands-aarch64.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 860,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-07-13T08:15:33Z",
+      "side": 1,
+      "message": "I did not spend too much time thinking about the name, knowing that we would have this discussion!\n\nI don\u0027t like \"Slot\" much because to me it sounds like it refers to a memory location, whereas this can also be a register.",
+      "parentUuid": "ba068154_4a2b97eb",
+      "revId": "baa125e1a9b6f0fd84e93295c36b65222c88387f",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba068154_0af22f9a",
         "filename": "src/aarch64/operands-aarch64.h",
         "patchSetId": 5
@@ -64,6 +118,24 @@
       "writtenOn": "2016-07-12T17:09:51Z",
       "side": 1,
       "message": "did you intend to use bitwise operator with boolean. It will work though.",
+      "revId": "baa125e1a9b6f0fd84e93295c36b65222c88387f",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_8a445f75",
+        "filename": "src/aarch64/operands-aarch64.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 872,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-07-13T08:15:33Z",
+      "side": 1,
+      "message": "I did. I find it more concise than expressing this with boolean operators only.",
+      "parentUuid": "ba068154_0af22f9a",
       "revId": "baa125e1a9b6f0fd84e93295c36b65222c88387f",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
