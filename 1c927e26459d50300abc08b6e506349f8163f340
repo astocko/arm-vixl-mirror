@@ -1,0 +1,163 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba068154_a59fd44f",
+        "filename": "src/aarch64/abi-aarch64.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-07-13T13:49:35Z",
+      "side": 1,
+      "message": "AArch64 (throughout)",
+      "revId": "1c927e26459d50300abc08b6e506349f8163f340",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_05ad0089",
+        "filename": "src/aarch64/abi-aarch64.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-07-13T13:49:35Z",
+      "side": 1,
+      "message": "We use `int` by default, but std::size_t (or auto) would be Ok here since that\u0027s what alignment_of provides.\n\nAlso note that there\u0027s an `alignof` operator in C++11 which can do the same thing more concisely.",
+      "revId": "1c927e26459d50300abc08b6e506349f8163f340",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_e5a9dc7c",
+        "filename": "src/aarch64/abi-aarch64.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-07-13T13:49:35Z",
+      "side": 1,
+      "message": "32-bit",
+      "revId": "1c927e26459d50300abc08b6e506349f8163f340",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_45b6e8dd",
+        "filename": "src/aarch64/abi-aarch64.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-07-13T13:49:35Z",
+      "side": 1,
+      "message": "You should be able to use static_assert (or at least VIXL_STATIC_ASSERT) here.",
+      "revId": "1c927e26459d50300abc08b6e506349f8163f340",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_25bbe4c5",
+        "filename": "src/aarch64/abi-aarch64.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-07-13T13:49:35Z",
+      "side": 1,
+      "message": "Isn\u0027t this case unsupported too?",
+      "range": {
+        "startLine": 121,
+        "startChar": 0,
+        "endLine": 123,
+        "endChar": 5
+      },
+      "revId": "1c927e26459d50300abc08b6e506349f8163f340",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_85b0d0de",
+        "filename": "src/aarch64/abi-aarch64.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-07-13T13:49:35Z",
+      "side": 1,
+      "message": "Is the `u` suffix necessary?",
+      "revId": "1c927e26459d50300abc08b6e506349f8163f340",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_65b5eccc",
+        "filename": "src/aarch64/abi-aarch64.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-07-13T13:49:35Z",
+      "side": 1,
+      "message": "Why are these capitalised like this?",
+      "revId": "1c927e26459d50300abc08b6e506349f8163f340",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_c5c9385c",
+        "filename": "src/utils-vixl.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 785,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-07-13T13:49:35Z",
+      "side": 1,
+      "message": "I think this is the same as the existing AlignUp.",
+      "revId": "1c927e26459d50300abc08b6e506349f8163f340",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_a5c6b447",
+        "filename": "test/aarch64/test-abi.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-07-13T13:49:35Z",
+      "side": 1,
+      "message": "I think some tests with pointer types would be useful (also checking the size).",
+      "revId": "1c927e26459d50300abc08b6e506349f8163f340",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
