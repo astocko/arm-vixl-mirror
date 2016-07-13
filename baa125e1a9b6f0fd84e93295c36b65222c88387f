@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "ba068154_25792494",
+        "filename": "src/aarch64/macro-assembler-aarch64.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1580,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-07-13T10:34:50Z",
+      "side": 1,
+      "message": "\"Move\" implies a bitwise move, with no conversion. For example, this function could be used to implement something similar to AAarch32\u0027s softfp calling convention. We don\u0027t have that case here, but that doesn\u0027t mean that a user might not want to have something like it for whatever reason. I think this should be UNIMPLEMENTED.",
+      "parentUuid": "ba068154_ea7d2bb3",
+      "revId": "baa125e1a9b6f0fd84e93295c36b65222c88387f",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba068154_aa78432c",
         "filename": "src/aarch64/macro-assembler-aarch64.cc",
         "patchSetId": 5
@@ -66,6 +84,24 @@
       "side": 1,
       "message": "`Register` would be fine as well. I used `VRegister` with the assumption that there is generally less pressure on them, ie. would less often take the scratch from VIXL.\nI will improve it to check what scratch registers (both core and FP) are available.",
       "parentUuid": "ba068154_aa78432c",
+      "revId": "baa125e1a9b6f0fd84e93295c36b65222c88387f",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_856e10c8",
+        "filename": "src/aarch64/macro-assembler-aarch64.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1587,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-07-13T10:34:50Z",
+      "side": 1,
+      "message": "Perhaps we should have an AcquireCPURegisterOfSize for cases like this, were we don\u0027t actually care which bank the register comes from.",
+      "parentUuid": "ba068154_4a4a7784",
       "revId": "baa125e1a9b6f0fd84e93295c36b65222c88387f",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
@@ -107,6 +143,24 @@
     },
     {
       "key": {
+        "uuid": "ba068154_e5471c4a",
+        "filename": "src/aarch64/operands-aarch64.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 860,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-07-13T10:34:50Z",
+      "side": 1,
+      "message": "The same argument applies to \"Location\", though. To me, that sounds even more memory-focussed.\n\nTo be clear, I don\u0027t really like \"Slot\" either, but it\u0027s the best we could come up with.",
+      "parentUuid": "ba068154_2a4f3394",
+      "revId": "baa125e1a9b6f0fd84e93295c36b65222c88387f",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba068154_0af22f9a",
         "filename": "src/aarch64/operands-aarch64.h",
         "patchSetId": 5
@@ -136,6 +190,24 @@
       "side": 1,
       "message": "I did. I find it more concise than expressing this with boolean operators only.",
       "parentUuid": "ba068154_0af22f9a",
+      "revId": "baa125e1a9b6f0fd84e93295c36b65222c88387f",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_4574289c",
+        "filename": "src/aarch64/operands-aarch64.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 872,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-07-13T10:34:50Z",
+      "side": 1,
+      "message": "Although this will work, I find it somewhat surprising because of the types involved. Instead, why not use \"!\u003d\"?\n\n    return cpu_register_.IsValid() !\u003d mem_op_.IsValid();",
+      "parentUuid": "ba068154_8a445f75",
       "revId": "baa125e1a9b6f0fd84e93295c36b65222c88387f",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
