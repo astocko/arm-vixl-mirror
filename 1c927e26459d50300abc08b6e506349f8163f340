@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ba068154_372b1784",
+        "filename": "src/aarch64/abi-aarch64.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-07-14T10:24:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba068154_a59fd44f",
+      "revId": "1c927e26459d50300abc08b6e506349f8163f340",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba068154_05ad0089",
         "filename": "src/aarch64/abi-aarch64.h",
         "patchSetId": 9
@@ -30,6 +48,24 @@
       "writtenOn": "2016-07-13T13:49:35Z",
       "side": 1,
       "message": "We use `int` by default, but std::size_t (or auto) would be Ok here since that\u0027s what alignment_of provides.\n\nAlso note that there\u0027s an `alignof` operator in C++11 which can do the same thing more concisely.",
+      "revId": "1c927e26459d50300abc08b6e506349f8163f340",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_b73d47be",
+        "filename": "src/aarch64/abi-aarch64.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-07-14T10:24:28Z",
+      "side": 1,
+      "message": "I know. This was to have an easy immplementation for `RoundUp`. Changed to `size_t`.",
+      "parentUuid": "ba068154_05ad0089",
       "revId": "1c927e26459d50300abc08b6e506349f8163f340",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "ba068154_174b735a",
+        "filename": "src/aarch64/abi-aarch64.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-07-14T10:24:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba068154_e5a9dc7c",
+      "revId": "1c927e26459d50300abc08b6e506349f8163f340",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba068154_45b6e8dd",
         "filename": "src/aarch64/abi-aarch64.h",
         "patchSetId": 9
@@ -64,6 +118,24 @@
       "writtenOn": "2016-07-13T13:49:35Z",
       "side": 1,
       "message": "You should be able to use static_assert (or at least VIXL_STATIC_ASSERT) here.",
+      "revId": "1c927e26459d50300abc08b6e506349f8163f340",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_f747cf49",
+        "filename": "src/aarch64/abi-aarch64.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-07-14T10:24:28Z",
+      "side": 1,
+      "message": "I tried. It does not work.",
+      "parentUuid": "ba068154_45b6e8dd",
       "revId": "1c927e26459d50300abc08b6e506349f8163f340",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
@@ -93,6 +165,30 @@
     },
     {
       "key": {
+        "uuid": "ba068154_5774db9b",
+        "filename": "src/aarch64/abi-aarch64.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-07-14T10:24:28Z",
+      "side": 1,
+      "message": "It can be used if alignment of one of the supported types is 16. It won\u0027t happen, but we can support it.",
+      "parentUuid": "ba068154_25bbe4c5",
+      "range": {
+        "startLine": 121,
+        "startChar": 0,
+        "endLine": 123,
+        "endChar": 5
+      },
+      "revId": "1c927e26459d50300abc08b6e506349f8163f340",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba068154_85b0d0de",
         "filename": "src/aarch64/abi-aarch64.h",
         "patchSetId": 9
@@ -104,6 +200,24 @@
       "writtenOn": "2016-07-13T13:49:35Z",
       "side": 1,
       "message": "Is the `u` suffix necessary?",
+      "revId": "1c927e26459d50300abc08b6e506349f8163f340",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_37795794",
+        "filename": "src/aarch64/abi-aarch64.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-07-14T10:24:28Z",
+      "side": 1,
+      "message": "Yes. I had to update that to `UINT64_C` after the move to size_t.",
+      "parentUuid": "ba068154_85b0d0de",
       "revId": "1c927e26459d50300abc08b6e506349f8163f340",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
@@ -127,6 +241,24 @@
     },
     {
       "key": {
+        "uuid": "ba068154_976e43c8",
+        "filename": "src/aarch64/abi-aarch64.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-07-14T10:24:28Z",
+      "side": 1,
+      "message": "This follows the spec.",
+      "parentUuid": "ba068154_65b5eccc",
+      "revId": "1c927e26459d50300abc08b6e506349f8163f340",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba068154_c5c9385c",
         "filename": "src/utils-vixl.h",
         "patchSetId": 9
@@ -144,6 +276,24 @@
     },
     {
       "key": {
+        "uuid": "ba068154_176253d8",
+        "filename": "src/utils-vixl.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 785,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-07-14T10:24:28Z",
+      "side": 1,
+      "message": "Thanks!",
+      "parentUuid": "ba068154_c5c9385c",
+      "revId": "1c927e26459d50300abc08b6e506349f8163f340",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba068154_a5c6b447",
         "filename": "test/aarch64/test-abi.cc",
         "patchSetId": 9
@@ -155,6 +305,24 @@
       "writtenOn": "2016-07-13T13:49:35Z",
       "side": 1,
       "message": "I think some tests with pointer types would be useful (also checking the size).",
+      "revId": "1c927e26459d50300abc08b6e506349f8163f340",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_579b3bc9",
+        "filename": "test/aarch64/test-abi.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-07-14T10:24:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba068154_a5c6b447",
       "revId": "1c927e26459d50300abc08b6e506349f8163f340",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
