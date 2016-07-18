@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba068154_bac08e7d",
+        "filename": "src/aarch64/simulator-aarch64.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 1000222
+      },
+      "writtenOn": "2016-07-18T13:35:41Z",
+      "side": 1,
+      "message": "These two functions take signed offset, which is potentially a large value, and therefore, undefined.",
+      "range": {
+        "startLine": 432,
+        "startChar": 0,
+        "endLine": 435,
+        "endChar": 80
+      },
+      "revId": "d202669f2e542e898d07b23ef91c26ef48c24895",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
