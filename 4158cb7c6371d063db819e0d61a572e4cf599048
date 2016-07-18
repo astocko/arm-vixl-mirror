@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba068154_9a82eafe",
+        "filename": "src/aarch64/abi-aarch64.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-07-18T16:05:59Z",
+      "side": 1,
+      "message": "VIXL style doesn\u0027t like the implicit bool-to-int conversion. That said, I don\u0027t think there\u0027s a clearer way to describe this relationship.\n\nAlternatively, we could skip this assertion entirely. They are supposed to be mutually exclusive. If they\u0027re not, either the standard library implementation is wrong, or some other code has specialised them with custom types which this function is probably not going to handle correctly.\n\nWhatever you choose to do, this could be a static assertion.",
+      "range": {
+        "startLine": 90,
+        "startChar": 0,
+        "endLine": 91,
+        "endChar": 19
+      },
+      "revId": "4158cb7c6371d063db819e0d61a572e4cf599048",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_1a76fa3e",
+        "filename": "src/aarch64/abi-aarch64.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-07-18T16:05:59Z",
+      "side": 1,
+      "message": "\"loc\" is probably not an appropriate prefix after the Location class was renamed.",
+      "revId": "4158cb7c6371d063db819e0d61a572e4cf599048",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_da7bd227",
+        "filename": "src/aarch64/abi-aarch64.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-07-18T16:05:59Z",
+      "side": 1,
+      "message": "This is a bit awkward, since is_floating_point_type \u003d std::is_floating_point\u003cT\u003e::value. Perhaps make is_floating_point_type a constant so that it can be used in the static assertion, or just remove it and use std::is_floating_point\u003cT\u003e::value directly. (It isn\u0027t much longer.)",
+      "range": {
+        "startLine": 109,
+        "startChar": 0,
+        "endLine": 111,
+        "endChar": 46
+      },
+      "revId": "4158cb7c6371d063db819e0d61a572e4cf599048",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_fa721648",
+        "filename": "src/aarch64/abi-aarch64.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-07-18T16:05:59Z",
+      "side": 1,
+      "message": "This one should probably be 8u too, just in case some compilers complain about signed/unsigned comparisons with constants. (It\u0027s unlikely, but I\u0027ve seen it in the past.)",
+      "revId": "4158cb7c6371d063db819e0d61a572e4cf599048",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_5a8fe223",
+        "filename": "test/aarch64/test-abi.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-07-18T16:05:59Z",
+      "side": 1,
+      "message": "This one should be aligned like the rest.",
+      "revId": "4158cb7c6371d063db819e0d61a572e4cf599048",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
