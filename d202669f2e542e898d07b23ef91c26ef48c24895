@@ -46,6 +46,40 @@
       "revId": "d202669f2e542e898d07b23ef91c26ef48c24895",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_7a874610",
+        "filename": "src/aarch64/simulator-aarch64.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 1274,
+      "author": {
+        "id": 1000226
+      },
+      "writtenOn": "2016-07-18T17:26:06Z",
+      "side": 1,
+      "message": "Here you are reusing the helper defined above, but for the WriteCPURegister method below you are not. Could we be consistent?",
+      "revId": "d202669f2e542e898d07b23ef91c26ef48c24895",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_ba788e2c",
+        "filename": "src/aarch64/simulator-aarch64.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 1311,
+      "author": {
+        "id": 1000226
+      },
+      "writtenOn": "2016-07-18T17:26:06Z",
+      "side": 1,
+      "message": "I must be missing something as this method, as defined above, does not take a Reg31Mode argument.",
+      "revId": "d202669f2e542e898d07b23ef91c26ef48c24895",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
