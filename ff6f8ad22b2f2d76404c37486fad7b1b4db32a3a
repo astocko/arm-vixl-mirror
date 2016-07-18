@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba068154_9a994a71",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-07-18T16:28:53Z",
+      "side": 1,
+      "message": "The first line of the commit message should be short, and none of it should use the past tense. (50 characters is typical but we are flexible in VIXL.)\n\n\"Correctly allocate executable memory in CodeBuffer.\"",
+      "revId": "ff6f8ad22b2f2d76404c37486fad7b1b4db32a3a",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_7a9e2658",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-07-18T16:28:53Z",
+      "side": 1,
+      "message": "Make this present tense please.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 18
+      },
+      "revId": "ff6f8ad22b2f2d76404c37486fad7b1b4db32a3a",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
