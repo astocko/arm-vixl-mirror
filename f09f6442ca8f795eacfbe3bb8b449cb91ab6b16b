@@ -1,0 +1,164 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba068154_1a039ab9",
+        "filename": "src/aarch64/macro-assembler-aarch64.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 1567,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-07-18T14:25:37Z",
+      "side": 1,
+      "message": "Perhaps it\u0027s worth having a \"GenericOperand::GetSizeInBits()\" function to abstract that. Then, you could avoid the USE and simplify this a bit.",
+      "range": {
+        "startLine": 1564,
+        "startChar": 0,
+        "endLine": 1567,
+        "endChar": 70
+      },
+      "revId": "f09f6442ca8f795eacfbe3bb8b449cb91ab6b16b",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_faffb6a8",
+        "filename": "src/aarch64/macro-assembler-aarch64.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 1595,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-07-18T14:25:37Z",
+      "side": 1,
+      "message": "Use !\u003d rather than ^ (as discussed in another review).\n\nAlternatively, this might be clearer as assertions in the if/else:\n\n    if (dst.IsCPURegister()) {\n      VIXL_ASSERT(src.IsMemOperand());\n      Ldr(...);\n    } else {\n      VIXL_ASSERT(dst.IsMemOperand());\n      Str(...);\n    }",
+      "range": {
+        "startLine": 1594,
+        "startChar": 0,
+        "endLine": 1595,
+        "endChar": 57
+      },
+      "revId": "f09f6442ca8f795eacfbe3bb8b449cb91ab6b16b",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_5a2c024b",
+        "filename": "src/aarch64/operands-aarch64.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 785,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-07-18T14:25:37Z",
+      "side": 1,
+      "message": "Instead, I wonder if it would be worth creating a default constructor for this purpose. They\u0027re useful things to have anyway, in case someone wants to make an array of MemOperands for example.",
+      "range": {
+        "startLine": 781,
+        "startChar": 0,
+        "endLine": 785,
+        "endChar": 50
+      },
+      "revId": "f09f6442ca8f795eacfbe3bb8b449cb91ab6b16b",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_7a2bc630",
+        "filename": "src/aarch64/operands-aarch64.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 867,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-07-18T14:25:37Z",
+      "side": 1,
+      "message": "Hypothetically, couldn\u0027t this also work for Q registers or vectors? If it\u0027s just unimplemented, we should probably leave a comment.",
+      "revId": "f09f6442ca8f795eacfbe3bb8b449cb91ab6b16b",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_fa1696f0",
+        "filename": "src/aarch64/operands-aarch64.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 877,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-07-18T14:25:37Z",
+      "side": 1,
+      "message": "That means that GenericOperand(NoReg) does not equal itself. Is that intentional? It seems like surprising behaviour.",
+      "revId": "f09f6442ca8f795eacfbe3bb8b449cb91ab6b16b",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_da1f5208",
+        "filename": "src/aarch64/operands-aarch64.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 887,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-07-18T14:25:37Z",
+      "side": 1,
+      "message": "This looks rather big for a function in a header.",
+      "range": {
+        "startLine": 876,
+        "startChar": 0,
+        "endLine": 887,
+        "endChar": 3
+      },
+      "revId": "f09f6442ca8f795eacfbe3bb8b449cb91ab6b16b",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_3ad81e53",
+        "filename": "src/globals-vixl.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-07-18T14:25:37Z",
+      "side": 1,
+      "message": "I don\u0027t think this is actually used any more.",
+      "revId": "f09f6442ca8f795eacfbe3bb8b449cb91ab6b16b",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_9addca45",
+        "filename": "test/aarch64/test-assembler-aarch64.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 22063,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-07-18T14:25:37Z",
+      "side": 1,
+      "message": "Tests with various sizes of V registers would also be useful, I think, as well as moves between two MemOperands.",
+      "revId": "f09f6442ca8f795eacfbe3bb8b449cb91ab6b16b",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
