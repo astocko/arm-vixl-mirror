@@ -25,6 +25,23 @@
     },
     {
       "key": {
+        "uuid": "ba068154_dac9125c",
+        "filename": "src/aarch64/macro-assembler-aarch64.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 1581,
+      "author": {
+        "id": 1000226
+      },
+      "writtenOn": "2016-07-18T17:32:06Z",
+      "side": 1,
+      "message": "Didn\u0027t we agree move means \"bit\" move? so how about implementing this",
+      "revId": "f09f6442ca8f795eacfbe3bb8b449cb91ab6b16b",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba068154_faffb6a8",
         "filename": "src/aarch64/macro-assembler-aarch64.cc",
         "patchSetId": 8
