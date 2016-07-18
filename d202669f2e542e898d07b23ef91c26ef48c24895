@@ -22,6 +22,30 @@
       "revId": "d202669f2e542e898d07b23ef91c26ef48c24895",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_da711279",
+        "filename": "src/aarch64/simulator-aarch64.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-07-18T13:49:19Z",
+      "side": 1,
+      "message": "Changed to operate on `int64_t`.",
+      "parentUuid": "ba068154_bac08e7d",
+      "range": {
+        "startLine": 432,
+        "startChar": 0,
+        "endLine": 435,
+        "endChar": 80
+      },
+      "revId": "d202669f2e542e898d07b23ef91c26ef48c24895",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
