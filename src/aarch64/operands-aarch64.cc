@@ -379,9 +379,8 @@ MemOperand::MemOperand(Register base, int64_t offset, AddrMode addrmode)
       offset_(offset),
       addrmode_(addrmode),
       shift_(NO_SHIFT),
-      extend_(NO_EXTEND) {
-  VIXL_ASSERT(base.Is64Bits() && !base.IsZero());
-}
+      extend_(NO_EXTEND),
+      shift_amount_(0) {}
 
 
 MemOperand::MemOperand(Register base,
@@ -426,7 +425,8 @@ MemOperand::MemOperand(Register base, const Operand& offset, AddrMode addrmode)
       regoffset_(NoReg),
       addrmode_(addrmode),
       shift_(NO_SHIFT),
-      extend_(NO_EXTEND) {
+      extend_(NO_EXTEND),
+      shift_amount_(0) {
   VIXL_ASSERT(base.Is64Bits() && !base.IsZero());
 
   if (offset.IsImmediate()) {
