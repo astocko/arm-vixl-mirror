@@ -782,6 +782,8 @@ Uint64::Uint64(Uint128 data) : data_(data.ToUint64().Get()) {}
 
 Int64 BitCount(Uint32 value);
 
+static const int kBitsPerByte = 8;
+
 }  // namespace vixl
 
 #endif  // VIXL_UTILS_H
