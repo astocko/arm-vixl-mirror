@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ba068154_da88f2c8",
+        "filename": "src/aarch64/abi-aarch64.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-07-19T14:30:58Z",
+      "side": 1,
+      "message": "It is not so much about testing the exclusivity than testing that we are not called with an unsupported type (eg. `struct foo`\u003e). Fixed to use `||`.",
+      "parentUuid": "ba068154_9a82eafe",
+      "range": {
+        "startLine": 90,
+        "startChar": 0,
+        "endLine": 91,
+        "endChar": 19
+      },
+      "revId": "4158cb7c6371d063db819e0d61a572e4cf599048",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba068154_1a76fa3e",
         "filename": "src/aarch64/abi-aarch64.h",
         "patchSetId": 10
@@ -36,6 +60,24 @@
       "writtenOn": "2016-07-18T16:05:59Z",
       "side": 1,
       "message": "\"loc\" is probably not an appropriate prefix after the Location class was renamed.",
+      "revId": "4158cb7c6371d063db819e0d61a572e4cf599048",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_ba852eaf",
+        "filename": "src/aarch64/abi-aarch64.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-07-19T14:30:58Z",
+      "side": 1,
+      "message": "Renamed to `operand_size`.",
+      "parentUuid": "ba068154_1a76fa3e",
       "revId": "4158cb7c6371d063db819e0d61a572e4cf599048",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "ba068154_1a939afb",
+        "filename": "src/aarch64/abi-aarch64.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-07-19T14:30:58Z",
+      "side": 1,
+      "message": "I forgot the `const` and was wondering why the compiler was not letting me use `is_floating_point` type in the assertion.",
+      "parentUuid": "ba068154_da7bd227",
+      "range": {
+        "startLine": 109,
+        "startChar": 0,
+        "endLine": 111,
+        "endChar": 46
+      },
+      "revId": "4158cb7c6371d063db819e0d61a572e4cf599048",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba068154_fa721648",
         "filename": "src/aarch64/abi-aarch64.h",
         "patchSetId": 10
@@ -82,6 +148,24 @@
     },
     {
       "key": {
+        "uuid": "ba068154_fa8fb6ca",
+        "filename": "src/aarch64/abi-aarch64.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-07-19T14:30:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba068154_fa721648",
+      "revId": "4158cb7c6371d063db819e0d61a572e4cf599048",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba068154_5a8fe223",
         "filename": "test/aarch64/test-abi.cc",
         "patchSetId": 10
@@ -93,6 +177,24 @@
       "writtenOn": "2016-07-18T16:05:59Z",
       "side": 1,
       "message": "This one should be aligned like the rest.",
+      "revId": "4158cb7c6371d063db819e0d61a572e4cf599048",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_5abc026d",
+        "filename": "test/aarch64/test-abi.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-07-19T14:30:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba068154_5a8fe223",
       "revId": "4158cb7c6371d063db819e0d61a572e4cf599048",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
