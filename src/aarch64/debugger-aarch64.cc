@@ -1254,7 +1254,7 @@ bool StepCommand::Run(Debugger* debugger) {
   if (steps < 0) {
     printf(" ** invalid value for steps: %" PRId64 " (<0) **\n", steps);
   } else if (steps > 1) {
-    debugger->SetSteps(steps - 1);
+    debugger->SetSteps(steps);
   }
 
   return true;
