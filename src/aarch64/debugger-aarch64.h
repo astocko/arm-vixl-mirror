@@ -106,7 +106,13 @@ class Debugger : public Simulator {
     UpdatePendingRequestStatus();
   }
 
-  void PrintInstructions(const void* address, int64_t count = 1);
+  void PrintInstructions(const void* address,
+                         int64_t count = 1,
+                         const char* prefix = "");
+  void PrintNextInstruction() {
+    printf("Next: ");
+    PrintInstructions(ReadPc());
+  }
   void PrintMemory(const uint8_t* address,
                    const FormatToken* format,
                    int64_t count = 1);
