@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba068154_4d128eb5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000222
+      },
+      "writtenOn": "2016-07-20T15:45:56Z",
+      "side": 1,
+      "message": "I don\u0027t like that this is marked \"Next\" when it isn\u0027t, but we\u0027ve already discussed dealing with that in a later patch.",
+      "revId": "aacb1b0b88cc0424c8605eb2af4785b3c6c8a537",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_ad3b3a37",
+        "filename": "src/aarch64/debugger-aarch64.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1000222
+      },
+      "writtenOn": "2016-07-20T15:45:56Z",
+      "side": 1,
+      "message": "Can\u0027t this be PrintInstructions(ReadPc(), 1, \"Next: \")",
+      "revId": "aacb1b0b88cc0424c8605eb2af4785b3c6c8a537",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
