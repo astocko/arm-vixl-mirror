@@ -16,6 +16,24 @@
       "revId": "576a1c56095d9452b8670624b5677d4d7b0d1ddf",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_4d744e9c",
+        "filename": "src/aarch64/debugger-aarch64.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-07-20T07:38:14Z",
+      "side": 1,
+      "message": "This patch does not change the meaning of `steps_`.\nThe interpretation of this number depends on what point in the code one looks at! It is correct when looking at the point where `steps_` is checked (`if (steps_ \u003e 0)`).\n\nI do have an idea to improve the logic, but I think we should do it in a separate patch. I\u0027ll come to chat about it.",
+      "parentUuid": "ba068154_fa02160a",
+      "revId": "576a1c56095d9452b8670624b5677d4d7b0d1ddf",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
