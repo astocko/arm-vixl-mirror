@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ba068154_ba21aeb6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-07-20T07:23:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba068154_05db401c",
+      "revId": "05de8cb40150489e679c867dab09a213a1d0799d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba068154_e5d71cec",
         "filename": "examples/aarch64/examples.h",
         "patchSetId": 10
@@ -30,6 +48,24 @@
       "writtenOn": "2016-07-13T14:23:54Z",
       "side": 1,
       "message": "examples",
+      "revId": "05de8cb40150489e679c867dab09a213a1d0799d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_1a2f1aa3",
+        "filename": "examples/aarch64/examples.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-07-20T07:23:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba068154_e5d71cec",
       "revId": "05de8cb40150489e679c867dab09a213a1d0799d",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "ba068154_fa2b3692",
+        "filename": "examples/aarch64/simulated-runtime-calls.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-07-20T07:23:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba068154_4504287e",
+      "revId": "05de8cb40150489e679c867dab09a213a1d0799d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba068154_25092496",
         "filename": "examples/aarch64/simulated-runtime-calls.cc",
         "patchSetId": 10
@@ -64,6 +118,24 @@
       "writtenOn": "2016-07-13T14:23:54Z",
       "side": 1,
       "message": "appropriate",
+      "revId": "05de8cb40150489e679c867dab09a213a1d0799d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_5a188284",
+        "filename": "examples/aarch64/simulated-runtime-calls.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-07-20T07:23:12Z",
+      "side": 1,
+      "message": "Done.\nI need to enable spell-checking by default and teach it about all the \u0027correct\u0027 tech words.",
+      "parentUuid": "ba068154_25092496",
       "revId": "05de8cb40150489e679c867dab09a213a1d0799d",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "ba068154_3a1dbe74",
+        "filename": "src/aarch64/macro-assembler-aarch64.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 3346,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-07-20T07:23:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba068154_85fe106a",
+      "revId": "05de8cb40150489e679c867dab09a213a1d0799d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba068154_65032c74",
         "filename": "src/aarch64/macro-assembler-aarch64.h",
         "patchSetId": 10
@@ -98,6 +188,24 @@
       "writtenOn": "2016-07-13T14:23:54Z",
       "side": 1,
       "message": "Use of this scope utility in this way is discouraged. (See doc/design/code-generation.md for details.) We haven\u0027t spent the time to actually sort everything out yet, but in this case, InstructionAccurateScope would be more suitable.",
+      "revId": "05de8cb40150489e679c867dab09a213a1d0799d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_9a12ea60",
+        "filename": "src/aarch64/macro-assembler-aarch64.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 3350,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-07-20T07:23:12Z",
+      "side": 1,
+      "message": "I started with `InstructionAccurateScope`, but did not like it: it takes a number of instructions as an argument. Here we are talking about one instruction plus some other stuff. It turns out the size of this other stuff is a multiple of the instruction size, but I don\u0027t really like it.\n\nOpinion?",
+      "parentUuid": "ba068154_65032c74",
       "revId": "05de8cb40150489e679c867dab09a213a1d0799d",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "ba068154_7a174652",
+        "filename": "src/aarch64/simulator-aarch64.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-07-20T07:23:12Z",
+      "side": 1,
+      "message": "Rephrased.",
+      "parentUuid": "ba068154_c5f7788b",
+      "revId": "05de8cb40150489e679c867dab09a213a1d0799d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba068154_a5f4f487",
         "filename": "src/aarch64/simulator-aarch64.h",
         "patchSetId": 10
@@ -138,6 +264,24 @@
     },
     {
       "key": {
+        "uuid": "ba068154_1a06fa20",
+        "filename": "src/aarch64/simulator-aarch64.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 1620,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-07-20T07:23:12Z",
+      "side": 1,
+      "message": "It does not seem appropriate.\n\n`VIXL_ABI_SUPPORT` is defined by `abi-aarch64.h`.\nSimulated runtime call support requires both the abi support and C++11 or greater. From the local point of view, the runtime call support does not know that abi support implies C++11 or greater.",
+      "parentUuid": "ba068154_a5f4f487",
+      "revId": "05de8cb40150489e679c867dab09a213a1d0799d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba068154_05f2209a",
         "filename": "src/aarch64/simulator-aarch64.h",
         "patchSetId": 10
@@ -149,6 +293,24 @@
       "writtenOn": "2016-07-13T14:23:54Z",
       "side": 1,
       "message": "It\u0027s unwise to define symbols that start with \"__\". Why not just call it \"local_index_sequence\"?",
+      "revId": "05de8cb40150489e679c867dab09a213a1d0799d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_0d4b665a",
+        "filename": "src/aarch64/simulator-aarch64.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 1630,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-07-20T07:23:12Z",
+      "side": 1,
+      "message": "Fixed.",
+      "parentUuid": "ba068154_05f2209a",
       "revId": "05de8cb40150489e679c867dab09a213a1d0799d",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
