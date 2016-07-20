@@ -782,9 +782,13 @@ class Simulator : public DecoderVisitor {
     return WritePc(new_pc);
   }
 
+  void RawIncrementPc() {
+    pc_ = pc_->GetNextInstruction();
+  }
+
   void IncrementPc() {
     if (!pc_modified_) {
-      pc_ = pc_->GetNextInstruction();
+      RawIncrementPc();
     }
   }
   VIXL_DEPRECATED("IncrementPc", void increment_pc()) { IncrementPc(); }
