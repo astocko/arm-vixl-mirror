@@ -16,6 +16,24 @@
       "revId": "1165550f32dc4844969cb213307a60f213049aac",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_ed68a289",
+        "filename": "src/aarch64/debugger-aarch64.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1234,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-07-20T10:03:10Z",
+      "side": 1,
+      "message": "I don\u0027t think I want to say why...\n(Fixed.)",
+      "parentUuid": "ba068154_6d5dd2e9",
+      "revId": "1165550f32dc4844969cb213307a60f213049aac",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
