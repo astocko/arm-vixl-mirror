@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba068154_0d2fe6a2",
+        "filename": "src/aarch64/operands-aarch64.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-07-21T13:17:49Z",
+      "side": 1,
+      "message": "Why has the assertion gone? I can\u0027t see a new usage in this patch which breaks it.",
+      "revId": "c7cf7d810dc2c77a22923ff324c3e8046f9fd4f5",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
