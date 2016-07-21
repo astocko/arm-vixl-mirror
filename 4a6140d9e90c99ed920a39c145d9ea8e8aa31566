@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ba068154_d06731e9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 10
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-07-21T14:26:45Z",
+      "side": 1,
+      "message": "Fixed here and in other commits.",
+      "parentUuid": "ba068154_b036ede5",
+      "revId": "4a6140d9e90c99ed920a39c145d9ea8e8aa31566",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba068154_f019957a",
         "filename": "src/utils-vixl.h",
         "patchSetId": 10
@@ -30,6 +48,24 @@
       "writtenOn": "2016-07-21T14:00:08Z",
       "side": 1,
       "message": "Do you think this would be better placed in globals-vixl.h?",
+      "revId": "4a6140d9e90c99ed920a39c145d9ea8e8aa31566",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_106259d8",
+        "filename": "src/utils-vixl.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 785,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-07-21T14:26:45Z",
+      "side": 1,
+      "message": "It would. Fixed.",
+      "parentUuid": "ba068154_f019957a",
       "revId": "4a6140d9e90c99ed920a39c145d9ea8e8aa31566",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "ba068154_906e49c8",
+        "filename": "test/aarch64/test-assembler-aarch64.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 22093,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-07-21T14:26:45Z",
+      "side": 1,
+      "message": "Fixed.",
+      "parentUuid": "ba068154_302b1d84",
+      "revId": "4a6140d9e90c99ed920a39c145d9ea8e8aa31566",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba068154_7025a5aa",
         "filename": "test/aarch64/test-assembler-aarch64.cc",
         "patchSetId": 10
@@ -64,6 +118,30 @@
       "writtenOn": "2016-07-21T14:00:08Z",
       "side": 1,
       "message": "Can you use INT64_C for all of them please?",
+      "range": {
+        "startLine": 22094,
+        "startChar": 31,
+        "endLine": 22096,
+        "endChar": 47
+      },
+      "revId": "4a6140d9e90c99ed920a39c145d9ea8e8aa31566",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_7073e5b1",
+        "filename": "test/aarch64/test-assembler-aarch64.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 22096,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-07-21T14:26:45Z",
+      "side": 1,
+      "message": "Fixed.",
+      "parentUuid": "ba068154_7025a5aa",
       "range": {
         "startLine": 22094,
         "startChar": 31,
