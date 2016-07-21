@@ -212,6 +212,24 @@
     },
     {
       "key": {
+        "uuid": "ba068154_ed7d42b3",
+        "filename": "src/aarch64/macro-assembler-aarch64.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 3350,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-07-21T12:53:27Z",
+      "side": 1,
+      "message": "I would use InstructionAccurateScope for now (even with the ugly size specification) but leave a TODO to use ExactAssemblyScope when it is available. When we implement the recommendations, we\u0027ll replace all instances of InstructionAccurateScope, so it\u0027ll be easy to handle. ExactAssemblyScope is almost a drop-in replacement for InstructionAccurateScope. (I would have recommended keeping the name except that there would be no way to differentiate between the new (unscaled) and old (scaled) size parameters.)\n\nCodeBufferCheckScope(MacroAssembler*, ...) is harder to replace because it allows the assembler and macro-assembler to be mixed in a dangerous way. Each usage will require some analysis to replace correctly so I\u0027d prefer to avoid adding new uses of it.",
+      "parentUuid": "ba068154_9a12ea60",
+      "revId": "05de8cb40150489e679c867dab09a213a1d0799d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba068154_c5f7788b",
         "filename": "src/aarch64/simulator-aarch64.h",
         "patchSetId": 10
@@ -276,6 +294,24 @@
       "side": 1,
       "message": "It does not seem appropriate.\n\n`VIXL_ABI_SUPPORT` is defined by `abi-aarch64.h`.\nSimulated runtime call support requires both the abi support and C++11 or greater. From the local point of view, the runtime call support does not know that abi support implies C++11 or greater.",
       "parentUuid": "ba068154_a5f4f487",
+      "revId": "05de8cb40150489e679c867dab09a213a1d0799d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_4d4a8e84",
+        "filename": "src/aarch64/simulator-aarch64.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 1620,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-07-21T12:53:27Z",
+      "side": 1,
+      "message": "Does VIXL_ABI_SUPPORT have an effect even in the absence of C++11 then? What I wanted to avoid was a flag that had no effect without C++11.",
+      "parentUuid": "ba068154_1a06fa20",
       "revId": "05de8cb40150489e679c867dab09a213a1d0799d",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
