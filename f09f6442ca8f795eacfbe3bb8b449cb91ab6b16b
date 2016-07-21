@@ -84,6 +84,24 @@
     },
     {
       "key": {
+        "uuid": "ba068154_8d12b660",
+        "filename": "src/aarch64/macro-assembler-aarch64.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 1581,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-07-21T14:00:08Z",
+      "side": 1,
+      "message": "I\u0027m not objecting to this, but I\u0027m curious. What is the use-case where bit-move isn\u0027t what you want?",
+      "parentUuid": "ba068154_baf40e88",
+      "revId": "f09f6442ca8f795eacfbe3bb8b449cb91ab6b16b",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba068154_faffb6a8",
         "filename": "src/aarch64/macro-assembler-aarch64.cc",
         "patchSetId": 8
