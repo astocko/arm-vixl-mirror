@@ -102,6 +102,24 @@
     },
     {
       "key": {
+        "uuid": "ba068154_b0642de6",
+        "filename": "src/aarch64/macro-assembler-aarch64.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 1581,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-07-21T14:26:45Z",
+      "side": 1,
+      "message": "I can see this being used as part of a move resolver. It is useful to catch wrong \u0027moves\u0027 when the \u0027types\u0027 of data are restricted to the appropriate core or FP regs and memory locations.\nFor example in v8, do FP values ever get moved to core registers to free a register (or the opposite)?",
+      "parentUuid": "ba068154_8d12b660",
+      "revId": "f09f6442ca8f795eacfbe3bb8b449cb91ab6b16b",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba068154_faffb6a8",
         "filename": "src/aarch64/macro-assembler-aarch64.cc",
         "patchSetId": 8
