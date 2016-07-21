@@ -230,6 +230,24 @@
     },
     {
       "key": {
+        "uuid": "ba068154_10909994",
+        "filename": "src/aarch64/macro-assembler-aarch64.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 3350,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-07-21T15:04:26Z",
+      "side": 1,
+      "message": "Ok, sounds fine. Done.",
+      "parentUuid": "ba068154_ed7d42b3",
+      "revId": "05de8cb40150489e679c867dab09a213a1d0799d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba068154_c5f7788b",
         "filename": "src/aarch64/simulator-aarch64.h",
         "patchSetId": 10
@@ -312,6 +330,24 @@
       "side": 1,
       "message": "Does VIXL_ABI_SUPPORT have an effect even in the absence of C++11 then? What I wanted to avoid was a flag that had no effect without C++11.",
       "parentUuid": "ba068154_1a06fa20",
+      "revId": "05de8cb40150489e679c867dab09a213a1d0799d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_b0926d9d",
+        "filename": "src/aarch64/simulator-aarch64.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 1620,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-07-21T15:04:26Z",
+      "side": 1,
+      "message": "It does not.\nBut my thinking was that this code is not aware of that fact.",
+      "parentUuid": "ba068154_4d4a8e84",
       "revId": "05de8cb40150489e679c867dab09a213a1d0799d",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
