@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "ba068154_6d179252",
+        "filename": "src/aarch64/abi-aarch64.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-07-21T13:54:50Z",
+      "side": 1,
+      "message": "This is also added to utils-vixl.h in \"Introduce a new `GenericOperand` abstraction.\" We shouldn\u0027t also define it here.",
+      "revId": "c7cf7d810dc2c77a22923ff324c3e8046f9fd4f5",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba068154_0d2fe6a2",
         "filename": "src/aarch64/operands-aarch64.cc",
         "patchSetId": 12
