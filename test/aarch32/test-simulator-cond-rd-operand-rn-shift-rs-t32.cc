@@ -1778,7 +1778,7 @@ static void TestHelper(Fn instruction, const char* mnemonic,
       printf("  },\n");
     }
     printf("};\n");
-  } else {
+  } else if (kCheckSimulatorTestResults) {
     // Check the results.
     unsigned total_error_count = 0;
     for (size_t i = 0; i < ARRAY_SIZE(kTests); i++) {
