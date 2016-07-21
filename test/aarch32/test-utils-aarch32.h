@@ -35,6 +35,15 @@
 namespace vixl {
 namespace aarch32 {
 
+// The simulator tests run with the simulator or natively. Avoid checking
+// results that can only be incorrect has they code could not be executed.
+// TODO: Improve this.
+#if defined(HAS_AARCH32_SIMULATOR) || defined(__arm__)
+static const bool kCheckSimulatorTestResults = true;
+#else
+static const bool kCheckSimulatorTestResults = false;
+#endif
+
 // Helper constants used to check for condition code combinations.  These are
 // not part of instruction definitions as no instruction uses them directly.
 const uint32_t NoFlag   = 0x0;
