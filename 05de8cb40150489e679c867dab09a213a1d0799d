@@ -372,6 +372,24 @@
     },
     {
       "key": {
+        "uuid": "ba068154_703ac537",
+        "filename": "src/aarch64/simulator-aarch64.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 1620,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-07-22T10:18:09Z",
+      "side": 1,
+      "message": "Following our chat, this was improved by an additional check in the commit introducing abi support.",
+      "parentUuid": "ba068154_109ff960",
+      "revId": "05de8cb40150489e679c867dab09a213a1d0799d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba068154_05f2209a",
         "filename": "src/aarch64/simulator-aarch64.h",
         "patchSetId": 10
