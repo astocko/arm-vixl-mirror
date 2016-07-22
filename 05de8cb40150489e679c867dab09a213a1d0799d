@@ -354,6 +354,24 @@
     },
     {
       "key": {
+        "uuid": "ba068154_109ff960",
+        "filename": "src/aarch64/simulator-aarch64.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 1620,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-07-22T09:03:35Z",
+      "side": 1,
+      "message": "Ok, that\u0027s reasonable for this code, but if I try to build VIXL with VIXL_ABI_SUPPORT and don\u0027t have C++11, will I at least get _some_ meaningful error?",
+      "parentUuid": "ba068154_b0926d9d",
+      "revId": "05de8cb40150489e679c867dab09a213a1d0799d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba068154_05f2209a",
         "filename": "src/aarch64/simulator-aarch64.h",
         "patchSetId": 10
