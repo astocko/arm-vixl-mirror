@@ -16,6 +16,24 @@
       "revId": "bd7e3d3c042d99fcf9c7e307a4fa6390624bc8bb",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_f0c0752c",
+        "filename": "src/aarch64/operands-aarch64.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 863,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-07-22T10:02:55Z",
+      "side": 1,
+      "message": "I agree. Done.\n\nWith this explicit constructor calls could be removed in the tests, but I keep them to be explicit.",
+      "parentUuid": "ba068154_1076d93e",
+      "revId": "bd7e3d3c042d99fcf9c7e307a4fa6390624bc8bb",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
