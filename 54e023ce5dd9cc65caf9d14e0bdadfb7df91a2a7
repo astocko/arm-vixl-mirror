@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba068154_f016b5f0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-07-22T08:35:28Z",
+      "side": 1,
+      "message": "This should refer to the \"aarch32::Assembler\" (mirroring the C++ name), \"AArch32 Assembler\" (using the proper terms), or just \"Assembler\" (since AArch32 was already mentioned at the start).",
+      "revId": "54e023ce5dd9cc65caf9d14e0bdadfb7df91a2a7",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
