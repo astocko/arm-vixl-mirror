@@ -138,6 +138,24 @@
     },
     {
       "key": {
+        "uuid": "ba068154_10db791c",
+        "filename": "src/aarch64/macro-assembler-aarch64.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 1581,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-07-22T10:02:55Z",
+      "side": 1,
+      "message": "Following our chat, I got rid of the \u0027behaviour\u0027 parameter and implemented helpers that will allow the user to easily check for this.\n\nThe user assertion can be:\n\n    ASSERT(op1.IsMemOperand() || op2.IsMemOperand() || op1.IsSameCPURegisterType(op2));",
+      "parentUuid": "ba068154_70876510",
+      "revId": "f09f6442ca8f795eacfbe3bb8b449cb91ab6b16b",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba068154_faffb6a8",
         "filename": "src/aarch64/macro-assembler-aarch64.cc",
         "patchSetId": 8
