@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba068154_50886122",
+        "filename": "src/aarch64/abi-aarch64.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-07-22T09:06:26Z",
+      "side": 1,
+      "message": "#elif defined(VIXL_ABI_SUPPORT)\n#error ...\n\n(based on my comments on your other patch.)",
+      "revId": "29360943f6dbc2d65f5ab9b1ac36b97034352642",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
