@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba068154_1076d93e",
+        "filename": "src/aarch64/operands-aarch64.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 863,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-07-22T09:24:16Z",
+      "side": 1,
+      "message": "I wonder if these should be implicit, for the same reason that CPURegister has implicit constructors from Register and VRegister. What do you think?",
+      "revId": "bd7e3d3c042d99fcf9c7e307a4fa6390624bc8bb",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
