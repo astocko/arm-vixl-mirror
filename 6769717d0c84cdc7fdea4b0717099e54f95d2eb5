@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba068154_508fc123",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-07-22T09:28:13Z",
+      "side": 1,
+      "message": "test\ncannot",
+      "revId": "6769717d0c84cdc7fdea4b0717099e54f95d2eb5",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_709e4558",
+        "filename": "test/aarch32/test-simulator-cond-rd-operand-rn-a32.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 760,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-07-22T09:28:13Z",
+      "side": 1,
+      "message": "Perhaps print a warning in this case. Otherwise, it looks like the test has passed but it hasn\u0027t actually done anything.\n\nActually I think I\u0027d prefer it if we could exclude these tests at a higher level, but there is no mechanism for doing so at the moment so quietly passing is a reasonable compromise.",
+      "revId": "6769717d0c84cdc7fdea4b0717099e54f95d2eb5",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
