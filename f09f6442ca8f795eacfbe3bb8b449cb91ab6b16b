@@ -120,6 +120,24 @@
     },
     {
       "key": {
+        "uuid": "ba068154_70876510",
+        "filename": "src/aarch64/macro-assembler-aarch64.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 1581,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-07-22T09:24:16Z",
+      "side": 1,
+      "message": "No, V8 doesn\u0027t do that. It might be an interesting way of spilling though, to avoid stack accesses when there\u0027s a surplus of registers in the other bank.\n\nI\u0027m not completely convinced that the \"behaviour\" complication is worthwhile. Subsequent operations would probably fail quite quickly anyway, for example when an allocated VRegister is incorrectly passed into assembler methods. It also starts to specialise the \"Move\" function towards parallel move resolvers. That might be its primary purpose, but it has a generic name and function.\n\nI think the name \"move\" quite clearly indicates bitwise moving. (It\u0027s analogous with Fmov, for example.)\n\nAlso, note the behaviour controller only actually fires the assertion in debug mode. Is that intentional?",
+      "parentUuid": "ba068154_b0642de6",
+      "revId": "f09f6442ca8f795eacfbe3bb8b449cb91ab6b16b",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba068154_faffb6a8",
         "filename": "src/aarch64/macro-assembler-aarch64.cc",
         "patchSetId": 8
