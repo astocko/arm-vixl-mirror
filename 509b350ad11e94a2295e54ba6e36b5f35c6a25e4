@@ -16,6 +16,47 @@
       "revId": "509b350ad11e94a2295e54ba6e36b5f35c6a25e4",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_8bbbbe71",
+        "filename": "src/aarch64/operands-aarch64.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 490,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-07-25T15:18:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba068154_abd162cf",
+      "revId": "509b350ad11e94a2295e54ba6e36b5f35c6a25e4",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_cbaca638",
+        "filename": "src/aarch64/operands-aarch64.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 499,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-07-25T15:18:27Z",
+      "side": 1,
+      "message": "I fixed this to `kXregSizeInBytes`, and fixed the associated test.",
+      "range": {
+        "startLine": 499,
+        "startChar": 21,
+        "endLine": 499,
+        "endChar": 30
+      },
+      "revId": "509b350ad11e94a2295e54ba6e36b5f35c6a25e4",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
