@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba068154_abd162cf",
+        "filename": "src/aarch64/operands-aarch64.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 490,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-07-25T14:33:08Z",
+      "side": 1,
+      "message": "Perhaps test \"reg.GetSizeInBytes() \u003e kXRegSize\" or something similar (as for the MemOperand variant). The comment about Q registers is good, though.",
+      "revId": "509b350ad11e94a2295e54ba6e36b5f35c6a25e4",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
