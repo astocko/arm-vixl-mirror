@@ -90,7 +90,6 @@ options = {
       },
     'mode:release' : {
       'CCFLAGS' : ['-O3', '-fdata-sections', '-ffunction-sections'],
-      'LINKFLAGS' : ['-Wl,--gc-sections']
       },
     'simulator:on' : {
       'CCFLAGS' : ['-DVIXL_INCLUDE_SIMULATOR'],
