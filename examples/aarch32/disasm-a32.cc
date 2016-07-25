@@ -25,6 +25,9 @@
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
+// The example assumes support for ELF binaries.
+#ifndef __APPLE__
+
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <sys/mman.h>
@@ -302,3 +305,14 @@ int main(int argc, char** argv) {
   munmap(base_addr, sb.st_size);
   return 0;
 }
+
+
+#else
+
+// TODO: Implement this example for macOS.
+int main(void) {
+  VIXL_WARNING("`This example has not been implemented for macOS.");
+  return 0;
+}
+
+#endif  // __APPLE__
