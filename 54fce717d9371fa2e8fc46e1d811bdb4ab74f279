@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba068154_4b30b656",
+        "filename": "test/aarch32/config/template-simulator-aarch32.cc.in",
+        "patchSetId": 4
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1000219
+      },
+      "writtenOn": "2016-07-25T13:13:20Z",
+      "side": 1,
+      "message": "As discussed, your change makes this guard obsolete, you can remove it.",
+      "revId": "54fce717d9371fa2e8fc46e1d811bdb4ab74f279",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
