@@ -16,6 +16,24 @@
       "revId": "54fce717d9371fa2e8fc46e1d811bdb4ab74f279",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_8b3a9e34",
+        "filename": "test/aarch32/config/template-simulator-aarch32.cc.in",
+        "patchSetId": 4
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-07-25T13:15:49Z",
+      "side": 1,
+      "message": "Sorry, this was merged before you had time to comment.\nI\u0027ll fix it in another commit.",
+      "parentUuid": "ba068154_4b30b656",
+      "revId": "54fce717d9371fa2e8fc46e1d811bdb4ab74f279",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
