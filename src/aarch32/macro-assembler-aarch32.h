@@ -560,11 +560,10 @@ class MacroAssembler : public Assembler {
   void Default(JumpTableBase* table);
   void EndSwitch(JumpTableBase* table);
 
-  // Claim memory on the stack
-  // Note: Operations on SP are atomic, and thus require to be aligned
-  // We must always keep the stack 32-bit aligned, and every acess must be
-  // 32-bit aligned.
-  // We could Align{Up.Down}(size, 4), but that's potentially problematic:
+  // Claim memory on the stack.
+  // Note that the Claim, Drop, and Peek helpers below ensure that offsets used
+  // are multiples of 32 bits to help maintain 32-bit SP alignment.
+  // We could `Align{Up.Down}(size, 4)`, but that's potentially problematic:
   //     Claim(3)
   //     Claim(1)
   //     Drop(4)
