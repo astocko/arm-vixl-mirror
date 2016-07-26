@@ -16,6 +16,29 @@
       "revId": "3708f68d06808a3281d2afa801fcf2231d6a5967",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_668faf24",
+        "filename": "examples/aarch64/custom-disassembler.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1000226
+      },
+      "writtenOn": "2016-07-26T09:37:32Z",
+      "side": 1,
+      "message": "make it an inline version with a comment",
+      "range": {
+        "startLine": 174,
+        "startChar": 15,
+        "endLine": 174,
+        "endChar": 31
+      },
+      "revId": "3708f68d06808a3281d2afa801fcf2231d6a5967",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
