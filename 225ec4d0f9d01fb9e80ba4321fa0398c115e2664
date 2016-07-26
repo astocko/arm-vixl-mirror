@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba068154_c69f7b4f",
+        "filename": "src/aarch64/abi-aarch64.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-07-26T09:40:53Z",
+      "side": 1,
+      "message": "I think it could be simpler to just make type_alignment an int so that the template resolution works properly by default. Is that feasible?",
+      "revId": "225ec4d0f9d01fb9e80ba4321fa0398c115e2664",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
