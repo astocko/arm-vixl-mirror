@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba068154_a16d0107",
+        "filename": "examples/aarch32/disasm-a32.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-07-28T10:33:51Z",
+      "side": 1,
+      "message": "\"#ifdef linux\" might be a more conservative approach. It\u0027s up to you, though.",
+      "revId": "bd685d4a8e7196a12876542ffd472b35b68f3798",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
