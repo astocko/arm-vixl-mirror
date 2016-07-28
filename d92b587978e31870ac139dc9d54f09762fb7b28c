@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba068154_dc4aaa26",
+        "filename": "src/aarch32/disasm-aarch32.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 2475,
+      "author": {
+        "id": 1000234
+      },
+      "writtenOn": "2016-07-28T15:27:54Z",
+      "side": 1,
+      "message": "Why isn\u0027t there a constructor that has DisassemblerStream* as a parameter?",
+      "range": {
+        "startLine": 2474,
+        "startChar": 2,
+        "endLine": 2475,
+        "endChar": 31
+      },
+      "revId": "d92b587978e31870ac139dc9d54f09762fb7b28c",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_3c3c9693",
+        "filename": "src/aarch32/disasm-aarch32.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 2483,
+      "author": {
+        "id": 1000234
+      },
+      "writtenOn": "2016-07-28T15:27:54Z",
+      "side": 1,
+      "message": "It seems that here is the right place.",
+      "range": {
+        "startLine": 2482,
+        "startChar": 2,
+        "endLine": 2483,
+        "endChar": 23
+      },
+      "revId": "d92b587978e31870ac139dc9d54f09762fb7b28c",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
