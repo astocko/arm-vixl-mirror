@@ -115,6 +115,12 @@ class Assembler : public Instructions {
     VIXL_STATIC_ASSERT(sizeof(T) >= sizeof(uintptr_t));
     return buffer_.GetOffsetAddress<T>(offset);
   }
+  // Return the address of the start of the buffer.
+  template <typename T>
+  T GetStartAddress() const {
+    VIXL_STATIC_ASSERT(sizeof(T) >= sizeof(uintptr_t));
+    return GetOffsetAddress<T>(0);
+  }
   uint32_t GetArchitectureStatePCOffset() const { return IsT32() ? 4 : 8; }
   void EncodeLabelFor(const Label::ForwardReference& forward, Label* label);
   uint32_t Link(uint32_t instr,
