@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "ba068154_454edec2",
+        "filename": "src/aarch32/disasm-aarch32.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1000234
+      },
+      "writtenOn": "2016-08-02T14:00:43Z",
+      "side": 1,
+      "message": "There is no way to know whether this method has been called for a branch or a preload instruction (it may be called for a load as well, but that can be inferred by the presence of a destination register - slightly complicated approach, yet it works).",
+      "range": {
+        "startLine": 143,
+        "startChar": 4,
+        "endLine": 146,
+        "endChar": 5
+      },
+      "revId": "d92b587978e31870ac139dc9d54f09762fb7b28c",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_254bdab1",
+        "filename": "src/aarch32/disasm-aarch32.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 1000234
+      },
+      "writtenOn": "2016-08-02T14:00:43Z",
+      "side": 1,
+      "message": "There is no way to know what data type the memory operand refers to - the destination register does not provide enough information (i.e. loading a byte, half word and word uses the same type of destination register).",
+      "range": {
+        "startLine": 271,
+        "startChar": 4,
+        "endLine": 302,
+        "endChar": 5
+      },
+      "revId": "d92b587978e31870ac139dc9d54f09762fb7b28c",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba068154_dc4aaa26",
         "filename": "src/aarch32/disasm-aarch32.h",
         "patchSetId": 1
