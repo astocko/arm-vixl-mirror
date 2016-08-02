@@ -101,7 +101,10 @@ void LiteralPool::Emit(EmitOption option) {
   Label end_of_pool;
 
   VIXL_ASSERT(emit_size % kInstructionSize == 0);
-  InstructionAccurateScope guard(masm_, emit_size / kInstructionSize);
+  CodeBufferCheckScope guard(masm_,
+                             emit_size,
+                             CodeBufferCheckScope::kCheck,
+                             CodeBufferCheckScope::kExactSize);
   if (option == kBranchRequired) masm_->b(&end_of_pool);
 
   // Marker indicating the size of the literal pool in 32-bit words.
@@ -226,7 +229,10 @@ void VeneerPool::Emit(EmitOption option, size_t amount) {
 
   Label end;
   if (option == kBranchRequired) {
-    InstructionAccurateScope scope(masm_, 1);
+    CodeBufferCheckScope guard(masm_,
+                               kInstructionSize,
+                               CodeBufferCheckScope::kCheck,
+                               CodeBufferCheckScope::kExactSize);
     masm_->b(&end);
   }
 
@@ -239,7 +245,10 @@ void VeneerPool::Emit(EmitOption option, size_t amount) {
     BranchInfo* branch_info = it.Current();
     if (ShouldEmitVeneer(branch_info->max_reachable_pc_,
                          amount + kVeneerEmissionMargin)) {
-      InstructionAccurateScope scope(masm_, kVeneerCodeSize / kInstructionSize);
+      CodeBufferCheckScope guard(masm_,
+                                 kVeneerCodeSize,
+                                 CodeBufferCheckScope::kCheck,
+                                 CodeBufferCheckScope::kExactSize);
       ptrdiff_t branch_pos = branch_info->pc_offset_;
       Instruction* branch = masm_->GetInstructionAt(branch_pos);
       Label* label = branch_info->label_;

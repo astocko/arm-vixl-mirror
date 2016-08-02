@@ -3152,22 +3152,28 @@ class InstructionAccurateScope : public CodeBufferCheckScope {
   InstructionAccurateScope(MacroAssembler* masm,
                            int64_t count,
                            AssertPolicy policy = kExactSize)
-      : CodeBufferCheckScope(masm, (count * kInstructionSize), kCheck, policy) {
+      : CodeBufferCheckScope(masm, (count * kInstructionSize), kCheck, policy),
+        masm_(masm) {
     VIXL_ASSERT(policy != kNoAssert);
 #ifdef VIXL_DEBUG
     old_allow_macro_instructions_ = masm->AllowMacroInstructions();
-    masm->SetAllowMacroInstructions(false);
+    masm_->SetAllowMacroInstructions(false);
 #endif
+    // Ensure that pools have been generated if necessary.
+    masm_->EnsureEmitFor(count * kInstructionSize);
+    // Explicitly block pools to catch any attempt to manually emit the pools.
+    masm_->BlockPools();
   }
 
   ~InstructionAccurateScope() {
+    masm_->ReleasePools();
 #ifdef VIXL_DEBUG
-    MacroAssembler* masm = reinterpret_cast<MacroAssembler*>(assm_);
-    masm->SetAllowMacroInstructions(old_allow_macro_instructions_);
+    masm_->SetAllowMacroInstructions(old_allow_macro_instructions_);
 #endif
   }
 
  private:
+  MacroAssembler* masm_;
 #ifdef VIXL_DEBUG
   bool old_allow_macro_instructions_;
 #endif
