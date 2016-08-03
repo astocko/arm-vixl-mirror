@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba068154_285291dd",
+        "filename": "src/aarch32/assembler-aarch32.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1000219
+      },
+      "writtenOn": "2016-08-03T09:53:52Z",
+      "side": 1,
+      "message": "At the moment, CodeBuffer already has GetBuffer() which is the same although not templated, it uses byte*. I prefer this templated version as it doesn\u0027t assume the address is a host pointer.\n\nAnd also, the name GetBuffer is a little confusing IMO, it clashes with MacroAssembler::GetBuffer() which returns a CodeBuffer, while CodeBuffer::GetBuffer() returns an address.\n\nAs a result we have things like masm-\u003eGetBuffer().GetBuffer() in VIXL32 which looks surprising.\n\nSo, how about adding this helper into code-buffer-vixl.h as well as here? In general, someone correct me, but we like having methods such as this one in CodeBuffer, and then duplicate it in the assembler for convenience. So we can do both:\n\n- masm-\u003eGetBuffer().GetStartAddress\u003cuint32_t*\u003e()\n- masm-\u003eGetStartAddress\u003cuint32_t*\u003e()\n\nI\u0027d be up for discussing deprecating CodeBuffer::GetBuffer.",
+      "revId": "1f028d6637449c97fa678ad591f2db42e251679d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
