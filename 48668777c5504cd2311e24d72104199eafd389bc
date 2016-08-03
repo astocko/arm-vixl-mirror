@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ba068154_e86ec995",
+        "filename": "src/aarch64/macro-assembler-aarch64.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-08-03T10:06:43Z",
+      "side": 1,
+      "message": "I changed it for a reason: it is incorrect!\n\n`InstructionAccurateScope` does *more* than checking for the size of the code emitted. And that is not what we want here. In practice, it leads to infinite recursive calls.",
+      "parentUuid": "ba068154_084b4d2c",
+      "range": {
+        "startLine": 104,
+        "startChar": 0,
+        "endLine": 107,
+        "endChar": 63
+      },
+      "revId": "48668777c5504cd2311e24d72104199eafd389bc",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba068154_e847e91b",
         "filename": "src/aarch64/macro-assembler-aarch64.cc",
         "patchSetId": 1
@@ -82,6 +106,30 @@
       "writtenOn": "2016-08-03T09:53:56Z",
       "side": 1,
       "message": "This doesn\u0027t hurt, but it shouldn\u0027t actually be necessary because macro instructions are forbidden inside an InstructionAccurateScope.",
+      "range": {
+        "startLine": 3164,
+        "startChar": 0,
+        "endLine": 3165,
+        "endChar": 24
+      },
+      "revId": "48668777c5504cd2311e24d72104199eafd389bc",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_486c359d",
+        "filename": "src/aarch64/macro-assembler-aarch64.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 3165,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-08-03T10:06:43Z",
+      "side": 1,
+      "message": "It *is* necessary; see the comment. Pools are not only created by writing code such as `__ Add(...)`. One could have a call to `LiteralPool::Emit()` in a helper.",
+      "parentUuid": "ba068154_a8468121",
       "range": {
         "startLine": 3164,
         "startChar": 0,
