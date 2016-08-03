@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba068154_084b4d2c",
+        "filename": "src/aarch64/macro-assembler-aarch64.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-08-03T09:53:56Z",
+      "side": 1,
+      "message": "InstructionAccurateScope is more appropriate here, isn\u0027t it?",
+      "range": {
+        "startLine": 104,
+        "startChar": 0,
+        "endLine": 107,
+        "endChar": 63
+      },
+      "revId": "48668777c5504cd2311e24d72104199eafd389bc",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_e847e91b",
+        "filename": "src/aarch64/macro-assembler-aarch64.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-08-03T09:53:56Z",
+      "side": 1,
+      "message": "Ditto.",
+      "range": {
+        "startLine": 232,
+        "startChar": 4,
+        "endLine": 235,
+        "endChar": 65
+      },
+      "revId": "48668777c5504cd2311e24d72104199eafd389bc",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_485555c5",
+        "filename": "src/aarch64/macro-assembler-aarch64.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-08-03T09:53:56Z",
+      "side": 1,
+      "message": "Ditto.",
+      "range": {
+        "startLine": 248,
+        "startChar": 6,
+        "endLine": 251,
+        "endChar": 67
+      },
+      "revId": "48668777c5504cd2311e24d72104199eafd389bc",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_a8468121",
+        "filename": "src/aarch64/macro-assembler-aarch64.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 3165,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-08-03T09:53:56Z",
+      "side": 1,
+      "message": "This doesn\u0027t hurt, but it shouldn\u0027t actually be necessary because macro instructions are forbidden inside an InstructionAccurateScope.",
+      "range": {
+        "startLine": 3164,
+        "startChar": 0,
+        "endLine": 3165,
+        "endChar": 24
+      },
+      "revId": "48668777c5504cd2311e24d72104199eafd389bc",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
