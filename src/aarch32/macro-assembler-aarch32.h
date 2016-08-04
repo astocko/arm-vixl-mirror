@@ -8081,6 +8081,175 @@ class MacroAssembler : public Assembler {
   }
   void Yield() { Yield(al); }
   // End of generated code.
+
+  void Vadd(Condition cond, DRegister rd, DRegister rn, DRegister rm) {
+    Vadd(cond, F64, rd, rn, rm);
+  }
+
+  void Vadd(DRegister rd, DRegister rn, DRegister rm) { Vadd(F64, rd, rn, rm); }
+
+  void Vadd(Condition cond, SRegister rd, SRegister rn, SRegister rm) {
+    Vadd(cond, F32, rd, rn, rm);
+  }
+
+  void Vadd(SRegister rd, SRegister rn, SRegister rm) { Vadd(F32, rd, rn, rm); }
+
+  void Vdiv(Condition cond, DRegister rd, DRegister rn, DRegister rm) {
+    Vdiv(cond, F64, rd, rn, rm);
+  }
+
+  void Vdiv(DRegister rd, DRegister rn, DRegister rm) { Vdiv(F64, rd, rn, rm); }
+
+  void Vdiv(Condition cond, SRegister rd, SRegister rn, SRegister rm) {
+    Vdiv(cond, F32, rd, rn, rm);
+  }
+
+  void Vdiv(SRegister rd, SRegister rn, SRegister rm) { Vdiv(F32, rd, rn, rm); }
+
+  void Vmla(Condition cond, DRegister rd, DRegister rn, DRegister rm) {
+    Vmla(cond, F64, rd, rn, rm);
+  }
+
+  void Vmla(DRegister rd, DRegister rn, DRegister rm) { Vmla(F64, rd, rn, rm); }
+
+  void Vmla(Condition cond, SRegister rd, SRegister rn, SRegister rm) {
+    Vmla(cond, F32, rd, rn, rm);
+  }
+
+  void Vmla(SRegister rd, SRegister rn, SRegister rm) { Vmla(F32, rd, rn, rm); }
+
+  void Vmls(Condition cond, DRegister rd, DRegister rn, DRegister rm) {
+    Vmls(cond, F64, rd, rn, rm);
+  }
+
+  void Vmls(DRegister rd, DRegister rn, DRegister rm) { Vmls(F64, rd, rn, rm); }
+
+  void Vmls(Condition cond, SRegister rd, SRegister rn, SRegister rm) {
+    Vmls(cond, F32, rd, rn, rm);
+  }
+
+  void Vmls(SRegister rd, SRegister rn, SRegister rm) { Vmls(F32, rd, rn, rm); }
+
+  void Vmul(Condition cond, DRegister rd, DRegister rn, DRegister rm) {
+    Vmul(cond, F64, rd, rn, rm);
+  }
+
+  void Vmul(DRegister rd, DRegister rn, DRegister rm) { Vmul(F64, rd, rn, rm); }
+
+  void Vmul(Condition cond, SRegister rd, SRegister rn, SRegister rm) {
+    Vmul(cond, F32, rd, rn, rm);
+  }
+
+  void Vmul(SRegister rd, SRegister rn, SRegister rm) { Vmul(F32, rd, rn, rm); }
+
+  void Vneg(Condition cond, DRegister rd, DRegister rm) {
+    Vneg(cond, F64, rd, rm);
+  }
+
+  void Vneg(DRegister rd, DRegister rm) { Vneg(F64, rd, rm); }
+
+  void Vneg(Condition cond, SRegister rd, SRegister rm) {
+    Vneg(cond, F32, rd, rm);
+  }
+
+  void Vneg(SRegister rd, SRegister rm) { Vneg(F32, rd, rm); }
+
+  void Vnmla(Condition cond, DRegister rd, DRegister rn, DRegister rm) {
+    Vnmla(cond, F64, rd, rn, rm);
+  }
+
+  void Vnmla(DRegister rd, DRegister rn, DRegister rm) {
+    Vnmla(F64, rd, rn, rm);
+  }
+
+  void Vnmla(Condition cond, SRegister rd, SRegister rn, SRegister rm) {
+    Vnmla(cond, F32, rd, rn, rm);
+  }
+
+  void Vnmla(SRegister rd, SRegister rn, SRegister rm) {
+    Vnmla(F32, rd, rn, rm);
+  }
+
+  void Vnmls(Condition cond, DRegister rd, DRegister rn, DRegister rm) {
+    Vnmls(cond, F64, rd, rn, rm);
+  }
+
+  void Vnmls(DRegister rd, DRegister rn, DRegister rm) {
+    Vnmls(F64, rd, rn, rm);
+  }
+
+  void Vnmls(Condition cond, SRegister rd, SRegister rn, SRegister rm) {
+    Vnmls(cond, F32, rd, rn, rm);
+  }
+
+  void Vnmls(SRegister rd, SRegister rn, SRegister rm) {
+    Vnmls(F32, rd, rn, rm);
+  }
+
+  void Vnmul(Condition cond, DRegister rd, DRegister rn, DRegister rm) {
+    Vnmul(cond, F64, rd, rn, rm);
+  }
+
+  void Vnmul(DRegister rd, DRegister rn, DRegister rm) {
+    Vnmul(F64, rd, rn, rm);
+  }
+
+  void Vnmul(Condition cond, SRegister rd, SRegister rn, SRegister rm) {
+    Vnmul(cond, F32, rd, rn, rm);
+  }
+
+  void Vnmul(SRegister rd, SRegister rn, SRegister rm) {
+    Vnmul(F32, rd, rn, rm);
+  }
+
+  void Vrinta(DRegister rd, DRegister rm) { Vrinta(F64, F64, rd, rm); }
+
+  void Vrinta(SRegister rd, SRegister rm) { Vrinta(F32, F32, rd, rm); }
+
+  void Vrintm(DRegister rd, DRegister rm) { Vrintm(F64, F64, rd, rm); }
+
+  void Vrintm(SRegister rd, SRegister rm) { Vrintm(F32, F32, rd, rm); }
+
+  void Vrintn(DRegister rd, DRegister rm) { Vrintn(F64, F64, rd, rm); }
+
+  void Vrintn(SRegister rd, SRegister rm) { Vrintn(F32, F32, rd, rm); }
+
+  void Vrintp(DRegister rd, DRegister rm) { Vrintp(F64, F64, rd, rm); }
+
+  void Vrintp(SRegister rd, SRegister rm) { Vrintp(F32, F32, rd, rm); }
+
+  void Vrintx(DRegister rd, DRegister rm) { Vrintx(F64, F64, rd, rm); }
+
+  void Vrintx(SRegister rd, SRegister rm) { Vrintx(F32, F32, rd, rm); }
+
+  void Vrintz(DRegister rd, DRegister rm) { Vrintz(F64, F64, rd, rm); }
+
+  void Vrintz(SRegister rd, SRegister rm) { Vrintz(F32, F32, rd, rm); }
+
+  void Vsqrt(Condition cond, DRegister rd, DRegister rm) {
+    Vsqrt(cond, F64, rd, rm);
+  }
+
+  void Vsqrt(DRegister rd, DRegister rm) { Vsqrt(F64, rd, rm); }
+
+  void Vsqrt(Condition cond, SRegister rd, SRegister rm) {
+    Vsqrt(cond, F32, rd, rm);
+  }
+
+  void Vsqrt(SRegister rd, SRegister rm) { Vsqrt(F32, rd, rm); }
+
+  void Vsub(Condition cond, DRegister rd, DRegister rn, DRegister rm) {
+    Vsub(cond, F64, rd, rn, rm);
+  }
+
+  void Vsub(DRegister rd, DRegister rn, DRegister rm) { Vsub(F64, rd, rn, rm); }
+
+  void Vsub(Condition cond, SRegister rd, SRegister rn, SRegister rm) {
+    Vsub(cond, F32, rd, rn, rm);
+  }
+
+  void Vsub(SRegister rd, SRegister rn, SRegister rm) { Vsub(F32, rd, rn, rm); }
+
  private:
   RegisterList available_;
   VRegisterList available_vfp_;

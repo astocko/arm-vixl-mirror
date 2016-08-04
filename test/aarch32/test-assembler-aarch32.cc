@@ -1731,5 +1731,287 @@ TEST(set_isa_noop) {
 }
 
 
+TEST(implicit_d_datatype_part_one) {
+  SETUP();
+
+  START();
+
+  __ Mov(r0, 0);
+  __ Cmp(r0, 0);
+
+  __ Vmov(d0, 8.0);
+  __ Vmov(d1, 4.0);
+
+  __ Vadd(d10, d0, d1);
+  __ Vadd(eq, d11, d0, d1);
+
+  __ Vdiv(d12, d0, d1);
+  __ Vdiv(eq, d13, d0, d1);
+
+  __ Vmov(d14, 100.0);
+  __ Vmla(d14, d0, d1);
+  __ Vmov(d15, 100.0);
+  __ Vmla(ne, d15, d0, d1);
+
+  __ Vmov(d16, 100.0);
+  __ Vmls(d16, d0, d1);
+  __ Vmov(d17, 100.0);
+  __ Vmls(eq, d17, d0, d1);
+
+  __ Vmul(d18, d0, d1);
+  __ Vmul(eq, d19, d0, d1);
+
+  __ Vneg(d20, d0);
+  __ Vneg(eq, d21, d1);
+
+  __ Vmov(d22, 100.0);
+  __ Vnmla(d22, d0, d1);
+  __ Vmov(d23, 100.0);
+  __ Vnmla(eq, d23, d0, d1);
+
+  __ Vmov(d24, 100.0);
+  __ Vnmla(d24, d0, d1);
+  __ Vmov(d25, 100.0);
+  __ Vnmla(ne, d25, d0, d1);
+
+  __ Vnmul(d26, d0, d1);
+  __ Vnmul(eq, d27, d0, d1);
+
+  __ Vsqrt(d28, d0);
+
+  __ Vsub(d29, d0, d1);
+  __ Vsub(eq, d30, d1, d0);
+
+  END();
+
+  RUN();
+
+  ASSERT_EQUAL_FP64(8.0, d0);
+  ASSERT_EQUAL_FP64(4.0, d1);
+  ASSERT_EQUAL_FP64(12.0, d10);
+  ASSERT_EQUAL_FP64(12.0, d11);
+  ASSERT_EQUAL_FP64(2.0, d12);
+  ASSERT_EQUAL_FP64(2.0, d13);
+  ASSERT_EQUAL_FP64(132.0, d14);
+  ASSERT_EQUAL_FP64(100.0, d15);
+  ASSERT_EQUAL_FP64(68.0, d16);
+  ASSERT_EQUAL_FP64(68.0, d17);
+  ASSERT_EQUAL_FP64(32.0, d18);
+  ASSERT_EQUAL_FP64(32.0, d19);
+  ASSERT_EQUAL_FP64(-8.0, d20);
+  ASSERT_EQUAL_FP64(-4.0, d21);
+  ASSERT_EQUAL_FP64(-132.0, d22);
+  ASSERT_EQUAL_FP64(-132.0, d23);
+  ASSERT_EQUAL_FP64(-68.0, d24);
+  ASSERT_EQUAL_FP64(100.0, d25);
+  ASSERT_EQUAL_FP64(-32.0, d26);
+  ASSERT_EQUAL_FP64(-32.0, d27);
+  ASSERT_EQUAL_FP64(2.0, d28);
+  ASSERT_EQUAL_FP64(-4.0, d29);
+  ASSERT_EQUAL_FP64(4.0, d30);
+
+  TEARDOWN();
+}
+
+
+TEST(implicit_d_datatype_part_two) {
+  SETUP();
+
+  START();
+
+  __ Vmov(d1, 1.1);
+  __ Vmov(d5, -5.5);
+  __ Vmov(d9, 9.9);
+
+  __ Vrinta(d10, d1);
+  __ Vrinta(d11, d5);
+  __ Vrinta(d12, d9);
+
+  __ Vrintm(d13, d1);
+  __ Vrintm(d14, d5);
+  __ Vrintm(d15, d9);
+
+  __ Vrintn(d16, d1);
+  __ Vrintn(d17, d5);
+  __ Vrintn(d18, d9);
+
+  __ Vrintp(d19, d1);
+  __ Vrintp(d20, d5);
+  __ Vrintp(d21, d9);
+
+  __ Vrintz(d22, d1);
+  __ Vrintz(d23, d5);
+  __ Vrintz(d24, d9);
+
+  // Note that we do not test VRINX. It requires playing with the FPSCR, which
+  // we do not want to do here.
+
+  END();
+
+  RUN();
+
+  ASSERT_EQUAL_FP64(1.1, d1);
+  ASSERT_EQUAL_FP64(5.5, d5);
+  ASSERT_EQUAL_FP64(9.9, d9);
+  ASSERT_EQUAL_FP64(2.0, d10);
+  ASSERT_EQUAL_FP64(-6.0, d11);
+  ASSERT_EQUAL_FP64(10.0, d12);
+  ASSERT_EQUAL_FP64(1.0, d13);
+  ASSERT_EQUAL_FP64(-6.0, d14);
+  ASSERT_EQUAL_FP64(9.0, d15);
+  ASSERT_EQUAL_FP64(1.0, d16);
+  ASSERT_EQUAL_FP64(-6.0, d17);
+  ASSERT_EQUAL_FP64(10.0, d18);
+  ASSERT_EQUAL_FP64(2.0, d19);
+  ASSERT_EQUAL_FP64(-5.0, d20);
+  ASSERT_EQUAL_FP64(10.0, d21);
+  ASSERT_EQUAL_FP64(1.0, d22);
+  ASSERT_EQUAL_FP64(-5.0, d23);
+  ASSERT_EQUAL_FP64(9.0, d24);
+
+  TEARDOWN();
+}
+
+
+TEST(implicit_s_datatype_part_one) {
+  SETUP();
+
+  START();
+
+  __ Mov(r0, 0);
+  __ Cmp(r0, 0);
+
+  __ Vmov(s0, 8.0);
+  __ Vmov(s1, 4.0);
+
+  __ Vadd(s10, s0, s1);
+  __ Vadd(eq, s11, s0, s1);
+
+  __ Vdiv(s12, s0, s1);
+  __ Vdiv(eq, s13, s0, s1);
+
+  __ Vmov(s14, 100.0);
+  __ Vmla(s14, s0, s1);
+  __ Vmov(s15, 100.0);
+  __ Vmla(ne, s15, s0, s1);
+
+  __ Vmov(s16, 100.0);
+  __ Vmls(s16, s0, s1);
+  __ Vmov(s17, 100.0);
+  __ Vmls(eq, s17, s0, s1);
+
+  __ Vmul(s18, s0, s1);
+  __ Vmul(eq, s19, s0, s1);
+
+  __ Vneg(s20, s0);
+  __ Vneg(eq, s21, s1);
+
+  __ Vmov(s22, 100.0);
+  __ Vnmla(s22, s0, s1);
+  __ Vmov(s23, 100.0);
+  __ Vnmla(eq, s23, s0, s1);
+
+  __ Vmov(s24, 100.0);
+  __ Vnmla(s24, s0, s1);
+  __ Vmov(s25, 100.0);
+  __ Vnmla(ne, s25, s0, s1);
+
+  __ Vnmul(s26, s0, s1);
+  __ Vnmul(eq, s27, s0, s1);
+
+  __ Vsqrt(s28, s0);
+
+  __ Vsub(s29, s0, s1);
+  __ Vsub(eq, s30, s1, s0);
+
+  END();
+
+  RUN();
+
+  ASSERT_EQUAL_FP64(8.0, s0);
+  ASSERT_EQUAL_FP64(4.0, s1);
+  ASSERT_EQUAL_FP64(12.0, s10);
+  ASSERT_EQUAL_FP64(12.0, s11);
+  ASSERT_EQUAL_FP64(2.0, s12);
+  ASSERT_EQUAL_FP64(2.0, s13);
+  ASSERT_EQUAL_FP64(132.0, s14);
+  ASSERT_EQUAL_FP64(100.0, s15);
+  ASSERT_EQUAL_FP64(68.0, s16);
+  ASSERT_EQUAL_FP64(68.0, s17);
+  ASSERT_EQUAL_FP64(32.0, s18);
+  ASSERT_EQUAL_FP64(32.0, s19);
+  ASSERT_EQUAL_FP64(-8.0, s20);
+  ASSERT_EQUAL_FP64(-4.0, s21);
+  ASSERT_EQUAL_FP64(-132.0, s22);
+  ASSERT_EQUAL_FP64(-132.0, s23);
+  ASSERT_EQUAL_FP64(-68.0, s24);
+  ASSERT_EQUAL_FP64(100.0, s25);
+  ASSERT_EQUAL_FP64(-32.0, s26);
+  ASSERT_EQUAL_FP64(-32.0, s27);
+  ASSERT_EQUAL_FP64(2.0, s28);
+  ASSERT_EQUAL_FP64(-4.0, s29);
+  ASSERT_EQUAL_FP64(4.0, s30);
+
+  TEARDOWN();
+}
+
+
+TEST(implicit_s_datatype_part_two) {
+  SETUP();
+
+  START();
+
+  __ Vmov(s1, 1.1);
+  __ Vmov(s5, -5.5);
+  __ Vmov(s9, 9.9);
+
+  __ Vrinta(s10, s1);
+  __ Vrinta(s11, s5);
+  __ Vrinta(s12, s9);
+
+  __ Vrintm(s13, s1);
+  __ Vrintm(s14, s5);
+  __ Vrintm(s15, s9);
+
+  __ Vrintn(s16, s1);
+  __ Vrintn(s17, s5);
+  __ Vrintn(s18, s9);
+
+  __ Vrintp(s19, s1);
+  __ Vrintp(s20, s5);
+  __ Vrintp(s21, s9);
+
+  __ Vrintz(s22, s1);
+  __ Vrintz(s23, s5);
+  __ Vrintz(s24, s9);
+
+  // Note that we so not test VRINX. It requires playing with the FPSCR, which
+  // we so not want to so here.
+
+  END();
+
+  RUN();
+
+  ASSERT_EQUAL_FP64(1.1, s1);
+  ASSERT_EQUAL_FP64(5.5, s5);
+  ASSERT_EQUAL_FP64(9.9, s9);
+  ASSERT_EQUAL_FP64(2.0, s10);
+  ASSERT_EQUAL_FP64(-6.0, s11);
+  ASSERT_EQUAL_FP64(10.0, s12);
+  ASSERT_EQUAL_FP64(1.0, s13);
+  ASSERT_EQUAL_FP64(-6.0, s14);
+  ASSERT_EQUAL_FP64(9.0, s15);
+  ASSERT_EQUAL_FP64(1.0, s16);
+  ASSERT_EQUAL_FP64(-6.0, s17);
+  ASSERT_EQUAL_FP64(10.0, s18);
+  ASSERT_EQUAL_FP64(2.0, s19);
+  ASSERT_EQUAL_FP64(-5.0, s20);
+  ASSERT_EQUAL_FP64(10.0, s21);
+  ASSERT_EQUAL_FP64(1.0, s22);
+  ASSERT_EQUAL_FP64(-5.0, s23);
+  ASSERT_EQUAL_FP64(9.0, s24);
+
+  TEARDOWN();
+}
 }  // namespace aarch32
 }  // namespace vixl

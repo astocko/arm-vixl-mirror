@@ -260,7 +260,7 @@ class DataType {
 
  public:
   DataType(DataTypeValue value) : value_(value) {}  // NOLINT
-  DataType(uint32_t size)                           // NOLINT
+  explicit DataType(uint32_t size)
       : value_(static_cast<DataTypeValue>(kDataTypeUntyped | size)) {
     VIXL_ASSERT((size == 8) || (size == 16) || (size == 32) || (size == 64));
   }
