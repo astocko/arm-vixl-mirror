@@ -148,8 +148,7 @@ just change `InstructionAccurateScope`'s behaviour because the constructor
 prototype would be unchanged, so there would be no compile-time warning for
 users.
 
-Note that VIXL64's existing InstructionAccurateScope doesn't check the pools
-properly [VIXL1-99].
+TODO: double check doc
 
 ### `MacroAssembler::EnsureEmitFor`
 
