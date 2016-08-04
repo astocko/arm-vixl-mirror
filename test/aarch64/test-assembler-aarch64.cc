@@ -14438,6 +14438,34 @@ TEST(instruction_accurate_scope) {
 }
 
 
+TEST(instruction_accurate_scope_with_pools) {
+  SETUP();
+  START();
+
+  ASSERT_LITERAL_POOL_SIZE(0);
+
+  __ Ldr(x10, 0x1234567890abcdef);
+
+  ASSERT_LITERAL_POOL_SIZE(8);
+
+  const int64_t n_instructions = kMaxLoadLiteralRange / kInstructionSize;
+  {
+    // The literal pool should be generated at this point, as otherwise the
+    // `Ldr` will run out of range when we generate the `nop` instructions
+    // below.
+    InstructionAccurateScope scope(&masm, n_instructions);
+
+    for (int64_t i = 0; i < n_instructions; ++i) {
+      __ nop();
+    }
+  }
+
+  END();
+  RUN();
+  TEARDOWN();
+}
+
+
 TEST(blr_lr) {
   // A simple test to check that the simulator correcty handle "blr lr".
   SETUP();
