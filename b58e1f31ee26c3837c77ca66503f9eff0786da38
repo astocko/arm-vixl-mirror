@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba068154_8818dd85",
+        "filename": "src/aarch64/macro-assembler-aarch64.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1000226
+      },
+      "writtenOn": "2016-08-04T15:29:49Z",
+      "side": 1,
+      "message": "I haven\u0027t thought very hard about it but how about renaming this to DisallowMacroAssemblerScope. Then InstructionAccurateScope is equivalent to CodeBufferCheckScope followed by DisallowMacroAssemblerScope. And you can reuse it later during pool emission.",
+      "revId": "b58e1f31ee26c3837c77ca66503f9eff0786da38",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_4881d58e",
+        "filename": "src/aarch64/macro-assembler-aarch64.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1000226
+      },
+      "writtenOn": "2016-08-04T15:29:49Z",
+      "side": 1,
+      "message": "It would be good to enforce the macro assembler is not allowed here too.",
+      "revId": "b58e1f31ee26c3837c77ca66503f9eff0786da38",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
