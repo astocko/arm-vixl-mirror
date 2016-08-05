@@ -433,7 +433,7 @@ void MacroAssembler::HandleOutOfBoundsImmediate(Condition cond,
                                                 uint32_t imm) {
   // Immediate is too large, so handle using a temporary
   // register
-  Mov(cond, tmp, imm & 0xffff);
+  Movw(cond, tmp, imm & 0xffff);
   Movt(cond, tmp, imm >> 16);
 }
 
