@@ -16,6 +16,24 @@
       "revId": "1f028d6637449c97fa678ad591f2db42e251679d",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_6bd81354",
+        "filename": "src/aarch32/assembler-aarch32.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1000245
+      },
+      "writtenOn": "2016-08-05T09:32:55Z",
+      "side": 1,
+      "message": "Ok, I\u0027ve copied this helper to CodeBuffer; deprecating of GetBuffer probably could be done in another patch.",
+      "parentUuid": "ba068154_285291dd",
+      "revId": "1f028d6637449c97fa678ad591f2db42e251679d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
