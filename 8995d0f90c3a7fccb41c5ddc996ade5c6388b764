@@ -86,6 +86,24 @@
       "revId": "8995d0f90c3a7fccb41c5ddc996ade5c6388b764",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_56d85253",
+        "filename": "src/aarch64/macro-assembler-aarch64.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 506,
+      "author": {
+        "id": 1000226
+      },
+      "writtenOn": "2016-08-08T12:47:31Z",
+      "side": 1,
+      "message": "I meant to add the virtual to the base class. I can\u0027t think of a use case right now but users may.",
+      "parentUuid": "ba068154_763756b1",
+      "revId": "8995d0f90c3a7fccb41c5ddc996ade5c6388b764",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
