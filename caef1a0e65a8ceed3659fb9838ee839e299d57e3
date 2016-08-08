@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba068154_d6aba2d4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-08-08T09:26:03Z",
+      "side": 1,
+      "message": "* AArch32: Improve ...",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 15
+      },
+      "revId": "caef1a0e65a8ceed3659fb9838ee839e299d57e3",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_f6aea6e6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-08-08T09:26:03Z",
+      "side": 1,
+      "message": "Use backticks \u0027`\u0027, markdown style.\nPrefix with `MacroAssembler` to give more context.",
+      "range": {
+        "startLine": 7,
+        "startChar": 16,
+        "endLine": 7,
+        "endChar": 42
+      },
+      "revId": "caef1a0e65a8ceed3659fb9838ee839e299d57e3",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_96aabad2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-08-08T09:26:03Z",
+      "side": 1,
+      "message": "Can you give more information without going into confidential info?",
+      "revId": "caef1a0e65a8ceed3659fb9838ee839e299d57e3",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
