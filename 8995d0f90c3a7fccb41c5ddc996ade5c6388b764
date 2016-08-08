@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ba068154_f6c34688",
+        "filename": "src/aarch64/macro-assembler-aarch64.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-08-08T10:36:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba068154_16e40a3a",
+      "revId": "8995d0f90c3a7fccb41c5ddc996ade5c6388b764",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba068154_76d0f653",
         "filename": "src/aarch64/macro-assembler-aarch64.cc",
         "patchSetId": 2
@@ -47,6 +65,24 @@
       "writtenOn": "2016-08-08T10:01:47Z",
       "side": 1,
       "message": "this should be virtual now.",
+      "revId": "8995d0f90c3a7fccb41c5ddc996ade5c6388b764",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_763756b1",
+        "filename": "src/aarch64/macro-assembler-aarch64.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 506,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-08-08T10:36:32Z",
+      "side": 1,
+      "message": "Do you mean we should have all our scopes in this chain have virtual destructors?\n\nI would not expect uses that would require it.",
+      "parentUuid": "ba068154_b6f37e09",
       "revId": "8995d0f90c3a7fccb41c5ddc996ade5c6388b764",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
