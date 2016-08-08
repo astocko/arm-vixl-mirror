@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba068154_16e40a3a",
+        "filename": "src/aarch64/macro-assembler-aarch64.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 1000226
+      },
+      "writtenOn": "2016-08-08T10:01:47Z",
+      "side": 1,
+      "message": "I would add a comment here to say we intentionally call Open and do not chain the corresponding super class constructor as we want to block (and if necessary emit) the pools before checking the buffer size. Otherwise one might be tempted to refactor later on.",
+      "revId": "8995d0f90c3a7fccb41c5ddc996ade5c6388b764",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_76d0f653",
+        "filename": "src/aarch64/macro-assembler-aarch64.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 1000226
+      },
+      "writtenOn": "2016-08-08T10:01:47Z",
+      "side": 1,
+      "message": "maybe a comment on why we don\u0027t rely on destructor chaining. Here since ReleasePools doesn\u0027t emit code, the code would work without this line.",
+      "revId": "8995d0f90c3a7fccb41c5ddc996ade5c6388b764",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_b6f37e09",
+        "filename": "src/aarch64/macro-assembler-aarch64.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 506,
+      "author": {
+        "id": 1000226
+      },
+      "writtenOn": "2016-08-08T10:01:47Z",
+      "side": 1,
+      "message": "this should be virtual now.",
+      "revId": "8995d0f90c3a7fccb41c5ddc996ade5c6388b764",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
