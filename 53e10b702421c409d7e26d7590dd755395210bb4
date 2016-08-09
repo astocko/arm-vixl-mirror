@@ -16,6 +16,24 @@
       "revId": "53e10b702421c409d7e26d7590dd755395210bb4",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_56c172e3",
+        "filename": "test/aarch64/test-assembler-aarch64.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 14462,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-08-09T07:36:50Z",
+      "side": 1,
+      "message": "Added. Actually, that is not the exact point where it matters. I\u0027ll add some comments to explain why I don\u0027t have asserts in other places.",
+      "parentUuid": "ba068154_d6f44289",
+      "revId": "53e10b702421c409d7e26d7590dd755395210bb4",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
