@@ -54,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "ba068154_f64a2626",
+        "filename": "src/aarch64/macro-assembler-aarch64.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-08-09T07:35:09Z",
+      "side": 1,
+      "message": "Removed. It is not necessary. I had added it for symmetry with the `Open()` call above, but it is confusing to have it if it does not serve a purpose.",
+      "parentUuid": "ba068154_76d0f653",
+      "revId": "8995d0f90c3a7fccb41c5ddc996ade5c6388b764",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba068154_b6f37e09",
         "filename": "src/aarch64/macro-assembler-aarch64.h",
         "patchSetId": 2
@@ -101,6 +119,24 @@
       "side": 1,
       "message": "I meant to add the virtual to the base class. I can\u0027t think of a use case right now but users may.",
       "parentUuid": "ba068154_763756b1",
+      "revId": "8995d0f90c3a7fccb41c5ddc996ade5c6388b764",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_16908aeb",
+        "filename": "src/aarch64/macro-assembler-aarch64.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 506,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-08-09T07:35:09Z",
+      "side": 1,
+      "message": "Addressed in another commit.",
+      "parentUuid": "ba068154_56d85253",
       "revId": "8995d0f90c3a7fccb41c5ddc996ade5c6388b764",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
