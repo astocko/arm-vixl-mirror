@@ -3444,4 +3444,8 @@ inline void InvalSet<aarch64::VeneerPool::BranchInfo,
 
 }  // namespace vixl
 
+
+#include "macro-assembler-aarch64-inl.h"
+
+
 #endif  // VIXL_AARCH64_MACRO_ASSEMBLER_AARCH64_H_

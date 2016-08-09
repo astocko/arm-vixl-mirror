@@ -3472,4 +3472,8 @@ inline void InvalSet<INVAL_SET_TEMPLATE_PARAMETERS>::SetKey(ptrdiff_t* element,
 
 }  // namespace vixl
 
+
+#include "assembler-aarch64-inl.h"
+
+
 #endif  // VIXL_AARCH64_ASSEMBLER_AARCH64_H_

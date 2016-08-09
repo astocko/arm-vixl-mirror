@@ -301,59 +301,6 @@ void VeneerPool::Emit(EmitOption option, size_t amount) {
 }
 
 
-EmissionCheckScope::EmissionCheckScope(MacroAssembler* masm,
-                                       size_t size,
-                                       AssertPolicy assert_policy) {
-  Open(masm, size, assert_policy);
-}
-
-
-EmissionCheckScope::~EmissionCheckScope() { Close(); }
-
-
-EmissionCheckScope::EmissionCheckScope(MacroAssembler* masm,
-                                       size_t size,
-                                       AssertPolicy assert_policy,
-                                       PoolPolicy pool_policy) {
-  Open(masm, size, assert_policy, pool_policy);
-}
-
-
-void EmissionCheckScope::Open(MacroAssembler* masm,
-                              size_t size,
-                              AssertPolicy assert_policy,
-                              PoolPolicy pool_policy) {
-  masm_ = masm;
-  pool_policy_ = pool_policy;
-  if (masm_ == NULL) {
-    // Nothing to do.
-    // We may reach this point in a context of conditional code generation. See
-    // `MacroAssembler::MoveImmediateHelper()` for an example.
-    return;
-  }
-  if (pool_policy_ == kCheckPools) {
-    // Do not use the more generic `EnsureEmitFor()` to avoid duplicating the
-    // work to check that enough space is available in the buffer. It is done
-    // below when opening `CodeBufferCheckScope`.
-    masm_->EnsureEmitPoolsFor(size);
-    masm_->BlockPools();
-  }
-  // The buffer should be checked *after* we emit the pools.
-  CodeBufferCheckScope::Open(masm_, size, kCheck, assert_policy);
-}
-
-
-void EmissionCheckScope::Close() {
-  if (masm_ == NULL) {
-    // Nothing to do.
-    return;
-  }
-  if (pool_policy_ == kCheckPools) {
-    masm_->ReleasePools();
-  }
-}
-
-
 MacroAssembler::MacroAssembler(PositionIndependentCodeOption pic)
     : Assembler(pic),
 #ifdef VIXL_DEBUG
@@ -2701,59 +2648,6 @@ void MacroAssembler::AnnotateInstrumentation(const char* marker_name) {
   InstructionAccurateScope scope(this, 1);
   movn(xzr, (marker_name[1] << 8) | marker_name[0]);
 }
-
-
-void UseScratchRegisterScope::Open(MacroAssembler* masm) {
-  VIXL_ASSERT(!initialised_);
-  VIXL_ASSERT(masm != NULL);
-  available_ = masm->GetScratchRegisterList();
-  availablefp_ = masm->GetScratchFPRegisterList();
-  old_available_ = available_->GetList();
-  old_availablefp_ = availablefp_->GetList();
-  VIXL_ASSERT(available_->GetType() == CPURegister::kRegister);
-  VIXL_ASSERT(availablefp_->GetType() == CPURegister::kVRegister);
-#ifdef VIXL_DEBUG
-  initialised_ = true;
-#endif
-}
-
-
-void UseScratchRegisterScope::Close() {
-  if (available_) {
-    available_->SetList(old_available_);
-    available_ = NULL;
-  }
-  if (availablefp_) {
-    availablefp_->SetList(old_availablefp_);
-    availablefp_ = NULL;
-  }
-#ifdef VIXL_DEBUG
-  initialised_ = false;
-#endif
-}
-
-
-UseScratchRegisterScope::UseScratchRegisterScope(MacroAssembler* masm) {
-#ifdef VIXL_DEBUG
-  initialised_ = false;
-#else
-  USE(initialised_);
-#endif
-  Open(masm);
-}
-
-// This allows deferred (and optional) initialisation of the scope.
-UseScratchRegisterScope::UseScratchRegisterScope()
-    : available_(NULL),
-      availablefp_(NULL),
-      old_available_(0),
-      old_availablefp_(0) {
-#ifdef VIXL_DEBUG
-  initialised_ = false;
-#endif
-}
-
-UseScratchRegisterScope::~UseScratchRegisterScope() { Close(); }
 
 
 bool UseScratchRegisterScope::IsAvailable(const CPURegister& reg) const {
