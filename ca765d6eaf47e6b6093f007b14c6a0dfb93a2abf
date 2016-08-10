@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba068154_d1c60c49",
+        "filename": "src/aarch64/assembler-aarch64.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 3476,
+      "author": {
+        "id": 1000226
+      },
+      "writtenOn": "2016-08-10T14:50:43Z",
+      "side": 1,
+      "message": "I don\u0027t like this include here: the end of the file is not a place where I would look for it. Why not put an include of the -inl.h in the cc file just after the matching .h include?",
+      "revId": "ca765d6eaf47e6b6093f007b14c6a0dfb93a2abf",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_31c4b83f",
+        "filename": "src/aarch64/macro-assembler-aarch64.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 3448,
+      "author": {
+        "id": 1000226
+      },
+      "writtenOn": "2016-08-10T14:50:43Z",
+      "side": 1,
+      "message": "same comment as for assembler-aarch64-inl.h",
+      "revId": "ca765d6eaf47e6b6093f007b14c6a0dfb93a2abf",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
