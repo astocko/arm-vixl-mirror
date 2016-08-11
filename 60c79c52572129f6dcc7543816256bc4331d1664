@@ -1,0 +1,7 @@
+Code-Review+2: Alexandre Rames <alexandre.rames@linaro.org>
+Code-Review+1: Artem Serov <artem.serov@linaro.org>
+Submitted-by: Serban Constantinescu <serban.constantinescu@linaro.org>
+Submitted-at: Thu, 11 Aug 2016 13:16:22 +0000
+Reviewed-on: https://review.linaro.org/13690
+Project: arm/vixl
+Branch: refs/heads/master
