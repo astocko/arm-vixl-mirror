@@ -1,0 +1,7 @@
+Code-Review+2: Pierre Langlois <pierre.langlois@arm.com>
+Code-Review+2: Serban Constantinescu <serban.constantinescu@linaro.org>
+Submitted-by: Serban Constantinescu <serban.constantinescu@linaro.org>
+Submitted-at: Thu, 11 Aug 2016 17:59:51 +0000
+Reviewed-on: https://review.linaro.org/13697
+Project: arm/vixl
+Branch: refs/heads/master
