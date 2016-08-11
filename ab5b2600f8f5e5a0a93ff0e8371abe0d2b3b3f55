@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba068154_51685cf5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-08-11T10:55:14Z",
+      "side": 1,
+      "message": "Nit: \"Rename targets in the Android makefile template.\"?",
+      "revId": "ab5b2600f8f5e5a0a93ff0e8371abe0d2b3b3f55",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
