@@ -3028,8 +3028,13 @@ class MacroAssembler : public Assembler {
 
 // Support for simulated runtime calls.
 
-// Variadic templating is only available from C++11.
+// `CallRuntime` requires variadic templating, that is only available from
+// C++11.
 #if __cplusplus >= 201103L
+#define VIXL_HAS_MACROASSEMBLER_RUNTIME_CALL_SUPPORT
+#endif
+
+#ifdef VIXL_HAS_MACROASSEMBLER_RUNTIME_CALL_SUPPORT
   template <typename R, typename... P>
   void CallRuntime(R (*function)(P...));
 #endif
@@ -3379,7 +3384,7 @@ class UseScratchRegisterScope {
 };
 
 // Variadic templating is only available from C++11.
-#if __cplusplus >= 201103L
+#ifdef VIXL_HAS_MACROASSEMBLER_RUNTIME_CALL_SUPPORT
 
 // `R` stands for 'return type', and `P` for 'parameter types'.
 template <typename R, typename... P>

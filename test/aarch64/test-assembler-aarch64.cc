@@ -22253,8 +22253,7 @@ void runtime_call_store_at_address(int64_t* address) {
 #endif
 
 
-#if defined(VIXL_HAS_SIMULATED_RUNTIME_CALL_SUPPORT) || \
-    !defined(VIXL_INCLUDE_SIMULATOR)
+#ifdef VIXL_HAS_MACROASSEMBLER_RUNTIME_CALL_SUPPORT
 TEST(runtime_calls) {
   SETUP();
 
@@ -22288,6 +22287,8 @@ TEST(runtime_calls) {
 
   END();
 
+#if defined(VIXL_HAS_SIMULATED_RUNTIME_CALL_SUPPORT) || \
+    !defined(VIXL_INCLUDE_SIMULATOR)
   RUN();
 
   ASSERT_EQUAL_32(1, w20);
@@ -22295,6 +22296,7 @@ TEST(runtime_calls) {
   ASSERT_EQUAL_64(0x123, x21);
   ASSERT_EQUAL_FP64(310.0, d21);
   VIXL_CHECK(value == 0xf00d);
+#endif
 
   TEARDOWN();
 }
