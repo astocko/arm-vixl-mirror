@@ -1623,7 +1623,7 @@ class Simulator : public DecoderVisitor {
 #if defined(VIXL_HAS_ABI_SUPPORT) && __cplusplus >= 201103L && \
     (defined(__clang__) || GCC_VERSION_OR_NEWER(4, 9, 1))
 
-#define VIXL_HAS_SIMULATED_RUNTIME_CALL_SUPPORT
+#define VIXL_HAS_RUNTIME_CALL_SUPPORT
 
 // The implementation of the runtime call helpers require the functionality
 // provided by `std::index_sequence`. It is only available from C++14, but
@@ -1660,7 +1660,7 @@ class Simulator : public DecoderVisitor {
   using local_index_sequence = emulated_index_sequence<I...>;
   template <typename... P>
   using __local_index_sequence_for = emulated_index_sequence_for<P...>;
-#endif
+#endif  // __cplusplus >= 201402L
 
   // Expand the argument tuple and perform the call.
   template <typename R, typename... P, std::size_t... I>
@@ -1709,7 +1709,7 @@ class Simulator : public DecoderVisitor {
       simulator->RuntimeCallVoid(function);
     }
   };
-#endif
+#endif  // defined(VIXL_HAS_ABI_SUPPORT) && __cplusplus >= 201103L && ...
 
  protected:
   const char* clr_normal;
@@ -3089,13 +3089,13 @@ class Simulator : public DecoderVisitor {
   void PrintExclusiveAccessWarning();
 };
 
-#if defined(VIXL_HAS_SIMULATED_RUNTIME_CALL_SUPPORT) && __cplusplus < 201402L
+#if defined(VIXL_HAS_RUNTIME_CALL_SUPPORT) && __cplusplus < 201402L
 // Base case of the recursive template used to emulate C++14
 // `std::index_sequence`.
 template <size_t... I>
 struct Simulator::emulated_make_index_sequence_helper<0, I...>
     : Simulator::emulated_index_sequence<I...> {};
-#endif
+#endif  // defined(VIXL_HAS_RUNTIME_CALL_SUPPORT) && __cplusplus < 201402L
 
 }  // namespace aarch64
 }  // namespace vixl

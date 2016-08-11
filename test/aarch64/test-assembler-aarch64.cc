@@ -22239,22 +22239,21 @@ void runtime_call_store_at_address(int64_t* address) {
 }
 
 
-// C++11 should be sufficient to provide support for ABI and simulated runtime
-// calls, except that a GCC bug before 4.9.1 prevents the use of simulated
-// runtime calls.
+// C++11 should be sufficient to provide support for ABI and runtime calls
+// (simulated or native), except that a GCC bug before 4.9.1 prevents the use of
+// simulated runtime calls.
 #if (__cplusplus >= 201103L) && !defined(VIXL_HAS_ABI_SUPPORT)
 #error "C++11 should be sufficient to provide ABI support."
-#endif
+#endif  // (__cplusplus >= 201103L) && !defined(VIXL_HAS_ABI_SUPPORT)
 
 #if (__cplusplus >= 201103L) && \
     (defined(__clang__) || GCC_VERSION_OR_NEWER(4, 9, 1)) && \
-    !defined(VIXL_HAS_SIMULATED_RUNTIME_CALL_SUPPORT)
-#error "C++11 should be sufficient to provide support for simulated runtime calls."
-#endif
+    !defined(VIXL_HAS_RUNTIME_CALL_SUPPORT)
+#error "C++11 should be sufficient to provide runtime call support."
+#endif  // (__cplusplus >= 201103L) && ...
 
 
-#if defined(VIXL_HAS_SIMULATED_RUNTIME_CALL_SUPPORT) || \
-    !defined(VIXL_INCLUDE_SIMULATOR)
+#ifdef VIXL_HAS_RUNTIME_CALL_SUPPORT
 TEST(runtime_calls) {
   SETUP();
 
@@ -22298,7 +22297,7 @@ TEST(runtime_calls) {
 
   TEARDOWN();
 }
-#endif
+#endif  // VIXL_HAS_RUNTIME_CALL_SUPPORT
 
 
 }  // namespace aarch64

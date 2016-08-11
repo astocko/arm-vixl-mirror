@@ -3026,13 +3026,10 @@ class MacroAssembler : public Assembler {
 
   LiteralPool* GetLiteralPool() { return &literal_pool_; }
 
-// Support for simulated runtime calls.
-
-// Variadic templating is only available from C++11.
-#if __cplusplus >= 201103L
+#ifdef VIXL_HAS_RUNTIME_CALL_SUPPORT
   template <typename R, typename... P>
   void CallRuntime(R (*function)(P...));
-#endif
+#endif  // VIXL_HAS_RUNTIME_CALL_SUPPORT
 
  protected:
   // Helper used to query information about code generation and to generate
@@ -3378,14 +3375,12 @@ class UseScratchRegisterScope {
   }
 };
 
-// Variadic templating is only available from C++11.
-#if __cplusplus >= 201103L
+#ifdef VIXL_HAS_RUNTIME_CALL_SUPPORT
 
 // `R` stands for 'return type', and `P` for 'parameter types'.
 template <typename R, typename... P>
 void MacroAssembler::CallRuntime(R (*function)(P...)) {
   if (generate_simulator_code_) {
-#ifdef VIXL_HAS_SIMULATED_RUNTIME_CALL_SUPPORT
     uint64_t runtime_call_wrapper_address = reinterpret_cast<uint64_t>(
         &(Simulator::RuntimeCallStructHelper<R, P...>::Wrapper));
     uint64_t function_address = reinterpret_cast<uint64_t>(function);
@@ -3402,9 +3397,6 @@ void MacroAssembler::CallRuntime(R (*function)(P...)) {
     dc64(function_address);
     VIXL_ASSERT(GetSizeOfCodeGeneratedSince(&start) ==
                 kRuntimeCallFunctionOffset + kRuntimeCallAddressSize);
-#else
-    VIXL_UNREACHABLE();
-#endif
   } else {
     UseScratchRegisterScope temps(this);
     Register temp = temps.AcquireX();
@@ -3413,7 +3405,7 @@ void MacroAssembler::CallRuntime(R (*function)(P...)) {
   }
 }
 
-#endif
+#endif  // VIXL_HAS_RUNTIME_CALL_SUPPORT
 
 }  // namespace aarch64
 
