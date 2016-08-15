@@ -22,6 +22,30 @@
       "revId": "bc8053a1fe3280fde04eb2b976198f239496c566",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_1cef0bb2",
+        "filename": "src/aarch64/simulator-aarch64.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 5330,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-08-15T12:55:07Z",
+      "side": 1,
+      "message": "In the very unlikely event that `uintptr_t` is bigger than `uint64_t`, this logic still makes sense. The simulator probably wouldn\u0027t work for the same reason that the AArch32 simulator doesn\u0027t work well on a 64-bit host, but _this_ bit of code would be correct, I think.",
+      "parentUuid": "ba068154_9cec9bc9",
+      "range": {
+        "startLine": 5330,
+        "startChar": 14,
+        "endLine": 5330,
+        "endChar": 53
+      },
+      "revId": "bc8053a1fe3280fde04eb2b976198f239496c566",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
