@@ -5327,6 +5327,9 @@ void Simulator::DoRuntimeCall(const Instruction* instr) {
       Memory::Read<uint64_t>(instr + kRuntimeCallFunctionOffset);
   auto runtime_call_wrapper =
       reinterpret_cast<void (*)(Simulator*, uintptr_t)>(call_wrapper_address);
+  VIXL_ASSERT((sizeof(uintptr_t) >= sizeof(uint64_t)) ||
+              (static_cast<uint64_t>(static_cast<uintptr_t>(
+                   function_address)) == function_address));
   runtime_call_wrapper(this, static_cast<uintptr_t>(function_address));
   WritePc(instr->GetInstructionAtOffset(kRuntimeCallLength));
 }
