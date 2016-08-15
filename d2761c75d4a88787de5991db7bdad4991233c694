@@ -16,6 +16,24 @@
       "revId": "d2761c75d4a88787de5991db7bdad4991233c694",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_1caa6b70",
+        "filename": "src/aarch64/simulator-aarch64.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 5331,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-08-15T10:05:48Z",
+      "side": 1,
+      "message": "It should.",
+      "parentUuid": "ba068154_9c9e5b55",
+      "revId": "d2761c75d4a88787de5991db7bdad4991233c694",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
