@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba068154_9cec9bc9",
+        "filename": "src/aarch64/simulator-aarch64.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 5330,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-08-15T11:00:09Z",
+      "side": 1,
+      "message": "Hmmm. Thinking about what happens when `sizeof(uintptr_t) \u003e sizeof(uint64_t)`. I did not consider this in the MacroAssembler.",
+      "range": {
+        "startLine": 5330,
+        "startChar": 14,
+        "endLine": 5330,
+        "endChar": 53
+      },
+      "revId": "bc8053a1fe3280fde04eb2b976198f239496c566",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
