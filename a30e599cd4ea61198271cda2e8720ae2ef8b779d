@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba068154_97463422",
+        "filename": "third_party/android/Android.bp.template",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-08-16T14:08:06Z",
+      "side": 1,
+      "message": "2016?",
+      "revId": "a30e599cd4ea61198271cda2e8720ae2ef8b779d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_f74a2026",
+        "filename": "third_party/android/Android.bp.template",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-08-16T14:08:06Z",
+      "side": 1,
+      "message": "2016",
+      "revId": "a30e599cd4ea61198271cda2e8720ae2ef8b779d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_57632cb1",
+        "filename": "third_party/android/check_top_level_android_bp.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-08-16T14:08:06Z",
+      "side": 1,
+      "message": "Why doesn\u0027t this file have a licence header?",
+      "revId": "a30e599cd4ea61198271cda2e8720ae2ef8b779d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
