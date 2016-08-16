@@ -40,42 +40,40 @@ def get_source_files(dir_root, path):
 dir_android = os.path.dirname(os.path.realpath(__file__))
 dir_root = os.path.join(dir_android, '..', '..')
 
-target_mk_default = os.path.abspath(os.path.join(dir_root, 'Android.mk'))
+target_bp_default = os.path.abspath(os.path.join(dir_root, 'Android.bp'))
 
 
 parser = argparse.ArgumentParser(
   description = \
-    'Generate an `Android.mk` to compile VIXL within Android.',
+    'Generate an `Android.bp` to compile VIXL within Android.',
   formatter_class=argparse.ArgumentDefaultsHelpFormatter
 )
 parser.add_argument('-o', '--output',
-                    default=os.path.relpath(target_mk_default, os.getcwd()),
+                    default=os.path.relpath(target_bp_default, os.getcwd()),
                     help='Target file.')
 args = parser.parse_args()
 
 
 common_sources = get_source_files(dir_root, os.path.join('src', '*.cc'))
-aarch32_sources = get_source_files(dir_root, os.path.join('src', 'aarch32', '*.cc'))
-aarch64_sources = get_source_files(dir_root, os.path.join('src', 'aarch64', '*.cc'))
+aarch32_sources = "src/aarch32/*.cc"
+aarch64_sources = "src/aarch64/*.cc"
 
-test_common_sources = get_source_files(dir_root, os.path.join('test', '*.cc'))
-test_aarch64_sources = get_source_files(dir_root, os.path.join('test', 'aarch64', '*.cc'))
-test_aarch32_sources = get_source_files(dir_root, os.path.join('test', 'aarch32', '*.cc'))
-test_sources = test_common_sources + test_aarch32_sources + test_aarch64_sources
-
+test_common_sources = "test/*.cc"
+test_aarch32_sources = "test/aarch32/*.cc"
+test_aarch64_sources = "test/aarch64/*.cc"
+test_sources = [test_common_sources, test_aarch32_sources, test_aarch64_sources]
 test_sources.sort()
 
-android_mk_template = os.path.join(dir_android, 'Android.mk.template')
-with open(android_mk_template, 'r') as template_file:
+android_bp_template = os.path.join(dir_android, 'Android.bp.template')
+with open(android_bp_template, 'r') as template_file:
   template = template_file.read()
 
+template = template.format(
+    vixl_common='\n'.ljust(7).join(map(lambda x: '"' + x + '"', common_sources)),
+    vixl_arm_sources='"' + aarch32_sources + '"',
+    vixl_arm64_sources='"' + aarch64_sources + '"',
+    vixl_test_files='\n'.ljust(7).join(map(lambda x: '"' + x + '"', test_sources)))
 
-template = template.format(vixl_common=' \\\n  '.join(common_sources),
-                           vixl_arm_sources=' \\\n  '.join(aarch32_sources),
-                           vixl_arm64_sources=' \\\n  '.join(aarch64_sources),
-                           vixl_test_files=' \\\n  '.join(test_sources))
-
-
-with open(args.output, 'w') as android_mk:
-  android_mk.write(template)
+with open(args.output, 'w') as android_bp:
+  android_bp.write(template)
 

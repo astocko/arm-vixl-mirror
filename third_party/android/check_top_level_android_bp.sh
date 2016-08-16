@@ -2,9 +2,9 @@
 
 SCRIPT_PATH=$(dirname $(readlink -e $0))
 
-$SCRIPT_PATH/generate_android_mk.py --output Android.mk.autogen
+$SCRIPT_PATH/generate_android_bp.py --output Android.bp.autogen
 
-if diff Android.mk.autogen $SCRIPT_PATH/../../Android.mk ; then
+if diff -u Android.bp.autogen $SCRIPT_PATH/../../Android.bp ; then
   exit 0
 else
   echo \
