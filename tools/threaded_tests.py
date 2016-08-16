@@ -42,7 +42,7 @@ signal.signal(signal.SIGINT, SigIntHandler)
 
 
 # Scan matching tests and return a test manifest.
-def GetTests(runner, filters = []):
+def GetTests(runner, filters = [], filter_out = []):
   rc, output = util.getstatusoutput(runner +  ' --list')
   if rc != 0: util.abort('Failed to list all tests')
 
@@ -50,6 +50,10 @@ def GetTests(runner, filters = []):
   for f in filters:
     print f
     tests = filter(re.compile(f).search, tests)
+
+  for f in filter_out:
+    print f
+    tests = filter(lambda x: not re.search(f, x), tests)
 
   return tests
 
@@ -111,7 +115,7 @@ def RunTest(test):
 # This function won't run in parallel due to constraints from the
 # multiprocessing module.
 __run_tests_lock__ = multiprocessing.Lock()
-def RunTests(test_runner_command, filters, runtime_options,
+def RunTests(test_runner_command, filters, filter_out, runtime_options,
              under_valgrind = False,
              jobs = 1, prefix = ''):
   global test_runner
@@ -121,7 +125,7 @@ def RunTests(test_runner_command, filters, runtime_options,
   global start_time
   global progress_prefix
 
-  tests = GetTests(test_runner_command, filters)
+  tests = GetTests(test_runner_command, filters, filter_out)
 
   if n_tests == 0:
     printer.Print('No tests to run.')

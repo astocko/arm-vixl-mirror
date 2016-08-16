@@ -363,6 +363,7 @@ if __name__ == '__main__':
   rc = 0
 
   args = BuildOptions()
+  filter_out = []
 
   def MaybeExitEarly(rc):
     if args.fail_early and rc != 0:
@@ -371,6 +372,9 @@ if __name__ == '__main__':
 
   if args.under_valgrind:
     util.require_program('valgrind')
+    # Valgrind does not implement some floating-point operations exactly as the hardware, so
+    # disable the affected tests.
+    filter_out = ['fmadd', 'fmla', 'fmls', 'fmsub', 'fnmadd', 'fnmsub', 'frecps', 'frsqrts']
 
   if args.fast:
     def SetFast(option, specified, default):
@@ -429,6 +433,7 @@ if __name__ == '__main__':
           prefix = '  ' + ' '.join(runtime_options) + '  '
           rc |= threaded_tests.RunTests(test_executable,
                                         args.filters,
+                                        filter_out,
                                         list(runtime_options),
                                         args.under_valgrind,
                                         jobs = args.jobs, prefix = prefix)
