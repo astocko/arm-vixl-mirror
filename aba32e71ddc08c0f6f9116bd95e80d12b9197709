@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba068154_97a47458",
+        "filename": "third_party/android/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-08-17T09:36:25Z",
+      "side": 1,
+      "message": "I don\u0027t think we should leave the templating system. Non-Android VIXL contributors will not pay attention to updating this file.",
+      "revId": "aba32e71ddc08c0f6f9116bd95e80d12b9197709",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
