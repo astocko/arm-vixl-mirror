@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba068154_4c90c2ec",
+        "filename": "src/aarch64/macro-assembler-aarch64.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 3414,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-08-22T09:26:35Z",
+      "side": 1,
+      "message": "Why can\u0027t all of it be in the InstructionAccurateScope? I realise that the size/count argument is messy but it would make replacing it with a better scope utility a bit easier.",
+      "range": {
+        "startLine": 3403,
+        "startChar": 0,
+        "endLine": 3414,
+        "endChar": 70
+      },
+      "revId": "3b8da08fd5d2c096872123f22ce431fb12f4f5a6",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
