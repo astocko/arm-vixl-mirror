@@ -118,6 +118,30 @@
       "revId": "3b8da08fd5d2c096872123f22ce431fb12f4f5a6",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_cc49528d",
+        "filename": "src/aarch64/macro-assembler-aarch64.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 3414,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-08-22T10:51:41Z",
+      "side": 1,
+      "message": "I\u0027d prefer to keep a single InstructionAccurateScope because it will make it easier to introduce ExactAssemblyScope, but I don\u0027t feel too strongly about it.",
+      "parentUuid": "ba068154_2c773ed6",
+      "range": {
+        "startLine": 3403,
+        "startChar": 0,
+        "endLine": 3414,
+        "endChar": 70
+      },
+      "revId": "3b8da08fd5d2c096872123f22ce431fb12f4f5a6",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
