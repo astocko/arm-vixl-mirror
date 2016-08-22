@@ -22,6 +22,30 @@
       "revId": "3b8da08fd5d2c096872123f22ce431fb12f4f5a6",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_ecb6d689",
+        "filename": "src/aarch64/macro-assembler-aarch64.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 3414,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-08-22T09:47:41Z",
+      "side": 1,
+      "message": "I see `InstructionAccurateScope` as dealing with generating *instructions*. `dc` does not (necessarily) generate an instruction, so in my opinion it would not be appropriate. We just saw that we have not been using scopes properly, so I would like to be as exact as possible. I would even suggest that `dc` should be disabled within an `InstructionAccurateScope` (`dci` could be allowed).",
+      "parentUuid": "ba068154_4c90c2ec",
+      "range": {
+        "startLine": 3403,
+        "startChar": 0,
+        "endLine": 3414,
+        "endChar": 70
+      },
+      "revId": "3b8da08fd5d2c096872123f22ce431fb12f4f5a6",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
