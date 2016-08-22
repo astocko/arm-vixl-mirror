@@ -70,6 +70,30 @@
       "revId": "3b8da08fd5d2c096872123f22ce431fb12f4f5a6",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_ec6d3606",
+        "filename": "src/aarch64/macro-assembler-aarch64.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 3414,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-08-22T10:21:53Z",
+      "side": 1,
+      "message": "I agree that `ExactAssemblyScope` would fit well and we could have only one scope.\nAre you fine with keeping the code as is? Updating will only require deleting the current `InstructionAccurateScope`.",
+      "parentUuid": "ba068154_ac632e19",
+      "range": {
+        "startLine": 3403,
+        "startChar": 0,
+        "endLine": 3414,
+        "endChar": 70
+      },
+      "revId": "3b8da08fd5d2c096872123f22ce431fb12f4f5a6",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
