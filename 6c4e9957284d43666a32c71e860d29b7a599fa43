@@ -1,0 +1,7 @@
+Code-Review+1: Alexandre Rames <alexandre.rames@linaro.org>
+Code-Review+2: Pierre Langlois <pierre.langlois@arm.com>
+Submitted-by: Vincent Belliard <vincent.belliard@arm.com>
+Submitted-at: Mon, 22 Aug 2016 17:38:06 +0000
+Reviewed-on: https://review.linaro.org/13787
+Project: arm/vixl
+Branch: refs/heads/master
