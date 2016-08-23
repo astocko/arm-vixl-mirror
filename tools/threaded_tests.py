@@ -25,12 +25,14 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import multiprocessing
+from os.path import join
 import re
 import signal
 import subprocess
 import sys
 import time
 
+import config
 import printer
 import util
 
@@ -126,6 +128,16 @@ def RunTests(test_runner_command, filters, runtime_options,
   if n_tests == 0:
     printer.Print('No tests to run.')
     return 0
+
+  if under_valgrind:
+    with open(join(config.dir_root, 'test', 'disabled_tests_for_valgrind'), 'r') as list_file:
+      disabled_tests = sorted(line.replace('\n', '') for line in list_file.readlines())
+
+      for t in disabled_tests:
+        print('Skipping ' + t + '...')
+
+      disabled_tests = set(disabled_tests)
+      tests = filter(lambda x: not x in disabled_tests, tests)
 
   with __run_tests_lock__:
 
