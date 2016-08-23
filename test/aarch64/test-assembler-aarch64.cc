@@ -22254,6 +22254,16 @@ void runtime_call_store_at_address(int64_t* address) {
 
 #ifdef VIXL_HAS_MACROASSEMBLER_RUNTIME_CALL_SUPPORT
 TEST(runtime_calls) {
+
+#ifndef VIXL_HAS_SIMULATED_RUNTIME_CALL_SUPPORT
+  if (masm.GenerateSimulatorCode()) {
+    // This configuration is unsupported and a `VIXL_UNREACHABLE()` would fire
+    // while trying to generate `CallRuntime`. This configuration should only be
+    // reachable with C++11 and a (buggy) version of GCC pre-4.9.1.
+    return;
+  }
+#endif
+
   SETUP();
 
   START();
