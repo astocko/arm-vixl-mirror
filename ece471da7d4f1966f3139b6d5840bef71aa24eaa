@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ba068154_62766d40",
+        "filename": "tools/threaded_tests.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1000234
+      },
+      "writtenOn": "2016-08-23T16:24:36Z",
+      "side": 1,
+      "message": "What about extending the test list file with syntax for comments (i.e. lines beginning with \"#\") and doing it there instead?",
+      "parentUuid": "ba068154_c2b0f9f6",
+      "revId": "ece471da7d4f1966f3139b6d5840bef71aa24eaa",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba068154_c2e2b902",
         "filename": "tools/threaded_tests.py",
         "patchSetId": 2
@@ -65,6 +83,30 @@
     },
     {
       "key": {
+        "uuid": "ba068154_4273694d",
+        "filename": "tools/threaded_tests.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1000234
+      },
+      "writtenOn": "2016-08-23T16:24:36Z",
+      "side": 1,
+      "message": "I don\u0027t see any reason for a name to contain whitespace, so what about just rstrip() (without any parameter)? In fact, strip() might be even better.",
+      "parentUuid": "ba068154_02e4c10b",
+      "range": {
+        "startLine": 134,
+        "startChar": 35,
+        "endLine": 134,
+        "endChar": 52
+      },
+      "revId": "ece471da7d4f1966f3139b6d5840bef71aa24eaa",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba068154_22ce2584",
         "filename": "tools/threaded_tests.py",
         "patchSetId": 2
@@ -76,6 +118,30 @@
       "writtenOn": "2016-08-23T16:11:39Z",
       "side": 1,
       "message": "Why do we need to change it to a set?",
+      "range": {
+        "startLine": 139,
+        "startChar": 23,
+        "endLine": 139,
+        "endChar": 26
+      },
+      "revId": "ece471da7d4f1966f3139b6d5840bef71aa24eaa",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_e299bd6f",
+        "filename": "tools/threaded_tests.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1000234
+      },
+      "writtenOn": "2016-08-23T16:24:36Z",
+      "side": 1,
+      "message": "I instinctively cringe at the thought of doing lookups into a list.",
+      "parentUuid": "ba068154_22ce2584",
       "range": {
         "startLine": 139,
         "startChar": 23,
