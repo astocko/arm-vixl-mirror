@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "ba068154_023cc12e",
+        "filename": "tools/threaded_tests.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-08-24T10:10:30Z",
+      "side": 1,
+      "message": "I\u0027d prefer comments along the code. Will look for other opinions.",
+      "parentUuid": "ba068154_62766d40",
+      "revId": "ece471da7d4f1966f3139b6d5840bef71aa24eaa",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba068154_c2e2b902",
         "filename": "tools/threaded_tests.py",
         "patchSetId": 2
@@ -95,6 +113,30 @@
       "side": 1,
       "message": "I don\u0027t see any reason for a name to contain whitespace, so what about just rstrip() (without any parameter)? In fact, strip() might be even better.",
       "parentUuid": "ba068154_02e4c10b",
+      "range": {
+        "startLine": 134,
+        "startChar": 35,
+        "endLine": 134,
+        "endChar": 52
+      },
+      "revId": "ece471da7d4f1966f3139b6d5840bef71aa24eaa",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_223f4527",
+        "filename": "tools/threaded_tests.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-08-24T10:10:30Z",
+      "side": 1,
+      "message": "Sounds fine. I just found that `replace` was not ideal.",
+      "parentUuid": "ba068154_4273694d",
       "range": {
         "startLine": 134,
         "startChar": 35,
