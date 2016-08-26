@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "ba068154_f85a0c4f",
+        "filename": "tools/threaded_tests.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1000234
+      },
+      "writtenOn": "2016-08-26T14:50:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba068154_023cc12e",
+      "revId": "ece471da7d4f1966f3139b6d5840bef71aa24eaa",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba068154_c2e2b902",
         "filename": "tools/threaded_tests.py",
         "patchSetId": 2
@@ -66,6 +84,30 @@
       "writtenOn": "2016-08-23T16:11:39Z",
       "side": 1,
       "message": "`config.dir_tests`\n\nOr we could even define the path to the file directly in `config.py`.",
+      "range": {
+        "startLine": 133,
+        "startChar": 19,
+        "endLine": 133,
+        "endChar": 42
+      },
+      "revId": "ece471da7d4f1966f3139b6d5840bef71aa24eaa",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_b849a48d",
+        "filename": "tools/threaded_tests.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1000234
+      },
+      "writtenOn": "2016-08-26T14:50:34Z",
+      "side": 1,
+      "message": "No longer relevant.",
+      "parentUuid": "ba068154_c2e2b902",
       "range": {
         "startLine": 133,
         "startChar": 19,
@@ -137,6 +179,30 @@
       "side": 1,
       "message": "Sounds fine. I just found that `replace` was not ideal.",
       "parentUuid": "ba068154_4273694d",
+      "range": {
+        "startLine": 134,
+        "startChar": 35,
+        "endLine": 134,
+        "endChar": 52
+      },
+      "revId": "ece471da7d4f1966f3139b6d5840bef71aa24eaa",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_185ef045",
+        "filename": "tools/threaded_tests.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1000234
+      },
+      "writtenOn": "2016-08-26T14:50:34Z",
+      "side": 1,
+      "message": "No longer relevant.",
+      "parentUuid": "ba068154_223f4527",
       "range": {
         "startLine": 134,
         "startChar": 35,
