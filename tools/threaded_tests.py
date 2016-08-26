@@ -24,6 +24,7 @@
 # OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+from argparse import Namespace
 import multiprocessing
 import re
 import signal
@@ -31,6 +32,7 @@ import subprocess
 import sys
 import time
 
+from known_test_failures import FilterKnownTestFailures
 import printer
 import util
 
@@ -122,6 +124,8 @@ def RunTests(test_runner_command, filters, runtime_options,
   global progress_prefix
 
   tests = GetTests(test_runner_command, filters)
+  env = Namespace(under_valgrind=under_valgrind)
+  tests = FilterKnownTestFailures(tests, env)
 
   if n_tests == 0:
     printer.Print('No tests to run.')
