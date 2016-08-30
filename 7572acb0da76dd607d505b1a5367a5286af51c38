@@ -42,6 +42,30 @@
     },
     {
       "key": {
+        "uuid": "ba068154_ee6406e7",
+        "filename": "tools/known_test_failures.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1000234
+      },
+      "writtenOn": "2016-08-30T15:35:06Z",
+      "side": 1,
+      "message": "On the contrary, unless I have been looking at the wrong visitors, they do involve fused multiply-add instructions (indirectly through the implementation, as you have guessed). For example, frecps is handled by Simulator::frecps() in logic_aarch64.cc, which calls Simulator::FPRecipStepFused(), which in turn invokes FusedMultiplyAdd().",
+      "parentUuid": "ba068154_2e31eeec",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 76,
+        "endChar": 27
+      },
+      "revId": "7572acb0da76dd607d505b1a5367a5286af51c38",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba068154_ae5cbe26",
         "filename": "tools/known_test_failures.py",
         "patchSetId": 3
