@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ba068154_8e5e1ae8",
+        "filename": "tools/known_test_failures.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000234
+      },
+      "writtenOn": "2016-08-30T17:42:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba068154_0e3a2acd",
+      "revId": "7572acb0da76dd607d505b1a5367a5286af51c38",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba068154_2e31eeec",
         "filename": "tools/known_test_failures.py",
         "patchSetId": 3
@@ -101,6 +119,24 @@
       "writtenOn": "2016-08-30T15:20:07Z",
       "side": 1,
       "message": "Perhaps pass an object or hash (map?) of parameters. At the moment it would just have one field, but it would make this mechanism easier to extend.\n\ndef FilterKnownTestFailures(tests, env):\n  if env.under_valgrind:\n    ...\n\nDoes that make sense?",
+      "revId": "7572acb0da76dd607d505b1a5367a5286af51c38",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_6e63f6b1",
+        "filename": "tools/known_test_failures.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1000234
+      },
+      "writtenOn": "2016-08-30T17:42:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba068154_ae5cbe26",
       "revId": "7572acb0da76dd607d505b1a5367a5286af51c38",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
