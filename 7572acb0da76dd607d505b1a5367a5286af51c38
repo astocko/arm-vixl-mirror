@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba068154_0e3a2acd",
+        "filename": "tools/known_test_failures.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-08-30T15:20:07Z",
+      "side": 1,
+      "message": "Do you think that this should be more strict? How about \u0027valgrind-([0-9]+)\\.([0-9]+).*\u0027 ?\n\nThis is the conservative approach: if we match something we shouldn\u0027t, the tests might just use the wrong version number. If we don\u0027t match when we should, we\u0027ll get an error. However, if there are versions of Valgrind you\u0027ve seen which use a different format then keep what\u0027s there.",
+      "revId": "7572acb0da76dd607d505b1a5367a5286af51c38",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_2e31eeec",
+        "filename": "tools/known_test_failures.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-08-30T15:20:07Z",
+      "side": 1,
+      "message": "These tests don\u0027t involve fused multiply instructions (though perhaps their implementations do, somehow). Do you know why they fail?",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 76,
+        "endChar": 27
+      },
+      "revId": "7572acb0da76dd607d505b1a5367a5286af51c38",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_ae5cbe26",
+        "filename": "tools/known_test_failures.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-08-30T15:20:07Z",
+      "side": 1,
+      "message": "Perhaps pass an object or hash (map?) of parameters. At the moment it would just have one field, but it would make this mechanism easier to extend.\n\ndef FilterKnownTestFailures(tests, env):\n  if env.under_valgrind:\n    ...\n\nDoes that make sense?",
+      "revId": "7572acb0da76dd607d505b1a5367a5286af51c38",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
