@@ -2550,6 +2550,7 @@ class PrintDisassembler : public Disassembler {
          << "\t";
   }
 
+  int DecodeT32(const uint16_t* instruction_address);
   void DecodeT32(uint32_t instruction);
   void DecodeA32(uint32_t instruction);
   void DisassembleA32Buffer(const uint32_t* buffer, uint32_t size_in_bytes);
