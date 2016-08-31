@@ -52,6 +52,24 @@
       "revId": "74f3ba75c07d9919cf4d330d201134089d95e984",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_4e58b256",
+        "filename": "tools/threaded_tests.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1000226
+      },
+      "writtenOn": "2016-08-31T11:03:26Z",
+      "side": 1,
+      "message": "Yes you would use the dictionary syntax (dict[key]).\n\nI believe the plan is to add more parameter to the env Namespace later on. If some of those parameters are optional then you will have to test env before accessing it using the \"in\" syntax. At that point using a dictionary directly is probably clearer.",
+      "parentUuid": "ba068154_0eb06a8a",
+      "revId": "74f3ba75c07d9919cf4d330d201134089d95e984",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
