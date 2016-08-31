@@ -1303,7 +1303,7 @@ TEST(literal_update) {
 
   PrintDisassembler dis(std::cout, 0);
   dis.DisassembleA32Buffer(
-      masm.GetBuffer().GetOffsetAddress<uint32_t*>(0), masm.GetCursorOffset());
+      masm.GetBuffer().GetOffsetAddress<uint8_t*>(0), masm.GetCursorOffset());
   ASSERT_EQUAL_32(0x12345678, r0);
   ASSERT_EQUAL_32(0x87654321, r1);
   ASSERT_EQUAL_32(0x13579bdf, r2);
@@ -1603,7 +1603,7 @@ TEST(printf2) {
 
   PrintDisassembler dis(std::cout, 0);
   dis.DisassembleA32Buffer(
-      masm.GetBuffer().GetOffsetAddress<uint32_t*>(0), masm.GetCursorOffset());
+      masm.GetBuffer().GetOffsetAddress<uint8_t*>(0), masm.GetCursorOffset());
   RUN();
 
   TEARDOWN();

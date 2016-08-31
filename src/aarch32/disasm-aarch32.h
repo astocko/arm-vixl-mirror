@@ -2550,10 +2550,18 @@ class PrintDisassembler : public Disassembler {
          << "\t";
   }
 
+  int DecodeA32At(const uint8_t* instruction_address) {
+    DecodeA32(*reinterpret_cast<const uint32_t*>(instruction_address));
+    return kA32InstructionSizeInBytes;
+  }
+
+  // Returns the size of the decoded instruction in bytes.
+  int DecodeT32At(const uint8_t* instruction_address,
+                  uint32_t max_size_in_bytes);
   void DecodeT32(uint32_t instruction);
   void DecodeA32(uint32_t instruction);
-  void DisassembleA32Buffer(const uint32_t* buffer, uint32_t size_in_bytes);
-  void DisassembleT32Buffer(const uint16_t* buffer, uint32_t size_in_bytes);
+  void DisassembleA32Buffer(const uint8_t* buffer, uint32_t size_in_bytes);
+  void DisassembleT32Buffer(const uint8_t* buffer, uint32_t size_in_bytes);
 };
 
 }  // namespace aarch32

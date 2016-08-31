@@ -218,7 +218,7 @@ Then you can disassemble the macro assembler's buffer:
 
     PrintDisassembler disasm(std::cout, display_pc);
     disasm.DisassembleA32Buffer(
-        masm.GetBuffer().GetOffsetAddress<uint32_t*>(0), masm.GetCursorOffset());
+        masm.GetBuffer().GetOffsetAddress<uint8_t*>(0), masm.GetCursorOffset());
 
 If you generated T32 code instead of A32 code, you must use
 DisassembleT32Buffer. Warning: if your buffer contains some data or contains
