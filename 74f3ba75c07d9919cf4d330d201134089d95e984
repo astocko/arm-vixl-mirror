@@ -16,6 +16,24 @@
       "revId": "74f3ba75c07d9919cf4d330d201134089d95e984",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_eefec637",
+        "filename": "tools/threaded_tests.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1000226
+      },
+      "writtenOn": "2016-08-31T09:46:37Z",
+      "side": 1,
+      "message": "How about using a dictionary for excess parameters, python has native support for this:\n\ndef FilterKnownTestFailures(tests, **env):\n  if \u0027valgrind\u0027 in env: ...\n\nWhen you call the function simply add a \"name/value\" pair after the positional argument:\n\n  FilterKnownTestFailures(tests, valgrind \u003d True)",
+      "parentUuid": "ba068154_6ecc9636",
+      "revId": "74f3ba75c07d9919cf4d330d201134089d95e984",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
