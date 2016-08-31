@@ -67288,9 +67288,34 @@ void Disassembler::DecodeA32(uint32_t instr) {
 }  // NOLINT(readability/fn_size)
 // End of generated code.
 
-void PrintDisassembler::DecodeT32(uint32_t instruction) {
+int PrintDisassembler::DecodeT32At(const void* instruction_address,
+                                   uint32_t max_readahead_in_bytes) {
+  VIXL_ASSERT(max_readahead_in_bytes >= k16BitT32InstructionSizeInBytes);
+
+  uint16_t data[2];
+  const uint32_t data_size = sizeof(data);
+
+  memcpy(data,
+         instruction_address,
+         std::min(data_size, max_readahead_in_bytes));
+
+  uint32_t instruction = *data << 16;
+
+  if (instruction >= kLowestT32_32Opcode) {
+    if (max_readahead_in_bytes < sizeof(data)) {
+      return max_readahead_in_bytes;
+    }
+
+    instruction |= data[1];
+  }
+
+  return DecodeT32(instruction);
+}
+
+int PrintDisassembler::DecodeT32(uint32_t instruction) {
+  const int ret = T32Size(instruction);
   PrintPc(GetPc());
-  if (T32Size(instruction) == 2) {
+  if (ret == k16BitT32InstructionSizeInBytes) {
     PrintOpcode16(instruction >> 16);
     Disassembler::DecodeT32(instruction);
   } else {
@@ -67298,35 +67323,35 @@ void PrintDisassembler::DecodeT32(uint32_t instruction) {
     Disassembler::DecodeT32(instruction);
   }
   os() << "\n";
+  return ret;
 }
 
 
-void PrintDisassembler::DecodeA32(uint32_t instruction) {
+int PrintDisassembler::DecodeA32(uint32_t instruction) {
   PrintPc(GetPc());
   PrintOpcode32(instruction);
   Disassembler::DecodeA32(instruction);
   os() << "\n";
+  return kA32InstructionSizeInBytes;
 }
 
 
-void PrintDisassembler::DisassembleA32Buffer(const uint32_t* buffer,
+void PrintDisassembler::DisassembleA32Buffer(const void* buffer,
                                              uint32_t size_in_bytes) {
-  const uint32_t* const end_buffer =
-      buffer + (size_in_bytes / sizeof(uint32_t));
-  while (buffer < end_buffer) {
-    DecodeA32(*buffer++);
+  const char* const base = static_cast<const char*>(buffer);
+  size_in_bytes = AlignDown(size_in_bytes, kA32InstructionSizeInBytes);
+  for (uint32_t i = 0; i < size_in_bytes;) {
+    i += DecodeA32At(static_cast<const void*>(base + i));
   }
 }
 
 
-void PrintDisassembler::DisassembleT32Buffer(const uint16_t* buffer,
+void PrintDisassembler::DisassembleT32Buffer(const void* buffer,
                                              uint32_t size_in_bytes) {
-  const uint16_t* const end_buffer =
-      buffer + (size_in_bytes / sizeof(uint16_t));
-  while (buffer < end_buffer) {
-    uint32_t value = *buffer++ << 16;
-    if (value >= kLowestT32_32Opcode) value |= *buffer++;
-    DecodeT32(value);
+  const char* const base = static_cast<const char*>(buffer);
+  size_in_bytes = AlignDown(size_in_bytes, k16BitT32InstructionSizeInBytes);
+  for (uint32_t i = 0; i < size_in_bytes;) {
+    i += DecodeT32At(static_cast<const void*>(base + i), size_in_bytes - i);
   }
 }
 
