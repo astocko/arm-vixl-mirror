@@ -67288,6 +67288,19 @@ void Disassembler::DecodeA32(uint32_t instr) {
 }  // NOLINT(readability/fn_size)
 // End of generated code.
 
+int PrintDisassembler::DecodeT32(const uint16_t* instruction) {
+  uint32_t value = static_cast<uint32_t>(*instruction) << 16;
+  int ret = k16BitT32InstructionSizeInBytes;
+
+  if (value >= kLowestT32_32Opcode) {
+    value |= instruction[1];
+    ret = k32BitT32InstructionSizeInBytes;
+  }
+
+  DecodeT32(value);
+  return ret;
+}
+
 void PrintDisassembler::DecodeT32(uint32_t instruction) {
   PrintPc(GetPc());
   if (T32Size(instruction) == 2) {
@@ -67324,9 +67337,7 @@ void PrintDisassembler::DisassembleT32Buffer(const uint16_t* buffer,
   const uint16_t* const end_buffer =
       buffer + (size_in_bytes / sizeof(uint16_t));
   while (buffer < end_buffer) {
-    uint32_t value = *buffer++ << 16;
-    if (value >= kLowestT32_32Opcode) value |= *buffer++;
-    DecodeT32(value);
+    buffer += DecodeT32(buffer) / sizeof(*buffer);
   }
 }
 
