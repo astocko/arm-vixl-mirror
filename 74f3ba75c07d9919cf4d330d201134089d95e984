@@ -34,6 +34,24 @@
       "revId": "74f3ba75c07d9919cf4d330d201134089d95e984",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_0eb06a8a",
+        "filename": "tools/threaded_tests.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1000234
+      },
+      "writtenOn": "2016-08-31T10:27:32Z",
+      "side": 1,
+      "message": "Keeping in mind that I don\u0027t really know Python (and its idioms), \"env.valgrind\" seemed like a much more natural syntax to me than \"\u0027valgrind\u0027 in env\" (it\u0027s certainly less verbose). Furthermore, while the difference is arguably minor, how would that work for non-boolean parameters? Will it be something like:\n\nif env[\u0027another_param\u0027] \u003d\u003d \u0027value\u0027: ...",
+      "parentUuid": "ba068154_eefec637",
+      "revId": "74f3ba75c07d9919cf4d330d201134089d95e984",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
