@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba068154_cc378baf",
+        "filename": "tools/known_test_failures.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1000226
+      },
+      "writtenOn": "2016-08-31T13:35:31Z",
+      "side": 1,
+      "message": "put parentheses to avoid confusion.",
+      "revId": "6aaab073d644a244c0c41da09e8dfc8f11d37e3c",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_4c727b7d",
+        "filename": "tools/known_test_failures.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1000226
+      },
+      "writtenOn": "2016-08-31T13:35:31Z",
+      "side": 1,
+      "message": "lambda x: x not in ... is more readable.",
+      "revId": "6aaab073d644a244c0c41da09e8dfc8f11d37e3c",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_ec46cf22",
+        "filename": "tools/threaded_tests.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000226
+      },
+      "writtenOn": "2016-08-31T13:35:31Z",
+      "side": 1,
+      "message": "you can remove",
+      "revId": "6aaab073d644a244c0c41da09e8dfc8f11d37e3c",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
