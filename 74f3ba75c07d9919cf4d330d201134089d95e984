@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba068154_6ecc9636",
+        "filename": "tools/threaded_tests.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-08-31T08:57:16Z",
+      "side": 1,
+      "message": "I don\u0027t know Python well but this looks strange. Perhaps a dictionary is better, or maybe even arguments with default values (so they can be omitted and specified in any order).",
+      "revId": "74f3ba75c07d9919cf4d330d201134089d95e984",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
