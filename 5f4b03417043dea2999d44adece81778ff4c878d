@@ -141,6 +141,24 @@
       "revId": "5f4b03417043dea2999d44adece81778ff4c878d",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_0fd225d2",
+        "filename": "src/aarch32/disasm-aarch32.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 67291,
+      "author": {
+        "id": 1000221
+      },
+      "writtenOn": "2016-09-01T15:41:08Z",
+      "side": 1,
+      "message": "If you use this function, that means that you have the instruction into a buffer (even if the buffer is only 2 bytes). It\u0027s consistent to return a pointer. If you still need the size, you can always do the opposite you did in DisassembleT32Buffer which gives.\n\nconst uint16_t* buffer \u003d ...\nint size \u003d (DecodeT32(buffer) - buffer) * sizeof(*buffer);",
+      "parentUuid": "ba068154_2f51e962",
+      "revId": "5f4b03417043dea2999d44adece81778ff4c878d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
