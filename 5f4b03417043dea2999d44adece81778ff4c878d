@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba068154_4f3f0d26",
+        "filename": "src/aarch32/disasm-aarch32.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 67291,
+      "author": {
+        "id": 1000221
+      },
+      "writtenOn": "2016-09-01T14:55:11Z",
+      "side": 1,
+      "message": "Your prototype is not consistent. You give a \"uint16_t*\" and your return the number of uint8_t decoded.\nYou should return a \"uint16_t*\". This way, it would be easier to use (specially in DisassembleT32Buffer).",
+      "revId": "5f4b03417043dea2999d44adece81778ff4c878d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
