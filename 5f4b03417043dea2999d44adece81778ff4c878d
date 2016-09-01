@@ -69,6 +69,24 @@
       "revId": "5f4b03417043dea2999d44adece81778ff4c878d",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_af65d946",
+        "filename": "src/aarch32/disasm-aarch32.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 67291,
+      "author": {
+        "id": 1000221
+      },
+      "writtenOn": "2016-09-01T15:24:37Z",
+      "side": 1,
+      "message": "No, you should return a pointer. This avoid any ambiguity and avoid all the arithmetic you do in DisassembleT32Buffer. It becomes:\nbuffer \u003d DecodeT32(buffer);",
+      "parentUuid": "ba068154_cf12ddb3",
+      "revId": "5f4b03417043dea2999d44adece81778ff4c878d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
