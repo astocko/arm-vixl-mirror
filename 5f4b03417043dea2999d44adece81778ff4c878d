@@ -33,6 +33,24 @@
       "revId": "5f4b03417043dea2999d44adece81778ff4c878d",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_cf12ddb3",
+        "filename": "src/aarch32/disasm-aarch32.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 67291,
+      "author": {
+        "id": 1000234
+      },
+      "writtenOn": "2016-09-01T15:01:17Z",
+      "side": 1,
+      "message": "As mentioned, I was being consistent with T32Size() (so the method is essentially a combination of DecodeT32() and T32Size() with a pointer argument), but this is easily fixable.\n\nWhen you say \"You should return a \"uint16_t*\", I suppose you mean that I should return a value in uint16_t units, which will still be an int, as opposed to returning a pointer, right?",
+      "parentUuid": "ba068154_4f3f0d26",
+      "revId": "5f4b03417043dea2999d44adece81778ff4c878d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
