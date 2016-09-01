@@ -195,6 +195,24 @@
       "revId": "5f4b03417043dea2999d44adece81778ff4c878d",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_8faa9517",
+        "filename": "src/aarch32/disasm-aarch32.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 67291,
+      "author": {
+        "id": 1000234
+      },
+      "writtenOn": "2016-09-01T16:58:56Z",
+      "side": 1,
+      "message": "Your point about DisassembleT32Buffer() has made me realize that it is actually a problematic function - it gets a pointer to uint16_t, and yet the size is in bytes, so I will refactor the function, just keeping the prototype as it is. As for rethinking the disassembly, the ART disassembler prints stack maps immediately after the instructions they pertain to, so the final output is a mixture of the VIXL output and the ART additions, and instructions need to be processed one by one.",
+      "parentUuid": "ba068154_8fe575aa",
+      "revId": "5f4b03417043dea2999d44adece81778ff4c878d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
