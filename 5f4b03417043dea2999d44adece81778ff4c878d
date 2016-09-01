@@ -123,6 +123,24 @@
       "revId": "5f4b03417043dea2999d44adece81778ff4c878d",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_cfc77d11",
+        "filename": "src/aarch32/disasm-aarch32.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 67291,
+      "author": {
+        "id": 1000234
+      },
+      "writtenOn": "2016-09-01T15:39:30Z",
+      "side": 1,
+      "message": "The ART code looks like this:\n\n size_t DisassemblerArm::DumpInstruction(const uint8_t* instr_ptr,\n                                         bool is_t32,\n                                         std::ostream\u0026 os) {\n   size_t ret;\n \n   disasm_.ResetStreamPc();\n \n   if (is_t32) {\n     const uint16_t* const ip \u003d reinterpret_cast\u003cconst uint16_t*\u003e(instr_ptr);\n \n     // The T32Size() method needs only the first 16 bits of the instruction,\n     // and expects them to occupy the most significant bytes of its input.\n     ret \u003d disasm_.T32Size(*ip \u003c\u003c 16);\n     disasm_.DisassembleT32Buffer(ip, ret);\n   } else {\n     ret \u003d vixl::aarch32::kA32InstructionSizeInBytes;\n     disasm_.DecodeA32(*reinterpret_cast\u003cconst uint32_t*\u003e(instr_ptr));\n   }\n \n   os \u003c\u003c output_.str();\n   output_.str(std::string());\n   return ret;\n }\n\nWith the proposed changes it will look like this:\n\n size_t DisassemblerArm::DumpInstruction(const uint8_t* instr_ptr,\n                                         bool is_t32,\n                                         std::ostream\u0026 os) {\n   size_t ret;\n \n   disasm_.ResetStreamPc();\n \n   if (is_t32) {\n     const uint16_t* const ip \u003d reinterpret_cast\u003cconst uint16_t*\u003e(instr_ptr);\n \n     ret \u003d disasm_.DecodeT32At(ip) * sizeof(*ip);\n   } else {\n     const uint32_t* const ip \u003d reinterpret_cast\u003cconst uint32_t*\u003e(instr_ptr);\n \n     ret \u003d disasm_.DecodeA32At(ip) * sizeof(*ip);\n   }\n \n   os \u003c\u003c output_.str();\n   output_.str(std::string());\n   return ret;\n }",
+      "parentUuid": "ba068154_ef5fe170",
+      "revId": "5f4b03417043dea2999d44adece81778ff4c878d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
