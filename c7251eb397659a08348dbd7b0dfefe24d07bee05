@@ -54,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "ba068154_2f928957",
+        "filename": "src/aarch32/disasm-aarch32.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 67292,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-09-01T13:43:53Z",
+      "side": 1,
+      "message": "Then, you\u0027ll have both \"instruction\" and \"instr\" in the same scope, which is somewhat distressing. \"opcode\" agrees with kLowestT32_32Opcode, at least.\n\nAlternatively, you could use \"address\" and \"instruction\". That would be fine.",
+      "parentUuid": "ba068154_cf2c9d4d",
+      "revId": "c7251eb397659a08348dbd7b0dfefe24d07bee05",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba068154_4ff9cdc7",
         "filename": "src/aarch32/disasm-aarch32.h",
         "patchSetId": 1
@@ -89,6 +107,30 @@
       "side": 1,
       "message": "The way I see it, it is the PrintDisassembler class that provides helpers for extracting functions out of buffers, nicely formatting output lines and so on, while the Disassembler class provides the basics (and deals only with uint32_t types). So, logically, the right place for the new DecodeT32() variant is the PrintDisassembler class.",
       "parentUuid": "ba068154_4ff9cdc7",
+      "range": {
+        "startLine": 2478,
+        "startChar": 0,
+        "endLine": 2479,
+        "endChar": 33
+      },
+      "revId": "c7251eb397659a08348dbd7b0dfefe24d07bee05",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_cf881d25",
+        "filename": "src/aarch32/disasm-aarch32.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 2479,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-09-01T13:43:53Z",
+      "side": 1,
+      "message": "I don\u0027t follow. Couldn\u0027t the Disassembler be used directly? It looks like the design allows the Disassembler to be extended, perhaps with custom overloads of PrintOpcode* and the like. The basic Disassembler has the same Decode(A32|T32) methods that the PrintDisassembler does, except for the new one.",
+      "parentUuid": "ba068154_2f1d6910",
       "range": {
         "startLine": 2478,
         "startChar": 0,
