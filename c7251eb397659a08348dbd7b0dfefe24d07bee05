@@ -34,6 +34,42 @@
       "revId": "c7251eb397659a08348dbd7b0dfefe24d07bee05",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_cf377daf",
+        "filename": "src/aarch32/disasm-aarch32.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 2553,
+      "author": {
+        "id": 1000234
+      },
+      "writtenOn": "2016-09-01T12:36:20Z",
+      "side": 1,
+      "message": "It would, but I was being consistent with Disassembler::T32Size().",
+      "parentUuid": "ba068154_afd5d944",
+      "revId": "c7251eb397659a08348dbd7b0dfefe24d07bee05",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_ef46c122",
+        "filename": "src/aarch32/disasm-aarch32.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 2553,
+      "author": {
+        "id": 1000234
+      },
+      "writtenOn": "2016-09-01T12:36:20Z",
+      "side": 1,
+      "message": "The compiler won\u0027t allow an accidental mixup between pointer and integer, will it? Someone will have to write an explicit cast, which seems doubtful to be by accident. Not that I am opposed to renaming it (although I do like keeping it as it is), except that DecodeBufferT32() is a bad idea (we are decoding exactly one instruction, not a buffer of instructions).",
+      "parentUuid": "ba068154_4fc42d92",
+      "revId": "c7251eb397659a08348dbd7b0dfefe24d07bee05",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
