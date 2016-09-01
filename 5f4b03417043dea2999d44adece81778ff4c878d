@@ -177,6 +177,24 @@
       "revId": "5f4b03417043dea2999d44adece81778ff4c878d",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_8fe575aa",
+        "filename": "src/aarch32/disasm-aarch32.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 67291,
+      "author": {
+        "id": 1000221
+      },
+      "writtenOn": "2016-09-01T16:05:14Z",
+      "side": 1,
+      "message": "The major problem is, when you read the prototype of the function, you have absolutely no idea of the unit of the return. It can lead to misuse of the function.\nIf you really want a size you can always compute it from the returned pointer but, maybe, you should rethink your disassembly.\nFinally, it\u0027s weird that the use of the function you just created is not accurate for the first use you make (in DisassembleT32Buffer).",
+      "parentUuid": "ba068154_4fdb8ded",
+      "revId": "5f4b03417043dea2999d44adece81778ff4c878d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
