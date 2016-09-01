@@ -16,6 +16,24 @@
       "revId": "c7251eb397659a08348dbd7b0dfefe24d07bee05",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_4fc42d92",
+        "filename": "src/aarch32/disasm-aarch32.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 2553,
+      "author": {
+        "id": 1000219
+      },
+      "writtenOn": "2016-09-01T12:28:43Z",
+      "side": 1,
+      "message": "Also, I think we need a different name for this method, as it has different semantics. Someone could accidentally call it.\n\nI\u0027m not sure what it should be called though, DecodeBufferT32 maybe, or DecodeT32At.",
+      "parentUuid": "ba068154_afd5d944",
+      "revId": "c7251eb397659a08348dbd7b0dfefe24d07bee05",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
