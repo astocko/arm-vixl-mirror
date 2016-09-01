@@ -105,6 +105,24 @@
       "revId": "5f4b03417043dea2999d44adece81778ff4c878d",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_2f51e962",
+        "filename": "src/aarch32/disasm-aarch32.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 67291,
+      "author": {
+        "id": 1000234
+      },
+      "writtenOn": "2016-09-01T15:29:37Z",
+      "side": 1,
+      "message": "Isn\u0027t that a little bit too specialized for DisassembleT32Buffer()? Generally speaking, the intent is to disassemble exactly one function and obtain its size. There isn\u0027t necessarily a whole buffer of instructions that need processing.",
+      "parentUuid": "ba068154_af65d946",
+      "revId": "5f4b03417043dea2999d44adece81778ff4c878d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
