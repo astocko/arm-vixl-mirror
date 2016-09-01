@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "ba068154_cf2c9d4d",
+        "filename": "src/aarch32/disasm-aarch32.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 67292,
+      "author": {
+        "id": 1000234
+      },
+      "writtenOn": "2016-09-01T13:12:08Z",
+      "side": 1,
+      "message": "Yes, but opcode might in fact be the whole instruction, and that means we are going to get DecodeT32(opcode) below, which is confusing - why are we decoding only the opcode?\n\nI might change it to something such as instr, though, which implies that we are dealing with the whole.",
+      "parentUuid": "ba068154_0f106500",
+      "revId": "c7251eb397659a08348dbd7b0dfefe24d07bee05",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba068154_4ff9cdc7",
         "filename": "src/aarch32/disasm-aarch32.h",
         "patchSetId": 1
@@ -47,6 +65,30 @@
       "writtenOn": "2016-09-01T12:59:16Z",
       "side": 1,
       "message": "Should the new method also be added to the parent (Disassembler) class?",
+      "range": {
+        "startLine": 2478,
+        "startChar": 0,
+        "endLine": 2479,
+        "endChar": 33
+      },
+      "revId": "c7251eb397659a08348dbd7b0dfefe24d07bee05",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_2f1d6910",
+        "filename": "src/aarch32/disasm-aarch32.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 2479,
+      "author": {
+        "id": 1000234
+      },
+      "writtenOn": "2016-09-01T13:12:08Z",
+      "side": 1,
+      "message": "The way I see it, it is the PrintDisassembler class that provides helpers for extracting functions out of buffers, nicely formatting output lines and so on, while the Disassembler class provides the basics (and deals only with uint32_t types). So, logically, the right place for the new DecodeT32() variant is the PrintDisassembler class.",
+      "parentUuid": "ba068154_4ff9cdc7",
       "range": {
         "startLine": 2478,
         "startChar": 0,
