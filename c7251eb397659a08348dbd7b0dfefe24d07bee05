@@ -72,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "ba068154_ef87e10d",
+        "filename": "src/aarch32/disasm-aarch32.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 67292,
+      "author": {
+        "id": 1000234
+      },
+      "writtenOn": "2016-09-01T13:54:25Z",
+      "side": 1,
+      "message": "instr_address instead of just address?",
+      "parentUuid": "ba068154_2f928957",
+      "revId": "c7251eb397659a08348dbd7b0dfefe24d07bee05",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba068154_4ff9cdc7",
         "filename": "src/aarch32/disasm-aarch32.h",
         "patchSetId": 1
@@ -131,6 +149,30 @@
       "side": 1,
       "message": "I don\u0027t follow. Couldn\u0027t the Disassembler be used directly? It looks like the design allows the Disassembler to be extended, perhaps with custom overloads of PrintOpcode* and the like. The basic Disassembler has the same Decode(A32|T32) methods that the PrintDisassembler does, except for the new one.",
       "parentUuid": "ba068154_2f1d6910",
+      "range": {
+        "startLine": 2478,
+        "startChar": 0,
+        "endLine": 2479,
+        "endChar": 33
+      },
+      "revId": "c7251eb397659a08348dbd7b0dfefe24d07bee05",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_4f7c2d21",
+        "filename": "src/aarch32/disasm-aarch32.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 2479,
+      "author": {
+        "id": 1000234
+      },
+      "writtenOn": "2016-09-01T13:54:25Z",
+      "side": 1,
+      "message": "The Disassembler class doesn\u0027t have the PrintOpcode* methods (or PrintPc() for that matter). I suppose the Disassembler could be used directly, but in ART we definitely need the PrintDisassembler (well, unless we want to reimplement the same functionality).\n\nTo be honest, based on my experience I suspect that most VIXL users will end up using the PrintDisassembler class, but whether it should exist as a separate entity is a completely different discussion.",
+      "parentUuid": "ba068154_cf881d25",
       "range": {
         "startLine": 2478,
         "startChar": 0,
