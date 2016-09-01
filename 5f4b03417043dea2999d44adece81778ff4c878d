@@ -159,6 +159,24 @@
       "revId": "5f4b03417043dea2999d44adece81778ff4c878d",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_4fdb8ded",
+        "filename": "src/aarch32/disasm-aarch32.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 67291,
+      "author": {
+        "id": 1000234
+      },
+      "writtenOn": "2016-09-01T15:46:30Z",
+      "side": 1,
+      "message": "Exactly, so the question becomes what the expected usage of the function will be. IMHO if people want to deal with several instructions (in which case your proposed return value makes more sense), they will just use DisassembleT32Buffer(). If, on the other hand, they want to deal with a single instruction, they will invoke DecodeT32At(), in which case the address arithmetic is a real chore.",
+      "parentUuid": "ba068154_0fd225d2",
+      "revId": "5f4b03417043dea2999d44adece81778ff4c878d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
