@@ -70,6 +70,24 @@
       "revId": "c7251eb397659a08348dbd7b0dfefe24d07bee05",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_8f6c559e",
+        "filename": "src/aarch32/disasm-aarch32.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 2553,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-09-01T12:50:27Z",
+      "side": 1,
+      "message": "`int` is better than `size_t` here, at least for VIXL. The value will always be a small immediate. If it\u0027s used in some size_t calculation, it will be extended accordingly. If we returned `size_t`, it can\u0027t necessarily be used in an `int` calculation without compiler warnings about narrowing (depending on the context).\n\nhttps://google.github.io/styleguide/cppguide.html#Integer_Types\n\nI\u0027m also not too worried about the naming; the argument type makes it unambiguous and I think the operation is clear. Others might disagree though.",
+      "parentUuid": "ba068154_ef46c122",
+      "revId": "c7251eb397659a08348dbd7b0dfefe24d07bee05",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
