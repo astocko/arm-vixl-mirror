@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ba068154_8fdbb51a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000234
+      },
+      "writtenOn": "2016-09-01T14:29:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba068154_cf05bdc3",
+      "revId": "c7251eb397659a08348dbd7b0dfefe24d07bee05",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba068154_0f106500",
         "filename": "src/aarch32/disasm-aarch32.cc",
         "patchSetId": 1
@@ -102,6 +120,24 @@
       "side": 1,
       "message": "Ok, though instruction_address would be better still.",
       "parentUuid": "ba068154_ef87e10d",
+      "revId": "c7251eb397659a08348dbd7b0dfefe24d07bee05",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_6fc1312e",
+        "filename": "src/aarch32/disasm-aarch32.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 67292,
+      "author": {
+        "id": 1000234
+      },
+      "writtenOn": "2016-09-01T14:29:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba068154_8fad758b",
       "revId": "c7251eb397659a08348dbd7b0dfefe24d07bee05",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
