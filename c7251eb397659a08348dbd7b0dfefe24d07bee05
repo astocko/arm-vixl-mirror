@@ -90,6 +90,24 @@
     },
     {
       "key": {
+        "uuid": "ba068154_8fad758b",
+        "filename": "src/aarch32/disasm-aarch32.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 67292,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-09-01T14:22:20Z",
+      "side": 1,
+      "message": "Ok, though instruction_address would be better still.",
+      "parentUuid": "ba068154_ef87e10d",
+      "revId": "c7251eb397659a08348dbd7b0dfefe24d07bee05",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba068154_4ff9cdc7",
         "filename": "src/aarch32/disasm-aarch32.h",
         "patchSetId": 1
@@ -173,6 +191,30 @@
       "side": 1,
       "message": "The Disassembler class doesn\u0027t have the PrintOpcode* methods (or PrintPc() for that matter). I suppose the Disassembler could be used directly, but in ART we definitely need the PrintDisassembler (well, unless we want to reimplement the same functionality).\n\nTo be honest, based on my experience I suspect that most VIXL users will end up using the PrintDisassembler class, but whether it should exist as a separate entity is a completely different discussion.",
       "parentUuid": "ba068154_cf881d25",
+      "range": {
+        "startLine": 2478,
+        "startChar": 0,
+        "endLine": 2479,
+        "endChar": 33
+      },
+      "revId": "c7251eb397659a08348dbd7b0dfefe24d07bee05",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_afbb19c3",
+        "filename": "src/aarch32/disasm-aarch32.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 2479,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-09-01T14:22:20Z",
+      "side": 1,
+      "message": "Actually, looking at the implementation a bit more closely, it seems that PrintDisassembler::DecodeT32 relies on Disassembler::DecodeT32, which does the actual decoding. VIXL32 doesn\u0027t have the separate Decoder class like VIXL64. In that case, I think your original approach makes the most sense; put the new DecodeT32 function in PrintDisassembler.",
+      "parentUuid": "ba068154_4f7c2d21",
       "range": {
         "startLine": 2478,
         "startChar": 0,
