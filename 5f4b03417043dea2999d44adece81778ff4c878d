@@ -87,6 +87,24 @@
       "revId": "5f4b03417043dea2999d44adece81778ff4c878d",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_ef5fe170",
+        "filename": "src/aarch32/disasm-aarch32.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 67291,
+      "author": {
+        "id": 1000194
+      },
+      "writtenOn": "2016-09-01T15:28:11Z",
+      "side": 1,
+      "message": "Tony for Vincent\u0027s benefit can you please post the ugliness that this is trying to solve?",
+      "parentUuid": "ba068154_af65d946",
+      "revId": "5f4b03417043dea2999d44adece81778ff4c878d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
