@@ -2,6 +2,63 @@
   "comments": [
     {
       "key": {
+        "uuid": "ba068154_cf05bdc3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-09-01T12:59:16Z",
+      "side": 1,
+      "message": "Could you keep the summary line a bit shorter please? We don\u0027t _enforce_ a strict summary length, but the same thing could be said more concisely:\n\n\"Add a PrintDisassembler::DecodeT32() variant.\"",
+      "revId": "c7251eb397659a08348dbd7b0dfefe24d07bee05",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_0f106500",
+        "filename": "src/aarch32/disasm-aarch32.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 67292,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-09-01T12:59:16Z",
+      "side": 1,
+      "message": "s/value/opcode/\n\nIt\u0027s more specific, and therefore slightly clearer.",
+      "revId": "c7251eb397659a08348dbd7b0dfefe24d07bee05",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_4ff9cdc7",
+        "filename": "src/aarch32/disasm-aarch32.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 2479,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-09-01T12:59:16Z",
+      "side": 1,
+      "message": "Should the new method also be added to the parent (Disassembler) class?",
+      "range": {
+        "startLine": 2478,
+        "startChar": 0,
+        "endLine": 2479,
+        "endChar": 33
+      },
+      "revId": "c7251eb397659a08348dbd7b0dfefe24d07bee05",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba068154_afd5d944",
         "filename": "src/aarch32/disasm-aarch32.h",
         "patchSetId": 1
