@@ -129,6 +129,30 @@
       "revId": "4239f6c67f7383c194ce4a751851e3eaae26026e",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_5225f0c0",
+        "filename": "src/aarch32/disasm-aarch32.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 67294,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-09-02T14:18:06Z",
+      "side": 1,
+      "message": "Yes and no. You can write a `uint16_t*`, convert it to `char*` and then back to `uint16_t*` and dereference _that_. However, you cannot safely write a `uint16_t*`, convert it to `char*` and then to something else (like `uint32_t*`). If you\u0027re given a `char*` and you want to reinterpret_cast it to something else, you have to be sure of how it was written in the first place.\n\nIt\u0027s safest to just use memcpy. It\u0027s fast; compilers will inline it so that it won\u0027t actually generate different code than reinterpret_cast most of the time.",
+      "parentUuid": "ba068154_924e38c0",
+      "range": {
+        "startLine": 67293,
+        "startChar": 0,
+        "endLine": 67294,
+        "endChar": 61
+      },
+      "revId": "4239f6c67f7383c194ce4a751851e3eaae26026e",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
