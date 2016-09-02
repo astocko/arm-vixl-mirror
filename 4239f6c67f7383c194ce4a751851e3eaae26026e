@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ba068154_d2bc406f",
+        "filename": "src/aarch32/disasm-aarch32.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 67291,
+      "author": {
+        "id": 1000234
+      },
+      "writtenOn": "2016-09-02T13:44:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba068154_128408d3",
+      "revId": "4239f6c67f7383c194ce4a751851e3eaae26026e",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba068154_727474fd",
         "filename": "src/aarch32/disasm-aarch32.cc",
         "patchSetId": 5
@@ -78,6 +96,30 @@
       "side": 1,
       "message": "And obviously, to a void*.",
       "parentUuid": "ba068154_924e38c0",
+      "range": {
+        "startLine": 67293,
+        "startChar": 0,
+        "endLine": 67294,
+        "endChar": 61
+      },
+      "revId": "4239f6c67f7383c194ce4a751851e3eaae26026e",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba068154_52b0508b",
+        "filename": "src/aarch32/disasm-aarch32.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 67294,
+      "author": {
+        "id": 1000234
+      },
+      "writtenOn": "2016-09-02T13:44:48Z",
+      "side": 1,
+      "message": "I will use memcpy() due to alignment considerations.",
+      "parentUuid": "ba068154_f2d6a4c4",
       "range": {
         "startLine": 67293,
         "startChar": 0,
