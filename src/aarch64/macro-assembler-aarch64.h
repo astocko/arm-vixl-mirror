@@ -1638,8 +1638,12 @@ class MacroAssembler : public Assembler {
   }
   void Mov(const Register& rd, const Register& rn) {
     VIXL_ASSERT(allow_macro_instructions_);
-    SingleEmissionCheckScope guard(this);
-    mov(rd, rn);
+    if (rn.IsSP()) {
+      SingleEmissionCheckScope guard(this);
+      mov(rd, rn);
+    } else {
+      Mov(rd, Operand(rn));
+    }
   }
   void Movk(const Register& rd, uint64_t imm, int shift = -1) {
     VIXL_ASSERT(allow_macro_instructions_);
