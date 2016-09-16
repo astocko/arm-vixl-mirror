@@ -16,6 +16,24 @@
       "revId": "9ff20125a5c9558936796e982e2cd8a061024c52",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a0b7d60_1bbefeff",
+        "filename": "src/aarch64/macro-assembler-aarch64.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1643,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-09-16T13:35:08Z",
+      "side": 1,
+      "message": "I will try to refactor the code to have the `Operand` case call this method.",
+      "parentUuid": "9a0b7d60_1b90be94",
+      "revId": "9ff20125a5c9558936796e982e2cd8a061024c52",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
