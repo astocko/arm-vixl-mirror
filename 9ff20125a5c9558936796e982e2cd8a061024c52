@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a0b7d60_1b90be94",
+        "filename": "src/aarch64/macro-assembler-aarch64.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1643,
+      "author": {
+        "id": 1000222
+      },
+      "writtenOn": "2016-09-16T12:43:16Z",
+      "side": 1,
+      "message": "Are we accepting that an sp-\u003esp move is not worth optimising for the extra code it would require here?",
+      "revId": "9ff20125a5c9558936796e982e2cd8a061024c52",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
