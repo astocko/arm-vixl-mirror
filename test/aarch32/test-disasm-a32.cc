@@ -49,18 +49,18 @@ namespace aarch32 {
 
 #define COMPARE(ASM, EXP)                                                      \
   {                                                                            \
-    ptrdiff_t start = masm.GetBuffer().GetCursorOffset();                      \
+    ptrdiff_t start = masm.GetBuffer()->GetCursorOffset();                     \
     masm.ASM;                                                                  \
-    ptrdiff_t end = masm.GetBuffer().GetCursorOffset();                        \
+    ptrdiff_t end = masm.GetBuffer()->GetCursorOffset();                       \
     masm.FinalizeCode();                                                       \
     std::ostringstream ss;                                                     \
     TestDisassembler disassembler(ss, 0);                                      \
     if (masm.IsUsingT32()) {                                                   \
-      disassembler.DisassembleT32(masm.GetBuffer(), start, end);               \
+      disassembler.DisassembleT32(*masm.GetBuffer(), start, end);              \
     } else {                                                                   \
-      disassembler.DisassembleA32(masm.GetBuffer(), start, end);               \
+      disassembler.DisassembleA32(*masm.GetBuffer(), start, end);              \
     }                                                                          \
-    masm.GetBuffer().Reset();                                                  \
+    masm.GetBuffer()->Reset();                                                 \
     if (std::string(EXP) != ss.str()) {                                        \
       printf("\nFound:\n%sExpected:\n%s", ss.str().c_str(), EXP);              \
       abort();                                                                 \

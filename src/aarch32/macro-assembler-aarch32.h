@@ -369,7 +369,7 @@ class MacroAssembler : public Assembler {
   // void T::emit(MacroAssembler* const, RawLiteral* const)
   template <typename T>
   void GenerateInstruction(T instr_callback, RawLiteral* const literal) {
-    ptrdiff_t cursor = GetBuffer().GetCursorOffset();
+    ptrdiff_t cursor = GetBuffer()->GetCursorOffset();
     uint32_t where = cursor + GetArchitectureStatePCOffset();
     // Emit the instruction, via the assembler
     {
@@ -378,7 +378,7 @@ class MacroAssembler : public Assembler {
     }
     if (IsInsertTooFar(literal, where)) {
       // The instruction's data is too far: revert the emission
-      GetBuffer().Rewind(cursor);
+      GetBuffer()->Rewind(cursor);
       literal->InvalidateLastForwardReference(RawLiteral::kNoUpdateNecessary);
       EmitLiteralPool(kBranchRequired);
       AllowAssemblerEmissionScope allow_scope(this, kMaxInstructionSizeInBytes);
@@ -420,7 +420,7 @@ class MacroAssembler : public Assembler {
 #endif
     ComputeCheckpoint();
   }
-  MacroAssembler(void* buffer, size_t size, InstructionSet isa = A32)
+  MacroAssembler(byte* buffer, size_t size, InstructionSet isa = A32)
       : Assembler(buffer, size, isa),
         available_(r12),
         checkpoint_(Label::kMaxOffset),
@@ -507,7 +507,7 @@ class MacroAssembler : public Assembler {
 #endif
       Label after_literal;
       if (option == kBranchRequired) {
-        GetBuffer().EnsureSpaceFor(kMaxInstructionSizeInBytes);
+        GetBuffer()->EnsureSpaceFor(kMaxInstructionSizeInBytes);
         VIXL_ASSERT(!AllowAssembler());
 #ifdef VIXL_DEBUG
         SetAllowAssembler(true);
@@ -518,8 +518,8 @@ class MacroAssembler : public Assembler {
         SetAllowAssembler(false);
 #endif
       }
-      GetBuffer().Align();
-      GetBuffer().EnsureSpaceFor(literal_pool->GetSize());
+      GetBuffer()->Align();
+      GetBuffer()->EnsureSpaceFor(literal_pool->GetSize());
       for (LiteralPool::RawLiteralListIterator it = literal_pool->GetFirst();
            it != literal_pool->GetEnd();
            it++) {
@@ -9321,7 +9321,7 @@ class JumpTable : public JumpTableBase {
     uint32_t position_in_table = GetLocationForCase(case_index);
     uint32_t from = GetBranchLocation();
     int offset = location - from;
-    T* case_offset = masm->GetBuffer().GetOffsetAddress<T*>(position_in_table);
+    T* case_offset = masm->GetBuffer()->GetOffsetAddress<T*>(position_in_table);
     if (masm->IsUsingT32()) {
       *case_offset = offset >> 1;
     } else {
