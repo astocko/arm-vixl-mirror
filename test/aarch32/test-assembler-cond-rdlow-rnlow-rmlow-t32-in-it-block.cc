@@ -1011,7 +1011,7 @@ static void TestHelper(Fn instruction,
     uint32_t end = masm.GetCursorOffset();
 
     const byte* result_ptr =
-        masm.GetBuffer().GetOffsetAddress<const byte*>(start);
+        masm.GetBuffer()->GetOffsetAddress<const byte*>(start);
     uint32_t result_size = end - start;
 
     if (Test::generate_test_trace()) {

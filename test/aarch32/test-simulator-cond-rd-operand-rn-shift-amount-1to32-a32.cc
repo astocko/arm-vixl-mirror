@@ -51,7 +51,7 @@
 
 #define SETUP() MacroAssembler masm(BUF_SIZE)
 
-#define START() masm.GetBuffer().Reset()
+#define START() masm.GetBuffer()->Reset()
 
 #define END() \
   __ Hlt(0);  \
@@ -67,7 +67,7 @@
 #define SETUP() MacroAssembler masm(BUF_SIZE);
 
 #define START()             \
-  masm.GetBuffer().Reset(); \
+  masm.GetBuffer()->Reset(); \
   __ Push(r4);              \
   __ Push(r5);              \
   __ Push(r6);              \
@@ -97,9 +97,9 @@
 // executing it.
 #define RUN()                                                  \
   {                                                            \
-    ExecutableMemory code(masm.GetBuffer().GetCursorOffset()); \
-    code.Write(masm.GetBuffer().GetOffsetAddress<byte*>(0),    \
-               masm.GetBuffer().GetCursorOffset());            \
+    ExecutableMemory code(masm.GetBuffer()->GetCursorOffset()); \
+    code.Write(masm.GetBuffer()->GetOffsetAddress<byte*>(0),    \
+               masm.GetBuffer()->GetCursorOffset());            \
     int pcs_offset = masm.IsUsingT32() ? 1 : 0;                \
     code.Execute(pcs_offset);                                  \
   }

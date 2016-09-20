@@ -290,9 +290,9 @@ void MacroAssembler::PerformEnsureEmit(Label::Offset target, uint32_t size) {
     EmitLiteralPool(option);
   }
   bind(&after_pools);
-  if (GetBuffer().IsManaged()) {
+  if (GetBuffer()->IsManaged()) {
     bool grow_requested;
-    GetBuffer().EnsureSpaceFor(size, &grow_requested);
+    GetBuffer()->EnsureSpaceFor(size, &grow_requested);
     if (grow_requested) ComputeCheckpoint();
   }
 }
@@ -305,7 +305,7 @@ void MacroAssembler::ComputeCheckpoint() {
                         veneer_pool_manager_.GetMaxSize();
     checkpoint_ = std::min(checkpoint_, tmp);
   }
-  Label::Offset buffer_checkpoint = GetBuffer().GetCapacity();
+  Label::Offset buffer_checkpoint = GetBuffer()->GetCapacity();
   checkpoint_ = std::min(checkpoint_, buffer_checkpoint);
 }
 
@@ -425,7 +425,7 @@ void MacroAssembler::Switch(Register reg, JumpTableBase* table) {
 void MacroAssembler::GenerateSwitchTable(JumpTableBase* table, int table_size) {
   table->BindTable(GetCursorOffset());
   for (int i = 0; i < table_size / 4; i++) {
-    GetBuffer().Emit32(0);
+    GetBuffer()->Emit32(0);
   }
 }
 
