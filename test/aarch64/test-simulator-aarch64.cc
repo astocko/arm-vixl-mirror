@@ -92,7 +92,7 @@ namespace aarch64 {
   masm.FinalizeCode()
 
 #define RUN()                                                                 \
-  simulator->RunFrom(masm.GetStartAddress<Instruction*>())
+  simulator->RunFrom(masm.GetBuffer()->GetStartAddress<Instruction*>())
 
 #define TEARDOWN()                                                            \
   delete simulator;
@@ -114,9 +114,9 @@ namespace aarch64 {
 
 #define RUN()                                                                  \
   {                                                                            \
-    masm.SetBufferExecutable();                                                \
+    masm.GetBuffer()->SetExecutable();                                         \
     ExecuteMemory(masm.GetOffsetAddress<byte*>(0), masm.GetCursorOffset());    \
-    masm.SetBufferWritable();                                                  \
+    masm.GetBuffer()->SetWritable();                                           \
   }
 
 #define TEARDOWN()

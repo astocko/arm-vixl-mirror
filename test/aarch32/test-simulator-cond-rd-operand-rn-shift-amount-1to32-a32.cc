@@ -96,11 +96,11 @@
 #define RUN()                                                  \
   {                                                             \
     int pcs_offset = masm.IsUsingT32() ? 1 : 0;                 \
-    masm.SetBufferExecutable();                                \
+    masm.GetBuffer()->SetExecutable();                         \
     ExecuteMemory(masm.GetBuffer().GetOffsetAddress<byte*>(0), \
                   masm.GetBuffer().GetCursorOffset(),          \
                   pcs_offset);                                 \
-    masm.SetBufferWritable();                                  \
+    masm.GetBuffer()->SetWritable();                           \
   }
 
 #define TEARDOWN()

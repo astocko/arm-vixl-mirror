@@ -103,10 +103,10 @@ namespace aarch32 {
 #define RUN()                                                                  \
   {                                                                            \
     int pcs_offset = masm.IsUsingT32() ? 1 : 0;                                \
-    masm.SetBufferExecutable();                                                \
+    GetBuffer()->masm.SetExecutable();                                         \
     ExecuteMemory(masm.GetBuffer()->GetOffsetAddress<byte*>(0),                \
                   masm.GetBuffer()->GetSizeOfGeneratedCode(), pcs_offset);     \
-    masm.SetBufferWritable();                                                  \
+    masm.GetBuffer()->SetWritable();                                           \
   }
 
 #define TEARDOWN()
