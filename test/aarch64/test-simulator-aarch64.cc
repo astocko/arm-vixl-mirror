@@ -92,7 +92,7 @@ namespace aarch64 {
   masm.FinalizeCode()
 
 #define RUN()                                                                 \
-  simulator->RunFrom(masm.GetStartAddress<Instruction*>())
+  simulator->RunFrom(masm.GetBuffer()->GetStartAddress<Instruction*>())
 
 #define TEARDOWN()                                                            \
   delete simulator;
