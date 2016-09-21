@@ -35,6 +35,11 @@ class MacroAssemblerInterface {
  public:
   virtual AssemblerBase* GetAssemblerBase() = 0;
 
+#ifdef VIXL_DEBUG
+  virtual bool AllowMacroAssembler() const = 0;
+  virtual void SetAllowMacroAssembler(bool allow) = 0;
+#endif
+
   virtual void BlockPools() = 0;
   virtual void ReleasePools() = 0;
   virtual void EnsureEmitPoolsFor(size_t size) = 0;
