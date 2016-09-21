@@ -3212,7 +3212,7 @@ class InstructionAccurateScope : public EmissionCheckScope {
 
   virtual ~InstructionAccurateScope() {
 #ifdef VIXL_DEBUG
-    MacroAssembler* masm = reinterpret_cast<MacroAssembler*>(assm_);
+    MacroAssembler* masm = reinterpret_cast<MacroAssembler*>(assembler_);
     masm->SetAllowMacroInstructions(old_allow_macro_instructions_);
 #endif
   }
