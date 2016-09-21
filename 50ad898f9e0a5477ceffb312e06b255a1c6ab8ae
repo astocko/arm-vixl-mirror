@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a0b7d60_2c62aad8",
+        "filename": "doc/design/code-generation.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-09-21T15:08:15Z",
+      "side": 0,
+      "message": "Is the exact size checking still available? (It should be.) The new layout doesn\u0027t make it clear.\n\nAlso note that there is a requirement for checking an instruction count rather than a size. Is that something that ExactAssemblyScope would handle?",
+      "range": {
+        "startLine": 104,
+        "startChar": 2,
+        "endLine": 105,
+        "endChar": 41
+      },
+      "revId": "50ad898f9e0a5477ceffb312e06b255a1c6ab8ae",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a0b7d60_8c73d6b0",
+        "filename": "doc/design/code-generation.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-09-21T15:08:15Z",
+      "side": 0,
+      "message": "Which scope does this bit? Presumably CodeBufferCheckScope. Could you make that clear please?",
+      "range": {
+        "startLine": 116,
+        "startChar": 4,
+        "endLine": 116,
+        "endChar": 63
+      },
+      "revId": "50ad898f9e0a5477ceffb312e06b255a1c6ab8ae",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a0b7d60_ec6702e9",
+        "filename": "doc/design/code-generation.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-09-21T15:08:15Z",
+      "side": 0,
+      "message": "CodeBufferCheckScope should have a bullet saying something like \"Allow access to the Assembler\". It\u0027s in prose, but the bullets are useful for getting a quick overview.",
+      "range": {
+        "startLine": 118,
+        "startChar": 2,
+        "endLine": 118,
+        "endChar": 60
+      },
+      "revId": "50ad898f9e0a5477ceffb312e06b255a1c6ab8ae",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a0b7d60_cc64bee7",
+        "filename": "doc/design/code-generation.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-09-21T15:08:15Z",
+      "side": 0,
+      "message": "Again, where has this responsibility gone?",
+      "range": {
+        "startLine": 121,
+        "startChar": 2,
+        "endLine": 121,
+        "endChar": 65
+      },
+      "revId": "50ad898f9e0a5477ceffb312e06b255a1c6ab8ae",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
