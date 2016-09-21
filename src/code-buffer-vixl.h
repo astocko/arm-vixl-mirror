@@ -70,8 +70,21 @@ class CodeBuffer {
 
   template <typename T>
   T GetOffsetAddress(ptrdiff_t offset) const {
+    VIXL_STATIC_ASSERT(sizeof(T) >= sizeof(uintptr_t));
     VIXL_ASSERT((offset >= 0) && (offset <= (cursor_ - buffer_)));
     return reinterpret_cast<T>(buffer_ + offset);
+  }
+
+  // Return the address of the start or end of the buffer.
+  template <typename T>
+  T GetStartAddress() const {
+    VIXL_STATIC_ASSERT(sizeof(T) >= sizeof(uintptr_t));
+    return GetOffsetAddress<T>(0);
+  }
+  template <typename T>
+  T GetEndAddress() const {
+    VIXL_STATIC_ASSERT(sizeof(T) >= sizeof(uintptr_t));
+    return GetOffsetAddress<T>(GetCapacity());
   }
 
   size_t GetRemainingBytes() const {
@@ -82,14 +95,7 @@ class CodeBuffer {
     return GetRemainingBytes();
   }
 
-  byte* GetBuffer() const { return GetOffsetAddress<byte*>(0); }
-
-  // Return the address of the start of the buffer.
-  template <typename T>
-  T GetStartAddress() const {
-    VIXL_STATIC_ASSERT(sizeof(T) >= sizeof(uintptr_t));
-    return GetOffsetAddress<T>(0);
-  }
+  byte* GetBuffer() const { return buffer_; }
 
   size_t GetSizeInBytes() const {
     VIXL_ASSERT((cursor_ >= buffer_) && (cursor_ <= (buffer_ + capacity_)));
