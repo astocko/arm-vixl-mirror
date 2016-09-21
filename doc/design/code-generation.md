@@ -67,13 +67,12 @@ deprecated, and a few have been given more flexibility.
 Each scope utility will behave in the same way for VIXL64 as for VIXL32, even if
 the implementations differ.
 
-### `CodeBufferCheckScope(Assembler * assm, ...)`
+### `CodeBufferCheckScope(Assembler * assm, size_t size, ...)`
 
-- Acquire the CodeBuffer.
-- Allow the Assembler.
+- Allow code emission from the specified `Assembler`.
 - Optionally reserve space in the `CodeBuffer` (if it is managed by VIXL).
-- Optionally, on destruction, check the size of the generated code. (The size
-  can be either exact or a maximum size.)
+- Optionally, on destruction, check the size of the generated code.
+  (The size can be either exact or a maximum size.)
 
 This scope exists so that callers can use an Assembler by itself, without even
 instantiating a MacroAssembler.
