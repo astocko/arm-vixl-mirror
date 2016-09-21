@@ -115,20 +115,7 @@ class Assembler : public AssemblerBase {
   bool Has32DRegs() const { return has_32_dregs_; }
   void SetHas32DRegs(bool has_32_dregs) { has_32_dregs_ = has_32_dregs; }
 
-  uint32_t GetCursorOffset() const { return buffer_.GetCursorOffset(); }
-  // Return the address of an offset in the buffer.
-  template <typename T>
-  T GetOffsetAddress(ptrdiff_t offset) const {
-    VIXL_STATIC_ASSERT(sizeof(T) >= sizeof(uintptr_t));
-    return buffer_.GetOffsetAddress<T>(offset);
-  }
   uint32_t GetArchitectureStatePCOffset() const { return IsUsingT32() ? 4 : 8; }
-  // Return the address of the start of the buffer.
-  template <typename T>
-  T GetStartAddress() const {
-    VIXL_STATIC_ASSERT(sizeof(T) >= sizeof(uintptr_t));
-    return GetOffsetAddress<T>(0);
-  }
   void EncodeLabelFor(const Label::ForwardReference& forward, Label* label);
   uint32_t Link(uint32_t instr,
                 Label* label,
@@ -139,14 +126,11 @@ class Assembler : public AssemblerBase {
     GetBuffer()->EmitData(literal->GetDataAddress(), literal->GetSize());
     GetBuffer()->Align();
   }
-  void FinalizeCode() { GetBuffer()->SetClean(); }
 
   size_t GetSizeOfCodeGeneratedSince(Label* label) const {
     VIXL_ASSERT(label->IsBound());
     return buffer_.GetOffsetFrom(label->GetLocation());
   }
-
-  size_t GetSizeOfCodeGenerated() const { return buffer_.GetOffsetFrom(0); }
 
   // Helpers for it instruction.
   void it(Condition cond) { it(cond, 0x8); }
