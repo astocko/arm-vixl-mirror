@@ -120,7 +120,7 @@ namespace aarch64 {
 // This is a convenience macro to avoid creating a scope for every assembler
 // function called. It will still assert the buffer hasn't been exceeded.
 #define ALLOW_ASM()                                                            \
-  CodeBufferCheckScope guard(&masm, masm.GetBufferCapacity())
+  CodeBufferCheckScope guard(&masm, masm.GetBuffer()->GetCapacity())
 
 #define START()                                                                \
   masm.Reset();                                                                \
@@ -150,7 +150,7 @@ namespace aarch64 {
   masm.FinalizeCode()
 
 #define RUN()                                                                  \
-  simulator->RunFrom(masm.GetStartAddress<Instruction*>())
+  simulator->RunFrom(masm.GetBuffer()->GetStartAddress<Instruction*>())
 
 #define RUN_CUSTOM() RUN()
 
@@ -186,7 +186,7 @@ namespace aarch64 {
 // This is a convenience macro to avoid creating a scope for every assembler
 // function called. It will still assert the buffer hasn't been exceeded.
 #define ALLOW_ASM()                                                            \
-  CodeBufferCheckScope guard(&masm, masm.GetBufferCapacity())
+  CodeBufferCheckScope guard(&masm, masm.GetBuffer()->GetCapacity())
 
 #define START()                                                                \
   masm.Reset();                                                                \
@@ -200,9 +200,9 @@ namespace aarch64 {
 
 // Execute the generated code from the memory area.
 #define RUN()                                                                  \
-  masm.SetBufferExecutable();                                                  \
+  masm.GetBuffer()->SetBufferExecutable();                                     \
   ExecuteMemory(masm.GetOffsetAddress<byte*>(0), masm.GetCursorOffset());      \
-  masm.SetBufferWritable()
+  masm.GetBuffer()->SetBufferWritable()
 
 // The generated code was written directly into `buffer`, execute it directly.
 #define RUN_CUSTOM()                                                           \
