@@ -69,8 +69,9 @@ the implementations differ.
 
 ### `CodeBufferCheckScope(Assembler * assm, ...)`
 
-- Acquire the CodeBuffer, so that the Assembler can be used.
-- Optionally reserve space in the CodeBuffer (if it is managed by VIXL).
+- Acquire the CodeBuffer.
+- Allow the Assembler.
+- Optionally reserve space in the `CodeBuffer` (if it is managed by VIXL).
 - Optionally, on destruction, check the size of the generated code. (The size
   can be either exact or a maximum size.)
 
@@ -95,35 +96,29 @@ EmissionCheckScope, which allows the Assembler and MacroAssembler to be mixed,
 but also blocks pools and therefore avoids the problems that
 `CodeBufferCheckScope` has.
 
-### `ExactAssemblyScope(MacroAssembler * masm, ...)`
-
-- Acquire the CodeBuffer, so that the Assembler can be used.
-- Block access to the MacroAssembler (using run-time assertions).
-- Optionally reserve space in the CodeBuffer (if it is managed by VIXL).
-- Dump pools if the specified size would push them out of range.
-- Optionally, on destruction, check the size of the generated code. (The size
-  can be either exact or a maximum size.)
-
-Compared to existing VIXL64, this adds quite a bit of flexibility. This scope
-basically means "take away the MacroAssembler features, and let me use the
-Assembler".
-
-This replaces VIXL64's InstructionAccurateScope.
-
 ### `EmissionCheckScope(MacroAssembler * masm, ...)` (and variants)
 
-- `MacroAssembler::EnsureEmitFor`
-  - Reserve space in the CodeBuffer (if it is managed by VIXL).
-  - Dump pools if the specified size would push them out of range.
-- Acquire the CodeBuffer, so that the Assembler can be used.
-- Explicitly block literal pools. (This probably isn't necessary after
-  `EnsureEmitFor`, but it doesn't hurt.)
-- On destruction, check the (maximum) size of the generated code.
+- Do the same as `CodeBufferCheckSCope`, but:
+  - Always reserve space in the `CodeBuffer`.
+  - Always check the size of the generated code on destruction.
+- Dump pools if the specified size would push them out of range.
+- Block pools in the scope.
 
 This scope allows the Assembler and MacroAssembler to be freely and safely mixed
 for its duration.
 
 The MacroAssembler uses this to implement its own macros.
+
+### `ExactAssemblyScope(MacroAssembler * masm, ...)`
+
+- Do the same as `EmissionCheckScope`.
+- Block access to the MacroAssembler (using run-time assertions).
+
+This scope allows safely generating exact assembly code. Compared to
+`CodeBufferCheckScope`, it disables the `MacroAssembler`, and guarantees that no
+pools will be emitted during code generation.
+
+This replaces VIXL64's InstructionAccurateScope.
 
 ### `BlockPoolsScope` (and variants)
 
