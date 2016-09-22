@@ -30,6 +30,7 @@
 
 
 #include "assembler-base-vixl.h"
+#include "macro-assembler-interface.h"
 
 
 namespace vixl {
@@ -67,8 +68,10 @@ class CodeBufferCheckScope {
                        size_t size,
                        BufferSpacePolicy check_policy = kReserveBufferSpace,
                        SizePolicy size_policy = kMaximumSize)
+      : assembler_(NULL)
 #ifdef VIXL_DEBUG
-      : initialised_(false)
+        ,
+        initialised_(false)
 #endif
   {
     Open(assembler, size, check_policy, size_policy);
@@ -78,8 +81,10 @@ class CodeBufferCheckScope {
   // user is required to explicitly call the `Open` function before using the
   // scope.
   CodeBufferCheckScope()
+      : assembler_(NULL)
 #ifdef VIXL_DEBUG
-      : initialised_(false)
+        ,
+        initialised_(false)
 #endif
   {
     // Nothing to do.
@@ -94,11 +99,11 @@ class CodeBufferCheckScope {
             SizePolicy size_policy = kMaximumSize) {
     VIXL_ASSERT(!initialised_);
     VIXL_ASSERT(assembler != NULL);
+    assembler_ = assembler;
     if (check_policy == kReserveBufferSpace) {
       assembler->GetBuffer()->EnsureSpaceFor(size);
     }
 #ifdef VIXL_DEBUG
-    assembler_ = assembler;
     limit_ = assembler_->GetSizeOfCodeGenerated() + size;
     assert_policy_ = size_policy;
     previous_allow_assembler_ = assembler_->AllowAssembler();
@@ -140,6 +145,81 @@ class CodeBufferCheckScope {
   bool previous_allow_assembler_;
   bool initialised_;
 };
+
+
+// This scope will:
+// - Do the same as `CodeBufferCheckSCope`, but:
+//   - If managed by VIXL, always reserve space in the `CodeBuffer`.
+//   - Always check the size (exact or maximum) of the generated code on
+//     destruction.
+// - Emit pools if the specified size would push them out of range.
+// - Block pools emission for the duration of the scope.
+// This scope allows the `Assembler` and `MacroAssembler` to be freely and
+// safely mixed for its duration.
+class EmissionCheckScope : public CodeBufferCheckScope {
+ public:
+  EmissionCheckScope(MacroAssemblerInterface* masm,
+                     size_t size,
+                     SizePolicy size_policy = kMaximumSize) {
+    Open(masm, size, size_policy);
+  }
+  virtual ~EmissionCheckScope() { Close(); }
+
+  enum PoolPolicy { kIgnorePools, kCheckPools };
+
+ protected:
+  // This constructor should only be used from code that is *currently
+  // generating* the pools, to avoid an infinite loop.
+  EmissionCheckScope(MacroAssemblerInterface* masm,
+                     size_t size,
+                     SizePolicy size_policy,
+                     PoolPolicy pool_policy) {
+    Open(masm, size, size_policy, pool_policy);
+  }
+
+  void Open(MacroAssemblerInterface* masm,
+            size_t size,
+            SizePolicy size_policy = kMaximumSize,
+            PoolPolicy pool_policy = kCheckPools) {
+    pool_policy_ = pool_policy;
+    if (masm == NULL) {
+      // Nothing to do.
+      // We may reach this point in a context of conditional code generation.
+      // See `aarch64::MacroAssembler::MoveImmediateHelper()` for an example.
+      return;
+    }
+    if (pool_policy_ == kCheckPools) {
+      // Do not use the more generic `EnsureEmitFor()` to avoid duplicating the
+      // work to check that enough space is available in the buffer. It is done
+      // below when opening `CodeBufferCheckScope`.
+      masm->EnsureEmitPoolsFor(size);
+      masm->BlockPools();
+    }
+    // The buffer should be checked *after* we emit the pools.
+    CodeBufferCheckScope::Open(masm->GetAssemblerBase(),
+                               size,
+                               kCheck,
+                               size_policy);
+  }
+
+  void Close() {
+    if (GetMacroAssembler() == NULL) {
+      // Nothing to do.
+      return;
+    }
+    if (pool_policy_ == kCheckPools) {
+      GetMacroAssembler()->ReleasePools();
+    }
+  }
+
+  MacroAssemblerInterface* GetMacroAssembler() const {
+    return dynamic_cast<MacroAssemblerInterface*>(assembler_);
+  }
+
+  PoolPolicy pool_policy_;
+};
+
+
 }  // namespace vixl
 
 #endif  // VIXL_CODE_GENERATION_SCOPES_H_
