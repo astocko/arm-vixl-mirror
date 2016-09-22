@@ -108,7 +108,7 @@ void LiteralPool::Emit(EmitOption option) {
                                CodeBufferCheckScope::kExactSize);
 #ifdef VIXL_DEBUG
     // Also explicitly disallow usage of the `MacroAssembler` here.
-    masm_->SetAllowMacroInstructions(false);
+    masm_->SetAllowMacroAssembler(false);
 #endif
     if (option == kBranchRequired) {
       InstructionAccurateScope guard(masm_,
@@ -137,7 +137,7 @@ void LiteralPool::Emit(EmitOption option) {
 
     if (option == kBranchRequired) masm_->bind(&end_of_pool);
 #ifdef VIXL_DEBUG
-    masm_->SetAllowMacroInstructions(true);
+    masm_->SetAllowMacroAssembler(true);
 #endif
   }
 
@@ -304,7 +304,7 @@ void VeneerPool::Emit(EmitOption option, size_t amount) {
 MacroAssembler::MacroAssembler(PositionIndependentCodeOption pic)
     : Assembler(pic),
 #ifdef VIXL_DEBUG
-      allow_macro_instructions_(true),
+      allow_macro_assembler_(true),
 #endif
       generate_simulator_code_(VIXL_AARCH64_GENERATE_SIMULATOR_CODE),
       sp_(sp),
@@ -315,7 +315,7 @@ MacroAssembler::MacroAssembler(PositionIndependentCodeOption pic)
       recommended_checkpoint_(Pool::kNoCheckpointRequired) {
   checkpoint_ = GetNextCheckPoint();
 #ifndef VIXL_DEBUG
-  USE(allow_macro_instructions_);
+  USE(allow_macro_assembler_);
 #endif
 }
 
@@ -324,7 +324,7 @@ MacroAssembler::MacroAssembler(size_t capacity,
                                PositionIndependentCodeOption pic)
     : Assembler(capacity, pic),
 #ifdef VIXL_DEBUG
-      allow_macro_instructions_(true),
+      allow_macro_assembler_(true),
 #endif
       generate_simulator_code_(VIXL_AARCH64_GENERATE_SIMULATOR_CODE),
       sp_(sp),
@@ -342,7 +342,7 @@ MacroAssembler::MacroAssembler(byte* buffer,
                                PositionIndependentCodeOption pic)
     : Assembler(buffer, capacity, pic),
 #ifdef VIXL_DEBUG
-      allow_macro_instructions_(true),
+      allow_macro_assembler_(true),
 #endif
       generate_simulator_code_(VIXL_AARCH64_GENERATE_SIMULATOR_CODE),
       sp_(sp),
@@ -560,7 +560,7 @@ void MacroAssembler::B(Label* label) {
 
 
 void MacroAssembler::B(Label* label, Condition cond) {
-  VIXL_ASSERT(allow_macro_instructions_);
+  VIXL_ASSERT(allow_macro_assembler_);
   VIXL_ASSERT((cond != al) && (cond != nv));
   EmissionCheckScope guard(this, 2 * kInstructionSize);
 
@@ -581,7 +581,7 @@ void MacroAssembler::B(Label* label, Condition cond) {
 
 
 void MacroAssembler::Cbnz(const Register& rt, Label* label) {
-  VIXL_ASSERT(allow_macro_instructions_);
+  VIXL_ASSERT(allow_macro_assembler_);
   VIXL_ASSERT(!rt.IsZero());
   EmissionCheckScope guard(this, 2 * kInstructionSize);
 
@@ -602,7 +602,7 @@ void MacroAssembler::Cbnz(const Register& rt, Label* label) {
 
 
 void MacroAssembler::Cbz(const Register& rt, Label* label) {
-  VIXL_ASSERT(allow_macro_instructions_);
+  VIXL_ASSERT(allow_macro_assembler_);
   VIXL_ASSERT(!rt.IsZero());
   EmissionCheckScope guard(this, 2 * kInstructionSize);
 
@@ -623,7 +623,7 @@ void MacroAssembler::Cbz(const Register& rt, Label* label) {
 
 
 void MacroAssembler::Tbnz(const Register& rt, unsigned bit_pos, Label* label) {
-  VIXL_ASSERT(allow_macro_instructions_);
+  VIXL_ASSERT(allow_macro_assembler_);
   VIXL_ASSERT(!rt.IsZero());
   EmissionCheckScope guard(this, 2 * kInstructionSize);
 
@@ -644,7 +644,7 @@ void MacroAssembler::Tbnz(const Register& rt, unsigned bit_pos, Label* label) {
 
 
 void MacroAssembler::Tbz(const Register& rt, unsigned bit_pos, Label* label) {
-  VIXL_ASSERT(allow_macro_instructions_);
+  VIXL_ASSERT(allow_macro_assembler_);
   VIXL_ASSERT(!rt.IsZero());
   EmissionCheckScope guard(this, 2 * kInstructionSize);
 
@@ -665,7 +665,7 @@ void MacroAssembler::Tbz(const Register& rt, unsigned bit_pos, Label* label) {
 
 
 void MacroAssembler::Bind(Label* label) {
-  VIXL_ASSERT(allow_macro_instructions_);
+  VIXL_ASSERT(allow_macro_assembler_);
   veneer_pool_.DeleteUnresolvedBranchInfoForLabel(label);
   bind(label);
 }
@@ -673,7 +673,7 @@ void MacroAssembler::Bind(Label* label) {
 
 // Bind a label to a specified offset from the start of the buffer.
 void MacroAssembler::BindToOffset(Label* label, ptrdiff_t offset) {
-  VIXL_ASSERT(allow_macro_instructions_);
+  VIXL_ASSERT(allow_macro_assembler_);
   veneer_pool_.DeleteUnresolvedBranchInfoForLabel(label);
   Assembler::BindToOffset(label, offset);
 }
@@ -682,7 +682,7 @@ void MacroAssembler::BindToOffset(Label* label, ptrdiff_t offset) {
 void MacroAssembler::And(const Register& rd,
                          const Register& rn,
                          const Operand& operand) {
-  VIXL_ASSERT(allow_macro_instructions_);
+  VIXL_ASSERT(allow_macro_assembler_);
   LogicalMacro(rd, rn, operand, AND);
 }
 
@@ -690,13 +690,13 @@ void MacroAssembler::And(const Register& rd,
 void MacroAssembler::Ands(const Register& rd,
                           const Register& rn,
                           const Operand& operand) {
-  VIXL_ASSERT(allow_macro_instructions_);
+  VIXL_ASSERT(allow_macro_assembler_);
   LogicalMacro(rd, rn, operand, ANDS);
 }
 
 
 void MacroAssembler::Tst(const Register& rn, const Operand& operand) {
-  VIXL_ASSERT(allow_macro_instructions_);
+  VIXL_ASSERT(allow_macro_assembler_);
   Ands(AppropriateZeroRegFor(rn), rn, operand);
 }
 
@@ -704,7 +704,7 @@ void MacroAssembler::Tst(const Register& rn, const Operand& operand) {
 void MacroAssembler::Bic(const Register& rd,
                          const Register& rn,
                          const Operand& operand) {
-  VIXL_ASSERT(allow_macro_instructions_);
+  VIXL_ASSERT(allow_macro_assembler_);
   LogicalMacro(rd, rn, operand, BIC);
 }
 
@@ -712,7 +712,7 @@ void MacroAssembler::Bic(const Register& rd,
 void MacroAssembler::Bics(const Register& rd,
                           const Register& rn,
                           const Operand& operand) {
-  VIXL_ASSERT(allow_macro_instructions_);
+  VIXL_ASSERT(allow_macro_assembler_);
   LogicalMacro(rd, rn, operand, BICS);
 }
 
@@ -720,7 +720,7 @@ void MacroAssembler::Bics(const Register& rd,
 void MacroAssembler::Orr(const Register& rd,
                          const Register& rn,
                          const Operand& operand) {
-  VIXL_ASSERT(allow_macro_instructions_);
+  VIXL_ASSERT(allow_macro_assembler_);
   LogicalMacro(rd, rn, operand, ORR);
 }
 
@@ -728,7 +728,7 @@ void MacroAssembler::Orr(const Register& rd,
 void MacroAssembler::Orn(const Register& rd,
                          const Register& rn,
                          const Operand& operand) {
-  VIXL_ASSERT(allow_macro_instructions_);
+  VIXL_ASSERT(allow_macro_assembler_);
   LogicalMacro(rd, rn, operand, ORN);
 }
 
@@ -736,7 +736,7 @@ void MacroAssembler::Orn(const Register& rd,
 void MacroAssembler::Eor(const Register& rd,
                          const Register& rn,
                          const Operand& operand) {
-  VIXL_ASSERT(allow_macro_instructions_);
+  VIXL_ASSERT(allow_macro_assembler_);
   LogicalMacro(rd, rn, operand, EOR);
 }
 
@@ -744,7 +744,7 @@ void MacroAssembler::Eor(const Register& rd,
 void MacroAssembler::Eon(const Register& rd,
                          const Register& rn,
                          const Operand& operand) {
-  VIXL_ASSERT(allow_macro_instructions_);
+  VIXL_ASSERT(allow_macro_assembler_);
   LogicalMacro(rd, rn, operand, EON);
 }
 
@@ -864,7 +864,7 @@ void MacroAssembler::LogicalMacro(const Register& rd,
 void MacroAssembler::Mov(const Register& rd,
                          const Operand& operand,
                          DiscardMoveMode discard_mode) {
-  VIXL_ASSERT(allow_macro_instructions_);
+  VIXL_ASSERT(allow_macro_assembler_);
   // The worst case for size is mov immediate with up to 4 instructions.
   MacroEmissionCheckScope guard(this);
 
@@ -1034,7 +1034,7 @@ void MacroAssembler::Movi(const VRegister& vd,
                           uint64_t imm,
                           Shift shift,
                           int shift_amount) {
-  VIXL_ASSERT(allow_macro_instructions_);
+  VIXL_ASSERT(allow_macro_assembler_);
   MacroEmissionCheckScope guard(this);
   if (shift_amount != 0 || shift != LSL) {
     movi(vd, imm, shift, shift_amount);
@@ -1067,7 +1067,7 @@ void MacroAssembler::Movi(const VRegister& vd, uint64_t hi, uint64_t lo) {
 
 
 void MacroAssembler::Mvn(const Register& rd, const Operand& operand) {
-  VIXL_ASSERT(allow_macro_instructions_);
+  VIXL_ASSERT(allow_macro_assembler_);
   // The worst case for size is mvn immediate with up to 4 instructions.
   MacroEmissionCheckScope guard(this);
 
@@ -1095,7 +1095,7 @@ void MacroAssembler::Mvn(const Register& rd, const Operand& operand) {
 
 
 void MacroAssembler::Mov(const Register& rd, uint64_t imm) {
-  VIXL_ASSERT(allow_macro_instructions_);
+  VIXL_ASSERT(allow_macro_assembler_);
   MoveImmediateHelper(this, rd, imm);
 }
 
@@ -1104,7 +1104,7 @@ void MacroAssembler::Ccmp(const Register& rn,
                           const Operand& operand,
                           StatusFlags nzcv,
                           Condition cond) {
-  VIXL_ASSERT(allow_macro_instructions_);
+  VIXL_ASSERT(allow_macro_assembler_);
   if (operand.IsImmediate() && (operand.GetImmediate() < 0)) {
     ConditionalCompareMacro(rn, -operand.GetImmediate(), nzcv, cond, CCMN);
   } else {
@@ -1117,7 +1117,7 @@ void MacroAssembler::Ccmn(const Register& rn,
                           const Operand& operand,
                           StatusFlags nzcv,
                           Condition cond) {
-  VIXL_ASSERT(allow_macro_instructions_);
+  VIXL_ASSERT(allow_macro_assembler_);
   if (operand.IsImmediate() && (operand.GetImmediate() < 0)) {
     ConditionalCompareMacro(rn, -operand.GetImmediate(), nzcv, cond, CCMP);
   } else {
@@ -1163,7 +1163,7 @@ void MacroAssembler::CselHelper(MacroAssembler* masm,
                                 bool* should_synthesise_right) {
   bool emit_code = (masm != NULL);
 
-  VIXL_ASSERT(!emit_code || masm->allow_macro_instructions_);
+  VIXL_ASSERT(!emit_code || masm->allow_macro_assembler_);
   VIXL_ASSERT((cond != al) && (cond != nv));
   VIXL_ASSERT(!rd.IsZero() && !rd.IsSP());
   VIXL_ASSERT(left.IsImmediate() || !left.GetRegister().IsSP());
@@ -1353,7 +1353,7 @@ void MacroAssembler::Add(const Register& rd,
                          const Register& rn,
                          const Operand& operand,
                          FlagsUpdate S) {
-  VIXL_ASSERT(allow_macro_instructions_);
+  VIXL_ASSERT(allow_macro_assembler_);
   if (operand.IsImmediate() && (operand.GetImmediate() < 0) &&
       IsImmAddSub(-operand.GetImmediate())) {
     AddSubMacro(rd, rn, -operand.GetImmediate(), S, SUB);
@@ -1374,7 +1374,7 @@ void MacroAssembler::Sub(const Register& rd,
                          const Register& rn,
                          const Operand& operand,
                          FlagsUpdate S) {
-  VIXL_ASSERT(allow_macro_instructions_);
+  VIXL_ASSERT(allow_macro_assembler_);
   if (operand.IsImmediate() && (operand.GetImmediate() < 0) &&
       IsImmAddSub(-operand.GetImmediate())) {
     AddSubMacro(rd, rn, -operand.GetImmediate(), S, ADD);
@@ -1392,13 +1392,13 @@ void MacroAssembler::Subs(const Register& rd,
 
 
 void MacroAssembler::Cmn(const Register& rn, const Operand& operand) {
-  VIXL_ASSERT(allow_macro_instructions_);
+  VIXL_ASSERT(allow_macro_assembler_);
   Adds(AppropriateZeroRegFor(rn), rn, operand);
 }
 
 
 void MacroAssembler::Cmp(const Register& rn, const Operand& operand) {
-  VIXL_ASSERT(allow_macro_instructions_);
+  VIXL_ASSERT(allow_macro_assembler_);
   Subs(AppropriateZeroRegFor(rn), rn, operand);
 }
 
@@ -1406,7 +1406,7 @@ void MacroAssembler::Cmp(const Register& rn, const Operand& operand) {
 void MacroAssembler::Fcmp(const FPRegister& fn,
                           double value,
                           FPTrapFlags trap) {
-  VIXL_ASSERT(allow_macro_instructions_);
+  VIXL_ASSERT(allow_macro_assembler_);
   // The worst case for size is:
   //  * 1 to materialise the constant, using literal pool if necessary
   //  * 1 instruction for fcmp{e}
@@ -1428,7 +1428,7 @@ void MacroAssembler::Fcmpe(const FPRegister& fn, double value) {
 
 
 void MacroAssembler::Fmov(VRegister vd, double imm) {
-  VIXL_ASSERT(allow_macro_instructions_);
+  VIXL_ASSERT(allow_macro_assembler_);
   // Floating point immediates are loaded through the literal pool.
   MacroEmissionCheckScope guard(this);
 
@@ -1460,7 +1460,7 @@ void MacroAssembler::Fmov(VRegister vd, double imm) {
 
 
 void MacroAssembler::Fmov(VRegister vd, float imm) {
-  VIXL_ASSERT(allow_macro_instructions_);
+  VIXL_ASSERT(allow_macro_assembler_);
   // Floating point immediates are loaded through the literal pool.
   MacroEmissionCheckScope guard(this);
 
@@ -1492,7 +1492,7 @@ void MacroAssembler::Fmov(VRegister vd, float imm) {
 
 
 void MacroAssembler::Neg(const Register& rd, const Operand& operand) {
-  VIXL_ASSERT(allow_macro_instructions_);
+  VIXL_ASSERT(allow_macro_assembler_);
   if (operand.IsImmediate()) {
     Mov(rd, -operand.GetImmediate());
   } else {
@@ -1502,7 +1502,7 @@ void MacroAssembler::Neg(const Register& rd, const Operand& operand) {
 
 
 void MacroAssembler::Negs(const Register& rd, const Operand& operand) {
-  VIXL_ASSERT(allow_macro_instructions_);
+  VIXL_ASSERT(allow_macro_assembler_);
   Subs(rd, AppropriateZeroRegFor(rd), operand);
 }
 
@@ -1653,7 +1653,7 @@ void MacroAssembler::AddSubMacro(const Register& rd,
 void MacroAssembler::Adc(const Register& rd,
                          const Register& rn,
                          const Operand& operand) {
-  VIXL_ASSERT(allow_macro_instructions_);
+  VIXL_ASSERT(allow_macro_assembler_);
   AddSubWithCarryMacro(rd, rn, operand, LeaveFlags, ADC);
 }
 
@@ -1661,7 +1661,7 @@ void MacroAssembler::Adc(const Register& rd,
 void MacroAssembler::Adcs(const Register& rd,
                           const Register& rn,
                           const Operand& operand) {
-  VIXL_ASSERT(allow_macro_instructions_);
+  VIXL_ASSERT(allow_macro_assembler_);
   AddSubWithCarryMacro(rd, rn, operand, SetFlags, ADC);
 }
 
@@ -1669,7 +1669,7 @@ void MacroAssembler::Adcs(const Register& rd,
 void MacroAssembler::Sbc(const Register& rd,
                          const Register& rn,
                          const Operand& operand) {
-  VIXL_ASSERT(allow_macro_instructions_);
+  VIXL_ASSERT(allow_macro_assembler_);
   AddSubWithCarryMacro(rd, rn, operand, LeaveFlags, SBC);
 }
 
@@ -1677,20 +1677,20 @@ void MacroAssembler::Sbc(const Register& rd,
 void MacroAssembler::Sbcs(const Register& rd,
                           const Register& rn,
                           const Operand& operand) {
-  VIXL_ASSERT(allow_macro_instructions_);
+  VIXL_ASSERT(allow_macro_assembler_);
   AddSubWithCarryMacro(rd, rn, operand, SetFlags, SBC);
 }
 
 
 void MacroAssembler::Ngc(const Register& rd, const Operand& operand) {
-  VIXL_ASSERT(allow_macro_instructions_);
+  VIXL_ASSERT(allow_macro_assembler_);
   Register zr = AppropriateZeroRegFor(rd);
   Sbc(rd, zr, operand);
 }
 
 
 void MacroAssembler::Ngcs(const Register& rd, const Operand& operand) {
-  VIXL_ASSERT(allow_macro_instructions_);
+  VIXL_ASSERT(allow_macro_assembler_);
   Register zr = AppropriateZeroRegFor(rd);
   Sbcs(rd, zr, operand);
 }
@@ -1753,7 +1753,7 @@ void MacroAssembler::AddSubWithCarryMacro(const Register& rd,
 
 #define DEFINE_FUNCTION(FN, REGTYPE, REG, OP)                          \
   void MacroAssembler::FN(const REGTYPE REG, const MemOperand& addr) { \
-    VIXL_ASSERT(allow_macro_instructions_);                            \
+    VIXL_ASSERT(allow_macro_assembler_);                               \
     LoadStoreMacro(REG, addr, OP);                                     \
   }
 LS_MACRO_LIST(DEFINE_FUNCTION)
@@ -1802,7 +1802,7 @@ void MacroAssembler::LoadStoreMacro(const CPURegister& rt,
   void MacroAssembler::FN(const REGTYPE REG,        \
                           const REGTYPE REG2,       \
                           const MemOperand& addr) { \
-    VIXL_ASSERT(allow_macro_instructions_);         \
+    VIXL_ASSERT(allow_macro_assembler_);            \
     LoadStorePairMacro(REG, REG2, addr, OP);        \
   }
 LSPAIR_MACRO_LIST(DEFINE_FUNCTION)
@@ -1878,7 +1878,7 @@ void MacroAssembler::Push(const CPURegister& src0,
                           const CPURegister& src1,
                           const CPURegister& src2,
                           const CPURegister& src3) {
-  VIXL_ASSERT(allow_macro_instructions_);
+  VIXL_ASSERT(allow_macro_assembler_);
   VIXL_ASSERT(AreSameSizeAndType(src0, src1, src2, src3));
   VIXL_ASSERT(src0.IsValid());
 
@@ -1896,7 +1896,7 @@ void MacroAssembler::Pop(const CPURegister& dst0,
                          const CPURegister& dst3) {
   // It is not valid to pop into the same register more than once in one
   // instruction, not even into the zero register.
-  VIXL_ASSERT(allow_macro_instructions_);
+  VIXL_ASSERT(allow_macro_assembler_);
   VIXL_ASSERT(!AreAliased(dst0, dst1, dst2, dst3));
   VIXL_ASSERT(AreSameSizeAndType(dst0, dst1, dst2, dst3));
   VIXL_ASSERT(dst0.IsValid());
@@ -1912,7 +1912,7 @@ void MacroAssembler::Pop(const CPURegister& dst0,
 void MacroAssembler::PushCPURegList(CPURegList registers) {
   VIXL_ASSERT(!registers.Overlaps(*GetScratchRegisterList()));
   VIXL_ASSERT(!registers.Overlaps(*GetScratchFPRegisterList()));
-  VIXL_ASSERT(allow_macro_instructions_);
+  VIXL_ASSERT(allow_macro_assembler_);
 
   int reg_size = registers.GetRegisterSizeInBytes();
   PrepareForPush(registers.GetCount(), reg_size);
@@ -1944,7 +1944,7 @@ void MacroAssembler::PushCPURegList(CPURegList registers) {
 void MacroAssembler::PopCPURegList(CPURegList registers) {
   VIXL_ASSERT(!registers.Overlaps(*GetScratchRegisterList()));
   VIXL_ASSERT(!registers.Overlaps(*GetScratchFPRegisterList()));
-  VIXL_ASSERT(allow_macro_instructions_);
+  VIXL_ASSERT(allow_macro_assembler_);
 
   int reg_size = registers.GetRegisterSizeInBytes();
   PrepareForPop(registers.GetCount(), reg_size);
@@ -1976,7 +1976,7 @@ void MacroAssembler::PopCPURegList(CPURegList registers) {
 
 
 void MacroAssembler::PushMultipleTimes(int count, Register src) {
-  VIXL_ASSERT(allow_macro_instructions_);
+  VIXL_ASSERT(allow_macro_assembler_);
   int size = src.GetSizeInBytes();
 
   PrepareForPush(count, size);
@@ -2114,7 +2114,7 @@ void MacroAssembler::PrepareForPop(int count, int size) {
 }
 
 void MacroAssembler::Poke(const Register& src, const Operand& offset) {
-  VIXL_ASSERT(allow_macro_instructions_);
+  VIXL_ASSERT(allow_macro_assembler_);
   if (offset.IsImmediate()) {
     VIXL_ASSERT(offset.GetImmediate() >= 0);
   }
@@ -2124,7 +2124,7 @@ void MacroAssembler::Poke(const Register& src, const Operand& offset) {
 
 
 void MacroAssembler::Peek(const Register& dst, const Operand& offset) {
-  VIXL_ASSERT(allow_macro_instructions_);
+  VIXL_ASSERT(allow_macro_assembler_);
   if (offset.IsImmediate()) {
     VIXL_ASSERT(offset.GetImmediate() >= 0);
   }
@@ -2134,7 +2134,7 @@ void MacroAssembler::Peek(const Register& dst, const Operand& offset) {
 
 
 void MacroAssembler::Claim(const Operand& size) {
-  VIXL_ASSERT(allow_macro_instructions_);
+  VIXL_ASSERT(allow_macro_assembler_);
 
   if (size.IsZero()) {
     return;
@@ -2156,7 +2156,7 @@ void MacroAssembler::Claim(const Operand& size) {
 
 
 void MacroAssembler::Drop(const Operand& size) {
-  VIXL_ASSERT(allow_macro_instructions_);
+  VIXL_ASSERT(allow_macro_assembler_);
 
   if (size.IsZero()) {
     return;
@@ -2557,7 +2557,7 @@ void MacroAssembler::Printf(const char* format,
 }
 
 void MacroAssembler::Trace(TraceParameters parameters, TraceCommand command) {
-  VIXL_ASSERT(allow_macro_instructions_);
+  VIXL_ASSERT(allow_macro_assembler_);
 
   if (generate_simulator_code_) {
     // The arguments to the trace pseudo instruction need to be contiguous in
@@ -2584,7 +2584,7 @@ void MacroAssembler::Trace(TraceParameters parameters, TraceCommand command) {
 
 
 void MacroAssembler::Log(TraceParameters parameters) {
-  VIXL_ASSERT(allow_macro_instructions_);
+  VIXL_ASSERT(allow_macro_assembler_);
 
   if (generate_simulator_code_) {
     // The arguments to the log pseudo instruction need to be contiguous in
