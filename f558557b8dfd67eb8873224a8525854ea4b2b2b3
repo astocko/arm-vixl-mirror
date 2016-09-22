@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a0b7d60_cc22fe00",
+        "filename": "test/aarch32/config/template-simulator-aarch32.cc.in",
+        "patchSetId": 1
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-09-22T10:33:09Z",
+      "side": 1,
+      "message": "What about having a helper that would do both the `VIXL_ASSERT(IsUint32(...))` and the `static_cast\u003cuint32_t\u003e`?\n\nSomething like\n\n    uint32_t AArch32Address(uintptr_t address) {\n      VIXL_ASSERT(IsUint32(address));\n      return static_cast\u003cuint32_t\u003e(address);\n    }\n\nWould it see other uses than here?",
+      "revId": "f558557b8dfd67eb8873224a8525854ea4b2b2b3",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a0b7d60_2c20eaf6",
+        "filename": "test/aarch32/test-utils-aarch32.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-09-22T10:33:09Z",
+      "side": 1,
+      "message": "The helper could be used here as well.",
+      "revId": "f558557b8dfd67eb8873224a8525854ea4b2b2b3",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a0b7d60_0c1d26be",
+        "filename": "tools/test_generator/data_types.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 643,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-09-22T10:33:09Z",
+      "side": 1,
+      "message": "And here I think.",
+      "revId": "f558557b8dfd67eb8873224a8525854ea4b2b2b3",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
