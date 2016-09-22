@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "9a0b7d60_4c172ea4",
+        "filename": "doc/design/code-generation.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-09-22T10:17:36Z",
+      "side": 0,
+      "message": "`CodeBufferCheckScope` does. I updated the comments to make it clearer.",
+      "parentUuid": "9a0b7d60_8c73d6b0",
+      "range": {
+        "startLine": 116,
+        "startChar": 4,
+        "endLine": 116,
+        "endChar": 63
+      },
+      "revId": "50ad898f9e0a5477ceffb312e06b255a1c6ab8ae",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a0b7d60_ec6702e9",
         "filename": "doc/design/code-generation.md",
         "patchSetId": 1
