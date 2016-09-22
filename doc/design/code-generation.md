@@ -103,8 +103,8 @@ but also blocks pools and therefore avoids the problems that
 - Dump pools if the specified size would push them out of range.
 - Block pools in the scope.
 
-This scope allows the Assembler and MacroAssembler to be freely and safely mixed
-for its duration.
+This scope allows the `Assembler` and `MacroAssembler` to be freely and safely
+mixed for its duration.
 
 The MacroAssembler uses this to implement its own macros.
 
