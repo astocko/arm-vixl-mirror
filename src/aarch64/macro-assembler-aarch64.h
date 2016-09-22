@@ -2868,7 +2868,7 @@ class MacroAssembler : public Assembler {
   }
 
   bool AllowMacroInstructions() const { return allow_macro_instructions_; }
-#endif
+#endif  // VIXL_DEBUG
 
   void SetGenerateSimulatorCode(bool value) {
     generate_simulator_code_ = value;
@@ -3206,14 +3206,14 @@ class InstructionAccurateScope : public EmissionCheckScope {
     masm->SetAllowMacroInstructions(false);
 #else
     USE(old_allow_macro_instructions_);
-#endif
+#endif  // VIXL_DEBUG
   }
 
   virtual ~InstructionAccurateScope() {
 #ifdef VIXL_DEBUG
     MacroAssembler* masm = reinterpret_cast<MacroAssembler*>(assm_);
     masm->SetAllowMacroInstructions(old_allow_macro_instructions_);
-#endif
+#endif  // VIXL_DEBUG
   }
 
  private:
@@ -3229,7 +3229,7 @@ class InstructionAccurateScope : public EmissionCheckScope {
 #ifdef VIXL_DEBUG
     old_allow_macro_instructions_ = masm->AllowMacroInstructions();
     masm->SetAllowMacroInstructions(false);
-#endif
+#endif  // VIXL_DEBUG
   }
 
   // Grant access to the above private constructor for pool emission methods.

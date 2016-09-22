@@ -153,7 +153,7 @@ namespace aarch32 {
 #define ASSERT_EQUAL_NZCV(expected)                                            \
   assert(EqualNzcv(expected, core.flags_nzcv()))
 
-#endif
+#endif // VIXL_INCLUDE_SIMULATOR_AARCH32
 
 // TODO: Add SBC to the ADC tests.
 

@@ -124,13 +124,13 @@ class MacroAssembler : public Assembler {
       masm->SetAllowAssembler(true);
 #else
       USE(masm_);
-#endif
+#endif  // VIXL_DEBUG
     }
     ~AllowAssemblerEmissionScope() {
 #ifdef VIXL_DEBUG
       VIXL_ASSERT(masm_->AllowAssembler());
       masm_->SetAllowAssembler(false);
-#endif
+#endif  // VIXL_DEBUG
     }
   };
 
@@ -191,7 +191,7 @@ class MacroAssembler : public Assembler {
       initial_cursor_offset_ = masm->GetCursorOffset();
 #else
       USE(initial_cursor_offset_);
-#endif
+#endif  // VIXL_DEBUG
     }
     ~ITScope() {
       if (!cond_.Is(al) && masm_->IsUsingT32() && !can_use_it_) {
@@ -404,7 +404,7 @@ class MacroAssembler : public Assembler {
 #else
     USE(literal_pool_manager_);
     USE(allow_macro_instructions_);
-#endif
+#endif  // VIXL_DEBUG
     ComputeCheckpoint();
   }
   explicit MacroAssembler(size_t size, InstructionSet isa = A32)
@@ -417,7 +417,7 @@ class MacroAssembler : public Assembler {
     SetAllowAssembler(false);
 #ifdef VIXL_DEBUG
     SetAllowMacroInstructions(true);
-#endif
+#endif  // VIXL_DEBUG
     ComputeCheckpoint();
   }
   MacroAssembler(void* buffer, size_t size, InstructionSet isa = A32)
@@ -430,7 +430,7 @@ class MacroAssembler : public Assembler {
     SetAllowAssembler(false);
 #ifdef VIXL_DEBUG
     SetAllowMacroInstructions(true);
-#endif
+#endif  // VIXL_DEBUG
     ComputeCheckpoint();
   }
 
@@ -444,7 +444,7 @@ class MacroAssembler : public Assembler {
     allow_macro_instructions_ = value;
   }
   bool AllowMacroInstructions() const { return allow_macro_instructions_; }
-#endif
+#endif  // VIXL_DEBUG
 
   void FinalizeCode() {
     EmitLiteralPool(kNoBranchRequired);
@@ -504,19 +504,19 @@ class MacroAssembler : public Assembler {
         VIXL_ASSERT(GetCursorOffset() <
                     static_cast<uint32_t>(literal->GetCheckpoint()));
       }
-#endif
+#endif  // VIXL_DEBUG
       Label after_literal;
       if (option == kBranchRequired) {
         GetBuffer().EnsureSpaceFor(kMaxInstructionSizeInBytes);
         VIXL_ASSERT(!AllowAssembler());
 #ifdef VIXL_DEBUG
         SetAllowAssembler(true);
-#endif
+#endif  // VIXL_DEBUG
         b(&after_literal);
         VIXL_ASSERT(AllowAssembler());
 #ifdef VIXL_DEBUG
         SetAllowAssembler(false);
-#endif
+#endif  // VIXL_DEBUG
       }
       GetBuffer().Align();
       GetBuffer().EnsureSpaceFor(literal_pool->GetSize());
@@ -9068,7 +9068,7 @@ class CodeBufferCheckScope {
     assert_policy_ = assert_policy;
 #else
     USE(assert_policy);
-#endif
+#endif  // VIXL_DEBUG
   }
 
   ~CodeBufferCheckScope() {
@@ -9085,7 +9085,7 @@ class CodeBufferCheckScope {
       default:
         VIXL_UNREACHABLE();
     }
-#endif
+#endif  // VIXL_DEBUG
   }
 
  protected:
@@ -9118,14 +9118,14 @@ class AssemblerAccurateScope : public CodeBufferCheckScope {
 #else
     USE(old_allow_macro_instructions_);
     USE(old_allow_assembler_);
-#endif
+#endif  // VIXL_DEBUG
   }
 
   ~AssemblerAccurateScope() {
 #ifdef VIXL_DEBUG
     masm_->SetAllowMacroInstructions(old_allow_macro_instructions_);
     masm_->SetAllowAssembler(old_allow_assembler_);
-#endif
+#endif  // VIXL_DEBUG
   }
 
  private:

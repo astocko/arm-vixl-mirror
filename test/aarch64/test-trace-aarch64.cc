@@ -2532,7 +2532,7 @@ static void MaskAddresses(const char* trace) {
 #define HEX(val) "\\x" #val
 #define ESCAPE(c) "\\" #c
   const char* sed_options = "--in-place --regexp-extended";
-#endif
+#endif  // __APPLE__
 #define COLOUR "(" HEX(1b) ESCAPE([) "[01];([0-9][0-9])?m)?"
   struct {
     const char* search;

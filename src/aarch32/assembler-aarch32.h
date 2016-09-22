@@ -56,11 +56,11 @@ class Assembler : public Instructions {
     PerformCheckIT(condition);
 #else
     USE(condition);
-#endif
+#endif  // VIXL_DEBUG
   }
 #ifdef VIXL_DEBUG
   void PerformCheckIT(Condition condition);
-#endif
+#endif  // VIXL_DEBUG
   void AdvanceIT() { it_mask_ = (it_mask_ << 1) & 0xf; }
 
  public:

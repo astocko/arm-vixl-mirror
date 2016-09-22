@@ -144,7 +144,7 @@ class Label {
 #else
   Label(const Label&);
   void operator=(const Label&);
-#endif
+#endif  // __cplusplus >= 201103L
 
   // The Assembler class is responsible for binding and linking labels, since
   // the stored offsets need to be consistent with the Assembler's buffer.
@@ -3104,7 +3104,7 @@ class Assembler {
     buffer_monitor_--;
     VIXL_ASSERT(buffer_monitor_ >= 0);
   }
-#endif
+#endif  // VIXL_DEBUG
 
   PositionIndependentCodeOption GetPic() const { return pic_; }
   VIXL_DEPRECATED("GetPic", PositionIndependentCodeOption pic() const) {

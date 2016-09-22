@@ -109,7 +109,7 @@ void LiteralPool::Emit(EmitOption option) {
 #ifdef VIXL_DEBUG
     // Also explicitly disallow usage of the `MacroAssembler` here.
     masm_->SetAllowMacroInstructions(false);
-#endif
+#endif  // VIXL_DEBUG
     if (option == kBranchRequired) {
       InstructionAccurateScope guard(masm_,
                                      1,
@@ -138,7 +138,7 @@ void LiteralPool::Emit(EmitOption option) {
     if (option == kBranchRequired) masm_->bind(&end_of_pool);
 #ifdef VIXL_DEBUG
     masm_->SetAllowMacroInstructions(true);
-#endif
+#endif  // VIXL_DEBUG
   }
 
   Reset();
@@ -358,7 +358,7 @@ MacroAssembler::MacroAssembler(PositionIndependentCodeOption pic)
     : Assembler(pic),
 #ifdef VIXL_DEBUG
       allow_macro_instructions_(true),
-#endif
+#endif  // VIXL_DEBUG
       generate_simulator_code_(VIXL_AARCH64_GENERATE_SIMULATOR_CODE),
       sp_(sp),
       tmp_list_(ip0, ip1),
@@ -369,7 +369,7 @@ MacroAssembler::MacroAssembler(PositionIndependentCodeOption pic)
   checkpoint_ = GetNextCheckPoint();
 #ifndef VIXL_DEBUG
   USE(allow_macro_instructions_);
-#endif
+#endif  // VIXL_DEBUG
 }
 
 
@@ -378,7 +378,7 @@ MacroAssembler::MacroAssembler(size_t capacity,
     : Assembler(capacity, pic),
 #ifdef VIXL_DEBUG
       allow_macro_instructions_(true),
-#endif
+#endif  // VIXL_DEBUG
       generate_simulator_code_(VIXL_AARCH64_GENERATE_SIMULATOR_CODE),
       sp_(sp),
       tmp_list_(ip0, ip1),
@@ -396,7 +396,7 @@ MacroAssembler::MacroAssembler(byte* buffer,
     : Assembler(buffer, capacity, pic),
 #ifdef VIXL_DEBUG
       allow_macro_instructions_(true),
-#endif
+#endif  // VIXL_DEBUG
       generate_simulator_code_(VIXL_AARCH64_GENERATE_SIMULATOR_CODE),
       sp_(sp),
       tmp_list_(ip0, ip1),
@@ -2702,7 +2702,7 @@ void UseScratchRegisterScope::Open(MacroAssembler* masm) {
   VIXL_ASSERT(availablefp_->GetType() == CPURegister::kVRegister);
 #ifdef VIXL_DEBUG
   initialised_ = true;
-#endif
+#endif  // VIXL_DEBUG
 }
 
 
@@ -2717,7 +2717,7 @@ void UseScratchRegisterScope::Close() {
   }
 #ifdef VIXL_DEBUG
   initialised_ = false;
-#endif
+#endif  // VIXL_DEBUG
 }
 
 
@@ -2726,7 +2726,7 @@ UseScratchRegisterScope::UseScratchRegisterScope(MacroAssembler* masm) {
   initialised_ = false;
 #else
   USE(initialised_);
-#endif
+#endif  // VIXL_DEBUG
   Open(masm);
 }
 
@@ -2738,7 +2738,7 @@ UseScratchRegisterScope::UseScratchRegisterScope()
       old_availablefp_(0) {
 #ifdef VIXL_DEBUG
   initialised_ = false;
-#endif
+#endif  // VIXL_DEBUG
 }
 
 UseScratchRegisterScope::~UseScratchRegisterScope() { Close(); }

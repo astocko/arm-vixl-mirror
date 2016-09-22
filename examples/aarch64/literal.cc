@@ -84,7 +84,7 @@ int64_t LiteralExample(int64_t a, int64_t b) {
 
   return simulator.ReadXRegister(0);
 }
-#endif
+#endif  // VIXL_INCLUDE_SIMULATOR_AARCH64
 
 #ifndef TEST_EXAMPLES
 #ifdef VIXL_INCLUDE_SIMULATOR_AARCH64

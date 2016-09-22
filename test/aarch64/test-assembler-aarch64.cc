@@ -14385,7 +14385,7 @@ TEST(trace) {
   END();
   TEARDOWN();
 }
-#endif
+#endif  // VIXL_INCLUDE_SIMULATOR_AARCH64
 
 
 #ifndef VIXL_INCLUDE_SIMULATOR_AARCH64
@@ -14403,7 +14403,7 @@ TEST(log) {
   END();
   TEARDOWN();
 }
-#endif
+#endif  // VIXL_INCLUDE_SIMULATOR_AARCH64
 
 
 TEST(instruction_accurate_scope) {
@@ -15544,7 +15544,7 @@ TEST(ldxr_stxr_fail) {
 
   TEARDOWN();
 }
-#endif
+#endif  // VIXL_INCLUDE_SIMULATOR_AARCH64
 
 
 #ifdef VIXL_INCLUDE_SIMULATOR_AARCH64
@@ -15628,7 +15628,7 @@ TEST(ldaxr_stlxr_fail) {
 
   TEARDOWN();
 }
-#endif
+#endif  // VIXL_INCLUDE_SIMULATOR_AARCH64
 
 
 TEST(load_store_tagged_immediate_offset) {
@@ -22264,7 +22264,7 @@ TEST(runtime_calls) {
     TEARDOWN();
     return;
   }
-#endif
+#endif  // VIXL_HAS_SIMULATED_RUNTIME_CALL_SUPPORT
 
   START();
   __ Mov(w0, 0);

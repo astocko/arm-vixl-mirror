@@ -53,7 +53,7 @@ RawLiteral::RawLiteral(size_t size,
 Assembler::Assembler(PositionIndependentCodeOption pic) : pic_(pic) {
 #ifdef VIXL_DEBUG
   buffer_monitor_ = 0;
-#endif
+#endif  // VIXL_DEBUG
   buffer_ = new CodeBuffer();
 }
 
@@ -62,7 +62,7 @@ Assembler::Assembler(size_t capacity, PositionIndependentCodeOption pic)
     : pic_(pic) {
 #ifdef VIXL_DEBUG
   buffer_monitor_ = 0;
-#endif
+#endif  // VIXL_DEBUG
   buffer_ = new CodeBuffer(capacity);
 }
 
@@ -73,7 +73,7 @@ Assembler::Assembler(byte* buffer,
     : pic_(pic) {
 #ifdef VIXL_DEBUG
   buffer_monitor_ = 0;
-#endif
+#endif  // VIXL_DEBUG
   buffer_ = new CodeBuffer(buffer, capacity);
 }
 
@@ -1575,7 +1575,7 @@ void Assembler::LoadStoreStructVerify(const VRegister& vt,
   }
 #else
   USE(vt, addr, op);
-#endif
+#endif  // VIXL_DEBUG
 }
 
 void Assembler::LoadStoreStruct(const VRegister& vt,
@@ -4891,7 +4891,7 @@ CodeBufferCheckScope::CodeBufferCheckScope(Assembler* assm,
                                            AssertPolicy assert_policy)
 #ifdef VIXL_DEBUG
     : initialised_(false)
-#endif
+#endif  // VIXL_DEBUG
 {
   Open(assm, size, check_policy, assert_policy);
 }
@@ -4900,7 +4900,7 @@ CodeBufferCheckScope::CodeBufferCheckScope(Assembler* assm,
 CodeBufferCheckScope::CodeBufferCheckScope()
 #ifdef VIXL_DEBUG
     : initialised_(false)
-#endif
+#endif  // VIXL_DEBUG
 {
   // Nothing to do.
 }
@@ -4922,7 +4922,7 @@ void CodeBufferCheckScope::Open(Assembler* assm,
   initialised_ = true;
 #else
   USE(assert_policy);
-#endif
+#endif  // VIXL_DEBUG
 }
 
 
@@ -4948,7 +4948,7 @@ void CodeBufferCheckScope::Close() {
       VIXL_UNREACHABLE();
   }
   initialised_ = false;
-#endif
+#endif  // VIXL_DEBUG
 }
 }  // namespace aarch64
 }  // namespace vixl

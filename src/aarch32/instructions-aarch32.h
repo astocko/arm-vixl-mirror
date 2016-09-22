@@ -43,7 +43,7 @@ extern "C" {
 #define HARDFLOAT __attribute__((noinline, pcs("aapcs-vfp")))
 #else
 #define HARDFLOAT __attribute__((noinline))
-#endif
+#endif  // __arm__
 
 namespace vixl {
 namespace aarch32 {
@@ -108,7 +108,7 @@ class CPURegister {
         VIXL_UNREACHABLE();
         break;
     }
-#endif
+#endif  // VIXL_DEBUG
   }
   RegisterType GetType() const {
     return static_cast<RegisterType>((value_ & kTypeMask) >> kTypeShift);
@@ -884,7 +884,7 @@ class SpecialFPRegister {
       default:
         VIXL_UNREACHABLE();
     }
-#endif
+#endif  // VIXL_DEBUG
   }
   SpecialFPRegister(SpecialFPRegisterType reg) : reg_(reg) {}  // NOLINT
   uint32_t GetReg() const { return reg_; }
@@ -1065,7 +1065,7 @@ class ImmediateShiftOperand : public Shift {
         VIXL_UNREACHABLE();
         break;
     }
-#endif
+#endif  // VIXL_DEBUG
   }
   // Constructor used for disassembly.
   ImmediateShiftOperand(int shift, int amount);

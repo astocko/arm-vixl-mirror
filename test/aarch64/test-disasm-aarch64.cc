@@ -2831,7 +2831,7 @@ TEST(unreachable) {
   COMPARE(Unreachable(), "hlt #0xdeb0");
 #else
   COMPARE(Unreachable(), "blr xzr");
-#endif
+#endif  // VIXL_INCLUDE_SIMULATOR_AARCH64
 
   CLEANUP();
 }
@@ -2849,7 +2849,7 @@ TEST(trace) {
 
   CLEANUP();
 }
-#endif
+#endif  // VIXL_INCLUDE_SIMULATOR_AARCH64
 
 
 #ifdef VIXL_INCLUDE_SIMULATOR_AARCH64
@@ -2864,7 +2864,7 @@ TEST(log) {
 
   CLEANUP();
 }
-#endif
+#endif  // VIXL_INCLUDE_SIMULATOR_AARCH64
 
 
 TEST(hlt) {

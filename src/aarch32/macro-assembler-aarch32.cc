@@ -250,7 +250,7 @@ void MacroAssembler::VeneerPoolManager::Emit(Label::Offset target) {
        ++it) {
     VIXL_ASSERT((*it)->GetCheckpoint() >= checkpoint_);
   }
-#endif
+#endif  // VIXL_DEBUG
   masm_->ComputeCheckpoint();
 }
 
@@ -264,12 +264,12 @@ void MacroAssembler::PerformEnsureEmit(Label::Offset target, uint32_t size) {
     VIXL_ASSERT(!AllowAssembler());
 #ifdef VIXL_DEBUG
     SetAllowAssembler(true);
-#endif
+#endif  // VIXL_DEBUG
     b(&after_pools);
     VIXL_ASSERT(AllowAssembler());
 #ifdef VIXL_DEBUG
     SetAllowAssembler(false);
-#endif
+#endif  // VIXL_DEBUG
     veneer_pool_manager_.Emit(target);
     option = kNoBranchRequired;
   }

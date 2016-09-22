@@ -111,7 +111,7 @@ void CodeBuffer::Reset() {
     // Fill with zeros (there is no useful value common to A32 and T32).
     memset(buffer_, 0, capacity_);
   }
-#endif
+#endif  // VIXL_DEBUG
   cursor_ = buffer_;
   SetClean();
 }
