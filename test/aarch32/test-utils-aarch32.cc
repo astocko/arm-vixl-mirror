@@ -48,11 +48,15 @@ void RegisterDump::Dump(MacroAssembler* masm) {
   const int d_offset = static_cast<int>(VIXL_OFFSET(dump_t, d_));
   const int flags_offset = static_cast<int>(VIXL_OFFSET(dump_t, flags_));
 
+  uintptr_t dump_address = reinterpret_cast<uintptr_t>(&dump_);
+  // Make sure the address fits in 32 bits.
+  VIXL_ASSERT(static_cast<uint32_t>(dump_address) == dump_address);
+
   __ Push(dump_base);
   __ Push(tmp);
 
   // Load the address of the dump_ structure.
-  __ Mov(dump_base, reinterpret_cast<uintptr_t>(&dump_));
+  __ Mov(dump_base, static_cast<uint32_t>(dump_address));
 
   // Dump all core registers.  Note that the stack pointer and temporary
   // registers will be stored again later after they are restored.

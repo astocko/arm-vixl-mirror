@@ -3372,7 +3372,13 @@ static void TestHelper(Fn instruction,
     results[i]->output_size = kTests[i].input_size;
 
     uintptr_t input_address = reinterpret_cast<uintptr_t>(kTests[i].inputs);
+    VIXL_ASSERT(IsUint32(input_address));
+
     uintptr_t result_address = reinterpret_cast<uintptr_t>(results[i]->outputs);
+    VIXL_ASSERT(IsUint32(result_address));
+
+    size_t input_stride = sizeof(kTests[i].inputs[0]) * kTests[i].input_size;
+    VIXL_ASSERT(IsUint32(input_stride));
 
     scratch_memory_buffers[i] = NULL;
 
@@ -3400,11 +3406,9 @@ static void TestHelper(Fn instruction,
 
     // Initialize `input_ptr` to the first element and `input_end` the address
     // after the array.
-    __ Mov(input_ptr, input_address);
-    __ Add(input_end,
-           input_ptr,
-           sizeof(kTests[i].inputs[0]) * kTests[i].input_size);
-    __ Mov(result_ptr, result_address);
+    __ Mov(input_ptr, static_cast<uint32_t>(input_address));
+    __ Add(input_end, input_ptr, static_cast<uint32_t>(input_stride));
+    __ Mov(result_ptr, static_cast<uint32_t>(result_address));
     __ Bind(&loop);
 
     {
@@ -3432,7 +3436,9 @@ static void TestHelper(Fn instruction,
       Register base_register = memop.GetBaseRegister();
 
       // Write the expected data into the scratch buffer.
-      __ Mov(base_register, scratch_memory_addr);
+      VIXL_ASSERT(static_cast<uint32_t>(scratch_memory_addr) ==
+                  scratch_memory_addr);
+      __ Mov(base_register, static_cast<uint32_t>(scratch_memory_addr));
       __ Ldr(memop_tmp, MemOperand(input_ptr, offsetof(Inputs, memop) + 4));
       __ Str(memop_tmp, MemOperand(base_register));
 
@@ -3507,7 +3513,9 @@ static void TestHelper(Fn instruction,
 
       // Record the value of the base register, as an offset from the scratch
       // buffer's address.
-      __ Mov(memop_tmp, scratch_memory_addr);
+      VIXL_ASSERT(static_cast<uint32_t>(scratch_memory_addr) ==
+                  scratch_memory_addr);
+      __ Mov(memop_tmp, static_cast<uint32_t>(scratch_memory_addr));
       __ Sub(base_register, base_register, memop_tmp);
       __ Str(base_register, MemOperand(result_ptr, offsetof(Inputs, memop)));
 

@@ -567,7 +567,10 @@ class MemOperand(Input):
         Register base_register = {name}.GetBaseRegister();
 
         // Write the expected data into the scratch buffer.
-        __ Mov(base_register, scratch_memory_addr);
+        VIXL_ASSERT(static_cast<uint32_t>(scratch_memory_addr) ==
+                    scratch_memory_addr);
+        __ Mov(base_register,
+               static_cast<uint32_t>(scratch_memory_addr));
         __ Ldr({name}_tmp, MemOperand(input_ptr, offsetof(Inputs, {name}) + 4));
         __ Str({name}_tmp, MemOperand(base_register));
 
@@ -635,7 +638,9 @@ class MemOperand(Input):
 
         // Record the value of the base register, as an offset from the scratch
         // buffer's address.
-        __ Mov({name}_tmp, scratch_memory_addr);
+        VIXL_ASSERT(static_cast<uint32_t>(scratch_memory_addr) ==
+                    scratch_memory_addr);
+        __ Mov({name}_tmp, static_cast<uint32_t>(scratch_memory_addr));
         __ Sub(base_register, base_register, {name}_tmp);
         __ Str(base_register, MemOperand(result_ptr, offsetof(Inputs, {name})));
 

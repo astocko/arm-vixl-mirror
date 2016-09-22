@@ -1423,7 +1423,13 @@ static void TestHelper(Fn instruction,
     results[i]->output_size = kTests[i].input_size;
 
     uintptr_t input_address = reinterpret_cast<uintptr_t>(kTests[i].inputs);
+    VIXL_ASSERT(IsUint32(input_address));
+
     uintptr_t result_address = reinterpret_cast<uintptr_t>(results[i]->outputs);
+    VIXL_ASSERT(IsUint32(result_address));
+
+    size_t input_stride = sizeof(kTests[i].inputs[0]) * kTests[i].input_size;
+    VIXL_ASSERT(IsUint32(input_stride));
 
     scratch_memory_buffers[i] = NULL;
 
@@ -1448,11 +1454,9 @@ static void TestHelper(Fn instruction,
 
     // Initialize `input_ptr` to the first element and `input_end` the address
     // after the array.
-    __ Mov(input_ptr, input_address);
-    __ Add(input_end,
-           input_ptr,
-           sizeof(kTests[i].inputs[0]) * kTests[i].input_size);
-    __ Mov(result_ptr, result_address);
+    __ Mov(input_ptr, static_cast<uint32_t>(input_address));
+    __ Add(input_end, input_ptr, static_cast<uint32_t>(input_stride));
+    __ Mov(result_ptr, static_cast<uint32_t>(result_address));
     __ Bind(&loop);
 
     __ Ldr(rd, MemOperand(input_ptr, offsetof(Inputs, rd)));
