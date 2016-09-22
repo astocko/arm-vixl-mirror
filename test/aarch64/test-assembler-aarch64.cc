@@ -14411,19 +14411,19 @@ TEST(instruction_accurate_scope) {
   START();
 
   // By default macro instructions are allowed.
-  VIXL_ASSERT(masm.AllowMacroInstructions());
+  VIXL_ASSERT(masm.AllowMacroAssembler());
   {
     InstructionAccurateScope scope1(&masm, 2);
-    VIXL_ASSERT(!masm.AllowMacroInstructions());
+    VIXL_ASSERT(!masm.AllowMacroAssembler());
     __ nop();
     {
       InstructionAccurateScope scope2(&masm, 1);
-      VIXL_ASSERT(!masm.AllowMacroInstructions());
+      VIXL_ASSERT(!masm.AllowMacroAssembler());
       __ nop();
     }
-    VIXL_ASSERT(!masm.AllowMacroInstructions());
+    VIXL_ASSERT(!masm.AllowMacroAssembler());
   }
-  VIXL_ASSERT(masm.AllowMacroInstructions());
+  VIXL_ASSERT(masm.AllowMacroAssembler());
 
   {
     InstructionAccurateScope scope(&masm, 2);
