@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a0b7d60_cc9f9e4f",
+        "filename": "doc/design/code-generation.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-09-22T09:20:58Z",
+      "side": 0,
+      "message": "It is still available, as specified in the description of `CodeBufferCheckScope`.\n\nWith what I have been doing `ExactAssemblyScope` would *not* handle an instruction count instead of a size. Instead, I replaced the uses to do something like `2 * kInstructionSize`. This is because I use the *same* scope for all backends.",
+      "parentUuid": "9a0b7d60_2c62aad8",
+      "range": {
+        "startLine": 104,
+        "startChar": 2,
+        "endLine": 105,
+        "endChar": 41
+      },
+      "revId": "50ad898f9e0a5477ceffb312e06b255a1c6ab8ae",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a0b7d60_8c73d6b0",
         "filename": "doc/design/code-generation.md",
         "patchSetId": 1
@@ -71,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "9a0b7d60_2cad8a89",
+        "filename": "doc/design/code-generation.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-09-22T09:20:58Z",
+      "side": 0,
+      "message": "I actually rewrite this part later. With the updated scope we do not \u0027acquire\u0027 and \u0027release\u0027 the buffer anymore.",
+      "parentUuid": "9a0b7d60_ec6702e9",
+      "range": {
+        "startLine": 118,
+        "startChar": 2,
+        "endLine": 118,
+        "endChar": 60
+      },
+      "revId": "50ad898f9e0a5477ceffb312e06b255a1c6ab8ae",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a0b7d60_cc64bee7",
         "filename": "doc/design/code-generation.md",
         "patchSetId": 1
@@ -82,6 +130,30 @@
       "writtenOn": "2016-09-21T15:08:15Z",
       "side": 0,
       "message": "Again, where has this responsibility gone?",
+      "range": {
+        "startLine": 121,
+        "startChar": 2,
+        "endLine": 121,
+        "endChar": 65
+      },
+      "revId": "50ad898f9e0a5477ceffb312e06b255a1c6ab8ae",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a0b7d60_acb05ade",
+        "filename": "doc/design/code-generation.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-09-22T09:20:58Z",
+      "side": 0,
+      "message": "To the `CodeBufferCheckScope`, where it actually already was.",
+      "parentUuid": "9a0b7d60_cc64bee7",
       "range": {
         "startLine": 121,
         "startChar": 2,
