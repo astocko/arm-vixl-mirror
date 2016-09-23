@@ -259,16 +259,18 @@ void MacroAssembler::PerformEnsureEmit(Label::Offset target, uint32_t size) {
   EmitOption option = kBranchRequired;
   Label after_pools;
   if (target >= veneer_pool_manager_.GetCheckpoint()) {
+    // TODO: Use `ExactAssemblyScope`.
     // Here, we can't use an AssemblerAccurateScope as it would call
     // PerformEnsureEmit in an infinite loop.
     VIXL_ASSERT(!AllowAssembler());
 #ifdef VIXL_DEBUG
+    bool previous_allow_assembler = AllowAssembler();
     SetAllowAssembler(true);
 #endif
     b(&after_pools);
     VIXL_ASSERT(AllowAssembler());
 #ifdef VIXL_DEBUG
-    SetAllowAssembler(false);
+    SetAllowAssembler(previous_allow_assembler);
 #endif
     VIXL_ASSERT(veneer_pool_monitor_ == 0);
     veneer_pool_manager_.Emit(target);
