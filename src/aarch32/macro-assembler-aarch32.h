@@ -28,7 +28,10 @@
 #ifndef VIXL_AARCH32_MACRO_ASSEMBLER_AARCH32_H_
 #define VIXL_AARCH32_MACRO_ASSEMBLER_AARCH32_H_
 
+#include "code-generation-scopes-vixl.h"
+#include "macro-assembler-interface.h"
 #include "utils-vixl.h"
+
 #include "aarch32/instructions-aarch32.h"
 #include "aarch32/assembler-aarch32.h"
 #include "aarch32/operand-aarch32.h"
@@ -107,9 +110,27 @@ class LiteralPool {
 };
 
 // Macro assembler for aarch32 instruction set.
-class MacroAssembler : public Assembler {
+class MacroAssembler : public Assembler, public MacroAssemblerInterface {
  public:
   enum EmitOption { kBranchRequired, kNoBranchRequired };
+
+  AssemblerBase* GetAssemblerBase() { return this; }
+  void BlockPools() {
+    // TODO: Implement a better mechanism for blocking pools.
+    literal_pool_monitor_++;
+    veneer_pool_monitor_++;
+  }
+  void ReleasePools() {
+    VIXL_ASSERT(literal_pool_monitor_ > 0);
+    VIXL_ASSERT(veneer_pool_monitor_ > 0);
+    literal_pool_monitor_--;
+    veneer_pool_monitor_--;
+  }
+  void EnsureEmitPoolsFor(size_t size) {
+    // TODO: Optimise this. It also checks that there is space in the buffer,
+    // which we do not need to do here.
+    EnsureEmitFor(size);
+  }
 
  private:
   class AllowAssemblerEmissionScope {
@@ -397,8 +418,9 @@ class MacroAssembler : public Assembler {
         checkpoint_(Label::kMaxOffset),
         literal_pool_manager_(this),
         veneer_pool_manager_(this),
+        literal_pool_monitor_(0),
+        veneer_pool_monitor_(0),
         generate_simulator_code_(VIXL_AARCH32_GENERATE_SIMULATOR_CODE) {
-    SetAllowAssembler(false);
 #ifdef VIXL_DEBUG
     SetAllowMacroAssembler(true);
 #else
@@ -413,8 +435,9 @@ class MacroAssembler : public Assembler {
         checkpoint_(Label::kMaxOffset),
         literal_pool_manager_(this),
         veneer_pool_manager_(this),
+        literal_pool_monitor_(0),
+        veneer_pool_monitor_(0),
         generate_simulator_code_(VIXL_AARCH32_GENERATE_SIMULATOR_CODE) {
-    SetAllowAssembler(false);
 #ifdef VIXL_DEBUG
     SetAllowMacroAssembler(true);
 #endif
@@ -426,8 +449,9 @@ class MacroAssembler : public Assembler {
         checkpoint_(Label::kMaxOffset),
         literal_pool_manager_(this),
         veneer_pool_manager_(this),
+        literal_pool_monitor_(0),
+        veneer_pool_monitor_(0),
         generate_simulator_code_(VIXL_AARCH32_GENERATE_SIMULATOR_CODE) {
-    SetAllowAssembler(false);
 #ifdef VIXL_DEBUG
     SetAllowMacroAssembler(true);
 #endif
@@ -489,6 +513,7 @@ class MacroAssembler : public Assembler {
   // All the literals in the pool will be removed from the pool and potentially
   // delete'd.
   void EmitLiteralPool(LiteralPool* const literal_pool, EmitOption option) {
+    VIXL_ASSERT(literal_pool_monitor_ == 0);
     if (literal_pool->GetSize() > 0) {
 #ifdef VIXL_DEBUG
       for (LiteralPool::RawLiteralListIterator literal_it =
@@ -9032,6 +9057,8 @@ class MacroAssembler : public Assembler {
   Label::Offset checkpoint_;
   LiteralPoolManager literal_pool_manager_;
   VeneerPoolManager veneer_pool_manager_;
+  int literal_pool_monitor_;
+  int veneer_pool_monitor_;
   bool generate_simulator_code_;
   bool allow_macro_assembler_;
 };
@@ -9042,54 +9069,6 @@ class MacroAssembler : public Assembler {
 // many instructions will be emitted by the macro-assembler. Using the assembler
 // means that you directly use the assembler instructions (in lower case) from a
 // MacroAssembler object.
-class CodeBufferCheckScope {
- public:
-  // Tell whether or not the scope should assert the amount of code emitted
-  // within the scope is consistent with the requested amount.
-  enum AssertPolicy {
-    kNoAssert,    // No assert required.
-    kExactSize,   // The code emitted must be exactly size bytes.
-    kMaximumSize  // The code emitted must be at most size bytes.
-  };
-
-  CodeBufferCheckScope(MacroAssembler* masm,
-                       uint32_t size,
-                       AssertPolicy assert_policy = kMaximumSize)
-      : masm_(masm) {
-    masm->EnsureEmitFor(size);
-#ifdef VIXL_DEBUG
-    initial_cursor_offset_ = masm->GetCursorOffset();
-    size_ = size;
-    assert_policy_ = assert_policy;
-#else
-    USE(assert_policy);
-#endif
-  }
-
-  ~CodeBufferCheckScope() {
-#ifdef VIXL_DEBUG
-    switch (assert_policy_) {
-      case kNoAssert:
-        break;
-      case kExactSize:
-        VIXL_ASSERT(masm_->GetCursorOffset() - initial_cursor_offset_ == size_);
-        break;
-      case kMaximumSize:
-        VIXL_ASSERT(masm_->GetCursorOffset() - initial_cursor_offset_ <= size_);
-        break;
-      default:
-        VIXL_UNREACHABLE();
-    }
-#endif
-  }
-
- protected:
-  MacroAssembler* masm_;
-  uint32_t initial_cursor_offset_;
-  uint32_t size_;
-  AssertPolicy assert_policy_;
-};
-
 // Use this scope when you need a one-to-one mapping between methods and
 // instructions. This scope prevents the MacroAssembler functions from being
 // called and the literal pools and veneers from being emitted (they can only be
@@ -9103,8 +9082,9 @@ class AssemblerAccurateScope : public CodeBufferCheckScope {
   AssemblerAccurateScope(MacroAssembler* masm,
                          uint32_t size,
                          AssertPolicy policy = kExactSize)
-      : CodeBufferCheckScope(masm, size, policy) {
+      : CodeBufferCheckScope(masm, size, kCheck, policy), masm_(masm) {
     VIXL_ASSERT(policy != kNoAssert);
+    masm_->EnsureEmitFor(size);
 #ifdef VIXL_DEBUG
     old_allow_macro_instructions_ = masm->AllowMacroAssembler();
     old_allow_assembler_ = masm->AllowAssembler();
@@ -9124,6 +9104,7 @@ class AssemblerAccurateScope : public CodeBufferCheckScope {
   }
 
  private:
+  MacroAssembler* masm_;
   bool old_allow_macro_instructions_;
   bool old_allow_assembler_;
 };
