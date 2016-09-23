@@ -270,6 +270,7 @@ void MacroAssembler::PerformEnsureEmit(Label::Offset target, uint32_t size) {
 #ifdef VIXL_DEBUG
     SetAllowAssembler(false);
 #endif
+    VIXL_ASSERT(veneer_pool_monitor_ == 0);
     veneer_pool_manager_.Emit(target);
     option = kNoBranchRequired;
   }
@@ -285,6 +286,7 @@ void MacroAssembler::PerformEnsureEmit(Label::Offset target, uint32_t size) {
     Label::Offset veneers_target =
         target + literal_pool_manager_.GetLiteralPoolSize();
     if (veneers_target >= veneer_pool_manager_.GetCheckpoint()) {
+      VIXL_ASSERT(veneer_pool_monitor_ == 0);
       veneer_pool_manager_.Emit(veneers_target);
     }
     EmitLiteralPool(option);

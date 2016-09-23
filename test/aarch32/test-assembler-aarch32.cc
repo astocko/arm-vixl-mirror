@@ -1729,6 +1729,7 @@ TEST(set_isa_noop) {
   // one or more instructions have been generated.
   {
     Assembler assm(A32);
+    CodeBufferCheckScope scope(&assm, kMaxInstructionSizeInBytes);
     CheckInstructionSetA32(assm);
     assm.bx(lr);
     VIXL_ASSERT(assm.GetCursorOffset() > 0);
@@ -1741,6 +1742,7 @@ TEST(set_isa_noop) {
   }
   {
     Assembler assm(T32);
+    CodeBufferCheckScope scope(&assm, kMaxInstructionSizeInBytes);
     CheckInstructionSetT32(assm);
     assm.bx(lr);
     VIXL_ASSERT(assm.GetCursorOffset() > 0);
