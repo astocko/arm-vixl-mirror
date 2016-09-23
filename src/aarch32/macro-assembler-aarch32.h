@@ -135,6 +135,7 @@ class MacroAssembler : public Assembler, public MacroAssemblerInterface {
  private:
   class AllowAssemblerEmissionScope {
     MacroAssembler* masm_;
+    bool previous_allow_assembler_;
 
    public:
     AllowAssemblerEmissionScope(MacroAssembler* masm, uint32_t size)
@@ -142,15 +143,17 @@ class MacroAssembler : public Assembler, public MacroAssemblerInterface {
       VIXL_ASSERT(!masm->AllowAssembler());
       masm->EnsureEmitFor(size);
 #ifdef VIXL_DEBUG
+      previous_allow_assembler_ = masm_->AllowAssembler();
       masm->SetAllowAssembler(true);
 #else
       USE(masm_);
+      USE(previous_allow_assembler_);
 #endif
     }
     ~AllowAssemblerEmissionScope() {
 #ifdef VIXL_DEBUG
       VIXL_ASSERT(masm_->AllowAssembler());
-      masm_->SetAllowAssembler(false);
+      masm_->SetAllowAssembler(previous_allow_assembler_);
 #endif
     }
   };
@@ -530,12 +533,14 @@ class MacroAssembler : public Assembler, public MacroAssemblerInterface {
         GetBuffer()->EnsureSpaceFor(kMaxInstructionSizeInBytes);
         VIXL_ASSERT(!AllowAssembler());
 #ifdef VIXL_DEBUG
+        // TODO: Use `ExactAssemblyScope`.
+        bool previous_allow_assembler = AllowAssembler();
         SetAllowAssembler(true);
 #endif
         b(&after_literal);
         VIXL_ASSERT(AllowAssembler());
 #ifdef VIXL_DEBUG
-        SetAllowAssembler(false);
+        SetAllowAssembler(previous_allow_assembler);
 #endif
       }
       GetBuffer()->Align();
