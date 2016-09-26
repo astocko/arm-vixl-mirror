@@ -515,45 +515,7 @@ class MacroAssembler : public Assembler, public MacroAssemblerInterface {
   // Every literal is placed on a 32bit boundary
   // All the literals in the pool will be removed from the pool and potentially
   // delete'd.
-  void EmitLiteralPool(LiteralPool* const literal_pool, EmitOption option) {
-    VIXL_ASSERT(literal_pool_monitor_ == 0);
-    if (literal_pool->GetSize() > 0) {
-#ifdef VIXL_DEBUG
-      for (LiteralPool::RawLiteralListIterator literal_it =
-               literal_pool->GetFirst();
-           literal_it != literal_pool->GetEnd();
-           literal_it++) {
-        RawLiteral* literal = *literal_it;
-        VIXL_ASSERT(GetCursorOffset() <
-                    static_cast<uint32_t>(literal->GetCheckpoint()));
-      }
-#endif
-      Label after_literal;
-      if (option == kBranchRequired) {
-        GetBuffer()->EnsureSpaceFor(kMaxInstructionSizeInBytes);
-        VIXL_ASSERT(!AllowAssembler());
-#ifdef VIXL_DEBUG
-        // TODO: Use `ExactAssemblyScope`.
-        bool previous_allow_assembler = AllowAssembler();
-        SetAllowAssembler(true);
-#endif
-        b(&after_literal);
-        VIXL_ASSERT(AllowAssembler());
-#ifdef VIXL_DEBUG
-        SetAllowAssembler(previous_allow_assembler);
-#endif
-      }
-      GetBuffer()->Align();
-      GetBuffer()->EnsureSpaceFor(literal_pool->GetSize());
-      for (LiteralPool::RawLiteralListIterator it = literal_pool->GetFirst();
-           it != literal_pool->GetEnd();
-           it++) {
-        place(*it);
-      }
-      if (option == kBranchRequired) bind(&after_literal);
-      literal_pool->Clear();
-    }
-  }
+  void EmitLiteralPool(LiteralPool* const literal_pool, EmitOption option);
   void EmitLiteralPool(EmitOption option = kBranchRequired) {
     EmitLiteralPool(literal_pool_manager_.GetLiteralPool(), option);
     literal_pool_manager_.ResetCheckpoint();
@@ -9066,52 +9028,6 @@ class MacroAssembler : public Assembler, public MacroAssemblerInterface {
   int veneer_pool_monitor_;
   bool generate_simulator_code_;
   bool allow_macro_assembler_;
-};
-
-// This scope is used to ensure that the specified size of instructions will be
-// emitted contiguously. The assert policy kExtactSize should only be used
-// when you use directly the assembler as it's difficult to know exactly how
-// many instructions will be emitted by the macro-assembler. Using the assembler
-// means that you directly use the assembler instructions (in lower case) from a
-// MacroAssembler object.
-// Use this scope when you need a one-to-one mapping between methods and
-// instructions. This scope prevents the MacroAssembler functions from being
-// called and the literal pools and veneers from being emitted (they can only be
-// emitted when you create the scope). It also asserts the size of the emitted
-// instructions is the specified size (or not greater than the specified size).
-// This scope must be used when you want to directly use the assembler. It will
-// ensure that the buffer is big enough and that you don't break the pool and
-// veneer mechanisms.
-class AssemblerAccurateScope : public CodeBufferCheckScope {
- public:
-  AssemblerAccurateScope(MacroAssembler* masm,
-                         uint32_t size,
-                         AssertPolicy policy = kExactSize)
-      : CodeBufferCheckScope(masm, size, kCheck, policy), masm_(masm) {
-    VIXL_ASSERT(policy != kNoAssert);
-    masm_->EnsureEmitFor(size);
-#ifdef VIXL_DEBUG
-    old_allow_macro_instructions_ = masm->AllowMacroAssembler();
-    old_allow_assembler_ = masm->AllowAssembler();
-    masm->SetAllowMacroAssembler(false);
-    masm->SetAllowAssembler(true);
-#else
-    USE(old_allow_macro_instructions_);
-    USE(old_allow_assembler_);
-#endif
-  }
-
-  ~AssemblerAccurateScope() {
-#ifdef VIXL_DEBUG
-    masm_->SetAllowMacroAssembler(old_allow_macro_instructions_);
-    masm_->SetAllowAssembler(old_allow_assembler_);
-#endif
-  }
-
- private:
-  MacroAssembler* masm_;
-  bool old_allow_macro_instructions_;
-  bool old_allow_assembler_;
 };
 
 // This scope utility allows scratch registers to be managed safely. The
