@@ -22,6 +22,30 @@
       "revId": "b49bdb7996e603555eba4c8b56c7325e3e737ab6",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a0b7d60_47eee923",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-09-26T13:24:54Z",
+      "side": 1,
+      "message": "Consider a simple use:\n\n    $ git clone vixl\n    $ cat test.cc\n    #include \"vixl/src/aarch64/macro-assembler-aarch64.h\"\n    int main(void) { return 0; }\n    \n    $ clang++ -o test test.cc vixl/obj/latest/libvixl.a\n    In file included from test.cc:1:\n    ./vixl/src/aarch64/macro-assembler-aarch64.h:33:10: fatal error: \u0027globals-vixl.h\u0027 file not found\n    #include \"globals-vixl.h\"\n             ^\n    1 error generated.\n\nI find this is not great.",
+      "parentUuid": "9a0b7d60_078d017c",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 67
+      },
+      "revId": "b49bdb7996e603555eba4c8b56c7325e3e737ab6",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
