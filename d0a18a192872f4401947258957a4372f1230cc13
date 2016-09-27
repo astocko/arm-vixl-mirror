@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a0b7d60_07c1812e",
+        "filename": "src/assembler-base-vixl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1000219
+      },
+      "writtenOn": "2016-09-27T10:48:14Z",
+      "side": 1,
+      "message": "Did you consider adding an \"internal\" namespace for this? Maybe even in a new \"internal\" subdirectory. This is something we talked about with Jacob in the past. It would be nice to have a place to have non user facing interfaces.",
+      "revId": "d0a18a192872f4401947258957a4372f1230cc13",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
