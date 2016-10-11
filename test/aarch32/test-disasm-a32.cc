@@ -24,6 +24,7 @@
 // OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+#include <iostream>
 #include <sstream>
 #include <string>
 #include <list>
@@ -117,6 +118,39 @@ class TestDisassembler : public Disassembler {
     os() << "\n";
   }
 };
+
+
+TEST(t32_disassembler_limit1) {
+  SETUP();
+
+  masm.UseT32();
+  masm.Add(r10, r11, r12);
+  masm.GetBuffer().Emit16(kLowestT32_32Opcode >> 16);
+  masm.FinalizeCode();
+
+  PrintDisassembler disassembler(std::cout, 0);
+  disassembler.DisassembleT32Buffer(
+      masm.GetStartAddress<uint16_t*>(), masm.GetSizeOfCodeGenerated());
+
+  CLEANUP();
+}
+
+
+TEST(t32_disassembler_limit2) {
+  SETUP();
+
+  masm.UseT32();
+  masm.Add(r10, r11, r12);
+  masm.Add(r0, r0, r1);
+  masm.FinalizeCode();
+
+  PrintDisassembler disassembler(std::cout, 0);
+  disassembler.DisassembleT32Buffer(
+      masm.GetStartAddress<uint16_t*>(), masm.GetSizeOfCodeGenerated());
+
+  CLEANUP();
+}
+
 
 TEST(macro_assembler_orn) {
   SETUP();
