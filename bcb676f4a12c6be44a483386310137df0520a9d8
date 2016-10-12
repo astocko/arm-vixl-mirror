@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7af0899e_484d6372",
+        "filename": "src/assembler-base-vixl.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000221
+      },
+      "writtenOn": "2016-10-12T15:29:24Z",
+      "side": 1,
+      "message": "I would really like to have all the common wrappers here. They are really useful. It make the use of the assembler less verbose.",
+      "revId": "bcb676f4a12c6be44a483386310137df0520a9d8",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
