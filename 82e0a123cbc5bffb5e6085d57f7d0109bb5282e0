@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7af0899e_dda9177d",
+        "filename": "doc/design/code-generation.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-10-12T10:37:51Z",
+      "side": 1,
+      "message": "What if the buffer is not managed by VIXL?",
+      "revId": "82e0a123cbc5bffb5e6085d57f7d0109bb5282e0",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7af0899e_3db65bdd",
+        "filename": "doc/design/code-generation.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-10-12T10:37:51Z",
+      "side": 1,
+      "message": "Maximum or exact? (I assume maximum otherwise it wouldn\u0027t be safe to use the macro-assembler.)\n\nShould there be a mandatory `size` parameter like for CodeBufferCheckScope?\n\nMaking the size check mandatory also means that we can\u0027t have a (derived) ExactAssemblyScope that doesn\u0027t check the size of the generated code. That might be reasonable but it isn\u0027t obvious from the diff view so I thought I should mention it in case it was unintentional.",
+      "revId": "82e0a123cbc5bffb5e6085d57f7d0109bb5282e0",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7af0899e_1dbb9fc5",
+        "filename": "doc/design/code-generation.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-10-12T10:37:51Z",
+      "side": 1,
+      "message": "Dump -\u003e Emit",
+      "revId": "82e0a123cbc5bffb5e6085d57f7d0109bb5282e0",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7af0899e_7db0e3dd",
+        "filename": "doc/design/code-generation.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-10-12T10:37:51Z",
+      "side": 1,
+      "message": "Block pool emission for the duration of the scope.",
+      "revId": "82e0a123cbc5bffb5e6085d57f7d0109bb5282e0",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
