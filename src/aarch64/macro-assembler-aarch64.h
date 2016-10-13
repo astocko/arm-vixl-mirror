@@ -638,6 +638,13 @@ class MacroAssembler : public Assembler {
                                           const Register& dst,
                                           int64_t imm);
 
+  // Try to move a PC relative pointer in to a register using
+  // only adr, adrp, or adrp and add. Returns number of
+  // instructions required to generate the address
+  // or zero if it could not.
+  static int TryMovePCRelativeAddressHelper(MacroAssembler* masm,
+                                            const Register& rd,
+                                            uint64_t imm);
 
   // Logical macros.
   void And(const Register& rd, const Register& rn, const Operand& operand);

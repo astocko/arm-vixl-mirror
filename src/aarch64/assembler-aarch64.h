@@ -2725,6 +2725,18 @@ class Assembler {
     return imm;
   }
 
+  static bool IsImmWithinADR(int64_t imm) {
+	  return std::abs(imm) < INT64_C(0xFFFFF);
+  }
+
+  static bool IsImmPageAligned(int64_t imm) {
+	  return ((imm % kPageSize) == 0);
+  }
+
+  static bool IsImmPCRelAddressing(int64_t imm) {
+    return std::abs(imm) < INT64_C(0xffffffff) && IsImmPageAligned(imm);
+  }
+
   static Instr ImmS(unsigned imms, unsigned reg_size) {
     VIXL_ASSERT(((reg_size == kXRegSize) && IsUint6(imms)) ||
                 ((reg_size == kWRegSize) && IsUint5(imms)));

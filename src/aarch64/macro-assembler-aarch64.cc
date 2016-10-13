@@ -447,7 +447,6 @@ void MacroAssembler::CheckEmitPoolsFor(size_t amount) {
   checkpoint_ = GetNextCheckPoint();
 }
 
-
 int MacroAssembler::MoveImmediateHelper(MacroAssembler* masm,
                                         const Register& rd,
                                         uint64_t imm) {
@@ -473,12 +472,15 @@ int MacroAssembler::MoveImmediateHelper(MacroAssembler* masm,
   // applying move-keep operations to move-zero and move-inverted initial
   // values.
 
+  int instruction_count = 0;
   // Try to move the immediate in one instruction, and if that fails, switch to
   // using multiple instructions.
   if (OneInstrMoveImmediateHelper(masm, rd, imm)) {
     return 1;
+  } else if ((instruction_count =
+              TryMovePCRelativeAddressHelper(masm, rd, imm)) != 0) {
+    return instruction_count;
   } else {
-    int instruction_count = 0;
     unsigned reg_size = rd.GetSizeInBits();
 
     // Generic immediate case. Imm will be represented by
@@ -541,6 +543,37 @@ int MacroAssembler::MoveImmediateHelper(MacroAssembler* masm,
   }
 }
 
+int MacroAssembler::TryMovePCRelativeAddressHelper(MacroAssembler* masm,
+                                                   const Register& rd,
+                                                   uint64_t imm) {
+  if (masm == NULL) return 0;
+  if (masm->GetPic() != PositionDependentCode) return 0;
+  int64_t cursor = masm->GetCursorAddress<int64_t>();
+  int64_t offset = (int64_t)imm - cursor;
+
+  int64_t aligned_pc = cursor & ~((UINT64_C(1) << kPageSizeLog2) - 1);
+  int64_t aligned_offset = imm - aligned_pc;
+
+  if (IsImmWithinADR(offset)) {
+    // If the pointer is within 1MB of PC then it can be loaded in 1 instruction
+    masm->adr(rd, (int32_t)offset);
+    return 1;
+  } else if  (IsImmPCRelAddressing(aligned_offset)) {
+    if (IsImmPageAligned(aligned_offset)) {
+      // If the pointer is 4KB aligned and within 4GB it can be loaded in
+	// one instruction
+      masm->adrp(rd, aligned_offset >> kPageSizeLog2);
+      return 1;
+    } else {
+      // If the pointer is not aligned but within 4GB it takes two instructions
+      masm->adrp(rd, aligned_offset >> kPageSizeLog2);
+      masm->add(rd, rd, Operand(imm & ((UINT64_C(1) << kPageSizeLog2) - 1)));
+      return 2;
+    }
+  }
+
+  return 0;
+}
 
 bool MacroAssembler::OneInstrMoveImmediateHelper(MacroAssembler* masm,
                                                  const Register& dst,
