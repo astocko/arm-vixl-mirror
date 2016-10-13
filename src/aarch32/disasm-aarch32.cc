@@ -1116,6 +1116,7 @@ void Disassembler::adc(Condition cond,
                        Register rd,
                        Register rn,
                        const Operand& operand) {
+  os().SetCurrentInstruction(Assembler::kAdc, Assembler::kArithmetic);
   os() << "adc" << ConditionPrinter(it_block_, cond) << size;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -1129,6 +1130,7 @@ void Disassembler::adcs(Condition cond,
                         Register rd,
                         Register rn,
                         const Operand& operand) {
+  os().SetCurrentInstruction(Assembler::kAdcs, Assembler::kArithmetic);
   os() << "adcs" << ConditionPrinter(it_block_, cond) << size;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -1142,6 +1144,7 @@ void Disassembler::add(Condition cond,
                        Register rd,
                        Register rn,
                        const Operand& operand) {
+  os().SetCurrentInstruction(Assembler::kAdd, Assembler::kArithmetic);
   os() << "add" << ConditionPrinter(it_block_, cond) << size;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -1151,6 +1154,7 @@ void Disassembler::add(Condition cond,
 }
 
 void Disassembler::add(Condition cond, Register rd, const Operand& operand) {
+  os().SetCurrentInstruction(Assembler::kAdd, Assembler::kArithmetic);
   os() << "add" << ConditionPrinter(it_block_, cond) << " " << rd << ", "
        << operand;
 }
@@ -1160,6 +1164,7 @@ void Disassembler::adds(Condition cond,
                         Register rd,
                         Register rn,
                         const Operand& operand) {
+  os().SetCurrentInstruction(Assembler::kAdds, Assembler::kArithmetic);
   os() << "adds" << ConditionPrinter(it_block_, cond) << size;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -1169,6 +1174,7 @@ void Disassembler::adds(Condition cond,
 }
 
 void Disassembler::adds(Register rd, const Operand& operand) {
+  os().SetCurrentInstruction(Assembler::kAdds, Assembler::kArithmetic);
   os() << "adds"
        << " " << rd << ", " << operand;
 }
@@ -1177,6 +1183,7 @@ void Disassembler::addw(Condition cond,
                         Register rd,
                         Register rn,
                         const Operand& operand) {
+  os().SetCurrentInstruction(Assembler::kAddw, Assembler::kArithmetic);
   os() << "addw" << ConditionPrinter(it_block_, cond);
   os() << " ";
   if (!rd.Is(rn)) {
@@ -1189,6 +1196,7 @@ void Disassembler::adr(Condition cond,
                        EncodingSize size,
                        Register rd,
                        Label* label) {
+  os().SetCurrentInstruction(Assembler::kAdr, Assembler::kAddress);
   os() << "adr" << ConditionPrinter(it_block_, cond) << size << " " << rd
        << ", " << PrintLabel(kAnyLocation, label, GetPc() & ~3);
 }
@@ -1198,6 +1206,7 @@ void Disassembler::and_(Condition cond,
                         Register rd,
                         Register rn,
                         const Operand& operand) {
+  os().SetCurrentInstruction(Assembler::kAnd, Assembler::kBitwise);
   os() << "and" << ConditionPrinter(it_block_, cond) << size;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -1211,6 +1220,7 @@ void Disassembler::ands(Condition cond,
                         Register rd,
                         Register rn,
                         const Operand& operand) {
+  os().SetCurrentInstruction(Assembler::kAnds, Assembler::kBitwise);
   os() << "ands" << ConditionPrinter(it_block_, cond) << size;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -1224,6 +1234,7 @@ void Disassembler::asr(Condition cond,
                        Register rd,
                        Register rm,
                        const Operand& operand) {
+  os().SetCurrentInstruction(Assembler::kAsr, Assembler::kShift);
   os() << "asr" << ConditionPrinter(it_block_, cond) << size;
   os() << " ";
   if (!rd.Is(rm)) {
@@ -1237,6 +1248,7 @@ void Disassembler::asrs(Condition cond,
                         Register rd,
                         Register rm,
                         const Operand& operand) {
+  os().SetCurrentInstruction(Assembler::kAsrs, Assembler::kShift);
   os() << "asrs" << ConditionPrinter(it_block_, cond) << size;
   os() << " ";
   if (!rd.Is(rm)) {
@@ -1246,6 +1258,7 @@ void Disassembler::asrs(Condition cond,
 }
 
 void Disassembler::b(Condition cond, EncodingSize size, Label* label) {
+  os().SetCurrentInstruction(Assembler::kB, Assembler::kBranch);
   os() << "b" << ConditionPrinter(it_block_, cond) << size << " "
        << PrintLabel(kCodeLocation, label, GetPc());
 }
@@ -1254,6 +1267,7 @@ void Disassembler::bfc(Condition cond,
                        Register rd,
                        uint32_t lsb,
                        const Operand& operand) {
+  os().SetCurrentInstruction(Assembler::kBfc, Assembler::kShift);
   os() << "bfc" << ConditionPrinter(it_block_, cond) << " " << rd << ", "
        << "#" << lsb << ", " << operand;
 }
@@ -1263,6 +1277,7 @@ void Disassembler::bfi(Condition cond,
                        Register rn,
                        uint32_t lsb,
                        const Operand& operand) {
+  os().SetCurrentInstruction(Assembler::kBfi, Assembler::kShift);
   os() << "bfi" << ConditionPrinter(it_block_, cond) << " " << rd << ", " << rn
        << ", "
        << "#" << lsb << ", " << operand;
@@ -1273,6 +1288,7 @@ void Disassembler::bic(Condition cond,
                        Register rd,
                        Register rn,
                        const Operand& operand) {
+  os().SetCurrentInstruction(Assembler::kBic, Assembler::kBitwise);
   os() << "bic" << ConditionPrinter(it_block_, cond) << size;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -1286,6 +1302,7 @@ void Disassembler::bics(Condition cond,
                         Register rd,
                         Register rn,
                         const Operand& operand) {
+  os().SetCurrentInstruction(Assembler::kBics, Assembler::kBitwise);
   os() << "bics" << ConditionPrinter(it_block_, cond) << size;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -1295,46 +1312,56 @@ void Disassembler::bics(Condition cond,
 }
 
 void Disassembler::bkpt(Condition cond, uint32_t imm) {
+  os().SetCurrentInstruction(Assembler::kBkpt, Assembler::kSystem);
   os() << "bkpt" << ConditionPrinter(it_block_, cond) << " " << imm;
 }
 
 void Disassembler::bl(Condition cond, Label* label) {
+  os().SetCurrentInstruction(Assembler::kBl, Assembler::kBranch);
   os() << "bl" << ConditionPrinter(it_block_, cond) << " "
        << PrintLabel(kCodeLocation, label, GetPc());
 }
 
 void Disassembler::blx(Condition cond, Label* label) {
+  os().SetCurrentInstruction(Assembler::kBlx, Assembler::kBranch);
   os() << "blx" << ConditionPrinter(it_block_, cond) << " "
        << PrintLabel(kCodeLocation, label, GetPc() & ~3);
 }
 
 void Disassembler::blx(Condition cond, Register rm) {
+  os().SetCurrentInstruction(Assembler::kBlx, Assembler::kBranch);
   os() << "blx" << ConditionPrinter(it_block_, cond) << " " << rm;
 }
 
 void Disassembler::bx(Condition cond, Register rm) {
+  os().SetCurrentInstruction(Assembler::kBx, Assembler::kBranch);
   os() << "bx" << ConditionPrinter(it_block_, cond) << " " << rm;
 }
 
 void Disassembler::bxj(Condition cond, Register rm) {
+  os().SetCurrentInstruction(Assembler::kBxj, Assembler::kBranch);
   os() << "bxj" << ConditionPrinter(it_block_, cond) << " " << rm;
 }
 
 void Disassembler::cbnz(Register rn, Label* label) {
+  os().SetCurrentInstruction(Assembler::kCbnz, Assembler::kBranch);
   os() << "cbnz"
        << " " << rn << ", " << PrintLabel(kCodeLocation, label, GetPc());
 }
 
 void Disassembler::cbz(Register rn, Label* label) {
+  os().SetCurrentInstruction(Assembler::kCbz, Assembler::kBranch);
   os() << "cbz"
        << " " << rn << ", " << PrintLabel(kCodeLocation, label, GetPc());
 }
 
 void Disassembler::clrex(Condition cond) {
+  os().SetCurrentInstruction(Assembler::kClrex, Assembler::kMisc);
   os() << "clrex" << ConditionPrinter(it_block_, cond);
 }
 
 void Disassembler::clz(Condition cond, Register rd, Register rm) {
+  os().SetCurrentInstruction(Assembler::kClz, Assembler::kMisc);
   os() << "clz" << ConditionPrinter(it_block_, cond) << " " << rd << ", " << rm;
 }
 
@@ -1342,6 +1369,7 @@ void Disassembler::cmn(Condition cond,
                        EncodingSize size,
                        Register rn,
                        const Operand& operand) {
+  os().SetCurrentInstruction(Assembler::kCmn, Assembler::kArithmetic);
   os() << "cmn" << ConditionPrinter(it_block_, cond) << size << " " << rn
        << ", " << operand;
 }
@@ -1350,6 +1378,7 @@ void Disassembler::cmp(Condition cond,
                        EncodingSize size,
                        Register rn,
                        const Operand& operand) {
+  os().SetCurrentInstruction(Assembler::kCmp, Assembler::kArithmetic);
   os() << "cmp" << ConditionPrinter(it_block_, cond) << size << " " << rn
        << ", " << operand;
 }
@@ -1358,6 +1387,7 @@ void Disassembler::crc32b(Condition cond,
                           Register rd,
                           Register rn,
                           Register rm) {
+  os().SetCurrentInstruction(Assembler::kCrc32b, Assembler::kMisc);
   os() << "crc32b" << ConditionPrinter(it_block_, cond) << " " << rd << ", "
        << rn << ", " << rm;
 }
@@ -1366,6 +1396,7 @@ void Disassembler::crc32cb(Condition cond,
                            Register rd,
                            Register rn,
                            Register rm) {
+  os().SetCurrentInstruction(Assembler::kCrc32cb, Assembler::kMisc);
   os() << "crc32cb" << ConditionPrinter(it_block_, cond) << " " << rd << ", "
        << rn << ", " << rm;
 }
@@ -1374,6 +1405,7 @@ void Disassembler::crc32ch(Condition cond,
                            Register rd,
                            Register rn,
                            Register rm) {
+  os().SetCurrentInstruction(Assembler::kCrc32ch, Assembler::kMisc);
   os() << "crc32ch" << ConditionPrinter(it_block_, cond) << " " << rd << ", "
        << rn << ", " << rm;
 }
@@ -1382,6 +1414,7 @@ void Disassembler::crc32cw(Condition cond,
                            Register rd,
                            Register rn,
                            Register rm) {
+  os().SetCurrentInstruction(Assembler::kCrc32cw, Assembler::kMisc);
   os() << "crc32cw" << ConditionPrinter(it_block_, cond) << " " << rd << ", "
        << rn << ", " << rm;
 }
@@ -1390,6 +1423,7 @@ void Disassembler::crc32h(Condition cond,
                           Register rd,
                           Register rn,
                           Register rm) {
+  os().SetCurrentInstruction(Assembler::kCrc32h, Assembler::kMisc);
   os() << "crc32h" << ConditionPrinter(it_block_, cond) << " " << rd << ", "
        << rn << ", " << rm;
 }
@@ -1398,15 +1432,18 @@ void Disassembler::crc32w(Condition cond,
                           Register rd,
                           Register rn,
                           Register rm) {
+  os().SetCurrentInstruction(Assembler::kCrc32w, Assembler::kMisc);
   os() << "crc32w" << ConditionPrinter(it_block_, cond) << " " << rd << ", "
        << rn << ", " << rm;
 }
 
 void Disassembler::dmb(Condition cond, MemoryBarrier option) {
+  os().SetCurrentInstruction(Assembler::kDmb, Assembler::kMisc);
   os() << "dmb" << ConditionPrinter(it_block_, cond) << " " << option;
 }
 
 void Disassembler::dsb(Condition cond, MemoryBarrier option) {
+  os().SetCurrentInstruction(Assembler::kDsb, Assembler::kMisc);
   os() << "dsb" << ConditionPrinter(it_block_, cond) << " " << option;
 }
 
@@ -1415,6 +1452,7 @@ void Disassembler::eor(Condition cond,
                        Register rd,
                        Register rn,
                        const Operand& operand) {
+  os().SetCurrentInstruction(Assembler::kEor, Assembler::kBitwise);
   os() << "eor" << ConditionPrinter(it_block_, cond) << size;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -1428,6 +1466,7 @@ void Disassembler::eors(Condition cond,
                         Register rd,
                         Register rn,
                         const Operand& operand) {
+  os().SetCurrentInstruction(Assembler::kEors, Assembler::kBitwise);
   os() << "eors" << ConditionPrinter(it_block_, cond) << size;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -1440,6 +1479,8 @@ void Disassembler::fldmdbx(Condition cond,
                            Register rn,
                            WriteBack write_back,
                            DRegisterList dreglist) {
+  os().SetCurrentInstruction(Assembler::kFldmdbx,
+                             Assembler::kLoadStoreMultiple);
   os() << "fldmdbx" << ConditionPrinter(it_block_, cond) << " " << rn
        << write_back << ", " << dreglist;
 }
@@ -1448,6 +1489,8 @@ void Disassembler::fldmiax(Condition cond,
                            Register rn,
                            WriteBack write_back,
                            DRegisterList dreglist) {
+  os().SetCurrentInstruction(Assembler::kFldmiax,
+                             Assembler::kLoadStoreMultiple);
   os() << "fldmiax" << ConditionPrinter(it_block_, cond) << " " << rn
        << write_back << ", " << dreglist;
 }
@@ -1456,6 +1499,8 @@ void Disassembler::fstmdbx(Condition cond,
                            Register rn,
                            WriteBack write_back,
                            DRegisterList dreglist) {
+  os().SetCurrentInstruction(Assembler::kFstmdbx,
+                             Assembler::kLoadStoreMultiple);
   os() << "fstmdbx" << ConditionPrinter(it_block_, cond) << " " << rn
        << write_back << ", " << dreglist;
 }
@@ -1464,23 +1509,29 @@ void Disassembler::fstmiax(Condition cond,
                            Register rn,
                            WriteBack write_back,
                            DRegisterList dreglist) {
+  os().SetCurrentInstruction(Assembler::kFstmiax,
+                             Assembler::kLoadStoreMultiple);
   os() << "fstmiax" << ConditionPrinter(it_block_, cond) << " " << rn
        << write_back << ", " << dreglist;
 }
 
 void Disassembler::hlt(Condition cond, uint32_t imm) {
+  os().SetCurrentInstruction(Assembler::kHlt, Assembler::kSystem);
   os() << "hlt" << ConditionPrinter(it_block_, cond) << " " << imm;
 }
 
 void Disassembler::hvc(Condition cond, uint32_t imm) {
+  os().SetCurrentInstruction(Assembler::kHvc, Assembler::kSystem);
   os() << "hvc" << ConditionPrinter(it_block_, cond) << " " << imm;
 }
 
 void Disassembler::isb(Condition cond, MemoryBarrier option) {
+  os().SetCurrentInstruction(Assembler::kIsb, Assembler::kMisc);
   os() << "isb" << ConditionPrinter(it_block_, cond) << " " << option;
 }
 
 void Disassembler::it(Condition cond, uint16_t mask) {
+  os().SetCurrentInstruction(Assembler::kIt, Assembler::kMisc);
   os() << "it";
   int count;
   if ((mask & 0x1) != 0) {
@@ -1507,6 +1558,7 @@ void Disassembler::it(Condition cond, uint16_t mask) {
 }
 
 void Disassembler::lda(Condition cond, Register rt, const MemOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kLda, Assembler::kAddress);
   os() << "lda" << ConditionPrinter(it_block_, cond) << " " << rt << ", "
        << PrintMemOperand(kLoadWordLocation, operand);
 }
@@ -1514,6 +1566,7 @@ void Disassembler::lda(Condition cond, Register rt, const MemOperand& operand) {
 void Disassembler::ldab(Condition cond,
                         Register rt,
                         const MemOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kLdab, Assembler::kAddress);
   os() << "ldab" << ConditionPrinter(it_block_, cond) << " " << rt << ", "
        << PrintMemOperand(kLoadByteLocation, operand);
 }
@@ -1521,6 +1574,7 @@ void Disassembler::ldab(Condition cond,
 void Disassembler::ldaex(Condition cond,
                          Register rt,
                          const MemOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kLdaex, Assembler::kAddress);
   os() << "ldaex" << ConditionPrinter(it_block_, cond) << " " << rt << ", "
        << PrintMemOperand(kLoadWordLocation, operand);
 }
@@ -1528,6 +1582,7 @@ void Disassembler::ldaex(Condition cond,
 void Disassembler::ldaexb(Condition cond,
                           Register rt,
                           const MemOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kLdaexb, Assembler::kAddress);
   os() << "ldaexb" << ConditionPrinter(it_block_, cond) << " " << rt << ", "
        << PrintMemOperand(kLoadByteLocation, operand);
 }
@@ -1536,6 +1591,7 @@ void Disassembler::ldaexd(Condition cond,
                           Register rt,
                           Register rt2,
                           const MemOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kLdaexd, Assembler::kAddress);
   os() << "ldaexd" << ConditionPrinter(it_block_, cond) << " " << rt << ", "
        << rt2 << ", " << PrintMemOperand(kLoadDoubleWordLocation, operand);
 }
@@ -1543,6 +1599,7 @@ void Disassembler::ldaexd(Condition cond,
 void Disassembler::ldaexh(Condition cond,
                           Register rt,
                           const MemOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kLdaexh, Assembler::kAddress);
   os() << "ldaexh" << ConditionPrinter(it_block_, cond) << " " << rt << ", "
        << PrintMemOperand(kLoadHalfWordLocation, operand);
 }
@@ -1550,6 +1607,7 @@ void Disassembler::ldaexh(Condition cond,
 void Disassembler::ldah(Condition cond,
                         Register rt,
                         const MemOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kLdah, Assembler::kAddress);
   os() << "ldah" << ConditionPrinter(it_block_, cond) << " " << rt << ", "
        << PrintMemOperand(kLoadHalfWordLocation, operand);
 }
@@ -1559,6 +1617,7 @@ void Disassembler::ldm(Condition cond,
                        Register rn,
                        WriteBack write_back,
                        RegisterList registers) {
+  os().SetCurrentInstruction(Assembler::kLdm, Assembler::kLoadStoreMultiple);
   os() << "ldm" << ConditionPrinter(it_block_, cond) << size << " " << rn
        << write_back << ", " << registers;
 }
@@ -1567,6 +1626,7 @@ void Disassembler::ldmda(Condition cond,
                          Register rn,
                          WriteBack write_back,
                          RegisterList registers) {
+  os().SetCurrentInstruction(Assembler::kLdmda, Assembler::kLoadStoreMultiple);
   os() << "ldmda" << ConditionPrinter(it_block_, cond) << " " << rn
        << write_back << ", " << registers;
 }
@@ -1575,6 +1635,7 @@ void Disassembler::ldmdb(Condition cond,
                          Register rn,
                          WriteBack write_back,
                          RegisterList registers) {
+  os().SetCurrentInstruction(Assembler::kLdmdb, Assembler::kLoadStoreMultiple);
   os() << "ldmdb" << ConditionPrinter(it_block_, cond) << " " << rn
        << write_back << ", " << registers;
 }
@@ -1583,6 +1644,7 @@ void Disassembler::ldmea(Condition cond,
                          Register rn,
                          WriteBack write_back,
                          RegisterList registers) {
+  os().SetCurrentInstruction(Assembler::kLdmea, Assembler::kLoadStoreMultiple);
   os() << "ldmea" << ConditionPrinter(it_block_, cond) << " " << rn
        << write_back << ", " << registers;
 }
@@ -1591,6 +1653,7 @@ void Disassembler::ldmed(Condition cond,
                          Register rn,
                          WriteBack write_back,
                          RegisterList registers) {
+  os().SetCurrentInstruction(Assembler::kLdmed, Assembler::kLoadStoreMultiple);
   os() << "ldmed" << ConditionPrinter(it_block_, cond) << " " << rn
        << write_back << ", " << registers;
 }
@@ -1599,6 +1662,7 @@ void Disassembler::ldmfa(Condition cond,
                          Register rn,
                          WriteBack write_back,
                          RegisterList registers) {
+  os().SetCurrentInstruction(Assembler::kLdmfa, Assembler::kLoadStoreMultiple);
   os() << "ldmfa" << ConditionPrinter(it_block_, cond) << " " << rn
        << write_back << ", " << registers;
 }
@@ -1608,6 +1672,7 @@ void Disassembler::ldmfd(Condition cond,
                          Register rn,
                          WriteBack write_back,
                          RegisterList registers) {
+  os().SetCurrentInstruction(Assembler::kLdmfd, Assembler::kLoadStoreMultiple);
   os() << "ldmfd" << ConditionPrinter(it_block_, cond) << size << " " << rn
        << write_back << ", " << registers;
 }
@@ -1616,6 +1681,7 @@ void Disassembler::ldmib(Condition cond,
                          Register rn,
                          WriteBack write_back,
                          RegisterList registers) {
+  os().SetCurrentInstruction(Assembler::kLdmib, Assembler::kLoadStoreMultiple);
   os() << "ldmib" << ConditionPrinter(it_block_, cond) << " " << rn
        << write_back << ", " << registers;
 }
@@ -1624,6 +1690,7 @@ void Disassembler::ldr(Condition cond,
                        EncodingSize size,
                        Register rt,
                        const MemOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kLdr, Assembler::kAddress);
   os() << "ldr" << ConditionPrinter(it_block_, cond) << size << " " << rt
        << ", " << PrintMemOperand(kLoadWordLocation, operand);
 }
@@ -1632,6 +1699,7 @@ void Disassembler::ldr(Condition cond,
                        EncodingSize size,
                        Register rt,
                        Label* label) {
+  os().SetCurrentInstruction(Assembler::kLdr, Assembler::kAddress);
   os() << "ldr" << ConditionPrinter(it_block_, cond) << size << " " << rt
        << ", " << PrintLabel(kLoadWordLocation, label, GetPc() & ~3);
 }
@@ -1640,11 +1708,13 @@ void Disassembler::ldrb(Condition cond,
                         EncodingSize size,
                         Register rt,
                         const MemOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kLdrb, Assembler::kAddress);
   os() << "ldrb" << ConditionPrinter(it_block_, cond) << size << " " << rt
        << ", " << PrintMemOperand(kLoadByteLocation, operand);
 }
 
 void Disassembler::ldrb(Condition cond, Register rt, Label* label) {
+  os().SetCurrentInstruction(Assembler::kLdrb, Assembler::kAddress);
   os() << "ldrb" << ConditionPrinter(it_block_, cond) << " " << rt << ", "
        << PrintLabel(kLoadByteLocation, label, GetPc() & ~3);
 }
@@ -1653,6 +1723,7 @@ void Disassembler::ldrd(Condition cond,
                         Register rt,
                         Register rt2,
                         const MemOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kLdrd, Assembler::kAddress);
   os() << "ldrd" << ConditionPrinter(it_block_, cond) << " " << rt << ", "
        << rt2 << ", " << PrintMemOperand(kLoadDoubleWordLocation, operand);
 }
@@ -1661,6 +1732,7 @@ void Disassembler::ldrd(Condition cond,
                         Register rt,
                         Register rt2,
                         Label* label) {
+  os().SetCurrentInstruction(Assembler::kLdrd, Assembler::kAddress);
   os() << "ldrd" << ConditionPrinter(it_block_, cond) << " " << rt << ", "
        << rt2 << ", "
        << PrintLabel(kLoadDoubleWordLocation, label, GetPc() & ~3);
@@ -1669,6 +1741,7 @@ void Disassembler::ldrd(Condition cond,
 void Disassembler::ldrex(Condition cond,
                          Register rt,
                          const MemOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kLdrex, Assembler::kAddress);
   os() << "ldrex" << ConditionPrinter(it_block_, cond) << " " << rt << ", "
        << PrintMemOperand(kLoadWordLocation, operand);
 }
@@ -1676,6 +1749,7 @@ void Disassembler::ldrex(Condition cond,
 void Disassembler::ldrexb(Condition cond,
                           Register rt,
                           const MemOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kLdrexb, Assembler::kAddress);
   os() << "ldrexb" << ConditionPrinter(it_block_, cond) << " " << rt << ", "
        << PrintMemOperand(kLoadByteLocation, operand);
 }
@@ -1684,6 +1758,7 @@ void Disassembler::ldrexd(Condition cond,
                           Register rt,
                           Register rt2,
                           const MemOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kLdrexd, Assembler::kAddress);
   os() << "ldrexd" << ConditionPrinter(it_block_, cond) << " " << rt << ", "
        << rt2 << ", " << PrintMemOperand(kLoadDoubleWordLocation, operand);
 }
@@ -1691,6 +1766,7 @@ void Disassembler::ldrexd(Condition cond,
 void Disassembler::ldrexh(Condition cond,
                           Register rt,
                           const MemOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kLdrexh, Assembler::kAddress);
   os() << "ldrexh" << ConditionPrinter(it_block_, cond) << " " << rt << ", "
        << PrintMemOperand(kLoadHalfWordLocation, operand);
 }
@@ -1699,11 +1775,13 @@ void Disassembler::ldrh(Condition cond,
                         EncodingSize size,
                         Register rt,
                         const MemOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kLdrh, Assembler::kAddress);
   os() << "ldrh" << ConditionPrinter(it_block_, cond) << size << " " << rt
        << ", " << PrintMemOperand(kLoadHalfWordLocation, operand);
 }
 
 void Disassembler::ldrh(Condition cond, Register rt, Label* label) {
+  os().SetCurrentInstruction(Assembler::kLdrh, Assembler::kAddress);
   os() << "ldrh" << ConditionPrinter(it_block_, cond) << " " << rt << ", "
        << PrintLabel(kLoadHalfWordLocation, label, GetPc() & ~3);
 }
@@ -1712,11 +1790,13 @@ void Disassembler::ldrsb(Condition cond,
                          EncodingSize size,
                          Register rt,
                          const MemOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kLdrsb, Assembler::kAddress);
   os() << "ldrsb" << ConditionPrinter(it_block_, cond) << size << " " << rt
        << ", " << PrintMemOperand(kLoadSignedByteLocation, operand);
 }
 
 void Disassembler::ldrsb(Condition cond, Register rt, Label* label) {
+  os().SetCurrentInstruction(Assembler::kLdrsb, Assembler::kAddress);
   os() << "ldrsb" << ConditionPrinter(it_block_, cond) << " " << rt << ", "
        << PrintLabel(kLoadSignedByteLocation, label, GetPc() & ~3);
 }
@@ -1725,11 +1805,13 @@ void Disassembler::ldrsh(Condition cond,
                          EncodingSize size,
                          Register rt,
                          const MemOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kLdrsh, Assembler::kAddress);
   os() << "ldrsh" << ConditionPrinter(it_block_, cond) << size << " " << rt
        << ", " << PrintMemOperand(kLoadSignedHalfWordLocation, operand);
 }
 
 void Disassembler::ldrsh(Condition cond, Register rt, Label* label) {
+  os().SetCurrentInstruction(Assembler::kLdrsh, Assembler::kAddress);
   os() << "ldrsh" << ConditionPrinter(it_block_, cond) << " " << rt << ", "
        << PrintLabel(kLoadSignedHalfWordLocation, label, GetPc() & ~3);
 }
@@ -1739,6 +1821,7 @@ void Disassembler::lsl(Condition cond,
                        Register rd,
                        Register rm,
                        const Operand& operand) {
+  os().SetCurrentInstruction(Assembler::kLsl, Assembler::kShift);
   os() << "lsl" << ConditionPrinter(it_block_, cond) << size;
   os() << " ";
   if (!rd.Is(rm)) {
@@ -1752,6 +1835,7 @@ void Disassembler::lsls(Condition cond,
                         Register rd,
                         Register rm,
                         const Operand& operand) {
+  os().SetCurrentInstruction(Assembler::kLsls, Assembler::kShift);
   os() << "lsls" << ConditionPrinter(it_block_, cond) << size;
   os() << " ";
   if (!rd.Is(rm)) {
@@ -1765,6 +1849,7 @@ void Disassembler::lsr(Condition cond,
                        Register rd,
                        Register rm,
                        const Operand& operand) {
+  os().SetCurrentInstruction(Assembler::kLsr, Assembler::kShift);
   os() << "lsr" << ConditionPrinter(it_block_, cond) << size;
   os() << " ";
   if (!rd.Is(rm)) {
@@ -1778,6 +1863,7 @@ void Disassembler::lsrs(Condition cond,
                         Register rd,
                         Register rm,
                         const Operand& operand) {
+  os().SetCurrentInstruction(Assembler::kLsrs, Assembler::kShift);
   os() << "lsrs" << ConditionPrinter(it_block_, cond) << size;
   os() << " ";
   if (!rd.Is(rm)) {
@@ -1788,18 +1874,21 @@ void Disassembler::lsrs(Condition cond,
 
 void Disassembler::mla(
     Condition cond, Register rd, Register rn, Register rm, Register ra) {
+  os().SetCurrentInstruction(Assembler::kMla, Assembler::kArithmetic);
   os() << "mla" << ConditionPrinter(it_block_, cond) << " " << rd << ", " << rn
        << ", " << rm << ", " << ra;
 }
 
 void Disassembler::mlas(
     Condition cond, Register rd, Register rn, Register rm, Register ra) {
+  os().SetCurrentInstruction(Assembler::kMlas, Assembler::kArithmetic);
   os() << "mlas" << ConditionPrinter(it_block_, cond) << " " << rd << ", " << rn
        << ", " << rm << ", " << ra;
 }
 
 void Disassembler::mls(
     Condition cond, Register rd, Register rn, Register rm, Register ra) {
+  os().SetCurrentInstruction(Assembler::kMls, Assembler::kArithmetic);
   os() << "mls" << ConditionPrinter(it_block_, cond) << " " << rd << ", " << rn
        << ", " << rm << ", " << ra;
 }
@@ -1808,6 +1897,7 @@ void Disassembler::mov(Condition cond,
                        EncodingSize size,
                        Register rd,
                        const Operand& operand) {
+  os().SetCurrentInstruction(Assembler::kMov, Assembler::kMisc);
   os() << "mov" << ConditionPrinter(it_block_, cond) << size << " " << rd
        << ", " << operand;
 }
@@ -1816,21 +1906,25 @@ void Disassembler::movs(Condition cond,
                         EncodingSize size,
                         Register rd,
                         const Operand& operand) {
+  os().SetCurrentInstruction(Assembler::kMovs, Assembler::kMisc);
   os() << "movs" << ConditionPrinter(it_block_, cond) << size << " " << rd
        << ", " << operand;
 }
 
 void Disassembler::movt(Condition cond, Register rd, const Operand& operand) {
+  os().SetCurrentInstruction(Assembler::kMovt, Assembler::kMisc);
   os() << "movt" << ConditionPrinter(it_block_, cond) << " " << rd << ", "
        << operand;
 }
 
 void Disassembler::movw(Condition cond, Register rd, const Operand& operand) {
+  os().SetCurrentInstruction(Assembler::kMovw, Assembler::kMisc);
   os() << "movw" << ConditionPrinter(it_block_, cond) << " " << rd << ", "
        << operand;
 }
 
 void Disassembler::mrs(Condition cond, Register rd, SpecialRegister spec_reg) {
+  os().SetCurrentInstruction(Assembler::kMrs, Assembler::kMisc);
   os() << "mrs" << ConditionPrinter(it_block_, cond) << " " << rd << ", "
        << spec_reg;
 }
@@ -1838,17 +1932,20 @@ void Disassembler::mrs(Condition cond, Register rd, SpecialRegister spec_reg) {
 void Disassembler::msr(Condition cond,
                        MaskedSpecialRegister spec_reg,
                        const Operand& operand) {
+  os().SetCurrentInstruction(Assembler::kMsr, Assembler::kMisc);
   os() << "msr" << ConditionPrinter(it_block_, cond) << " " << spec_reg << ", "
        << operand;
 }
 
 void Disassembler::mul(
     Condition cond, EncodingSize size, Register rd, Register rn, Register rm) {
+  os().SetCurrentInstruction(Assembler::kMul, Assembler::kArithmetic);
   os() << "mul" << ConditionPrinter(it_block_, cond) << size << " " << rd
        << ", " << rn << ", " << rm;
 }
 
 void Disassembler::muls(Condition cond, Register rd, Register rn, Register rm) {
+  os().SetCurrentInstruction(Assembler::kMuls, Assembler::kArithmetic);
   os() << "muls" << ConditionPrinter(it_block_, cond) << " " << rd << ", " << rn
        << ", " << rm;
 }
@@ -1857,6 +1954,7 @@ void Disassembler::mvn(Condition cond,
                        EncodingSize size,
                        Register rd,
                        const Operand& operand) {
+  os().SetCurrentInstruction(Assembler::kMvn, Assembler::kMisc);
   os() << "mvn" << ConditionPrinter(it_block_, cond) << size << " " << rd
        << ", " << operand;
 }
@@ -1865,11 +1963,13 @@ void Disassembler::mvns(Condition cond,
                         EncodingSize size,
                         Register rd,
                         const Operand& operand) {
+  os().SetCurrentInstruction(Assembler::kMvns, Assembler::kMisc);
   os() << "mvns" << ConditionPrinter(it_block_, cond) << size << " " << rd
        << ", " << operand;
 }
 
 void Disassembler::nop(Condition cond, EncodingSize size) {
+  os().SetCurrentInstruction(Assembler::kNop, Assembler::kMisc);
   os() << "nop" << ConditionPrinter(it_block_, cond) << size;
 }
 
@@ -1877,6 +1977,7 @@ void Disassembler::orn(Condition cond,
                        Register rd,
                        Register rn,
                        const Operand& operand) {
+  os().SetCurrentInstruction(Assembler::kOrn, Assembler::kBitwise);
   os() << "orn" << ConditionPrinter(it_block_, cond);
   os() << " ";
   if (!rd.Is(rn)) {
@@ -1889,6 +1990,7 @@ void Disassembler::orns(Condition cond,
                         Register rd,
                         Register rn,
                         const Operand& operand) {
+  os().SetCurrentInstruction(Assembler::kOrns, Assembler::kBitwise);
   os() << "orns" << ConditionPrinter(it_block_, cond);
   os() << " ";
   if (!rd.Is(rn)) {
@@ -1902,6 +2004,7 @@ void Disassembler::orr(Condition cond,
                        Register rd,
                        Register rn,
                        const Operand& operand) {
+  os().SetCurrentInstruction(Assembler::kOrr, Assembler::kBitwise);
   os() << "orr" << ConditionPrinter(it_block_, cond) << size;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -1915,6 +2018,7 @@ void Disassembler::orrs(Condition cond,
                         Register rd,
                         Register rn,
                         const Operand& operand) {
+  os().SetCurrentInstruction(Assembler::kOrrs, Assembler::kBitwise);
   os() << "orrs" << ConditionPrinter(it_block_, cond) << size;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -1927,6 +2031,7 @@ void Disassembler::pkhbt(Condition cond,
                          Register rd,
                          Register rn,
                          const Operand& operand) {
+  os().SetCurrentInstruction(Assembler::kPkhbt, Assembler::kMisc);
   os() << "pkhbt" << ConditionPrinter(it_block_, cond);
   os() << " ";
   if (!rd.Is(rn)) {
@@ -1939,6 +2044,7 @@ void Disassembler::pkhtb(Condition cond,
                          Register rd,
                          Register rn,
                          const Operand& operand) {
+  os().SetCurrentInstruction(Assembler::kPkhtb, Assembler::kMisc);
   os() << "pkhtb" << ConditionPrinter(it_block_, cond);
   os() << " ";
   if (!rd.Is(rn)) {
@@ -1948,26 +2054,31 @@ void Disassembler::pkhtb(Condition cond,
 }
 
 void Disassembler::pld(Condition cond, Label* label) {
+  os().SetCurrentInstruction(Assembler::kPld, Assembler::kAddress);
   os() << "pld" << ConditionPrinter(it_block_, cond) << " "
        << PrintLabel(kDataLocation, label, GetPc() & ~3);
 }
 
 void Disassembler::pld(Condition cond, const MemOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kPld, Assembler::kAddress);
   os() << "pld" << ConditionPrinter(it_block_, cond) << " "
        << PrintMemOperand(kDataLocation, operand);
 }
 
 void Disassembler::pldw(Condition cond, const MemOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kPldw, Assembler::kAddress);
   os() << "pldw" << ConditionPrinter(it_block_, cond) << " "
        << PrintMemOperand(kDataLocation, operand);
 }
 
 void Disassembler::pli(Condition cond, const MemOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kPli, Assembler::kAddress);
   os() << "pli" << ConditionPrinter(it_block_, cond) << " "
        << PrintMemOperand(kCodeLocation, operand);
 }
 
 void Disassembler::pli(Condition cond, Label* label) {
+  os().SetCurrentInstruction(Assembler::kPli, Assembler::kAddress);
   os() << "pli" << ConditionPrinter(it_block_, cond) << " "
        << PrintLabel(kCodeLocation, label, GetPc() & ~3);
 }
@@ -1975,11 +2086,13 @@ void Disassembler::pli(Condition cond, Label* label) {
 void Disassembler::pop(Condition cond,
                        EncodingSize size,
                        RegisterList registers) {
+  os().SetCurrentInstruction(Assembler::kPop, Assembler::kLoadStoreMultiple);
   os() << "pop" << ConditionPrinter(it_block_, cond) << size << " "
        << registers;
 }
 
 void Disassembler::pop(Condition cond, EncodingSize size, Register rt) {
+  os().SetCurrentInstruction(Assembler::kPop, Assembler::kLoadStoreMultiple);
   os() << "pop" << ConditionPrinter(it_block_, cond) << size << " "
        << "{" << rt << "}";
 }
@@ -1987,16 +2100,19 @@ void Disassembler::pop(Condition cond, EncodingSize size, Register rt) {
 void Disassembler::push(Condition cond,
                         EncodingSize size,
                         RegisterList registers) {
+  os().SetCurrentInstruction(Assembler::kPush, Assembler::kLoadStoreMultiple);
   os() << "push" << ConditionPrinter(it_block_, cond) << size << " "
        << registers;
 }
 
 void Disassembler::push(Condition cond, EncodingSize size, Register rt) {
+  os().SetCurrentInstruction(Assembler::kPush, Assembler::kLoadStoreMultiple);
   os() << "push" << ConditionPrinter(it_block_, cond) << size << " "
        << "{" << rt << "}";
 }
 
 void Disassembler::qadd(Condition cond, Register rd, Register rm, Register rn) {
+  os().SetCurrentInstruction(Assembler::kQadd, Assembler::kArithmetic);
   os() << "qadd" << ConditionPrinter(it_block_, cond);
   os() << " ";
   if (!rd.Is(rm)) {
@@ -2009,6 +2125,7 @@ void Disassembler::qadd16(Condition cond,
                           Register rd,
                           Register rn,
                           Register rm) {
+  os().SetCurrentInstruction(Assembler::kQadd16, Assembler::kArithmetic);
   os() << "qadd16" << ConditionPrinter(it_block_, cond);
   os() << " ";
   if (!rd.Is(rn)) {
@@ -2021,6 +2138,7 @@ void Disassembler::qadd8(Condition cond,
                          Register rd,
                          Register rn,
                          Register rm) {
+  os().SetCurrentInstruction(Assembler::kQadd8, Assembler::kArithmetic);
   os() << "qadd8" << ConditionPrinter(it_block_, cond);
   os() << " ";
   if (!rd.Is(rn)) {
@@ -2030,6 +2148,7 @@ void Disassembler::qadd8(Condition cond,
 }
 
 void Disassembler::qasx(Condition cond, Register rd, Register rn, Register rm) {
+  os().SetCurrentInstruction(Assembler::kQasx, Assembler::kArithmetic);
   os() << "qasx" << ConditionPrinter(it_block_, cond);
   os() << " ";
   if (!rd.Is(rn)) {
@@ -2042,6 +2161,7 @@ void Disassembler::qdadd(Condition cond,
                          Register rd,
                          Register rm,
                          Register rn) {
+  os().SetCurrentInstruction(Assembler::kQdadd, Assembler::kArithmetic);
   os() << "qdadd" << ConditionPrinter(it_block_, cond);
   os() << " ";
   if (!rd.Is(rm)) {
@@ -2054,6 +2174,7 @@ void Disassembler::qdsub(Condition cond,
                          Register rd,
                          Register rm,
                          Register rn) {
+  os().SetCurrentInstruction(Assembler::kQdsub, Assembler::kArithmetic);
   os() << "qdsub" << ConditionPrinter(it_block_, cond);
   os() << " ";
   if (!rd.Is(rm)) {
@@ -2063,6 +2184,7 @@ void Disassembler::qdsub(Condition cond,
 }
 
 void Disassembler::qsax(Condition cond, Register rd, Register rn, Register rm) {
+  os().SetCurrentInstruction(Assembler::kQsax, Assembler::kArithmetic);
   os() << "qsax" << ConditionPrinter(it_block_, cond);
   os() << " ";
   if (!rd.Is(rn)) {
@@ -2072,6 +2194,7 @@ void Disassembler::qsax(Condition cond, Register rd, Register rn, Register rm) {
 }
 
 void Disassembler::qsub(Condition cond, Register rd, Register rm, Register rn) {
+  os().SetCurrentInstruction(Assembler::kQsub, Assembler::kArithmetic);
   os() << "qsub" << ConditionPrinter(it_block_, cond);
   os() << " ";
   if (!rd.Is(rm)) {
@@ -2084,6 +2207,7 @@ void Disassembler::qsub16(Condition cond,
                           Register rd,
                           Register rn,
                           Register rm) {
+  os().SetCurrentInstruction(Assembler::kQsub16, Assembler::kArithmetic);
   os() << "qsub16" << ConditionPrinter(it_block_, cond);
   os() << " ";
   if (!rd.Is(rn)) {
@@ -2096,6 +2220,7 @@ void Disassembler::qsub8(Condition cond,
                          Register rd,
                          Register rn,
                          Register rm) {
+  os().SetCurrentInstruction(Assembler::kQsub8, Assembler::kArithmetic);
   os() << "qsub8" << ConditionPrinter(it_block_, cond);
   os() << " ";
   if (!rd.Is(rn)) {
@@ -2105,6 +2230,7 @@ void Disassembler::qsub8(Condition cond,
 }
 
 void Disassembler::rbit(Condition cond, Register rd, Register rm) {
+  os().SetCurrentInstruction(Assembler::kRbit, Assembler::kMisc);
   os() << "rbit" << ConditionPrinter(it_block_, cond) << " " << rd << ", "
        << rm;
 }
@@ -2113,6 +2239,7 @@ void Disassembler::rev(Condition cond,
                        EncodingSize size,
                        Register rd,
                        Register rm) {
+  os().SetCurrentInstruction(Assembler::kRev, Assembler::kMisc);
   os() << "rev" << ConditionPrinter(it_block_, cond) << size << " " << rd
        << ", " << rm;
 }
@@ -2121,6 +2248,7 @@ void Disassembler::rev16(Condition cond,
                          EncodingSize size,
                          Register rd,
                          Register rm) {
+  os().SetCurrentInstruction(Assembler::kRev16, Assembler::kMisc);
   os() << "rev16" << ConditionPrinter(it_block_, cond) << size << " " << rd
        << ", " << rm;
 }
@@ -2129,6 +2257,7 @@ void Disassembler::revsh(Condition cond,
                          EncodingSize size,
                          Register rd,
                          Register rm) {
+  os().SetCurrentInstruction(Assembler::kRevsh, Assembler::kMisc);
   os() << "revsh" << ConditionPrinter(it_block_, cond) << size << " " << rd
        << ", " << rm;
 }
@@ -2138,6 +2267,7 @@ void Disassembler::ror(Condition cond,
                        Register rd,
                        Register rm,
                        const Operand& operand) {
+  os().SetCurrentInstruction(Assembler::kRor, Assembler::kShift);
   os() << "ror" << ConditionPrinter(it_block_, cond) << size;
   os() << " ";
   if (!rd.Is(rm)) {
@@ -2151,6 +2281,7 @@ void Disassembler::rors(Condition cond,
                         Register rd,
                         Register rm,
                         const Operand& operand) {
+  os().SetCurrentInstruction(Assembler::kRors, Assembler::kShift);
   os() << "rors" << ConditionPrinter(it_block_, cond) << size;
   os() << " ";
   if (!rd.Is(rm)) {
@@ -2160,6 +2291,7 @@ void Disassembler::rors(Condition cond,
 }
 
 void Disassembler::rrx(Condition cond, Register rd, Register rm) {
+  os().SetCurrentInstruction(Assembler::kRrx, Assembler::kShift);
   os() << "rrx" << ConditionPrinter(it_block_, cond);
   os() << " ";
   if (!rd.Is(rm)) {
@@ -2169,6 +2301,7 @@ void Disassembler::rrx(Condition cond, Register rd, Register rm) {
 }
 
 void Disassembler::rrxs(Condition cond, Register rd, Register rm) {
+  os().SetCurrentInstruction(Assembler::kRrxs, Assembler::kShift);
   os() << "rrxs" << ConditionPrinter(it_block_, cond);
   os() << " ";
   if (!rd.Is(rm)) {
@@ -2182,6 +2315,7 @@ void Disassembler::rsb(Condition cond,
                        Register rd,
                        Register rn,
                        const Operand& operand) {
+  os().SetCurrentInstruction(Assembler::kRsb, Assembler::kArithmetic);
   os() << "rsb" << ConditionPrinter(it_block_, cond) << size;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -2195,6 +2329,7 @@ void Disassembler::rsbs(Condition cond,
                         Register rd,
                         Register rn,
                         const Operand& operand) {
+  os().SetCurrentInstruction(Assembler::kRsbs, Assembler::kArithmetic);
   os() << "rsbs" << ConditionPrinter(it_block_, cond) << size;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -2207,6 +2342,7 @@ void Disassembler::rsc(Condition cond,
                        Register rd,
                        Register rn,
                        const Operand& operand) {
+  os().SetCurrentInstruction(Assembler::kRsc, Assembler::kArithmetic);
   os() << "rsc" << ConditionPrinter(it_block_, cond);
   os() << " ";
   if (!rd.Is(rn)) {
@@ -2219,6 +2355,7 @@ void Disassembler::rscs(Condition cond,
                         Register rd,
                         Register rn,
                         const Operand& operand) {
+  os().SetCurrentInstruction(Assembler::kRscs, Assembler::kArithmetic);
   os() << "rscs" << ConditionPrinter(it_block_, cond);
   os() << " ";
   if (!rd.Is(rn)) {
@@ -2231,6 +2368,7 @@ void Disassembler::sadd16(Condition cond,
                           Register rd,
                           Register rn,
                           Register rm) {
+  os().SetCurrentInstruction(Assembler::kSadd16, Assembler::kArithmetic);
   os() << "sadd16" << ConditionPrinter(it_block_, cond);
   os() << " ";
   if (!rd.Is(rn)) {
@@ -2243,6 +2381,7 @@ void Disassembler::sadd8(Condition cond,
                          Register rd,
                          Register rn,
                          Register rm) {
+  os().SetCurrentInstruction(Assembler::kSadd8, Assembler::kArithmetic);
   os() << "sadd8" << ConditionPrinter(it_block_, cond);
   os() << " ";
   if (!rd.Is(rn)) {
@@ -2252,6 +2391,7 @@ void Disassembler::sadd8(Condition cond,
 }
 
 void Disassembler::sasx(Condition cond, Register rd, Register rn, Register rm) {
+  os().SetCurrentInstruction(Assembler::kSasx, Assembler::kArithmetic);
   os() << "sasx" << ConditionPrinter(it_block_, cond);
   os() << " ";
   if (!rd.Is(rn)) {
@@ -2265,6 +2405,7 @@ void Disassembler::sbc(Condition cond,
                        Register rd,
                        Register rn,
                        const Operand& operand) {
+  os().SetCurrentInstruction(Assembler::kSbc, Assembler::kArithmetic);
   os() << "sbc" << ConditionPrinter(it_block_, cond) << size;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -2278,6 +2419,7 @@ void Disassembler::sbcs(Condition cond,
                         Register rd,
                         Register rn,
                         const Operand& operand) {
+  os().SetCurrentInstruction(Assembler::kSbcs, Assembler::kArithmetic);
   os() << "sbcs" << ConditionPrinter(it_block_, cond) << size;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -2291,12 +2433,14 @@ void Disassembler::sbfx(Condition cond,
                         Register rn,
                         uint32_t lsb,
                         const Operand& operand) {
+  os().SetCurrentInstruction(Assembler::kSbfx, Assembler::kShift);
   os() << "sbfx" << ConditionPrinter(it_block_, cond) << " " << rd << ", " << rn
        << ", "
        << "#" << lsb << ", " << operand;
 }
 
 void Disassembler::sdiv(Condition cond, Register rd, Register rn, Register rm) {
+  os().SetCurrentInstruction(Assembler::kSdiv, Assembler::kArithmetic);
   os() << "sdiv" << ConditionPrinter(it_block_, cond);
   os() << " ";
   if (!rd.Is(rn)) {
@@ -2306,6 +2450,7 @@ void Disassembler::sdiv(Condition cond, Register rd, Register rn, Register rm) {
 }
 
 void Disassembler::sel(Condition cond, Register rd, Register rn, Register rm) {
+  os().SetCurrentInstruction(Assembler::kSel, Assembler::kMisc);
   os() << "sel" << ConditionPrinter(it_block_, cond);
   os() << " ";
   if (!rd.Is(rn)) {
@@ -2318,6 +2463,7 @@ void Disassembler::shadd16(Condition cond,
                            Register rd,
                            Register rn,
                            Register rm) {
+  os().SetCurrentInstruction(Assembler::kShadd16, Assembler::kArithmetic);
   os() << "shadd16" << ConditionPrinter(it_block_, cond);
   os() << " ";
   if (!rd.Is(rn)) {
@@ -2330,6 +2476,7 @@ void Disassembler::shadd8(Condition cond,
                           Register rd,
                           Register rn,
                           Register rm) {
+  os().SetCurrentInstruction(Assembler::kShadd8, Assembler::kArithmetic);
   os() << "shadd8" << ConditionPrinter(it_block_, cond);
   os() << " ";
   if (!rd.Is(rn)) {
@@ -2342,6 +2489,7 @@ void Disassembler::shasx(Condition cond,
                          Register rd,
                          Register rn,
                          Register rm) {
+  os().SetCurrentInstruction(Assembler::kShasx, Assembler::kArithmetic);
   os() << "shasx" << ConditionPrinter(it_block_, cond);
   os() << " ";
   if (!rd.Is(rn)) {
@@ -2354,6 +2502,7 @@ void Disassembler::shsax(Condition cond,
                          Register rd,
                          Register rn,
                          Register rm) {
+  os().SetCurrentInstruction(Assembler::kShsax, Assembler::kArithmetic);
   os() << "shsax" << ConditionPrinter(it_block_, cond);
   os() << " ";
   if (!rd.Is(rn)) {
@@ -2366,6 +2515,7 @@ void Disassembler::shsub16(Condition cond,
                            Register rd,
                            Register rn,
                            Register rm) {
+  os().SetCurrentInstruction(Assembler::kShsub16, Assembler::kArithmetic);
   os() << "shsub16" << ConditionPrinter(it_block_, cond);
   os() << " ";
   if (!rd.Is(rn)) {
@@ -2378,6 +2528,7 @@ void Disassembler::shsub8(Condition cond,
                           Register rd,
                           Register rn,
                           Register rm) {
+  os().SetCurrentInstruction(Assembler::kShsub8, Assembler::kArithmetic);
   os() << "shsub8" << ConditionPrinter(it_block_, cond);
   os() << " ";
   if (!rd.Is(rn)) {
@@ -2388,144 +2539,168 @@ void Disassembler::shsub8(Condition cond,
 
 void Disassembler::smlabb(
     Condition cond, Register rd, Register rn, Register rm, Register ra) {
+  os().SetCurrentInstruction(Assembler::kSmlabb, Assembler::kArithmetic);
   os() << "smlabb" << ConditionPrinter(it_block_, cond) << " " << rd << ", "
        << rn << ", " << rm << ", " << ra;
 }
 
 void Disassembler::smlabt(
     Condition cond, Register rd, Register rn, Register rm, Register ra) {
+  os().SetCurrentInstruction(Assembler::kSmlabt, Assembler::kArithmetic);
   os() << "smlabt" << ConditionPrinter(it_block_, cond) << " " << rd << ", "
        << rn << ", " << rm << ", " << ra;
 }
 
 void Disassembler::smlad(
     Condition cond, Register rd, Register rn, Register rm, Register ra) {
+  os().SetCurrentInstruction(Assembler::kSmlad, Assembler::kArithmetic);
   os() << "smlad" << ConditionPrinter(it_block_, cond) << " " << rd << ", "
        << rn << ", " << rm << ", " << ra;
 }
 
 void Disassembler::smladx(
     Condition cond, Register rd, Register rn, Register rm, Register ra) {
+  os().SetCurrentInstruction(Assembler::kSmladx, Assembler::kArithmetic);
   os() << "smladx" << ConditionPrinter(it_block_, cond) << " " << rd << ", "
        << rn << ", " << rm << ", " << ra;
 }
 
 void Disassembler::smlal(
     Condition cond, Register rdlo, Register rdhi, Register rn, Register rm) {
+  os().SetCurrentInstruction(Assembler::kSmlal, Assembler::kArithmetic);
   os() << "smlal" << ConditionPrinter(it_block_, cond) << " " << rdlo << ", "
        << rdhi << ", " << rn << ", " << rm;
 }
 
 void Disassembler::smlalbb(
     Condition cond, Register rdlo, Register rdhi, Register rn, Register rm) {
+  os().SetCurrentInstruction(Assembler::kSmlalbb, Assembler::kArithmetic);
   os() << "smlalbb" << ConditionPrinter(it_block_, cond) << " " << rdlo << ", "
        << rdhi << ", " << rn << ", " << rm;
 }
 
 void Disassembler::smlalbt(
     Condition cond, Register rdlo, Register rdhi, Register rn, Register rm) {
+  os().SetCurrentInstruction(Assembler::kSmlalbt, Assembler::kArithmetic);
   os() << "smlalbt" << ConditionPrinter(it_block_, cond) << " " << rdlo << ", "
        << rdhi << ", " << rn << ", " << rm;
 }
 
 void Disassembler::smlald(
     Condition cond, Register rdlo, Register rdhi, Register rn, Register rm) {
+  os().SetCurrentInstruction(Assembler::kSmlald, Assembler::kArithmetic);
   os() << "smlald" << ConditionPrinter(it_block_, cond) << " " << rdlo << ", "
        << rdhi << ", " << rn << ", " << rm;
 }
 
 void Disassembler::smlaldx(
     Condition cond, Register rdlo, Register rdhi, Register rn, Register rm) {
+  os().SetCurrentInstruction(Assembler::kSmlaldx, Assembler::kArithmetic);
   os() << "smlaldx" << ConditionPrinter(it_block_, cond) << " " << rdlo << ", "
        << rdhi << ", " << rn << ", " << rm;
 }
 
 void Disassembler::smlals(
     Condition cond, Register rdlo, Register rdhi, Register rn, Register rm) {
+  os().SetCurrentInstruction(Assembler::kSmlals, Assembler::kArithmetic);
   os() << "smlals" << ConditionPrinter(it_block_, cond) << " " << rdlo << ", "
        << rdhi << ", " << rn << ", " << rm;
 }
 
 void Disassembler::smlaltb(
     Condition cond, Register rdlo, Register rdhi, Register rn, Register rm) {
+  os().SetCurrentInstruction(Assembler::kSmlaltb, Assembler::kArithmetic);
   os() << "smlaltb" << ConditionPrinter(it_block_, cond) << " " << rdlo << ", "
        << rdhi << ", " << rn << ", " << rm;
 }
 
 void Disassembler::smlaltt(
     Condition cond, Register rdlo, Register rdhi, Register rn, Register rm) {
+  os().SetCurrentInstruction(Assembler::kSmlaltt, Assembler::kArithmetic);
   os() << "smlaltt" << ConditionPrinter(it_block_, cond) << " " << rdlo << ", "
        << rdhi << ", " << rn << ", " << rm;
 }
 
 void Disassembler::smlatb(
     Condition cond, Register rd, Register rn, Register rm, Register ra) {
+  os().SetCurrentInstruction(Assembler::kSmlatb, Assembler::kArithmetic);
   os() << "smlatb" << ConditionPrinter(it_block_, cond) << " " << rd << ", "
        << rn << ", " << rm << ", " << ra;
 }
 
 void Disassembler::smlatt(
     Condition cond, Register rd, Register rn, Register rm, Register ra) {
+  os().SetCurrentInstruction(Assembler::kSmlatt, Assembler::kArithmetic);
   os() << "smlatt" << ConditionPrinter(it_block_, cond) << " " << rd << ", "
        << rn << ", " << rm << ", " << ra;
 }
 
 void Disassembler::smlawb(
     Condition cond, Register rd, Register rn, Register rm, Register ra) {
+  os().SetCurrentInstruction(Assembler::kSmlawb, Assembler::kArithmetic);
   os() << "smlawb" << ConditionPrinter(it_block_, cond) << " " << rd << ", "
        << rn << ", " << rm << ", " << ra;
 }
 
 void Disassembler::smlawt(
     Condition cond, Register rd, Register rn, Register rm, Register ra) {
+  os().SetCurrentInstruction(Assembler::kSmlawt, Assembler::kArithmetic);
   os() << "smlawt" << ConditionPrinter(it_block_, cond) << " " << rd << ", "
        << rn << ", " << rm << ", " << ra;
 }
 
 void Disassembler::smlsd(
     Condition cond, Register rd, Register rn, Register rm, Register ra) {
+  os().SetCurrentInstruction(Assembler::kSmlsd, Assembler::kArithmetic);
   os() << "smlsd" << ConditionPrinter(it_block_, cond) << " " << rd << ", "
        << rn << ", " << rm << ", " << ra;
 }
 
 void Disassembler::smlsdx(
     Condition cond, Register rd, Register rn, Register rm, Register ra) {
+  os().SetCurrentInstruction(Assembler::kSmlsdx, Assembler::kArithmetic);
   os() << "smlsdx" << ConditionPrinter(it_block_, cond) << " " << rd << ", "
        << rn << ", " << rm << ", " << ra;
 }
 
 void Disassembler::smlsld(
     Condition cond, Register rdlo, Register rdhi, Register rn, Register rm) {
+  os().SetCurrentInstruction(Assembler::kSmlsld, Assembler::kArithmetic);
   os() << "smlsld" << ConditionPrinter(it_block_, cond) << " " << rdlo << ", "
        << rdhi << ", " << rn << ", " << rm;
 }
 
 void Disassembler::smlsldx(
     Condition cond, Register rdlo, Register rdhi, Register rn, Register rm) {
+  os().SetCurrentInstruction(Assembler::kSmlsldx, Assembler::kArithmetic);
   os() << "smlsldx" << ConditionPrinter(it_block_, cond) << " " << rdlo << ", "
        << rdhi << ", " << rn << ", " << rm;
 }
 
 void Disassembler::smmla(
     Condition cond, Register rd, Register rn, Register rm, Register ra) {
+  os().SetCurrentInstruction(Assembler::kSmmla, Assembler::kArithmetic);
   os() << "smmla" << ConditionPrinter(it_block_, cond) << " " << rd << ", "
        << rn << ", " << rm << ", " << ra;
 }
 
 void Disassembler::smmlar(
     Condition cond, Register rd, Register rn, Register rm, Register ra) {
+  os().SetCurrentInstruction(Assembler::kSmmlar, Assembler::kArithmetic);
   os() << "smmlar" << ConditionPrinter(it_block_, cond) << " " << rd << ", "
        << rn << ", " << rm << ", " << ra;
 }
 
 void Disassembler::smmls(
     Condition cond, Register rd, Register rn, Register rm, Register ra) {
+  os().SetCurrentInstruction(Assembler::kSmmls, Assembler::kArithmetic);
   os() << "smmls" << ConditionPrinter(it_block_, cond) << " " << rd << ", "
        << rn << ", " << rm << ", " << ra;
 }
 
 void Disassembler::smmlsr(
     Condition cond, Register rd, Register rn, Register rm, Register ra) {
+  os().SetCurrentInstruction(Assembler::kSmmlsr, Assembler::kArithmetic);
   os() << "smmlsr" << ConditionPrinter(it_block_, cond) << " " << rd << ", "
        << rn << ", " << rm << ", " << ra;
 }
@@ -2534,6 +2709,7 @@ void Disassembler::smmul(Condition cond,
                          Register rd,
                          Register rn,
                          Register rm) {
+  os().SetCurrentInstruction(Assembler::kSmmul, Assembler::kArithmetic);
   os() << "smmul" << ConditionPrinter(it_block_, cond);
   os() << " ";
   if (!rd.Is(rn)) {
@@ -2546,6 +2722,7 @@ void Disassembler::smmulr(Condition cond,
                           Register rd,
                           Register rn,
                           Register rm) {
+  os().SetCurrentInstruction(Assembler::kSmmulr, Assembler::kArithmetic);
   os() << "smmulr" << ConditionPrinter(it_block_, cond);
   os() << " ";
   if (!rd.Is(rn)) {
@@ -2558,6 +2735,7 @@ void Disassembler::smuad(Condition cond,
                          Register rd,
                          Register rn,
                          Register rm) {
+  os().SetCurrentInstruction(Assembler::kSmuad, Assembler::kArithmetic);
   os() << "smuad" << ConditionPrinter(it_block_, cond);
   os() << " ";
   if (!rd.Is(rn)) {
@@ -2570,6 +2748,7 @@ void Disassembler::smuadx(Condition cond,
                           Register rd,
                           Register rn,
                           Register rm) {
+  os().SetCurrentInstruction(Assembler::kSmuadx, Assembler::kArithmetic);
   os() << "smuadx" << ConditionPrinter(it_block_, cond);
   os() << " ";
   if (!rd.Is(rn)) {
@@ -2582,6 +2761,7 @@ void Disassembler::smulbb(Condition cond,
                           Register rd,
                           Register rn,
                           Register rm) {
+  os().SetCurrentInstruction(Assembler::kSmulbb, Assembler::kArithmetic);
   os() << "smulbb" << ConditionPrinter(it_block_, cond);
   os() << " ";
   if (!rd.Is(rn)) {
@@ -2594,6 +2774,7 @@ void Disassembler::smulbt(Condition cond,
                           Register rd,
                           Register rn,
                           Register rm) {
+  os().SetCurrentInstruction(Assembler::kSmulbt, Assembler::kArithmetic);
   os() << "smulbt" << ConditionPrinter(it_block_, cond);
   os() << " ";
   if (!rd.Is(rn)) {
@@ -2604,12 +2785,14 @@ void Disassembler::smulbt(Condition cond,
 
 void Disassembler::smull(
     Condition cond, Register rdlo, Register rdhi, Register rn, Register rm) {
+  os().SetCurrentInstruction(Assembler::kSmull, Assembler::kArithmetic);
   os() << "smull" << ConditionPrinter(it_block_, cond) << " " << rdlo << ", "
        << rdhi << ", " << rn << ", " << rm;
 }
 
 void Disassembler::smulls(
     Condition cond, Register rdlo, Register rdhi, Register rn, Register rm) {
+  os().SetCurrentInstruction(Assembler::kSmulls, Assembler::kArithmetic);
   os() << "smulls" << ConditionPrinter(it_block_, cond) << " " << rdlo << ", "
        << rdhi << ", " << rn << ", " << rm;
 }
@@ -2618,6 +2801,7 @@ void Disassembler::smultb(Condition cond,
                           Register rd,
                           Register rn,
                           Register rm) {
+  os().SetCurrentInstruction(Assembler::kSmultb, Assembler::kArithmetic);
   os() << "smultb" << ConditionPrinter(it_block_, cond);
   os() << " ";
   if (!rd.Is(rn)) {
@@ -2630,6 +2814,7 @@ void Disassembler::smultt(Condition cond,
                           Register rd,
                           Register rn,
                           Register rm) {
+  os().SetCurrentInstruction(Assembler::kSmultt, Assembler::kArithmetic);
   os() << "smultt" << ConditionPrinter(it_block_, cond);
   os() << " ";
   if (!rd.Is(rn)) {
@@ -2642,6 +2827,7 @@ void Disassembler::smulwb(Condition cond,
                           Register rd,
                           Register rn,
                           Register rm) {
+  os().SetCurrentInstruction(Assembler::kSmulwb, Assembler::kArithmetic);
   os() << "smulwb" << ConditionPrinter(it_block_, cond);
   os() << " ";
   if (!rd.Is(rn)) {
@@ -2654,6 +2840,7 @@ void Disassembler::smulwt(Condition cond,
                           Register rd,
                           Register rn,
                           Register rm) {
+  os().SetCurrentInstruction(Assembler::kSmulwt, Assembler::kArithmetic);
   os() << "smulwt" << ConditionPrinter(it_block_, cond);
   os() << " ";
   if (!rd.Is(rn)) {
@@ -2666,6 +2853,7 @@ void Disassembler::smusd(Condition cond,
                          Register rd,
                          Register rn,
                          Register rm) {
+  os().SetCurrentInstruction(Assembler::kSmusd, Assembler::kArithmetic);
   os() << "smusd" << ConditionPrinter(it_block_, cond);
   os() << " ";
   if (!rd.Is(rn)) {
@@ -2678,6 +2866,7 @@ void Disassembler::smusdx(Condition cond,
                           Register rd,
                           Register rn,
                           Register rm) {
+  os().SetCurrentInstruction(Assembler::kSmusdx, Assembler::kArithmetic);
   os() << "smusdx" << ConditionPrinter(it_block_, cond);
   os() << " ";
   if (!rd.Is(rn)) {
@@ -2690,6 +2879,7 @@ void Disassembler::ssat(Condition cond,
                         Register rd,
                         uint32_t imm,
                         const Operand& operand) {
+  os().SetCurrentInstruction(Assembler::kSsat, Assembler::kArithmetic);
   os() << "ssat" << ConditionPrinter(it_block_, cond) << " " << rd << ", "
        << "#" << imm << ", " << operand;
 }
@@ -2698,11 +2888,13 @@ void Disassembler::ssat16(Condition cond,
                           Register rd,
                           uint32_t imm,
                           Register rn) {
+  os().SetCurrentInstruction(Assembler::kSsat16, Assembler::kArithmetic);
   os() << "ssat16" << ConditionPrinter(it_block_, cond) << " " << rd << ", "
        << "#" << imm << ", " << rn;
 }
 
 void Disassembler::ssax(Condition cond, Register rd, Register rn, Register rm) {
+  os().SetCurrentInstruction(Assembler::kSsax, Assembler::kArithmetic);
   os() << "ssax" << ConditionPrinter(it_block_, cond);
   os() << " ";
   if (!rd.Is(rn)) {
@@ -2715,6 +2907,7 @@ void Disassembler::ssub16(Condition cond,
                           Register rd,
                           Register rn,
                           Register rm) {
+  os().SetCurrentInstruction(Assembler::kSsub16, Assembler::kArithmetic);
   os() << "ssub16" << ConditionPrinter(it_block_, cond);
   os() << " ";
   if (!rd.Is(rn)) {
@@ -2727,6 +2920,7 @@ void Disassembler::ssub8(Condition cond,
                          Register rd,
                          Register rn,
                          Register rm) {
+  os().SetCurrentInstruction(Assembler::kSsub8, Assembler::kArithmetic);
   os() << "ssub8" << ConditionPrinter(it_block_, cond);
   os() << " ";
   if (!rd.Is(rn)) {
@@ -2736,6 +2930,7 @@ void Disassembler::ssub8(Condition cond,
 }
 
 void Disassembler::stl(Condition cond, Register rt, const MemOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kStl, Assembler::kAddress);
   os() << "stl" << ConditionPrinter(it_block_, cond) << " " << rt << ", "
        << PrintMemOperand(kStoreWordLocation, operand);
 }
@@ -2743,6 +2938,7 @@ void Disassembler::stl(Condition cond, Register rt, const MemOperand& operand) {
 void Disassembler::stlb(Condition cond,
                         Register rt,
                         const MemOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kStlb, Assembler::kAddress);
   os() << "stlb" << ConditionPrinter(it_block_, cond) << " " << rt << ", "
        << PrintMemOperand(kStoreByteLocation, operand);
 }
@@ -2751,6 +2947,7 @@ void Disassembler::stlex(Condition cond,
                          Register rd,
                          Register rt,
                          const MemOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kStlex, Assembler::kAddress);
   os() << "stlex" << ConditionPrinter(it_block_, cond) << " " << rd << ", "
        << rt << ", " << PrintMemOperand(kStoreWordLocation, operand);
 }
@@ -2759,6 +2956,7 @@ void Disassembler::stlexb(Condition cond,
                           Register rd,
                           Register rt,
                           const MemOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kStlexb, Assembler::kAddress);
   os() << "stlexb" << ConditionPrinter(it_block_, cond) << " " << rd << ", "
        << rt << ", " << PrintMemOperand(kStoreByteLocation, operand);
 }
@@ -2768,6 +2966,7 @@ void Disassembler::stlexd(Condition cond,
                           Register rt,
                           Register rt2,
                           const MemOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kStlexd, Assembler::kAddress);
   os() << "stlexd" << ConditionPrinter(it_block_, cond) << " " << rd << ", "
        << rt << ", " << rt2 << ", "
        << PrintMemOperand(kStoreDoubleWordLocation, operand);
@@ -2777,6 +2976,7 @@ void Disassembler::stlexh(Condition cond,
                           Register rd,
                           Register rt,
                           const MemOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kStlexh, Assembler::kAddress);
   os() << "stlexh" << ConditionPrinter(it_block_, cond) << " " << rd << ", "
        << rt << ", " << PrintMemOperand(kStoreHalfWordLocation, operand);
 }
@@ -2784,6 +2984,7 @@ void Disassembler::stlexh(Condition cond,
 void Disassembler::stlh(Condition cond,
                         Register rt,
                         const MemOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kStlh, Assembler::kAddress);
   os() << "stlh" << ConditionPrinter(it_block_, cond) << " " << rt << ", "
        << PrintMemOperand(kStoreHalfWordLocation, operand);
 }
@@ -2793,6 +2994,7 @@ void Disassembler::stm(Condition cond,
                        Register rn,
                        WriteBack write_back,
                        RegisterList registers) {
+  os().SetCurrentInstruction(Assembler::kStm, Assembler::kLoadStoreMultiple);
   os() << "stm" << ConditionPrinter(it_block_, cond) << size << " " << rn
        << write_back << ", " << registers;
 }
@@ -2801,6 +3003,7 @@ void Disassembler::stmda(Condition cond,
                          Register rn,
                          WriteBack write_back,
                          RegisterList registers) {
+  os().SetCurrentInstruction(Assembler::kStmda, Assembler::kLoadStoreMultiple);
   os() << "stmda" << ConditionPrinter(it_block_, cond) << " " << rn
        << write_back << ", " << registers;
 }
@@ -2810,6 +3013,7 @@ void Disassembler::stmdb(Condition cond,
                          Register rn,
                          WriteBack write_back,
                          RegisterList registers) {
+  os().SetCurrentInstruction(Assembler::kStmdb, Assembler::kLoadStoreMultiple);
   os() << "stmdb" << ConditionPrinter(it_block_, cond) << size << " " << rn
        << write_back << ", " << registers;
 }
@@ -2819,6 +3023,7 @@ void Disassembler::stmea(Condition cond,
                          Register rn,
                          WriteBack write_back,
                          RegisterList registers) {
+  os().SetCurrentInstruction(Assembler::kStmea, Assembler::kLoadStoreMultiple);
   os() << "stmea" << ConditionPrinter(it_block_, cond) << size << " " << rn
        << write_back << ", " << registers;
 }
@@ -2827,6 +3032,7 @@ void Disassembler::stmed(Condition cond,
                          Register rn,
                          WriteBack write_back,
                          RegisterList registers) {
+  os().SetCurrentInstruction(Assembler::kStmed, Assembler::kLoadStoreMultiple);
   os() << "stmed" << ConditionPrinter(it_block_, cond) << " " << rn
        << write_back << ", " << registers;
 }
@@ -2835,6 +3041,7 @@ void Disassembler::stmfa(Condition cond,
                          Register rn,
                          WriteBack write_back,
                          RegisterList registers) {
+  os().SetCurrentInstruction(Assembler::kStmfa, Assembler::kLoadStoreMultiple);
   os() << "stmfa" << ConditionPrinter(it_block_, cond) << " " << rn
        << write_back << ", " << registers;
 }
@@ -2843,6 +3050,7 @@ void Disassembler::stmfd(Condition cond,
                          Register rn,
                          WriteBack write_back,
                          RegisterList registers) {
+  os().SetCurrentInstruction(Assembler::kStmfd, Assembler::kLoadStoreMultiple);
   os() << "stmfd" << ConditionPrinter(it_block_, cond) << " " << rn
        << write_back << ", " << registers;
 }
@@ -2851,6 +3059,7 @@ void Disassembler::stmib(Condition cond,
                          Register rn,
                          WriteBack write_back,
                          RegisterList registers) {
+  os().SetCurrentInstruction(Assembler::kStmib, Assembler::kLoadStoreMultiple);
   os() << "stmib" << ConditionPrinter(it_block_, cond) << " " << rn
        << write_back << ", " << registers;
 }
@@ -2859,6 +3068,7 @@ void Disassembler::str(Condition cond,
                        EncodingSize size,
                        Register rt,
                        const MemOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kStr, Assembler::kAddress);
   os() << "str" << ConditionPrinter(it_block_, cond) << size << " " << rt
        << ", " << PrintMemOperand(kStoreWordLocation, operand);
 }
@@ -2867,6 +3077,7 @@ void Disassembler::strb(Condition cond,
                         EncodingSize size,
                         Register rt,
                         const MemOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kStrb, Assembler::kAddress);
   os() << "strb" << ConditionPrinter(it_block_, cond) << size << " " << rt
        << ", " << PrintMemOperand(kStoreByteLocation, operand);
 }
@@ -2875,6 +3086,7 @@ void Disassembler::strd(Condition cond,
                         Register rt,
                         Register rt2,
                         const MemOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kStrd, Assembler::kAddress);
   os() << "strd" << ConditionPrinter(it_block_, cond) << " " << rt << ", "
        << rt2 << ", " << PrintMemOperand(kStoreDoubleWordLocation, operand);
 }
@@ -2883,6 +3095,7 @@ void Disassembler::strex(Condition cond,
                          Register rd,
                          Register rt,
                          const MemOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kStrex, Assembler::kAddress);
   os() << "strex" << ConditionPrinter(it_block_, cond) << " " << rd << ", "
        << rt << ", " << PrintMemOperand(kStoreWordLocation, operand);
 }
@@ -2891,6 +3104,7 @@ void Disassembler::strexb(Condition cond,
                           Register rd,
                           Register rt,
                           const MemOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kStrexb, Assembler::kAddress);
   os() << "strexb" << ConditionPrinter(it_block_, cond) << " " << rd << ", "
        << rt << ", " << PrintMemOperand(kStoreByteLocation, operand);
 }
@@ -2900,6 +3114,7 @@ void Disassembler::strexd(Condition cond,
                           Register rt,
                           Register rt2,
                           const MemOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kStrexd, Assembler::kAddress);
   os() << "strexd" << ConditionPrinter(it_block_, cond) << " " << rd << ", "
        << rt << ", " << rt2 << ", "
        << PrintMemOperand(kStoreDoubleWordLocation, operand);
@@ -2909,6 +3124,7 @@ void Disassembler::strexh(Condition cond,
                           Register rd,
                           Register rt,
                           const MemOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kStrexh, Assembler::kAddress);
   os() << "strexh" << ConditionPrinter(it_block_, cond) << " " << rd << ", "
        << rt << ", " << PrintMemOperand(kStoreHalfWordLocation, operand);
 }
@@ -2917,6 +3133,7 @@ void Disassembler::strh(Condition cond,
                         EncodingSize size,
                         Register rt,
                         const MemOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kStrh, Assembler::kAddress);
   os() << "strh" << ConditionPrinter(it_block_, cond) << size << " " << rt
        << ", " << PrintMemOperand(kStoreHalfWordLocation, operand);
 }
@@ -2926,6 +3143,7 @@ void Disassembler::sub(Condition cond,
                        Register rd,
                        Register rn,
                        const Operand& operand) {
+  os().SetCurrentInstruction(Assembler::kSub, Assembler::kArithmetic);
   os() << "sub" << ConditionPrinter(it_block_, cond) << size;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -2935,6 +3153,7 @@ void Disassembler::sub(Condition cond,
 }
 
 void Disassembler::sub(Condition cond, Register rd, const Operand& operand) {
+  os().SetCurrentInstruction(Assembler::kSub, Assembler::kArithmetic);
   os() << "sub" << ConditionPrinter(it_block_, cond) << " " << rd << ", "
        << operand;
 }
@@ -2944,6 +3163,7 @@ void Disassembler::subs(Condition cond,
                         Register rd,
                         Register rn,
                         const Operand& operand) {
+  os().SetCurrentInstruction(Assembler::kSubs, Assembler::kArithmetic);
   os() << "subs" << ConditionPrinter(it_block_, cond) << size;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -2953,6 +3173,7 @@ void Disassembler::subs(Condition cond,
 }
 
 void Disassembler::subs(Register rd, const Operand& operand) {
+  os().SetCurrentInstruction(Assembler::kSubs, Assembler::kArithmetic);
   os() << "subs"
        << " " << rd << ", " << operand;
 }
@@ -2961,6 +3182,7 @@ void Disassembler::subw(Condition cond,
                         Register rd,
                         Register rn,
                         const Operand& operand) {
+  os().SetCurrentInstruction(Assembler::kSubw, Assembler::kArithmetic);
   os() << "subw" << ConditionPrinter(it_block_, cond);
   os() << " ";
   if (!rd.Is(rn)) {
@@ -2970,6 +3192,7 @@ void Disassembler::subw(Condition cond,
 }
 
 void Disassembler::svc(Condition cond, uint32_t imm) {
+  os().SetCurrentInstruction(Assembler::kSvc, Assembler::kSystem);
   os() << "svc" << ConditionPrinter(it_block_, cond) << " " << imm;
 }
 
@@ -2977,6 +3200,7 @@ void Disassembler::sxtab(Condition cond,
                          Register rd,
                          Register rn,
                          const Operand& operand) {
+  os().SetCurrentInstruction(Assembler::kSxtab, Assembler::kArithmetic);
   os() << "sxtab" << ConditionPrinter(it_block_, cond);
   os() << " ";
   if (!rd.Is(rn)) {
@@ -2989,6 +3213,7 @@ void Disassembler::sxtab16(Condition cond,
                            Register rd,
                            Register rn,
                            const Operand& operand) {
+  os().SetCurrentInstruction(Assembler::kSxtab16, Assembler::kArithmetic);
   os() << "sxtab16" << ConditionPrinter(it_block_, cond);
   os() << " ";
   if (!rd.Is(rn)) {
@@ -3001,6 +3226,7 @@ void Disassembler::sxtah(Condition cond,
                          Register rd,
                          Register rn,
                          const Operand& operand) {
+  os().SetCurrentInstruction(Assembler::kSxtah, Assembler::kArithmetic);
   os() << "sxtah" << ConditionPrinter(it_block_, cond);
   os() << " ";
   if (!rd.Is(rn)) {
@@ -3013,6 +3239,7 @@ void Disassembler::sxtb(Condition cond,
                         EncodingSize size,
                         Register rd,
                         const Operand& operand) {
+  os().SetCurrentInstruction(Assembler::kSxtb, Assembler::kArithmetic);
   os() << "sxtb" << ConditionPrinter(it_block_, cond) << size;
   os() << " ";
   if (!rd.Is(operand.GetBaseRegister())) {
@@ -3022,6 +3249,7 @@ void Disassembler::sxtb(Condition cond,
 }
 
 void Disassembler::sxtb16(Condition cond, Register rd, const Operand& operand) {
+  os().SetCurrentInstruction(Assembler::kSxtb16, Assembler::kArithmetic);
   os() << "sxtb16" << ConditionPrinter(it_block_, cond);
   os() << " ";
   if (!rd.Is(operand.GetBaseRegister())) {
@@ -3034,6 +3262,7 @@ void Disassembler::sxth(Condition cond,
                         EncodingSize size,
                         Register rd,
                         const Operand& operand) {
+  os().SetCurrentInstruction(Assembler::kSxth, Assembler::kArithmetic);
   os() << "sxth" << ConditionPrinter(it_block_, cond) << size;
   os() << " ";
   if (!rd.Is(operand.GetBaseRegister())) {
@@ -3043,16 +3272,19 @@ void Disassembler::sxth(Condition cond,
 }
 
 void Disassembler::tbb(Condition cond, Register rn, Register rm) {
+  os().SetCurrentInstruction(Assembler::kTbb, Assembler::kBranch);
   os() << "tbb" << ConditionPrinter(it_block_, cond) << " "
        << MemOperand(rn, rm);
 }
 
 void Disassembler::tbh(Condition cond, Register rn, Register rm) {
+  os().SetCurrentInstruction(Assembler::kTbh, Assembler::kBranch);
   os() << "tbh" << ConditionPrinter(it_block_, cond) << " "
        << MemOperand(rn, plus, rm, LSL, 1);
 }
 
 void Disassembler::teq(Condition cond, Register rn, const Operand& operand) {
+  os().SetCurrentInstruction(Assembler::kTeq, Assembler::kBitwise);
   os() << "teq" << ConditionPrinter(it_block_, cond) << " " << rn << ", "
        << operand;
 }
@@ -3061,6 +3293,7 @@ void Disassembler::tst(Condition cond,
                        EncodingSize size,
                        Register rn,
                        const Operand& operand) {
+  os().SetCurrentInstruction(Assembler::kTst, Assembler::kBitwise);
   os() << "tst" << ConditionPrinter(it_block_, cond) << size << " " << rn
        << ", " << operand;
 }
@@ -3069,6 +3302,7 @@ void Disassembler::uadd16(Condition cond,
                           Register rd,
                           Register rn,
                           Register rm) {
+  os().SetCurrentInstruction(Assembler::kUadd16, Assembler::kArithmetic);
   os() << "uadd16" << ConditionPrinter(it_block_, cond);
   os() << " ";
   if (!rd.Is(rn)) {
@@ -3081,6 +3315,7 @@ void Disassembler::uadd8(Condition cond,
                          Register rd,
                          Register rn,
                          Register rm) {
+  os().SetCurrentInstruction(Assembler::kUadd8, Assembler::kArithmetic);
   os() << "uadd8" << ConditionPrinter(it_block_, cond);
   os() << " ";
   if (!rd.Is(rn)) {
@@ -3090,6 +3325,7 @@ void Disassembler::uadd8(Condition cond,
 }
 
 void Disassembler::uasx(Condition cond, Register rd, Register rn, Register rm) {
+  os().SetCurrentInstruction(Assembler::kUasx, Assembler::kArithmetic);
   os() << "uasx" << ConditionPrinter(it_block_, cond);
   os() << " ";
   if (!rd.Is(rn)) {
@@ -3103,16 +3339,19 @@ void Disassembler::ubfx(Condition cond,
                         Register rn,
                         uint32_t lsb,
                         const Operand& operand) {
+  os().SetCurrentInstruction(Assembler::kUbfx, Assembler::kShift);
   os() << "ubfx" << ConditionPrinter(it_block_, cond) << " " << rd << ", " << rn
        << ", "
        << "#" << lsb << ", " << operand;
 }
 
 void Disassembler::udf(Condition cond, EncodingSize size, uint32_t imm) {
+  os().SetCurrentInstruction(Assembler::kUdf, Assembler::kMisc);
   os() << "udf" << ConditionPrinter(it_block_, cond) << size << " " << imm;
 }
 
 void Disassembler::udiv(Condition cond, Register rd, Register rn, Register rm) {
+  os().SetCurrentInstruction(Assembler::kUdiv, Assembler::kArithmetic);
   os() << "udiv" << ConditionPrinter(it_block_, cond);
   os() << " ";
   if (!rd.Is(rn)) {
@@ -3125,6 +3364,7 @@ void Disassembler::uhadd16(Condition cond,
                            Register rd,
                            Register rn,
                            Register rm) {
+  os().SetCurrentInstruction(Assembler::kUhadd16, Assembler::kArithmetic);
   os() << "uhadd16" << ConditionPrinter(it_block_, cond);
   os() << " ";
   if (!rd.Is(rn)) {
@@ -3137,6 +3377,7 @@ void Disassembler::uhadd8(Condition cond,
                           Register rd,
                           Register rn,
                           Register rm) {
+  os().SetCurrentInstruction(Assembler::kUhadd8, Assembler::kArithmetic);
   os() << "uhadd8" << ConditionPrinter(it_block_, cond);
   os() << " ";
   if (!rd.Is(rn)) {
@@ -3149,6 +3390,7 @@ void Disassembler::uhasx(Condition cond,
                          Register rd,
                          Register rn,
                          Register rm) {
+  os().SetCurrentInstruction(Assembler::kUhasx, Assembler::kArithmetic);
   os() << "uhasx" << ConditionPrinter(it_block_, cond);
   os() << " ";
   if (!rd.Is(rn)) {
@@ -3161,6 +3403,7 @@ void Disassembler::uhsax(Condition cond,
                          Register rd,
                          Register rn,
                          Register rm) {
+  os().SetCurrentInstruction(Assembler::kUhsax, Assembler::kArithmetic);
   os() << "uhsax" << ConditionPrinter(it_block_, cond);
   os() << " ";
   if (!rd.Is(rn)) {
@@ -3173,6 +3416,7 @@ void Disassembler::uhsub16(Condition cond,
                            Register rd,
                            Register rn,
                            Register rm) {
+  os().SetCurrentInstruction(Assembler::kUhsub16, Assembler::kArithmetic);
   os() << "uhsub16" << ConditionPrinter(it_block_, cond);
   os() << " ";
   if (!rd.Is(rn)) {
@@ -3185,6 +3429,7 @@ void Disassembler::uhsub8(Condition cond,
                           Register rd,
                           Register rn,
                           Register rm) {
+  os().SetCurrentInstruction(Assembler::kUhsub8, Assembler::kArithmetic);
   os() << "uhsub8" << ConditionPrinter(it_block_, cond);
   os() << " ";
   if (!rd.Is(rn)) {
@@ -3195,30 +3440,35 @@ void Disassembler::uhsub8(Condition cond,
 
 void Disassembler::umaal(
     Condition cond, Register rdlo, Register rdhi, Register rn, Register rm) {
+  os().SetCurrentInstruction(Assembler::kUmaal, Assembler::kArithmetic);
   os() << "umaal" << ConditionPrinter(it_block_, cond) << " " << rdlo << ", "
        << rdhi << ", " << rn << ", " << rm;
 }
 
 void Disassembler::umlal(
     Condition cond, Register rdlo, Register rdhi, Register rn, Register rm) {
+  os().SetCurrentInstruction(Assembler::kUmlal, Assembler::kArithmetic);
   os() << "umlal" << ConditionPrinter(it_block_, cond) << " " << rdlo << ", "
        << rdhi << ", " << rn << ", " << rm;
 }
 
 void Disassembler::umlals(
     Condition cond, Register rdlo, Register rdhi, Register rn, Register rm) {
+  os().SetCurrentInstruction(Assembler::kUmlals, Assembler::kArithmetic);
   os() << "umlals" << ConditionPrinter(it_block_, cond) << " " << rdlo << ", "
        << rdhi << ", " << rn << ", " << rm;
 }
 
 void Disassembler::umull(
     Condition cond, Register rdlo, Register rdhi, Register rn, Register rm) {
+  os().SetCurrentInstruction(Assembler::kUmull, Assembler::kArithmetic);
   os() << "umull" << ConditionPrinter(it_block_, cond) << " " << rdlo << ", "
        << rdhi << ", " << rn << ", " << rm;
 }
 
 void Disassembler::umulls(
     Condition cond, Register rdlo, Register rdhi, Register rn, Register rm) {
+  os().SetCurrentInstruction(Assembler::kUmulls, Assembler::kArithmetic);
   os() << "umulls" << ConditionPrinter(it_block_, cond) << " " << rdlo << ", "
        << rdhi << ", " << rn << ", " << rm;
 }
@@ -3227,6 +3477,7 @@ void Disassembler::uqadd16(Condition cond,
                            Register rd,
                            Register rn,
                            Register rm) {
+  os().SetCurrentInstruction(Assembler::kUqadd16, Assembler::kArithmetic);
   os() << "uqadd16" << ConditionPrinter(it_block_, cond);
   os() << " ";
   if (!rd.Is(rn)) {
@@ -3239,6 +3490,7 @@ void Disassembler::uqadd8(Condition cond,
                           Register rd,
                           Register rn,
                           Register rm) {
+  os().SetCurrentInstruction(Assembler::kUqadd8, Assembler::kArithmetic);
   os() << "uqadd8" << ConditionPrinter(it_block_, cond);
   os() << " ";
   if (!rd.Is(rn)) {
@@ -3251,6 +3503,7 @@ void Disassembler::uqasx(Condition cond,
                          Register rd,
                          Register rn,
                          Register rm) {
+  os().SetCurrentInstruction(Assembler::kUqasx, Assembler::kArithmetic);
   os() << "uqasx" << ConditionPrinter(it_block_, cond);
   os() << " ";
   if (!rd.Is(rn)) {
@@ -3263,6 +3516,7 @@ void Disassembler::uqsax(Condition cond,
                          Register rd,
                          Register rn,
                          Register rm) {
+  os().SetCurrentInstruction(Assembler::kUqsax, Assembler::kArithmetic);
   os() << "uqsax" << ConditionPrinter(it_block_, cond);
   os() << " ";
   if (!rd.Is(rn)) {
@@ -3275,6 +3529,7 @@ void Disassembler::uqsub16(Condition cond,
                            Register rd,
                            Register rn,
                            Register rm) {
+  os().SetCurrentInstruction(Assembler::kUqsub16, Assembler::kArithmetic);
   os() << "uqsub16" << ConditionPrinter(it_block_, cond);
   os() << " ";
   if (!rd.Is(rn)) {
@@ -3287,6 +3542,7 @@ void Disassembler::uqsub8(Condition cond,
                           Register rd,
                           Register rn,
                           Register rm) {
+  os().SetCurrentInstruction(Assembler::kUqsub8, Assembler::kArithmetic);
   os() << "uqsub8" << ConditionPrinter(it_block_, cond);
   os() << " ";
   if (!rd.Is(rn)) {
@@ -3299,6 +3555,7 @@ void Disassembler::usad8(Condition cond,
                          Register rd,
                          Register rn,
                          Register rm) {
+  os().SetCurrentInstruction(Assembler::kUsad8, Assembler::kArithmetic);
   os() << "usad8" << ConditionPrinter(it_block_, cond);
   os() << " ";
   if (!rd.Is(rn)) {
@@ -3309,6 +3566,7 @@ void Disassembler::usad8(Condition cond,
 
 void Disassembler::usada8(
     Condition cond, Register rd, Register rn, Register rm, Register ra) {
+  os().SetCurrentInstruction(Assembler::kUsada8, Assembler::kArithmetic);
   os() << "usada8" << ConditionPrinter(it_block_, cond) << " " << rd << ", "
        << rn << ", " << rm << ", " << ra;
 }
@@ -3317,6 +3575,7 @@ void Disassembler::usat(Condition cond,
                         Register rd,
                         uint32_t imm,
                         const Operand& operand) {
+  os().SetCurrentInstruction(Assembler::kUsat, Assembler::kArithmetic);
   os() << "usat" << ConditionPrinter(it_block_, cond) << " " << rd << ", "
        << "#" << imm << ", " << operand;
 }
@@ -3325,11 +3584,13 @@ void Disassembler::usat16(Condition cond,
                           Register rd,
                           uint32_t imm,
                           Register rn) {
+  os().SetCurrentInstruction(Assembler::kUsat16, Assembler::kArithmetic);
   os() << "usat16" << ConditionPrinter(it_block_, cond) << " " << rd << ", "
        << "#" << imm << ", " << rn;
 }
 
 void Disassembler::usax(Condition cond, Register rd, Register rn, Register rm) {
+  os().SetCurrentInstruction(Assembler::kUsax, Assembler::kArithmetic);
   os() << "usax" << ConditionPrinter(it_block_, cond);
   os() << " ";
   if (!rd.Is(rn)) {
@@ -3342,6 +3603,7 @@ void Disassembler::usub16(Condition cond,
                           Register rd,
                           Register rn,
                           Register rm) {
+  os().SetCurrentInstruction(Assembler::kUsub16, Assembler::kArithmetic);
   os() << "usub16" << ConditionPrinter(it_block_, cond);
   os() << " ";
   if (!rd.Is(rn)) {
@@ -3354,6 +3616,7 @@ void Disassembler::usub8(Condition cond,
                          Register rd,
                          Register rn,
                          Register rm) {
+  os().SetCurrentInstruction(Assembler::kUsub8, Assembler::kArithmetic);
   os() << "usub8" << ConditionPrinter(it_block_, cond);
   os() << " ";
   if (!rd.Is(rn)) {
@@ -3366,6 +3629,7 @@ void Disassembler::uxtab(Condition cond,
                          Register rd,
                          Register rn,
                          const Operand& operand) {
+  os().SetCurrentInstruction(Assembler::kUxtab, Assembler::kArithmetic);
   os() << "uxtab" << ConditionPrinter(it_block_, cond);
   os() << " ";
   if (!rd.Is(rn)) {
@@ -3378,6 +3642,7 @@ void Disassembler::uxtab16(Condition cond,
                            Register rd,
                            Register rn,
                            const Operand& operand) {
+  os().SetCurrentInstruction(Assembler::kUxtab16, Assembler::kArithmetic);
   os() << "uxtab16" << ConditionPrinter(it_block_, cond);
   os() << " ";
   if (!rd.Is(rn)) {
@@ -3390,6 +3655,7 @@ void Disassembler::uxtah(Condition cond,
                          Register rd,
                          Register rn,
                          const Operand& operand) {
+  os().SetCurrentInstruction(Assembler::kUxtah, Assembler::kArithmetic);
   os() << "uxtah" << ConditionPrinter(it_block_, cond);
   os() << " ";
   if (!rd.Is(rn)) {
@@ -3402,6 +3668,7 @@ void Disassembler::uxtb(Condition cond,
                         EncodingSize size,
                         Register rd,
                         const Operand& operand) {
+  os().SetCurrentInstruction(Assembler::kUxtb, Assembler::kArithmetic);
   os() << "uxtb" << ConditionPrinter(it_block_, cond) << size;
   os() << " ";
   if (!rd.Is(operand.GetBaseRegister())) {
@@ -3411,6 +3678,7 @@ void Disassembler::uxtb(Condition cond,
 }
 
 void Disassembler::uxtb16(Condition cond, Register rd, const Operand& operand) {
+  os().SetCurrentInstruction(Assembler::kUxtb16, Assembler::kArithmetic);
   os() << "uxtb16" << ConditionPrinter(it_block_, cond);
   os() << " ";
   if (!rd.Is(operand.GetBaseRegister())) {
@@ -3423,6 +3691,7 @@ void Disassembler::uxth(Condition cond,
                         EncodingSize size,
                         Register rd,
                         const Operand& operand) {
+  os().SetCurrentInstruction(Assembler::kUxth, Assembler::kArithmetic);
   os() << "uxth" << ConditionPrinter(it_block_, cond) << size;
   os() << " ";
   if (!rd.Is(operand.GetBaseRegister())) {
@@ -3433,24 +3702,28 @@ void Disassembler::uxth(Condition cond,
 
 void Disassembler::vaba(
     Condition cond, DataType dt, DRegister rd, DRegister rn, DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVaba, Assembler::kFpNeon);
   os() << "vaba" << ConditionPrinter(it_block_, cond) << dt << " " << rd << ", "
        << rn << ", " << rm;
 }
 
 void Disassembler::vaba(
     Condition cond, DataType dt, QRegister rd, QRegister rn, QRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVaba, Assembler::kFpNeon);
   os() << "vaba" << ConditionPrinter(it_block_, cond) << dt << " " << rd << ", "
        << rn << ", " << rm;
 }
 
 void Disassembler::vabal(
     Condition cond, DataType dt, QRegister rd, DRegister rn, DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVabal, Assembler::kFpNeon);
   os() << "vabal" << ConditionPrinter(it_block_, cond) << dt << " " << rd
        << ", " << rn << ", " << rm;
 }
 
 void Disassembler::vabd(
     Condition cond, DataType dt, DRegister rd, DRegister rn, DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVabd, Assembler::kFpNeon);
   os() << "vabd" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -3461,6 +3734,7 @@ void Disassembler::vabd(
 
 void Disassembler::vabd(
     Condition cond, DataType dt, QRegister rd, QRegister rn, QRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVabd, Assembler::kFpNeon);
   os() << "vabd" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -3471,6 +3745,7 @@ void Disassembler::vabd(
 
 void Disassembler::vabdl(
     Condition cond, DataType dt, QRegister rd, DRegister rn, DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVabdl, Assembler::kFpNeon);
   os() << "vabdl" << ConditionPrinter(it_block_, cond) << dt << " " << rd
        << ", " << rn << ", " << rm;
 }
@@ -3479,6 +3754,7 @@ void Disassembler::vabs(Condition cond,
                         DataType dt,
                         DRegister rd,
                         DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVabs, Assembler::kFpNeon);
   os() << "vabs" << ConditionPrinter(it_block_, cond) << dt << " " << rd << ", "
        << rm;
 }
@@ -3487,6 +3763,7 @@ void Disassembler::vabs(Condition cond,
                         DataType dt,
                         QRegister rd,
                         QRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVabs, Assembler::kFpNeon);
   os() << "vabs" << ConditionPrinter(it_block_, cond) << dt << " " << rd << ", "
        << rm;
 }
@@ -3495,12 +3772,14 @@ void Disassembler::vabs(Condition cond,
                         DataType dt,
                         SRegister rd,
                         SRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVabs, Assembler::kFpNeon);
   os() << "vabs" << ConditionPrinter(it_block_, cond) << dt << " " << rd << ", "
        << rm;
 }
 
 void Disassembler::vacge(
     Condition cond, DataType dt, DRegister rd, DRegister rn, DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVacge, Assembler::kFpNeon);
   os() << "vacge" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -3511,6 +3790,7 @@ void Disassembler::vacge(
 
 void Disassembler::vacge(
     Condition cond, DataType dt, QRegister rd, QRegister rn, QRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVacge, Assembler::kFpNeon);
   os() << "vacge" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -3521,6 +3801,7 @@ void Disassembler::vacge(
 
 void Disassembler::vacgt(
     Condition cond, DataType dt, DRegister rd, DRegister rn, DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVacgt, Assembler::kFpNeon);
   os() << "vacgt" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -3531,6 +3812,7 @@ void Disassembler::vacgt(
 
 void Disassembler::vacgt(
     Condition cond, DataType dt, QRegister rd, QRegister rn, QRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVacgt, Assembler::kFpNeon);
   os() << "vacgt" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -3541,6 +3823,7 @@ void Disassembler::vacgt(
 
 void Disassembler::vacle(
     Condition cond, DataType dt, DRegister rd, DRegister rn, DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVacle, Assembler::kFpNeon);
   os() << "vacle" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -3551,6 +3834,7 @@ void Disassembler::vacle(
 
 void Disassembler::vacle(
     Condition cond, DataType dt, QRegister rd, QRegister rn, QRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVacle, Assembler::kFpNeon);
   os() << "vacle" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -3561,6 +3845,7 @@ void Disassembler::vacle(
 
 void Disassembler::vaclt(
     Condition cond, DataType dt, DRegister rd, DRegister rn, DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVaclt, Assembler::kFpNeon);
   os() << "vaclt" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -3571,6 +3856,7 @@ void Disassembler::vaclt(
 
 void Disassembler::vaclt(
     Condition cond, DataType dt, QRegister rd, QRegister rn, QRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVaclt, Assembler::kFpNeon);
   os() << "vaclt" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -3581,6 +3867,7 @@ void Disassembler::vaclt(
 
 void Disassembler::vadd(
     Condition cond, DataType dt, DRegister rd, DRegister rn, DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVadd, Assembler::kFpNeon);
   os() << "vadd" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -3591,6 +3878,7 @@ void Disassembler::vadd(
 
 void Disassembler::vadd(
     Condition cond, DataType dt, QRegister rd, QRegister rn, QRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVadd, Assembler::kFpNeon);
   os() << "vadd" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -3601,6 +3889,7 @@ void Disassembler::vadd(
 
 void Disassembler::vadd(
     Condition cond, DataType dt, SRegister rd, SRegister rn, SRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVadd, Assembler::kFpNeon);
   os() << "vadd" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -3611,18 +3900,21 @@ void Disassembler::vadd(
 
 void Disassembler::vaddhn(
     Condition cond, DataType dt, DRegister rd, QRegister rn, QRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVaddhn, Assembler::kFpNeon);
   os() << "vaddhn" << ConditionPrinter(it_block_, cond) << dt << " " << rd
        << ", " << rn << ", " << rm;
 }
 
 void Disassembler::vaddl(
     Condition cond, DataType dt, QRegister rd, DRegister rn, DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVaddl, Assembler::kFpNeon);
   os() << "vaddl" << ConditionPrinter(it_block_, cond) << dt << " " << rd
        << ", " << rn << ", " << rm;
 }
 
 void Disassembler::vaddw(
     Condition cond, DataType dt, QRegister rd, QRegister rn, DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVaddw, Assembler::kFpNeon);
   os() << "vaddw" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -3636,6 +3928,7 @@ void Disassembler::vand(Condition cond,
                         DRegister rd,
                         DRegister rn,
                         const DOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kVand, Assembler::kFpNeon);
   os() << "vand" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -3649,6 +3942,7 @@ void Disassembler::vand(Condition cond,
                         QRegister rd,
                         QRegister rn,
                         const QOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kVand, Assembler::kFpNeon);
   os() << "vand" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -3662,6 +3956,7 @@ void Disassembler::vbic(Condition cond,
                         DRegister rd,
                         DRegister rn,
                         const DOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kVbic, Assembler::kFpNeon);
   os() << "vbic" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -3675,6 +3970,7 @@ void Disassembler::vbic(Condition cond,
                         QRegister rd,
                         QRegister rn,
                         const QOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kVbic, Assembler::kFpNeon);
   os() << "vbic" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -3685,6 +3981,7 @@ void Disassembler::vbic(Condition cond,
 
 void Disassembler::vbif(
     Condition cond, DataType dt, DRegister rd, DRegister rn, DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVbif, Assembler::kFpNeon);
   os() << "vbif" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -3695,6 +3992,7 @@ void Disassembler::vbif(
 
 void Disassembler::vbif(
     Condition cond, DataType dt, QRegister rd, QRegister rn, QRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVbif, Assembler::kFpNeon);
   os() << "vbif" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -3705,6 +4003,7 @@ void Disassembler::vbif(
 
 void Disassembler::vbit(
     Condition cond, DataType dt, DRegister rd, DRegister rn, DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVbit, Assembler::kFpNeon);
   os() << "vbit" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -3715,6 +4014,7 @@ void Disassembler::vbit(
 
 void Disassembler::vbit(
     Condition cond, DataType dt, QRegister rd, QRegister rn, QRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVbit, Assembler::kFpNeon);
   os() << "vbit" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -3725,6 +4025,7 @@ void Disassembler::vbit(
 
 void Disassembler::vbsl(
     Condition cond, DataType dt, DRegister rd, DRegister rn, DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVbsl, Assembler::kFpNeon);
   os() << "vbsl" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -3735,6 +4036,7 @@ void Disassembler::vbsl(
 
 void Disassembler::vbsl(
     Condition cond, DataType dt, QRegister rd, QRegister rn, QRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVbsl, Assembler::kFpNeon);
   os() << "vbsl" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -3748,6 +4050,7 @@ void Disassembler::vceq(Condition cond,
                         DRegister rd,
                         DRegister rm,
                         const DOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kVceq, Assembler::kFpNeon);
   os() << "vceq" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rm)) {
@@ -3761,6 +4064,7 @@ void Disassembler::vceq(Condition cond,
                         QRegister rd,
                         QRegister rm,
                         const QOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kVceq, Assembler::kFpNeon);
   os() << "vceq" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rm)) {
@@ -3771,6 +4075,7 @@ void Disassembler::vceq(Condition cond,
 
 void Disassembler::vceq(
     Condition cond, DataType dt, DRegister rd, DRegister rn, DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVceq, Assembler::kFpNeon);
   os() << "vceq" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -3781,6 +4086,7 @@ void Disassembler::vceq(
 
 void Disassembler::vceq(
     Condition cond, DataType dt, QRegister rd, QRegister rn, QRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVceq, Assembler::kFpNeon);
   os() << "vceq" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -3794,6 +4100,7 @@ void Disassembler::vcge(Condition cond,
                         DRegister rd,
                         DRegister rm,
                         const DOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kVcge, Assembler::kFpNeon);
   os() << "vcge" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rm)) {
@@ -3807,6 +4114,7 @@ void Disassembler::vcge(Condition cond,
                         QRegister rd,
                         QRegister rm,
                         const QOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kVcge, Assembler::kFpNeon);
   os() << "vcge" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rm)) {
@@ -3817,6 +4125,7 @@ void Disassembler::vcge(Condition cond,
 
 void Disassembler::vcge(
     Condition cond, DataType dt, DRegister rd, DRegister rn, DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVcge, Assembler::kFpNeon);
   os() << "vcge" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -3827,6 +4136,7 @@ void Disassembler::vcge(
 
 void Disassembler::vcge(
     Condition cond, DataType dt, QRegister rd, QRegister rn, QRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVcge, Assembler::kFpNeon);
   os() << "vcge" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -3840,6 +4150,7 @@ void Disassembler::vcgt(Condition cond,
                         DRegister rd,
                         DRegister rm,
                         const DOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kVcgt, Assembler::kFpNeon);
   os() << "vcgt" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rm)) {
@@ -3853,6 +4164,7 @@ void Disassembler::vcgt(Condition cond,
                         QRegister rd,
                         QRegister rm,
                         const QOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kVcgt, Assembler::kFpNeon);
   os() << "vcgt" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rm)) {
@@ -3863,6 +4175,7 @@ void Disassembler::vcgt(Condition cond,
 
 void Disassembler::vcgt(
     Condition cond, DataType dt, DRegister rd, DRegister rn, DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVcgt, Assembler::kFpNeon);
   os() << "vcgt" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -3873,6 +4186,7 @@ void Disassembler::vcgt(
 
 void Disassembler::vcgt(
     Condition cond, DataType dt, QRegister rd, QRegister rn, QRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVcgt, Assembler::kFpNeon);
   os() << "vcgt" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -3886,6 +4200,7 @@ void Disassembler::vcle(Condition cond,
                         DRegister rd,
                         DRegister rm,
                         const DOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kVcle, Assembler::kFpNeon);
   os() << "vcle" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rm)) {
@@ -3899,6 +4214,7 @@ void Disassembler::vcle(Condition cond,
                         QRegister rd,
                         QRegister rm,
                         const QOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kVcle, Assembler::kFpNeon);
   os() << "vcle" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rm)) {
@@ -3909,6 +4225,7 @@ void Disassembler::vcle(Condition cond,
 
 void Disassembler::vcle(
     Condition cond, DataType dt, DRegister rd, DRegister rn, DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVcle, Assembler::kFpNeon);
   os() << "vcle" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -3919,6 +4236,7 @@ void Disassembler::vcle(
 
 void Disassembler::vcle(
     Condition cond, DataType dt, QRegister rd, QRegister rn, QRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVcle, Assembler::kFpNeon);
   os() << "vcle" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -3931,6 +4249,7 @@ void Disassembler::vcls(Condition cond,
                         DataType dt,
                         DRegister rd,
                         DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVcls, Assembler::kFpNeon);
   os() << "vcls" << ConditionPrinter(it_block_, cond) << dt << " " << rd << ", "
        << rm;
 }
@@ -3939,6 +4258,7 @@ void Disassembler::vcls(Condition cond,
                         DataType dt,
                         QRegister rd,
                         QRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVcls, Assembler::kFpNeon);
   os() << "vcls" << ConditionPrinter(it_block_, cond) << dt << " " << rd << ", "
        << rm;
 }
@@ -3948,6 +4268,7 @@ void Disassembler::vclt(Condition cond,
                         DRegister rd,
                         DRegister rm,
                         const DOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kVclt, Assembler::kFpNeon);
   os() << "vclt" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rm)) {
@@ -3961,6 +4282,7 @@ void Disassembler::vclt(Condition cond,
                         QRegister rd,
                         QRegister rm,
                         const QOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kVclt, Assembler::kFpNeon);
   os() << "vclt" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rm)) {
@@ -3971,6 +4293,7 @@ void Disassembler::vclt(Condition cond,
 
 void Disassembler::vclt(
     Condition cond, DataType dt, DRegister rd, DRegister rn, DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVclt, Assembler::kFpNeon);
   os() << "vclt" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -3981,6 +4304,7 @@ void Disassembler::vclt(
 
 void Disassembler::vclt(
     Condition cond, DataType dt, QRegister rd, QRegister rn, QRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVclt, Assembler::kFpNeon);
   os() << "vclt" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -3993,6 +4317,7 @@ void Disassembler::vclz(Condition cond,
                         DataType dt,
                         DRegister rd,
                         DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVclz, Assembler::kFpNeon);
   os() << "vclz" << ConditionPrinter(it_block_, cond) << dt << " " << rd << ", "
        << rm;
 }
@@ -4001,6 +4326,7 @@ void Disassembler::vclz(Condition cond,
                         DataType dt,
                         QRegister rd,
                         QRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVclz, Assembler::kFpNeon);
   os() << "vclz" << ConditionPrinter(it_block_, cond) << dt << " " << rd << ", "
        << rm;
 }
@@ -4009,6 +4335,7 @@ void Disassembler::vcmp(Condition cond,
                         DataType dt,
                         SRegister rd,
                         SRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVcmp, Assembler::kFpNeon);
   os() << "vcmp" << ConditionPrinter(it_block_, cond) << dt << " " << rd << ", "
        << rm;
 }
@@ -4017,17 +4344,20 @@ void Disassembler::vcmp(Condition cond,
                         DataType dt,
                         DRegister rd,
                         DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVcmp, Assembler::kFpNeon);
   os() << "vcmp" << ConditionPrinter(it_block_, cond) << dt << " " << rd << ", "
        << rm;
 }
 
 void Disassembler::vcmp(Condition cond, DataType dt, SRegister rd, double imm) {
+  os().SetCurrentInstruction(Assembler::kVcmp, Assembler::kFpNeon);
   os() << "vcmp" << ConditionPrinter(it_block_, cond) << dt << " " << rd << ", "
        << "#" << std::fixed << std::setprecision(1) << imm
        << std::resetiosflags(std::ios_base::floatfield);
 }
 
 void Disassembler::vcmp(Condition cond, DataType dt, DRegister rd, double imm) {
+  os().SetCurrentInstruction(Assembler::kVcmp, Assembler::kFpNeon);
   os() << "vcmp" << ConditionPrinter(it_block_, cond) << dt << " " << rd << ", "
        << "#" << std::fixed << std::setprecision(1) << imm
        << std::resetiosflags(std::ios_base::floatfield);
@@ -4037,6 +4367,7 @@ void Disassembler::vcmpe(Condition cond,
                          DataType dt,
                          SRegister rd,
                          SRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVcmpe, Assembler::kFpNeon);
   os() << "vcmpe" << ConditionPrinter(it_block_, cond) << dt << " " << rd
        << ", " << rm;
 }
@@ -4045,6 +4376,7 @@ void Disassembler::vcmpe(Condition cond,
                          DataType dt,
                          DRegister rd,
                          DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVcmpe, Assembler::kFpNeon);
   os() << "vcmpe" << ConditionPrinter(it_block_, cond) << dt << " " << rd
        << ", " << rm;
 }
@@ -4053,6 +4385,7 @@ void Disassembler::vcmpe(Condition cond,
                          DataType dt,
                          SRegister rd,
                          double imm) {
+  os().SetCurrentInstruction(Assembler::kVcmpe, Assembler::kFpNeon);
   os() << "vcmpe" << ConditionPrinter(it_block_, cond) << dt << " " << rd
        << ", "
        << "#" << std::fixed << std::setprecision(1) << imm
@@ -4063,6 +4396,7 @@ void Disassembler::vcmpe(Condition cond,
                          DataType dt,
                          DRegister rd,
                          double imm) {
+  os().SetCurrentInstruction(Assembler::kVcmpe, Assembler::kFpNeon);
   os() << "vcmpe" << ConditionPrinter(it_block_, cond) << dt << " " << rd
        << ", "
        << "#" << std::fixed << std::setprecision(1) << imm
@@ -4073,6 +4407,7 @@ void Disassembler::vcnt(Condition cond,
                         DataType dt,
                         DRegister rd,
                         DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVcnt, Assembler::kFpNeon);
   os() << "vcnt" << ConditionPrinter(it_block_, cond) << dt << " " << rd << ", "
        << rm;
 }
@@ -4081,18 +4416,21 @@ void Disassembler::vcnt(Condition cond,
                         DataType dt,
                         QRegister rd,
                         QRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVcnt, Assembler::kFpNeon);
   os() << "vcnt" << ConditionPrinter(it_block_, cond) << dt << " " << rd << ", "
        << rm;
 }
 
 void Disassembler::vcvt(
     Condition cond, DataType dt1, DataType dt2, DRegister rd, SRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVcvt, Assembler::kFpNeon);
   os() << "vcvt" << ConditionPrinter(it_block_, cond) << dt1 << dt2 << " " << rd
        << ", " << rm;
 }
 
 void Disassembler::vcvt(
     Condition cond, DataType dt1, DataType dt2, SRegister rd, DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVcvt, Assembler::kFpNeon);
   os() << "vcvt" << ConditionPrinter(it_block_, cond) << dt1 << dt2 << " " << rd
        << ", " << rm;
 }
@@ -4103,6 +4441,7 @@ void Disassembler::vcvt(Condition cond,
                         DRegister rd,
                         DRegister rm,
                         int32_t fbits) {
+  os().SetCurrentInstruction(Assembler::kVcvt, Assembler::kFpNeon);
   os() << "vcvt" << ConditionPrinter(it_block_, cond) << dt1 << dt2 << " " << rd
        << ", " << rm << ", "
        << "#" << fbits;
@@ -4114,6 +4453,7 @@ void Disassembler::vcvt(Condition cond,
                         QRegister rd,
                         QRegister rm,
                         int32_t fbits) {
+  os().SetCurrentInstruction(Assembler::kVcvt, Assembler::kFpNeon);
   os() << "vcvt" << ConditionPrinter(it_block_, cond) << dt1 << dt2 << " " << rd
        << ", " << rm << ", "
        << "#" << fbits;
@@ -4125,6 +4465,7 @@ void Disassembler::vcvt(Condition cond,
                         SRegister rd,
                         SRegister rm,
                         int32_t fbits) {
+  os().SetCurrentInstruction(Assembler::kVcvt, Assembler::kFpNeon);
   os() << "vcvt" << ConditionPrinter(it_block_, cond) << dt1 << dt2 << " " << rd
        << ", " << rm << ", "
        << "#" << fbits;
@@ -4132,30 +4473,35 @@ void Disassembler::vcvt(Condition cond,
 
 void Disassembler::vcvt(
     Condition cond, DataType dt1, DataType dt2, DRegister rd, DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVcvt, Assembler::kFpNeon);
   os() << "vcvt" << ConditionPrinter(it_block_, cond) << dt1 << dt2 << " " << rd
        << ", " << rm;
 }
 
 void Disassembler::vcvt(
     Condition cond, DataType dt1, DataType dt2, QRegister rd, QRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVcvt, Assembler::kFpNeon);
   os() << "vcvt" << ConditionPrinter(it_block_, cond) << dt1 << dt2 << " " << rd
        << ", " << rm;
 }
 
 void Disassembler::vcvt(
     Condition cond, DataType dt1, DataType dt2, DRegister rd, QRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVcvt, Assembler::kFpNeon);
   os() << "vcvt" << ConditionPrinter(it_block_, cond) << dt1 << dt2 << " " << rd
        << ", " << rm;
 }
 
 void Disassembler::vcvt(
     Condition cond, DataType dt1, DataType dt2, QRegister rd, DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVcvt, Assembler::kFpNeon);
   os() << "vcvt" << ConditionPrinter(it_block_, cond) << dt1 << dt2 << " " << rd
        << ", " << rm;
 }
 
 void Disassembler::vcvt(
     Condition cond, DataType dt1, DataType dt2, SRegister rd, SRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVcvt, Assembler::kFpNeon);
   os() << "vcvt" << ConditionPrinter(it_block_, cond) << dt1 << dt2 << " " << rd
        << ", " << rm;
 }
@@ -4164,6 +4510,7 @@ void Disassembler::vcvta(DataType dt1,
                          DataType dt2,
                          DRegister rd,
                          DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVcvta, Assembler::kFpNeon);
   os() << "vcvta" << dt1 << dt2 << " " << rd << ", " << rm;
 }
 
@@ -4171,6 +4518,7 @@ void Disassembler::vcvta(DataType dt1,
                          DataType dt2,
                          QRegister rd,
                          QRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVcvta, Assembler::kFpNeon);
   os() << "vcvta" << dt1 << dt2 << " " << rd << ", " << rm;
 }
 
@@ -4178,6 +4526,7 @@ void Disassembler::vcvta(DataType dt1,
                          DataType dt2,
                          SRegister rd,
                          SRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVcvta, Assembler::kFpNeon);
   os() << "vcvta" << dt1 << dt2 << " " << rd << ", " << rm;
 }
 
@@ -4185,23 +4534,27 @@ void Disassembler::vcvta(DataType dt1,
                          DataType dt2,
                          SRegister rd,
                          DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVcvta, Assembler::kFpNeon);
   os() << "vcvta" << dt1 << dt2 << " " << rd << ", " << rm;
 }
 
 void Disassembler::vcvtb(
     Condition cond, DataType dt1, DataType dt2, SRegister rd, SRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVcvtb, Assembler::kFpNeon);
   os() << "vcvtb" << ConditionPrinter(it_block_, cond) << dt1 << dt2 << " "
        << rd << ", " << rm;
 }
 
 void Disassembler::vcvtb(
     Condition cond, DataType dt1, DataType dt2, DRegister rd, SRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVcvtb, Assembler::kFpNeon);
   os() << "vcvtb" << ConditionPrinter(it_block_, cond) << dt1 << dt2 << " "
        << rd << ", " << rm;
 }
 
 void Disassembler::vcvtb(
     Condition cond, DataType dt1, DataType dt2, SRegister rd, DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVcvtb, Assembler::kFpNeon);
   os() << "vcvtb" << ConditionPrinter(it_block_, cond) << dt1 << dt2 << " "
        << rd << ", " << rm;
 }
@@ -4210,6 +4563,7 @@ void Disassembler::vcvtm(DataType dt1,
                          DataType dt2,
                          DRegister rd,
                          DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVcvtm, Assembler::kFpNeon);
   os() << "vcvtm" << dt1 << dt2 << " " << rd << ", " << rm;
 }
 
@@ -4217,6 +4571,7 @@ void Disassembler::vcvtm(DataType dt1,
                          DataType dt2,
                          QRegister rd,
                          QRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVcvtm, Assembler::kFpNeon);
   os() << "vcvtm" << dt1 << dt2 << " " << rd << ", " << rm;
 }
 
@@ -4224,6 +4579,7 @@ void Disassembler::vcvtm(DataType dt1,
                          DataType dt2,
                          SRegister rd,
                          SRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVcvtm, Assembler::kFpNeon);
   os() << "vcvtm" << dt1 << dt2 << " " << rd << ", " << rm;
 }
 
@@ -4231,6 +4587,7 @@ void Disassembler::vcvtm(DataType dt1,
                          DataType dt2,
                          SRegister rd,
                          DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVcvtm, Assembler::kFpNeon);
   os() << "vcvtm" << dt1 << dt2 << " " << rd << ", " << rm;
 }
 
@@ -4238,6 +4595,7 @@ void Disassembler::vcvtn(DataType dt1,
                          DataType dt2,
                          DRegister rd,
                          DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVcvtn, Assembler::kFpNeon);
   os() << "vcvtn" << dt1 << dt2 << " " << rd << ", " << rm;
 }
 
@@ -4245,6 +4603,7 @@ void Disassembler::vcvtn(DataType dt1,
                          DataType dt2,
                          QRegister rd,
                          QRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVcvtn, Assembler::kFpNeon);
   os() << "vcvtn" << dt1 << dt2 << " " << rd << ", " << rm;
 }
 
@@ -4252,6 +4611,7 @@ void Disassembler::vcvtn(DataType dt1,
                          DataType dt2,
                          SRegister rd,
                          SRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVcvtn, Assembler::kFpNeon);
   os() << "vcvtn" << dt1 << dt2 << " " << rd << ", " << rm;
 }
 
@@ -4259,6 +4619,7 @@ void Disassembler::vcvtn(DataType dt1,
                          DataType dt2,
                          SRegister rd,
                          DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVcvtn, Assembler::kFpNeon);
   os() << "vcvtn" << dt1 << dt2 << " " << rd << ", " << rm;
 }
 
@@ -4266,6 +4627,7 @@ void Disassembler::vcvtp(DataType dt1,
                          DataType dt2,
                          DRegister rd,
                          DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVcvtp, Assembler::kFpNeon);
   os() << "vcvtp" << dt1 << dt2 << " " << rd << ", " << rm;
 }
 
@@ -4273,6 +4635,7 @@ void Disassembler::vcvtp(DataType dt1,
                          DataType dt2,
                          QRegister rd,
                          QRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVcvtp, Assembler::kFpNeon);
   os() << "vcvtp" << dt1 << dt2 << " " << rd << ", " << rm;
 }
 
@@ -4280,6 +4643,7 @@ void Disassembler::vcvtp(DataType dt1,
                          DataType dt2,
                          SRegister rd,
                          SRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVcvtp, Assembler::kFpNeon);
   os() << "vcvtp" << dt1 << dt2 << " " << rd << ", " << rm;
 }
 
@@ -4287,41 +4651,48 @@ void Disassembler::vcvtp(DataType dt1,
                          DataType dt2,
                          SRegister rd,
                          DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVcvtp, Assembler::kFpNeon);
   os() << "vcvtp" << dt1 << dt2 << " " << rd << ", " << rm;
 }
 
 void Disassembler::vcvtr(
     Condition cond, DataType dt1, DataType dt2, SRegister rd, SRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVcvtr, Assembler::kFpNeon);
   os() << "vcvtr" << ConditionPrinter(it_block_, cond) << dt1 << dt2 << " "
        << rd << ", " << rm;
 }
 
 void Disassembler::vcvtr(
     Condition cond, DataType dt1, DataType dt2, SRegister rd, DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVcvtr, Assembler::kFpNeon);
   os() << "vcvtr" << ConditionPrinter(it_block_, cond) << dt1 << dt2 << " "
        << rd << ", " << rm;
 }
 
 void Disassembler::vcvtt(
     Condition cond, DataType dt1, DataType dt2, SRegister rd, SRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVcvtt, Assembler::kFpNeon);
   os() << "vcvtt" << ConditionPrinter(it_block_, cond) << dt1 << dt2 << " "
        << rd << ", " << rm;
 }
 
 void Disassembler::vcvtt(
     Condition cond, DataType dt1, DataType dt2, DRegister rd, SRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVcvtt, Assembler::kFpNeon);
   os() << "vcvtt" << ConditionPrinter(it_block_, cond) << dt1 << dt2 << " "
        << rd << ", " << rm;
 }
 
 void Disassembler::vcvtt(
     Condition cond, DataType dt1, DataType dt2, SRegister rd, DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVcvtt, Assembler::kFpNeon);
   os() << "vcvtt" << ConditionPrinter(it_block_, cond) << dt1 << dt2 << " "
        << rd << ", " << rm;
 }
 
 void Disassembler::vdiv(
     Condition cond, DataType dt, SRegister rd, SRegister rn, SRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVdiv, Assembler::kFpNeon);
   os() << "vdiv" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -4332,6 +4703,7 @@ void Disassembler::vdiv(
 
 void Disassembler::vdiv(
     Condition cond, DataType dt, DRegister rd, DRegister rn, DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVdiv, Assembler::kFpNeon);
   os() << "vdiv" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -4344,6 +4716,7 @@ void Disassembler::vdup(Condition cond,
                         DataType dt,
                         QRegister rd,
                         Register rt) {
+  os().SetCurrentInstruction(Assembler::kVdup, Assembler::kFpNeon);
   os() << "vdup" << ConditionPrinter(it_block_, cond) << dt << " " << rd << ", "
        << rt;
 }
@@ -4352,6 +4725,7 @@ void Disassembler::vdup(Condition cond,
                         DataType dt,
                         DRegister rd,
                         Register rt) {
+  os().SetCurrentInstruction(Assembler::kVdup, Assembler::kFpNeon);
   os() << "vdup" << ConditionPrinter(it_block_, cond) << dt << " " << rd << ", "
        << rt;
 }
@@ -4360,6 +4734,7 @@ void Disassembler::vdup(Condition cond,
                         DataType dt,
                         DRegister rd,
                         DRegisterLane rm) {
+  os().SetCurrentInstruction(Assembler::kVdup, Assembler::kFpNeon);
   os() << "vdup" << ConditionPrinter(it_block_, cond) << dt << " " << rd << ", "
        << rm;
 }
@@ -4368,12 +4743,14 @@ void Disassembler::vdup(Condition cond,
                         DataType dt,
                         QRegister rd,
                         DRegisterLane rm) {
+  os().SetCurrentInstruction(Assembler::kVdup, Assembler::kFpNeon);
   os() << "vdup" << ConditionPrinter(it_block_, cond) << dt << " " << rd << ", "
        << rm;
 }
 
 void Disassembler::veor(
     Condition cond, DataType dt, DRegister rd, DRegister rn, DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVeor, Assembler::kFpNeon);
   os() << "veor" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -4384,6 +4761,7 @@ void Disassembler::veor(
 
 void Disassembler::veor(
     Condition cond, DataType dt, QRegister rd, QRegister rn, QRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVeor, Assembler::kFpNeon);
   os() << "veor" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -4398,6 +4776,7 @@ void Disassembler::vext(Condition cond,
                         DRegister rn,
                         DRegister rm,
                         const DOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kVext, Assembler::kFpNeon);
   os() << "vext" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -4412,6 +4791,7 @@ void Disassembler::vext(Condition cond,
                         QRegister rn,
                         QRegister rm,
                         const QOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kVext, Assembler::kFpNeon);
   os() << "vext" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -4422,66 +4802,77 @@ void Disassembler::vext(Condition cond,
 
 void Disassembler::vfma(
     Condition cond, DataType dt, DRegister rd, DRegister rn, DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVfma, Assembler::kFpNeon);
   os() << "vfma" << ConditionPrinter(it_block_, cond) << dt << " " << rd << ", "
        << rn << ", " << rm;
 }
 
 void Disassembler::vfma(
     Condition cond, DataType dt, QRegister rd, QRegister rn, QRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVfma, Assembler::kFpNeon);
   os() << "vfma" << ConditionPrinter(it_block_, cond) << dt << " " << rd << ", "
        << rn << ", " << rm;
 }
 
 void Disassembler::vfma(
     Condition cond, DataType dt, SRegister rd, SRegister rn, SRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVfma, Assembler::kFpNeon);
   os() << "vfma" << ConditionPrinter(it_block_, cond) << dt << " " << rd << ", "
        << rn << ", " << rm;
 }
 
 void Disassembler::vfms(
     Condition cond, DataType dt, DRegister rd, DRegister rn, DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVfms, Assembler::kFpNeon);
   os() << "vfms" << ConditionPrinter(it_block_, cond) << dt << " " << rd << ", "
        << rn << ", " << rm;
 }
 
 void Disassembler::vfms(
     Condition cond, DataType dt, QRegister rd, QRegister rn, QRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVfms, Assembler::kFpNeon);
   os() << "vfms" << ConditionPrinter(it_block_, cond) << dt << " " << rd << ", "
        << rn << ", " << rm;
 }
 
 void Disassembler::vfms(
     Condition cond, DataType dt, SRegister rd, SRegister rn, SRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVfms, Assembler::kFpNeon);
   os() << "vfms" << ConditionPrinter(it_block_, cond) << dt << " " << rd << ", "
        << rn << ", " << rm;
 }
 
 void Disassembler::vfnma(
     Condition cond, DataType dt, SRegister rd, SRegister rn, SRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVfnma, Assembler::kFpNeon);
   os() << "vfnma" << ConditionPrinter(it_block_, cond) << dt << " " << rd
        << ", " << rn << ", " << rm;
 }
 
 void Disassembler::vfnma(
     Condition cond, DataType dt, DRegister rd, DRegister rn, DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVfnma, Assembler::kFpNeon);
   os() << "vfnma" << ConditionPrinter(it_block_, cond) << dt << " " << rd
        << ", " << rn << ", " << rm;
 }
 
 void Disassembler::vfnms(
     Condition cond, DataType dt, SRegister rd, SRegister rn, SRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVfnms, Assembler::kFpNeon);
   os() << "vfnms" << ConditionPrinter(it_block_, cond) << dt << " " << rd
        << ", " << rn << ", " << rm;
 }
 
 void Disassembler::vfnms(
     Condition cond, DataType dt, DRegister rd, DRegister rn, DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVfnms, Assembler::kFpNeon);
   os() << "vfnms" << ConditionPrinter(it_block_, cond) << dt << " " << rd
        << ", " << rn << ", " << rm;
 }
 
 void Disassembler::vhadd(
     Condition cond, DataType dt, DRegister rd, DRegister rn, DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVhadd, Assembler::kFpNeon);
   os() << "vhadd" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -4492,6 +4883,7 @@ void Disassembler::vhadd(
 
 void Disassembler::vhadd(
     Condition cond, DataType dt, QRegister rd, QRegister rn, QRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVhadd, Assembler::kFpNeon);
   os() << "vhadd" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -4502,6 +4894,7 @@ void Disassembler::vhadd(
 
 void Disassembler::vhsub(
     Condition cond, DataType dt, DRegister rd, DRegister rn, DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVhsub, Assembler::kFpNeon);
   os() << "vhsub" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -4512,6 +4905,7 @@ void Disassembler::vhsub(
 
 void Disassembler::vhsub(
     Condition cond, DataType dt, QRegister rd, QRegister rn, QRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVhsub, Assembler::kFpNeon);
   os() << "vhsub" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -4524,6 +4918,7 @@ void Disassembler::vld1(Condition cond,
                         DataType dt,
                         const NeonRegisterList& nreglist,
                         const AlignedMemOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kVld1, Assembler::kFpNeon);
   os() << "vld1" << ConditionPrinter(it_block_, cond) << dt << " " << nreglist
        << ", " << PrintAlignedMemOperand(kVld1Location, operand);
 }
@@ -4532,6 +4927,7 @@ void Disassembler::vld2(Condition cond,
                         DataType dt,
                         const NeonRegisterList& nreglist,
                         const AlignedMemOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kVld2, Assembler::kFpNeon);
   os() << "vld2" << ConditionPrinter(it_block_, cond) << dt << " " << nreglist
        << ", " << PrintAlignedMemOperand(kVld2Location, operand);
 }
@@ -4540,6 +4936,7 @@ void Disassembler::vld3(Condition cond,
                         DataType dt,
                         const NeonRegisterList& nreglist,
                         const AlignedMemOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kVld3, Assembler::kFpNeon);
   os() << "vld3" << ConditionPrinter(it_block_, cond) << dt << " " << nreglist
        << ", " << PrintAlignedMemOperand(kVld3Location, operand);
 }
@@ -4548,6 +4945,7 @@ void Disassembler::vld3(Condition cond,
                         DataType dt,
                         const NeonRegisterList& nreglist,
                         const MemOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kVld3, Assembler::kFpNeon);
   os() << "vld3" << ConditionPrinter(it_block_, cond) << dt << " " << nreglist
        << ", " << PrintMemOperand(kVld3Location, operand);
 }
@@ -4556,6 +4954,7 @@ void Disassembler::vld4(Condition cond,
                         DataType dt,
                         const NeonRegisterList& nreglist,
                         const AlignedMemOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kVld4, Assembler::kFpNeon);
   os() << "vld4" << ConditionPrinter(it_block_, cond) << dt << " " << nreglist
        << ", " << PrintAlignedMemOperand(kVld4Location, operand);
 }
@@ -4565,6 +4964,7 @@ void Disassembler::vldm(Condition cond,
                         Register rn,
                         WriteBack write_back,
                         DRegisterList dreglist) {
+  os().SetCurrentInstruction(Assembler::kVldm, Assembler::kLoadStoreMultiple);
   os() << "vldm" << ConditionPrinter(it_block_, cond) << dt << " " << rn
        << write_back << ", " << dreglist;
 }
@@ -4574,6 +4974,7 @@ void Disassembler::vldm(Condition cond,
                         Register rn,
                         WriteBack write_back,
                         SRegisterList sreglist) {
+  os().SetCurrentInstruction(Assembler::kVldm, Assembler::kLoadStoreMultiple);
   os() << "vldm" << ConditionPrinter(it_block_, cond) << dt << " " << rn
        << write_back << ", " << sreglist;
 }
@@ -4583,6 +4984,7 @@ void Disassembler::vldmdb(Condition cond,
                           Register rn,
                           WriteBack write_back,
                           DRegisterList dreglist) {
+  os().SetCurrentInstruction(Assembler::kVldmdb, Assembler::kLoadStoreMultiple);
   os() << "vldmdb" << ConditionPrinter(it_block_, cond) << dt << " " << rn
        << write_back << ", " << dreglist;
 }
@@ -4592,6 +4994,7 @@ void Disassembler::vldmdb(Condition cond,
                           Register rn,
                           WriteBack write_back,
                           SRegisterList sreglist) {
+  os().SetCurrentInstruction(Assembler::kVldmdb, Assembler::kLoadStoreMultiple);
   os() << "vldmdb" << ConditionPrinter(it_block_, cond) << dt << " " << rn
        << write_back << ", " << sreglist;
 }
@@ -4601,6 +5004,7 @@ void Disassembler::vldmia(Condition cond,
                           Register rn,
                           WriteBack write_back,
                           DRegisterList dreglist) {
+  os().SetCurrentInstruction(Assembler::kVldmia, Assembler::kLoadStoreMultiple);
   os() << "vldmia" << ConditionPrinter(it_block_, cond) << dt << " " << rn
        << write_back << ", " << dreglist;
 }
@@ -4610,6 +5014,7 @@ void Disassembler::vldmia(Condition cond,
                           Register rn,
                           WriteBack write_back,
                           SRegisterList sreglist) {
+  os().SetCurrentInstruction(Assembler::kVldmia, Assembler::kLoadStoreMultiple);
   os() << "vldmia" << ConditionPrinter(it_block_, cond) << dt << " " << rn
        << write_back << ", " << sreglist;
 }
@@ -4618,6 +5023,7 @@ void Disassembler::vldr(Condition cond,
                         DataType dt,
                         DRegister rd,
                         Label* label) {
+  os().SetCurrentInstruction(Assembler::kVldr, Assembler::kFpNeon);
   os() << "vldr" << ConditionPrinter(it_block_, cond) << dt << " " << rd << ", "
        << PrintLabel(kLoadDoublePrecisionLocation, label, GetPc() & ~3);
 }
@@ -4626,6 +5032,7 @@ void Disassembler::vldr(Condition cond,
                         DataType dt,
                         DRegister rd,
                         const MemOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kVldr, Assembler::kFpNeon);
   os() << "vldr" << ConditionPrinter(it_block_, cond) << dt << " " << rd << ", "
        << PrintMemOperand(kLoadDoublePrecisionLocation, operand);
 }
@@ -4634,6 +5041,7 @@ void Disassembler::vldr(Condition cond,
                         DataType dt,
                         SRegister rd,
                         Label* label) {
+  os().SetCurrentInstruction(Assembler::kVldr, Assembler::kFpNeon);
   os() << "vldr" << ConditionPrinter(it_block_, cond) << dt << " " << rd << ", "
        << PrintLabel(kLoadSinglePrecisionLocation, label, GetPc() & ~3);
 }
@@ -4642,12 +5050,14 @@ void Disassembler::vldr(Condition cond,
                         DataType dt,
                         SRegister rd,
                         const MemOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kVldr, Assembler::kFpNeon);
   os() << "vldr" << ConditionPrinter(it_block_, cond) << dt << " " << rd << ", "
        << PrintMemOperand(kLoadSinglePrecisionLocation, operand);
 }
 
 void Disassembler::vmax(
     Condition cond, DataType dt, DRegister rd, DRegister rn, DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVmax, Assembler::kFpNeon);
   os() << "vmax" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -4658,6 +5068,7 @@ void Disassembler::vmax(
 
 void Disassembler::vmax(
     Condition cond, DataType dt, QRegister rd, QRegister rn, QRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVmax, Assembler::kFpNeon);
   os() << "vmax" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -4670,6 +5081,7 @@ void Disassembler::vmaxnm(DataType dt,
                           DRegister rd,
                           DRegister rn,
                           DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVmaxnm, Assembler::kFpNeon);
   os() << "vmaxnm" << dt << " " << rd << ", " << rn << ", " << rm;
 }
 
@@ -4677,6 +5089,7 @@ void Disassembler::vmaxnm(DataType dt,
                           QRegister rd,
                           QRegister rn,
                           QRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVmaxnm, Assembler::kFpNeon);
   os() << "vmaxnm" << dt << " " << rd << ", " << rn << ", " << rm;
 }
 
@@ -4684,11 +5097,13 @@ void Disassembler::vmaxnm(DataType dt,
                           SRegister rd,
                           SRegister rn,
                           SRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVmaxnm, Assembler::kFpNeon);
   os() << "vmaxnm" << dt << " " << rd << ", " << rn << ", " << rm;
 }
 
 void Disassembler::vmin(
     Condition cond, DataType dt, DRegister rd, DRegister rn, DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVmin, Assembler::kFpNeon);
   os() << "vmin" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -4699,6 +5114,7 @@ void Disassembler::vmin(
 
 void Disassembler::vmin(
     Condition cond, DataType dt, QRegister rd, QRegister rn, QRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVmin, Assembler::kFpNeon);
   os() << "vmin" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -4711,6 +5127,7 @@ void Disassembler::vminnm(DataType dt,
                           DRegister rd,
                           DRegister rn,
                           DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVminnm, Assembler::kFpNeon);
   os() << "vminnm" << dt << " " << rd << ", " << rn << ", " << rm;
 }
 
@@ -4718,6 +5135,7 @@ void Disassembler::vminnm(DataType dt,
                           QRegister rd,
                           QRegister rn,
                           QRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVminnm, Assembler::kFpNeon);
   os() << "vminnm" << dt << " " << rd << ", " << rn << ", " << rm;
 }
 
@@ -4725,99 +5143,116 @@ void Disassembler::vminnm(DataType dt,
                           SRegister rd,
                           SRegister rn,
                           SRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVminnm, Assembler::kFpNeon);
   os() << "vminnm" << dt << " " << rd << ", " << rn << ", " << rm;
 }
 
 void Disassembler::vmla(
     Condition cond, DataType dt, DRegister rd, DRegister rn, DRegisterLane rm) {
+  os().SetCurrentInstruction(Assembler::kVmla, Assembler::kFpNeon);
   os() << "vmla" << ConditionPrinter(it_block_, cond) << dt << " " << rd << ", "
        << rn << ", " << rm;
 }
 
 void Disassembler::vmla(
     Condition cond, DataType dt, QRegister rd, QRegister rn, DRegisterLane rm) {
+  os().SetCurrentInstruction(Assembler::kVmla, Assembler::kFpNeon);
   os() << "vmla" << ConditionPrinter(it_block_, cond) << dt << " " << rd << ", "
        << rn << ", " << rm;
 }
 
 void Disassembler::vmla(
     Condition cond, DataType dt, DRegister rd, DRegister rn, DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVmla, Assembler::kFpNeon);
   os() << "vmla" << ConditionPrinter(it_block_, cond) << dt << " " << rd << ", "
        << rn << ", " << rm;
 }
 
 void Disassembler::vmla(
     Condition cond, DataType dt, QRegister rd, QRegister rn, QRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVmla, Assembler::kFpNeon);
   os() << "vmla" << ConditionPrinter(it_block_, cond) << dt << " " << rd << ", "
        << rn << ", " << rm;
 }
 
 void Disassembler::vmla(
     Condition cond, DataType dt, SRegister rd, SRegister rn, SRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVmla, Assembler::kFpNeon);
   os() << "vmla" << ConditionPrinter(it_block_, cond) << dt << " " << rd << ", "
        << rn << ", " << rm;
 }
 
 void Disassembler::vmlal(
     Condition cond, DataType dt, QRegister rd, DRegister rn, DRegisterLane rm) {
+  os().SetCurrentInstruction(Assembler::kVmlal, Assembler::kFpNeon);
   os() << "vmlal" << ConditionPrinter(it_block_, cond) << dt << " " << rd
        << ", " << rn << ", " << rm;
 }
 
 void Disassembler::vmlal(
     Condition cond, DataType dt, QRegister rd, DRegister rn, DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVmlal, Assembler::kFpNeon);
   os() << "vmlal" << ConditionPrinter(it_block_, cond) << dt << " " << rd
        << ", " << rn << ", " << rm;
 }
 
 void Disassembler::vmls(
     Condition cond, DataType dt, DRegister rd, DRegister rn, DRegisterLane rm) {
+  os().SetCurrentInstruction(Assembler::kVmls, Assembler::kFpNeon);
   os() << "vmls" << ConditionPrinter(it_block_, cond) << dt << " " << rd << ", "
        << rn << ", " << rm;
 }
 
 void Disassembler::vmls(
     Condition cond, DataType dt, QRegister rd, QRegister rn, DRegisterLane rm) {
+  os().SetCurrentInstruction(Assembler::kVmls, Assembler::kFpNeon);
   os() << "vmls" << ConditionPrinter(it_block_, cond) << dt << " " << rd << ", "
        << rn << ", " << rm;
 }
 
 void Disassembler::vmls(
     Condition cond, DataType dt, DRegister rd, DRegister rn, DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVmls, Assembler::kFpNeon);
   os() << "vmls" << ConditionPrinter(it_block_, cond) << dt << " " << rd << ", "
        << rn << ", " << rm;
 }
 
 void Disassembler::vmls(
     Condition cond, DataType dt, QRegister rd, QRegister rn, QRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVmls, Assembler::kFpNeon);
   os() << "vmls" << ConditionPrinter(it_block_, cond) << dt << " " << rd << ", "
        << rn << ", " << rm;
 }
 
 void Disassembler::vmls(
     Condition cond, DataType dt, SRegister rd, SRegister rn, SRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVmls, Assembler::kFpNeon);
   os() << "vmls" << ConditionPrinter(it_block_, cond) << dt << " " << rd << ", "
        << rn << ", " << rm;
 }
 
 void Disassembler::vmlsl(
     Condition cond, DataType dt, QRegister rd, DRegister rn, DRegisterLane rm) {
+  os().SetCurrentInstruction(Assembler::kVmlsl, Assembler::kFpNeon);
   os() << "vmlsl" << ConditionPrinter(it_block_, cond) << dt << " " << rd
        << ", " << rn << ", " << rm;
 }
 
 void Disassembler::vmlsl(
     Condition cond, DataType dt, QRegister rd, DRegister rn, DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVmlsl, Assembler::kFpNeon);
   os() << "vmlsl" << ConditionPrinter(it_block_, cond) << dt << " " << rd
        << ", " << rn << ", " << rm;
 }
 
 void Disassembler::vmov(Condition cond, Register rt, SRegister rn) {
+  os().SetCurrentInstruction(Assembler::kVmov, Assembler::kFpNeon);
   os() << "vmov" << ConditionPrinter(it_block_, cond) << " " << rt << ", "
        << rn;
 }
 
 void Disassembler::vmov(Condition cond, SRegister rn, Register rt) {
+  os().SetCurrentInstruction(Assembler::kVmov, Assembler::kFpNeon);
   os() << "vmov" << ConditionPrinter(it_block_, cond) << " " << rn << ", "
        << rt;
 }
@@ -4826,6 +5261,7 @@ void Disassembler::vmov(Condition cond,
                         Register rt,
                         Register rt2,
                         DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVmov, Assembler::kFpNeon);
   os() << "vmov" << ConditionPrinter(it_block_, cond) << " " << rt << ", "
        << rt2 << ", " << rm;
 }
@@ -4834,18 +5270,21 @@ void Disassembler::vmov(Condition cond,
                         DRegister rm,
                         Register rt,
                         Register rt2) {
+  os().SetCurrentInstruction(Assembler::kVmov, Assembler::kFpNeon);
   os() << "vmov" << ConditionPrinter(it_block_, cond) << " " << rm << ", " << rt
        << ", " << rt2;
 }
 
 void Disassembler::vmov(
     Condition cond, Register rt, Register rt2, SRegister rm, SRegister rm1) {
+  os().SetCurrentInstruction(Assembler::kVmov, Assembler::kFpNeon);
   os() << "vmov" << ConditionPrinter(it_block_, cond) << " " << rt << ", "
        << rt2 << ", " << rm << ", " << rm1;
 }
 
 void Disassembler::vmov(
     Condition cond, SRegister rm, SRegister rm1, Register rt, Register rt2) {
+  os().SetCurrentInstruction(Assembler::kVmov, Assembler::kFpNeon);
   os() << "vmov" << ConditionPrinter(it_block_, cond) << " " << rm << ", "
        << rm1 << ", " << rt << ", " << rt2;
 }
@@ -4854,6 +5293,7 @@ void Disassembler::vmov(Condition cond,
                         DataType dt,
                         DRegisterLane rd,
                         Register rt) {
+  os().SetCurrentInstruction(Assembler::kVmov, Assembler::kFpNeon);
   os() << "vmov" << ConditionPrinter(it_block_, cond) << dt << " " << rd << ", "
        << rt;
 }
@@ -4862,6 +5302,7 @@ void Disassembler::vmov(Condition cond,
                         DataType dt,
                         DRegister rd,
                         const DOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kVmov, Assembler::kFpNeon);
   os() << "vmov" << ConditionPrinter(it_block_, cond) << dt << " " << rd << ", "
        << operand;
 }
@@ -4870,6 +5311,7 @@ void Disassembler::vmov(Condition cond,
                         DataType dt,
                         QRegister rd,
                         const QOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kVmov, Assembler::kFpNeon);
   os() << "vmov" << ConditionPrinter(it_block_, cond) << dt << " " << rd << ", "
        << operand;
 }
@@ -4878,6 +5320,7 @@ void Disassembler::vmov(Condition cond,
                         DataType dt,
                         SRegister rd,
                         const SOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kVmov, Assembler::kFpNeon);
   os() << "vmov" << ConditionPrinter(it_block_, cond) << dt << " " << rd << ", "
        << operand;
 }
@@ -4886,6 +5329,7 @@ void Disassembler::vmov(Condition cond,
                         DataType dt,
                         Register rt,
                         DRegisterLane rn) {
+  os().SetCurrentInstruction(Assembler::kVmov, Assembler::kFpNeon);
   os() << "vmov" << ConditionPrinter(it_block_, cond) << dt << " " << rt << ", "
        << rn;
 }
@@ -4894,6 +5338,7 @@ void Disassembler::vmovl(Condition cond,
                          DataType dt,
                          QRegister rd,
                          DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVmovl, Assembler::kFpNeon);
   os() << "vmovl" << ConditionPrinter(it_block_, cond) << dt << " " << rd
        << ", " << rm;
 }
@@ -4902,6 +5347,7 @@ void Disassembler::vmovn(Condition cond,
                          DataType dt,
                          DRegister rd,
                          QRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVmovn, Assembler::kFpNeon);
   os() << "vmovn" << ConditionPrinter(it_block_, cond) << dt << " " << rd
        << ", " << rm;
 }
@@ -4909,6 +5355,7 @@ void Disassembler::vmovn(Condition cond,
 void Disassembler::vmrs(Condition cond,
                         RegisterOrAPSR_nzcv rt,
                         SpecialFPRegister spec_reg) {
+  os().SetCurrentInstruction(Assembler::kVmrs, Assembler::kFpNeon);
   os() << "vmrs" << ConditionPrinter(it_block_, cond) << " " << rt << ", "
        << spec_reg;
 }
@@ -4916,6 +5363,7 @@ void Disassembler::vmrs(Condition cond,
 void Disassembler::vmsr(Condition cond,
                         SpecialFPRegister spec_reg,
                         Register rt) {
+  os().SetCurrentInstruction(Assembler::kVmsr, Assembler::kFpNeon);
   os() << "vmsr" << ConditionPrinter(it_block_, cond) << " " << spec_reg << ", "
        << rt;
 }
@@ -4926,6 +5374,7 @@ void Disassembler::vmul(Condition cond,
                         DRegister rn,
                         DRegister dm,
                         unsigned index) {
+  os().SetCurrentInstruction(Assembler::kVmul, Assembler::kFpNeon);
   os() << "vmul" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -4940,6 +5389,7 @@ void Disassembler::vmul(Condition cond,
                         QRegister rn,
                         DRegister dm,
                         unsigned index) {
+  os().SetCurrentInstruction(Assembler::kVmul, Assembler::kFpNeon);
   os() << "vmul" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -4950,6 +5400,7 @@ void Disassembler::vmul(Condition cond,
 
 void Disassembler::vmul(
     Condition cond, DataType dt, DRegister rd, DRegister rn, DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVmul, Assembler::kFpNeon);
   os() << "vmul" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -4960,6 +5411,7 @@ void Disassembler::vmul(
 
 void Disassembler::vmul(
     Condition cond, DataType dt, QRegister rd, QRegister rn, QRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVmul, Assembler::kFpNeon);
   os() << "vmul" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -4970,6 +5422,7 @@ void Disassembler::vmul(
 
 void Disassembler::vmul(
     Condition cond, DataType dt, SRegister rd, SRegister rn, SRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVmul, Assembler::kFpNeon);
   os() << "vmul" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -4984,12 +5437,14 @@ void Disassembler::vmull(Condition cond,
                          DRegister rn,
                          DRegister dm,
                          unsigned index) {
+  os().SetCurrentInstruction(Assembler::kVmull, Assembler::kFpNeon);
   os() << "vmull" << ConditionPrinter(it_block_, cond) << dt << " " << rd
        << ", " << rn << ", " << dm << "[" << index << "]";
 }
 
 void Disassembler::vmull(
     Condition cond, DataType dt, QRegister rd, DRegister rn, DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVmull, Assembler::kFpNeon);
   os() << "vmull" << ConditionPrinter(it_block_, cond) << dt << " " << rd
        << ", " << rn << ", " << rm;
 }
@@ -4998,6 +5453,7 @@ void Disassembler::vmvn(Condition cond,
                         DataType dt,
                         DRegister rd,
                         const DOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kVmvn, Assembler::kFpNeon);
   os() << "vmvn" << ConditionPrinter(it_block_, cond) << dt << " " << rd << ", "
        << operand;
 }
@@ -5006,6 +5462,7 @@ void Disassembler::vmvn(Condition cond,
                         DataType dt,
                         QRegister rd,
                         const QOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kVmvn, Assembler::kFpNeon);
   os() << "vmvn" << ConditionPrinter(it_block_, cond) << dt << " " << rd << ", "
        << operand;
 }
@@ -5014,6 +5471,7 @@ void Disassembler::vneg(Condition cond,
                         DataType dt,
                         DRegister rd,
                         DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVneg, Assembler::kFpNeon);
   os() << "vneg" << ConditionPrinter(it_block_, cond) << dt << " " << rd << ", "
        << rm;
 }
@@ -5022,6 +5480,7 @@ void Disassembler::vneg(Condition cond,
                         DataType dt,
                         QRegister rd,
                         QRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVneg, Assembler::kFpNeon);
   os() << "vneg" << ConditionPrinter(it_block_, cond) << dt << " " << rd << ", "
        << rm;
 }
@@ -5030,36 +5489,42 @@ void Disassembler::vneg(Condition cond,
                         DataType dt,
                         SRegister rd,
                         SRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVneg, Assembler::kFpNeon);
   os() << "vneg" << ConditionPrinter(it_block_, cond) << dt << " " << rd << ", "
        << rm;
 }
 
 void Disassembler::vnmla(
     Condition cond, DataType dt, SRegister rd, SRegister rn, SRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVnmla, Assembler::kFpNeon);
   os() << "vnmla" << ConditionPrinter(it_block_, cond) << dt << " " << rd
        << ", " << rn << ", " << rm;
 }
 
 void Disassembler::vnmla(
     Condition cond, DataType dt, DRegister rd, DRegister rn, DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVnmla, Assembler::kFpNeon);
   os() << "vnmla" << ConditionPrinter(it_block_, cond) << dt << " " << rd
        << ", " << rn << ", " << rm;
 }
 
 void Disassembler::vnmls(
     Condition cond, DataType dt, SRegister rd, SRegister rn, SRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVnmls, Assembler::kFpNeon);
   os() << "vnmls" << ConditionPrinter(it_block_, cond) << dt << " " << rd
        << ", " << rn << ", " << rm;
 }
 
 void Disassembler::vnmls(
     Condition cond, DataType dt, DRegister rd, DRegister rn, DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVnmls, Assembler::kFpNeon);
   os() << "vnmls" << ConditionPrinter(it_block_, cond) << dt << " " << rd
        << ", " << rn << ", " << rm;
 }
 
 void Disassembler::vnmul(
     Condition cond, DataType dt, SRegister rd, SRegister rn, SRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVnmul, Assembler::kFpNeon);
   os() << "vnmul" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -5070,6 +5535,7 @@ void Disassembler::vnmul(
 
 void Disassembler::vnmul(
     Condition cond, DataType dt, DRegister rd, DRegister rn, DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVnmul, Assembler::kFpNeon);
   os() << "vnmul" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -5083,6 +5549,7 @@ void Disassembler::vorn(Condition cond,
                         DRegister rd,
                         DRegister rn,
                         const DOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kVorn, Assembler::kFpNeon);
   os() << "vorn" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -5096,6 +5563,7 @@ void Disassembler::vorn(Condition cond,
                         QRegister rd,
                         QRegister rn,
                         const QOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kVorn, Assembler::kFpNeon);
   os() << "vorn" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -5109,6 +5577,7 @@ void Disassembler::vorr(Condition cond,
                         DRegister rd,
                         DRegister rn,
                         const DOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kVorr, Assembler::kFpNeon);
   os() << "vorr" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -5122,6 +5591,7 @@ void Disassembler::vorr(Condition cond,
                         QRegister rd,
                         QRegister rn,
                         const QOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kVorr, Assembler::kFpNeon);
   os() << "vorr" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -5134,6 +5604,7 @@ void Disassembler::vpadal(Condition cond,
                           DataType dt,
                           DRegister rd,
                           DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVpadal, Assembler::kFpNeon);
   os() << "vpadal" << ConditionPrinter(it_block_, cond) << dt << " " << rd
        << ", " << rm;
 }
@@ -5142,12 +5613,14 @@ void Disassembler::vpadal(Condition cond,
                           DataType dt,
                           QRegister rd,
                           QRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVpadal, Assembler::kFpNeon);
   os() << "vpadal" << ConditionPrinter(it_block_, cond) << dt << " " << rd
        << ", " << rm;
 }
 
 void Disassembler::vpadd(
     Condition cond, DataType dt, DRegister rd, DRegister rn, DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVpadd, Assembler::kFpNeon);
   os() << "vpadd" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -5160,6 +5633,7 @@ void Disassembler::vpaddl(Condition cond,
                           DataType dt,
                           DRegister rd,
                           DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVpaddl, Assembler::kFpNeon);
   os() << "vpaddl" << ConditionPrinter(it_block_, cond) << dt << " " << rd
        << ", " << rm;
 }
@@ -5168,12 +5642,14 @@ void Disassembler::vpaddl(Condition cond,
                           DataType dt,
                           QRegister rd,
                           QRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVpaddl, Assembler::kFpNeon);
   os() << "vpaddl" << ConditionPrinter(it_block_, cond) << dt << " " << rd
        << ", " << rm;
 }
 
 void Disassembler::vpmax(
     Condition cond, DataType dt, DRegister rd, DRegister rn, DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVpmax, Assembler::kFpNeon);
   os() << "vpmax" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -5184,6 +5660,7 @@ void Disassembler::vpmax(
 
 void Disassembler::vpmin(
     Condition cond, DataType dt, DRegister rd, DRegister rn, DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVpmin, Assembler::kFpNeon);
   os() << "vpmin" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -5193,18 +5670,22 @@ void Disassembler::vpmin(
 }
 
 void Disassembler::vpop(Condition cond, DataType dt, DRegisterList dreglist) {
+  os().SetCurrentInstruction(Assembler::kVpop, Assembler::kFpNeon);
   os() << "vpop" << ConditionPrinter(it_block_, cond) << dt << " " << dreglist;
 }
 
 void Disassembler::vpop(Condition cond, DataType dt, SRegisterList sreglist) {
+  os().SetCurrentInstruction(Assembler::kVpop, Assembler::kFpNeon);
   os() << "vpop" << ConditionPrinter(it_block_, cond) << dt << " " << sreglist;
 }
 
 void Disassembler::vpush(Condition cond, DataType dt, DRegisterList dreglist) {
+  os().SetCurrentInstruction(Assembler::kVpush, Assembler::kFpNeon);
   os() << "vpush" << ConditionPrinter(it_block_, cond) << dt << " " << dreglist;
 }
 
 void Disassembler::vpush(Condition cond, DataType dt, SRegisterList sreglist) {
+  os().SetCurrentInstruction(Assembler::kVpush, Assembler::kFpNeon);
   os() << "vpush" << ConditionPrinter(it_block_, cond) << dt << " " << sreglist;
 }
 
@@ -5212,6 +5693,7 @@ void Disassembler::vqabs(Condition cond,
                          DataType dt,
                          DRegister rd,
                          DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVqabs, Assembler::kFpNeon);
   os() << "vqabs" << ConditionPrinter(it_block_, cond) << dt << " " << rd
        << ", " << rm;
 }
@@ -5220,12 +5702,14 @@ void Disassembler::vqabs(Condition cond,
                          DataType dt,
                          QRegister rd,
                          QRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVqabs, Assembler::kFpNeon);
   os() << "vqabs" << ConditionPrinter(it_block_, cond) << dt << " " << rd
        << ", " << rm;
 }
 
 void Disassembler::vqadd(
     Condition cond, DataType dt, DRegister rd, DRegister rn, DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVqadd, Assembler::kFpNeon);
   os() << "vqadd" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -5236,6 +5720,7 @@ void Disassembler::vqadd(
 
 void Disassembler::vqadd(
     Condition cond, DataType dt, QRegister rd, QRegister rn, QRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVqadd, Assembler::kFpNeon);
   os() << "vqadd" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -5246,6 +5731,7 @@ void Disassembler::vqadd(
 
 void Disassembler::vqdmlal(
     Condition cond, DataType dt, QRegister rd, DRegister rn, DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVqdmlal, Assembler::kFpNeon);
   os() << "vqdmlal" << ConditionPrinter(it_block_, cond) << dt << " " << rd
        << ", " << rn << ", " << rm;
 }
@@ -5256,12 +5742,14 @@ void Disassembler::vqdmlal(Condition cond,
                            DRegister rn,
                            DRegister dm,
                            unsigned index) {
+  os().SetCurrentInstruction(Assembler::kVqdmlal, Assembler::kFpNeon);
   os() << "vqdmlal" << ConditionPrinter(it_block_, cond) << dt << " " << rd
        << ", " << rn << ", " << dm << "[" << index << "]";
 }
 
 void Disassembler::vqdmlsl(
     Condition cond, DataType dt, QRegister rd, DRegister rn, DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVqdmlsl, Assembler::kFpNeon);
   os() << "vqdmlsl" << ConditionPrinter(it_block_, cond) << dt << " " << rd
        << ", " << rn << ", " << rm;
 }
@@ -5272,12 +5760,14 @@ void Disassembler::vqdmlsl(Condition cond,
                            DRegister rn,
                            DRegister dm,
                            unsigned index) {
+  os().SetCurrentInstruction(Assembler::kVqdmlsl, Assembler::kFpNeon);
   os() << "vqdmlsl" << ConditionPrinter(it_block_, cond) << dt << " " << rd
        << ", " << rn << ", " << dm << "[" << index << "]";
 }
 
 void Disassembler::vqdmulh(
     Condition cond, DataType dt, DRegister rd, DRegister rn, DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVqdmulh, Assembler::kFpNeon);
   os() << "vqdmulh" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -5288,6 +5778,7 @@ void Disassembler::vqdmulh(
 
 void Disassembler::vqdmulh(
     Condition cond, DataType dt, QRegister rd, QRegister rn, QRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVqdmulh, Assembler::kFpNeon);
   os() << "vqdmulh" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -5298,6 +5789,7 @@ void Disassembler::vqdmulh(
 
 void Disassembler::vqdmulh(
     Condition cond, DataType dt, DRegister rd, DRegister rn, DRegisterLane rm) {
+  os().SetCurrentInstruction(Assembler::kVqdmulh, Assembler::kFpNeon);
   os() << "vqdmulh" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -5308,6 +5800,7 @@ void Disassembler::vqdmulh(
 
 void Disassembler::vqdmulh(
     Condition cond, DataType dt, QRegister rd, QRegister rn, DRegisterLane rm) {
+  os().SetCurrentInstruction(Assembler::kVqdmulh, Assembler::kFpNeon);
   os() << "vqdmulh" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -5318,12 +5811,14 @@ void Disassembler::vqdmulh(
 
 void Disassembler::vqdmull(
     Condition cond, DataType dt, QRegister rd, DRegister rn, DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVqdmull, Assembler::kFpNeon);
   os() << "vqdmull" << ConditionPrinter(it_block_, cond) << dt << " " << rd
        << ", " << rn << ", " << rm;
 }
 
 void Disassembler::vqdmull(
     Condition cond, DataType dt, QRegister rd, DRegister rn, DRegisterLane rm) {
+  os().SetCurrentInstruction(Assembler::kVqdmull, Assembler::kFpNeon);
   os() << "vqdmull" << ConditionPrinter(it_block_, cond) << dt << " " << rd
        << ", " << rn << ", " << rm;
 }
@@ -5332,6 +5827,7 @@ void Disassembler::vqmovn(Condition cond,
                           DataType dt,
                           DRegister rd,
                           QRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVqmovn, Assembler::kFpNeon);
   os() << "vqmovn" << ConditionPrinter(it_block_, cond) << dt << " " << rd
        << ", " << rm;
 }
@@ -5340,6 +5836,7 @@ void Disassembler::vqmovun(Condition cond,
                            DataType dt,
                            DRegister rd,
                            QRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVqmovun, Assembler::kFpNeon);
   os() << "vqmovun" << ConditionPrinter(it_block_, cond) << dt << " " << rd
        << ", " << rm;
 }
@@ -5348,6 +5845,7 @@ void Disassembler::vqneg(Condition cond,
                          DataType dt,
                          DRegister rd,
                          DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVqneg, Assembler::kFpNeon);
   os() << "vqneg" << ConditionPrinter(it_block_, cond) << dt << " " << rd
        << ", " << rm;
 }
@@ -5356,12 +5854,14 @@ void Disassembler::vqneg(Condition cond,
                          DataType dt,
                          QRegister rd,
                          QRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVqneg, Assembler::kFpNeon);
   os() << "vqneg" << ConditionPrinter(it_block_, cond) << dt << " " << rd
        << ", " << rm;
 }
 
 void Disassembler::vqrdmulh(
     Condition cond, DataType dt, DRegister rd, DRegister rn, DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVqrdmulh, Assembler::kFpNeon);
   os() << "vqrdmulh" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -5372,6 +5872,7 @@ void Disassembler::vqrdmulh(
 
 void Disassembler::vqrdmulh(
     Condition cond, DataType dt, QRegister rd, QRegister rn, QRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVqrdmulh, Assembler::kFpNeon);
   os() << "vqrdmulh" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -5382,6 +5883,7 @@ void Disassembler::vqrdmulh(
 
 void Disassembler::vqrdmulh(
     Condition cond, DataType dt, DRegister rd, DRegister rn, DRegisterLane rm) {
+  os().SetCurrentInstruction(Assembler::kVqrdmulh, Assembler::kFpNeon);
   os() << "vqrdmulh" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -5392,6 +5894,7 @@ void Disassembler::vqrdmulh(
 
 void Disassembler::vqrdmulh(
     Condition cond, DataType dt, QRegister rd, QRegister rn, DRegisterLane rm) {
+  os().SetCurrentInstruction(Assembler::kVqrdmulh, Assembler::kFpNeon);
   os() << "vqrdmulh" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -5402,6 +5905,7 @@ void Disassembler::vqrdmulh(
 
 void Disassembler::vqrshl(
     Condition cond, DataType dt, DRegister rd, DRegister rm, DRegister rn) {
+  os().SetCurrentInstruction(Assembler::kVqrshl, Assembler::kFpNeon);
   os() << "vqrshl" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rm)) {
@@ -5412,6 +5916,7 @@ void Disassembler::vqrshl(
 
 void Disassembler::vqrshl(
     Condition cond, DataType dt, QRegister rd, QRegister rm, QRegister rn) {
+  os().SetCurrentInstruction(Assembler::kVqrshl, Assembler::kFpNeon);
   os() << "vqrshl" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rm)) {
@@ -5425,6 +5930,7 @@ void Disassembler::vqrshrn(Condition cond,
                            DRegister rd,
                            QRegister rm,
                            const QOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kVqrshrn, Assembler::kFpNeon);
   os() << "vqrshrn" << ConditionPrinter(it_block_, cond) << dt << " " << rd
        << ", " << rm << ", " << operand;
 }
@@ -5434,6 +5940,7 @@ void Disassembler::vqrshrun(Condition cond,
                             DRegister rd,
                             QRegister rm,
                             const QOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kVqrshrun, Assembler::kFpNeon);
   os() << "vqrshrun" << ConditionPrinter(it_block_, cond) << dt << " " << rd
        << ", " << rm << ", " << operand;
 }
@@ -5443,6 +5950,7 @@ void Disassembler::vqshl(Condition cond,
                          DRegister rd,
                          DRegister rm,
                          const DOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kVqshl, Assembler::kFpNeon);
   os() << "vqshl" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rm)) {
@@ -5456,6 +5964,7 @@ void Disassembler::vqshl(Condition cond,
                          QRegister rd,
                          QRegister rm,
                          const QOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kVqshl, Assembler::kFpNeon);
   os() << "vqshl" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rm)) {
@@ -5469,6 +5978,7 @@ void Disassembler::vqshlu(Condition cond,
                           DRegister rd,
                           DRegister rm,
                           const DOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kVqshlu, Assembler::kFpNeon);
   os() << "vqshlu" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rm)) {
@@ -5482,6 +5992,7 @@ void Disassembler::vqshlu(Condition cond,
                           QRegister rd,
                           QRegister rm,
                           const QOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kVqshlu, Assembler::kFpNeon);
   os() << "vqshlu" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rm)) {
@@ -5495,6 +6006,7 @@ void Disassembler::vqshrn(Condition cond,
                           DRegister rd,
                           QRegister rm,
                           const QOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kVqshrn, Assembler::kFpNeon);
   os() << "vqshrn" << ConditionPrinter(it_block_, cond) << dt << " " << rd
        << ", " << rm << ", " << operand;
 }
@@ -5504,12 +6016,14 @@ void Disassembler::vqshrun(Condition cond,
                            DRegister rd,
                            QRegister rm,
                            const QOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kVqshrun, Assembler::kFpNeon);
   os() << "vqshrun" << ConditionPrinter(it_block_, cond) << dt << " " << rd
        << ", " << rm << ", " << operand;
 }
 
 void Disassembler::vqsub(
     Condition cond, DataType dt, DRegister rd, DRegister rn, DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVqsub, Assembler::kFpNeon);
   os() << "vqsub" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -5520,6 +6034,7 @@ void Disassembler::vqsub(
 
 void Disassembler::vqsub(
     Condition cond, DataType dt, QRegister rd, QRegister rn, QRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVqsub, Assembler::kFpNeon);
   os() << "vqsub" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -5530,6 +6045,7 @@ void Disassembler::vqsub(
 
 void Disassembler::vraddhn(
     Condition cond, DataType dt, DRegister rd, QRegister rn, QRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVraddhn, Assembler::kFpNeon);
   os() << "vraddhn" << ConditionPrinter(it_block_, cond) << dt << " " << rd
        << ", " << rn << ", " << rm;
 }
@@ -5538,6 +6054,7 @@ void Disassembler::vrecpe(Condition cond,
                           DataType dt,
                           DRegister rd,
                           DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVrecpe, Assembler::kFpNeon);
   os() << "vrecpe" << ConditionPrinter(it_block_, cond) << dt << " " << rd
        << ", " << rm;
 }
@@ -5546,12 +6063,14 @@ void Disassembler::vrecpe(Condition cond,
                           DataType dt,
                           QRegister rd,
                           QRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVrecpe, Assembler::kFpNeon);
   os() << "vrecpe" << ConditionPrinter(it_block_, cond) << dt << " " << rd
        << ", " << rm;
 }
 
 void Disassembler::vrecps(
     Condition cond, DataType dt, DRegister rd, DRegister rn, DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVrecps, Assembler::kFpNeon);
   os() << "vrecps" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -5562,6 +6081,7 @@ void Disassembler::vrecps(
 
 void Disassembler::vrecps(
     Condition cond, DataType dt, QRegister rd, QRegister rn, QRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVrecps, Assembler::kFpNeon);
   os() << "vrecps" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -5574,6 +6094,7 @@ void Disassembler::vrev16(Condition cond,
                           DataType dt,
                           DRegister rd,
                           DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVrev16, Assembler::kFpNeon);
   os() << "vrev16" << ConditionPrinter(it_block_, cond) << dt << " " << rd
        << ", " << rm;
 }
@@ -5582,6 +6103,7 @@ void Disassembler::vrev16(Condition cond,
                           DataType dt,
                           QRegister rd,
                           QRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVrev16, Assembler::kFpNeon);
   os() << "vrev16" << ConditionPrinter(it_block_, cond) << dt << " " << rd
        << ", " << rm;
 }
@@ -5590,6 +6112,7 @@ void Disassembler::vrev32(Condition cond,
                           DataType dt,
                           DRegister rd,
                           DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVrev32, Assembler::kFpNeon);
   os() << "vrev32" << ConditionPrinter(it_block_, cond) << dt << " " << rd
        << ", " << rm;
 }
@@ -5598,6 +6121,7 @@ void Disassembler::vrev32(Condition cond,
                           DataType dt,
                           QRegister rd,
                           QRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVrev32, Assembler::kFpNeon);
   os() << "vrev32" << ConditionPrinter(it_block_, cond) << dt << " " << rd
        << ", " << rm;
 }
@@ -5606,6 +6130,7 @@ void Disassembler::vrev64(Condition cond,
                           DataType dt,
                           DRegister rd,
                           DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVrev64, Assembler::kFpNeon);
   os() << "vrev64" << ConditionPrinter(it_block_, cond) << dt << " " << rd
        << ", " << rm;
 }
@@ -5614,12 +6139,14 @@ void Disassembler::vrev64(Condition cond,
                           DataType dt,
                           QRegister rd,
                           QRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVrev64, Assembler::kFpNeon);
   os() << "vrev64" << ConditionPrinter(it_block_, cond) << dt << " " << rd
        << ", " << rm;
 }
 
 void Disassembler::vrhadd(
     Condition cond, DataType dt, DRegister rd, DRegister rn, DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVrhadd, Assembler::kFpNeon);
   os() << "vrhadd" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -5630,6 +6157,7 @@ void Disassembler::vrhadd(
 
 void Disassembler::vrhadd(
     Condition cond, DataType dt, QRegister rd, QRegister rn, QRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVrhadd, Assembler::kFpNeon);
   os() << "vrhadd" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -5642,6 +6170,7 @@ void Disassembler::vrinta(DataType dt1,
                           DataType dt2,
                           DRegister rd,
                           DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVrinta, Assembler::kFpNeon);
   os() << "vrinta" << dt1 << dt2 << " " << rd << ", " << rm;
 }
 
@@ -5649,6 +6178,7 @@ void Disassembler::vrinta(DataType dt1,
                           DataType dt2,
                           QRegister rd,
                           QRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVrinta, Assembler::kFpNeon);
   os() << "vrinta" << dt1 << dt2 << " " << rd << ", " << rm;
 }
 
@@ -5656,6 +6186,7 @@ void Disassembler::vrinta(DataType dt1,
                           DataType dt2,
                           SRegister rd,
                           SRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVrinta, Assembler::kFpNeon);
   os() << "vrinta" << dt1 << dt2 << " " << rd << ", " << rm;
 }
 
@@ -5663,6 +6194,7 @@ void Disassembler::vrintm(DataType dt1,
                           DataType dt2,
                           DRegister rd,
                           DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVrintm, Assembler::kFpNeon);
   os() << "vrintm" << dt1 << dt2 << " " << rd << ", " << rm;
 }
 
@@ -5670,6 +6202,7 @@ void Disassembler::vrintm(DataType dt1,
                           DataType dt2,
                           QRegister rd,
                           QRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVrintm, Assembler::kFpNeon);
   os() << "vrintm" << dt1 << dt2 << " " << rd << ", " << rm;
 }
 
@@ -5677,6 +6210,7 @@ void Disassembler::vrintm(DataType dt1,
                           DataType dt2,
                           SRegister rd,
                           SRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVrintm, Assembler::kFpNeon);
   os() << "vrintm" << dt1 << dt2 << " " << rd << ", " << rm;
 }
 
@@ -5684,6 +6218,7 @@ void Disassembler::vrintn(DataType dt1,
                           DataType dt2,
                           DRegister rd,
                           DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVrintn, Assembler::kFpNeon);
   os() << "vrintn" << dt1 << dt2 << " " << rd << ", " << rm;
 }
 
@@ -5691,6 +6226,7 @@ void Disassembler::vrintn(DataType dt1,
                           DataType dt2,
                           QRegister rd,
                           QRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVrintn, Assembler::kFpNeon);
   os() << "vrintn" << dt1 << dt2 << " " << rd << ", " << rm;
 }
 
@@ -5698,6 +6234,7 @@ void Disassembler::vrintn(DataType dt1,
                           DataType dt2,
                           SRegister rd,
                           SRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVrintn, Assembler::kFpNeon);
   os() << "vrintn" << dt1 << dt2 << " " << rd << ", " << rm;
 }
 
@@ -5705,6 +6242,7 @@ void Disassembler::vrintp(DataType dt1,
                           DataType dt2,
                           DRegister rd,
                           DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVrintp, Assembler::kFpNeon);
   os() << "vrintp" << dt1 << dt2 << " " << rd << ", " << rm;
 }
 
@@ -5712,6 +6250,7 @@ void Disassembler::vrintp(DataType dt1,
                           DataType dt2,
                           QRegister rd,
                           QRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVrintp, Assembler::kFpNeon);
   os() << "vrintp" << dt1 << dt2 << " " << rd << ", " << rm;
 }
 
@@ -5719,23 +6258,27 @@ void Disassembler::vrintp(DataType dt1,
                           DataType dt2,
                           SRegister rd,
                           SRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVrintp, Assembler::kFpNeon);
   os() << "vrintp" << dt1 << dt2 << " " << rd << ", " << rm;
 }
 
 void Disassembler::vrintr(
     Condition cond, DataType dt1, DataType dt2, SRegister rd, SRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVrintr, Assembler::kFpNeon);
   os() << "vrintr" << ConditionPrinter(it_block_, cond) << dt1 << dt2 << " "
        << rd << ", " << rm;
 }
 
 void Disassembler::vrintr(
     Condition cond, DataType dt1, DataType dt2, DRegister rd, DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVrintr, Assembler::kFpNeon);
   os() << "vrintr" << ConditionPrinter(it_block_, cond) << dt1 << dt2 << " "
        << rd << ", " << rm;
 }
 
 void Disassembler::vrintx(
     Condition cond, DataType dt1, DataType dt2, DRegister rd, DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVrintx, Assembler::kFpNeon);
   os() << "vrintx" << ConditionPrinter(it_block_, cond) << dt1 << dt2 << " "
        << rd << ", " << rm;
 }
@@ -5744,17 +6287,20 @@ void Disassembler::vrintx(DataType dt1,
                           DataType dt2,
                           QRegister rd,
                           QRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVrintx, Assembler::kFpNeon);
   os() << "vrintx" << dt1 << dt2 << " " << rd << ", " << rm;
 }
 
 void Disassembler::vrintx(
     Condition cond, DataType dt1, DataType dt2, SRegister rd, SRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVrintx, Assembler::kFpNeon);
   os() << "vrintx" << ConditionPrinter(it_block_, cond) << dt1 << dt2 << " "
        << rd << ", " << rm;
 }
 
 void Disassembler::vrintz(
     Condition cond, DataType dt1, DataType dt2, DRegister rd, DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVrintz, Assembler::kFpNeon);
   os() << "vrintz" << ConditionPrinter(it_block_, cond) << dt1 << dt2 << " "
        << rd << ", " << rm;
 }
@@ -5763,17 +6309,20 @@ void Disassembler::vrintz(DataType dt1,
                           DataType dt2,
                           QRegister rd,
                           QRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVrintz, Assembler::kFpNeon);
   os() << "vrintz" << dt1 << dt2 << " " << rd << ", " << rm;
 }
 
 void Disassembler::vrintz(
     Condition cond, DataType dt1, DataType dt2, SRegister rd, SRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVrintz, Assembler::kFpNeon);
   os() << "vrintz" << ConditionPrinter(it_block_, cond) << dt1 << dt2 << " "
        << rd << ", " << rm;
 }
 
 void Disassembler::vrshl(
     Condition cond, DataType dt, DRegister rd, DRegister rm, DRegister rn) {
+  os().SetCurrentInstruction(Assembler::kVrshl, Assembler::kFpNeon);
   os() << "vrshl" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rm)) {
@@ -5784,6 +6333,7 @@ void Disassembler::vrshl(
 
 void Disassembler::vrshl(
     Condition cond, DataType dt, QRegister rd, QRegister rm, QRegister rn) {
+  os().SetCurrentInstruction(Assembler::kVrshl, Assembler::kFpNeon);
   os() << "vrshl" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rm)) {
@@ -5797,6 +6347,7 @@ void Disassembler::vrshr(Condition cond,
                          DRegister rd,
                          DRegister rm,
                          const DOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kVrshr, Assembler::kFpNeon);
   os() << "vrshr" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rm)) {
@@ -5810,6 +6361,7 @@ void Disassembler::vrshr(Condition cond,
                          QRegister rd,
                          QRegister rm,
                          const QOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kVrshr, Assembler::kFpNeon);
   os() << "vrshr" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rm)) {
@@ -5823,6 +6375,7 @@ void Disassembler::vrshrn(Condition cond,
                           DRegister rd,
                           QRegister rm,
                           const QOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kVrshrn, Assembler::kFpNeon);
   os() << "vrshrn" << ConditionPrinter(it_block_, cond) << dt << " " << rd
        << ", " << rm << ", " << operand;
 }
@@ -5831,6 +6384,7 @@ void Disassembler::vrsqrte(Condition cond,
                            DataType dt,
                            DRegister rd,
                            DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVrsqrte, Assembler::kFpNeon);
   os() << "vrsqrte" << ConditionPrinter(it_block_, cond) << dt << " " << rd
        << ", " << rm;
 }
@@ -5839,12 +6393,14 @@ void Disassembler::vrsqrte(Condition cond,
                            DataType dt,
                            QRegister rd,
                            QRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVrsqrte, Assembler::kFpNeon);
   os() << "vrsqrte" << ConditionPrinter(it_block_, cond) << dt << " " << rd
        << ", " << rm;
 }
 
 void Disassembler::vrsqrts(
     Condition cond, DataType dt, DRegister rd, DRegister rn, DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVrsqrts, Assembler::kFpNeon);
   os() << "vrsqrts" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -5855,6 +6411,7 @@ void Disassembler::vrsqrts(
 
 void Disassembler::vrsqrts(
     Condition cond, DataType dt, QRegister rd, QRegister rn, QRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVrsqrts, Assembler::kFpNeon);
   os() << "vrsqrts" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -5868,6 +6425,7 @@ void Disassembler::vrsra(Condition cond,
                          DRegister rd,
                          DRegister rm,
                          const DOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kVrsra, Assembler::kFpNeon);
   os() << "vrsra" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rm)) {
@@ -5881,6 +6439,7 @@ void Disassembler::vrsra(Condition cond,
                          QRegister rd,
                          QRegister rm,
                          const QOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kVrsra, Assembler::kFpNeon);
   os() << "vrsra" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rm)) {
@@ -5891,6 +6450,7 @@ void Disassembler::vrsra(Condition cond,
 
 void Disassembler::vrsubhn(
     Condition cond, DataType dt, DRegister rd, QRegister rn, QRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVrsubhn, Assembler::kFpNeon);
   os() << "vrsubhn" << ConditionPrinter(it_block_, cond) << dt << " " << rd
        << ", " << rn << ", " << rm;
 }
@@ -5899,6 +6459,7 @@ void Disassembler::vseleq(DataType dt,
                           DRegister rd,
                           DRegister rn,
                           DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVseleq, Assembler::kFpNeon);
   os() << "vseleq" << dt << " " << rd << ", " << rn << ", " << rm;
 }
 
@@ -5906,6 +6467,7 @@ void Disassembler::vseleq(DataType dt,
                           SRegister rd,
                           SRegister rn,
                           SRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVseleq, Assembler::kFpNeon);
   os() << "vseleq" << dt << " " << rd << ", " << rn << ", " << rm;
 }
 
@@ -5913,6 +6475,7 @@ void Disassembler::vselge(DataType dt,
                           DRegister rd,
                           DRegister rn,
                           DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVselge, Assembler::kFpNeon);
   os() << "vselge" << dt << " " << rd << ", " << rn << ", " << rm;
 }
 
@@ -5920,6 +6483,7 @@ void Disassembler::vselge(DataType dt,
                           SRegister rd,
                           SRegister rn,
                           SRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVselge, Assembler::kFpNeon);
   os() << "vselge" << dt << " " << rd << ", " << rn << ", " << rm;
 }
 
@@ -5927,6 +6491,7 @@ void Disassembler::vselgt(DataType dt,
                           DRegister rd,
                           DRegister rn,
                           DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVselgt, Assembler::kFpNeon);
   os() << "vselgt" << dt << " " << rd << ", " << rn << ", " << rm;
 }
 
@@ -5934,6 +6499,7 @@ void Disassembler::vselgt(DataType dt,
                           SRegister rd,
                           SRegister rn,
                           SRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVselgt, Assembler::kFpNeon);
   os() << "vselgt" << dt << " " << rd << ", " << rn << ", " << rm;
 }
 
@@ -5941,6 +6507,7 @@ void Disassembler::vselvs(DataType dt,
                           DRegister rd,
                           DRegister rn,
                           DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVselvs, Assembler::kFpNeon);
   os() << "vselvs" << dt << " " << rd << ", " << rn << ", " << rm;
 }
 
@@ -5948,6 +6515,7 @@ void Disassembler::vselvs(DataType dt,
                           SRegister rd,
                           SRegister rn,
                           SRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVselvs, Assembler::kFpNeon);
   os() << "vselvs" << dt << " " << rd << ", " << rn << ", " << rm;
 }
 
@@ -5956,6 +6524,7 @@ void Disassembler::vshl(Condition cond,
                         DRegister rd,
                         DRegister rm,
                         const DOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kVshl, Assembler::kFpNeon);
   os() << "vshl" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rm)) {
@@ -5969,6 +6538,7 @@ void Disassembler::vshl(Condition cond,
                         QRegister rd,
                         QRegister rm,
                         const QOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kVshl, Assembler::kFpNeon);
   os() << "vshl" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rm)) {
@@ -5982,6 +6552,7 @@ void Disassembler::vshll(Condition cond,
                          QRegister rd,
                          DRegister rm,
                          const DOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kVshll, Assembler::kFpNeon);
   os() << "vshll" << ConditionPrinter(it_block_, cond) << dt << " " << rd
        << ", " << rm << ", " << operand;
 }
@@ -5991,6 +6562,7 @@ void Disassembler::vshr(Condition cond,
                         DRegister rd,
                         DRegister rm,
                         const DOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kVshr, Assembler::kFpNeon);
   os() << "vshr" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rm)) {
@@ -6004,6 +6576,7 @@ void Disassembler::vshr(Condition cond,
                         QRegister rd,
                         QRegister rm,
                         const QOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kVshr, Assembler::kFpNeon);
   os() << "vshr" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rm)) {
@@ -6017,6 +6590,7 @@ void Disassembler::vshrn(Condition cond,
                          DRegister rd,
                          QRegister rm,
                          const QOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kVshrn, Assembler::kFpNeon);
   os() << "vshrn" << ConditionPrinter(it_block_, cond) << dt << " " << rd
        << ", " << rm << ", " << operand;
 }
@@ -6026,6 +6600,7 @@ void Disassembler::vsli(Condition cond,
                         DRegister rd,
                         DRegister rm,
                         const DOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kVsli, Assembler::kFpNeon);
   os() << "vsli" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rm)) {
@@ -6039,6 +6614,7 @@ void Disassembler::vsli(Condition cond,
                         QRegister rd,
                         QRegister rm,
                         const QOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kVsli, Assembler::kFpNeon);
   os() << "vsli" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rm)) {
@@ -6051,6 +6627,7 @@ void Disassembler::vsqrt(Condition cond,
                          DataType dt,
                          SRegister rd,
                          SRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVsqrt, Assembler::kFpNeon);
   os() << "vsqrt" << ConditionPrinter(it_block_, cond) << dt << " " << rd
        << ", " << rm;
 }
@@ -6059,6 +6636,7 @@ void Disassembler::vsqrt(Condition cond,
                          DataType dt,
                          DRegister rd,
                          DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVsqrt, Assembler::kFpNeon);
   os() << "vsqrt" << ConditionPrinter(it_block_, cond) << dt << " " << rd
        << ", " << rm;
 }
@@ -6068,6 +6646,7 @@ void Disassembler::vsra(Condition cond,
                         DRegister rd,
                         DRegister rm,
                         const DOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kVsra, Assembler::kFpNeon);
   os() << "vsra" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rm)) {
@@ -6081,6 +6660,7 @@ void Disassembler::vsra(Condition cond,
                         QRegister rd,
                         QRegister rm,
                         const QOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kVsra, Assembler::kFpNeon);
   os() << "vsra" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rm)) {
@@ -6094,6 +6674,7 @@ void Disassembler::vsri(Condition cond,
                         DRegister rd,
                         DRegister rm,
                         const DOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kVsri, Assembler::kFpNeon);
   os() << "vsri" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rm)) {
@@ -6107,6 +6688,7 @@ void Disassembler::vsri(Condition cond,
                         QRegister rd,
                         QRegister rm,
                         const QOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kVsri, Assembler::kFpNeon);
   os() << "vsri" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rm)) {
@@ -6119,6 +6701,7 @@ void Disassembler::vst1(Condition cond,
                         DataType dt,
                         const NeonRegisterList& nreglist,
                         const AlignedMemOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kVst1, Assembler::kFpNeon);
   os() << "vst1" << ConditionPrinter(it_block_, cond) << dt << " " << nreglist
        << ", " << PrintAlignedMemOperand(kVst1Location, operand);
 }
@@ -6127,6 +6710,7 @@ void Disassembler::vst2(Condition cond,
                         DataType dt,
                         const NeonRegisterList& nreglist,
                         const AlignedMemOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kVst2, Assembler::kFpNeon);
   os() << "vst2" << ConditionPrinter(it_block_, cond) << dt << " " << nreglist
        << ", " << PrintAlignedMemOperand(kVst2Location, operand);
 }
@@ -6135,6 +6719,7 @@ void Disassembler::vst3(Condition cond,
                         DataType dt,
                         const NeonRegisterList& nreglist,
                         const AlignedMemOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kVst3, Assembler::kFpNeon);
   os() << "vst3" << ConditionPrinter(it_block_, cond) << dt << " " << nreglist
        << ", " << PrintAlignedMemOperand(kVst3Location, operand);
 }
@@ -6143,6 +6728,7 @@ void Disassembler::vst3(Condition cond,
                         DataType dt,
                         const NeonRegisterList& nreglist,
                         const MemOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kVst3, Assembler::kFpNeon);
   os() << "vst3" << ConditionPrinter(it_block_, cond) << dt << " " << nreglist
        << ", " << PrintMemOperand(kVst3Location, operand);
 }
@@ -6151,6 +6737,7 @@ void Disassembler::vst4(Condition cond,
                         DataType dt,
                         const NeonRegisterList& nreglist,
                         const AlignedMemOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kVst4, Assembler::kFpNeon);
   os() << "vst4" << ConditionPrinter(it_block_, cond) << dt << " " << nreglist
        << ", " << PrintAlignedMemOperand(kVst4Location, operand);
 }
@@ -6160,6 +6747,7 @@ void Disassembler::vstm(Condition cond,
                         Register rn,
                         WriteBack write_back,
                         DRegisterList dreglist) {
+  os().SetCurrentInstruction(Assembler::kVstm, Assembler::kLoadStoreMultiple);
   os() << "vstm" << ConditionPrinter(it_block_, cond) << dt << " " << rn
        << write_back << ", " << dreglist;
 }
@@ -6169,6 +6757,7 @@ void Disassembler::vstm(Condition cond,
                         Register rn,
                         WriteBack write_back,
                         SRegisterList sreglist) {
+  os().SetCurrentInstruction(Assembler::kVstm, Assembler::kLoadStoreMultiple);
   os() << "vstm" << ConditionPrinter(it_block_, cond) << dt << " " << rn
        << write_back << ", " << sreglist;
 }
@@ -6178,6 +6767,7 @@ void Disassembler::vstmdb(Condition cond,
                           Register rn,
                           WriteBack write_back,
                           DRegisterList dreglist) {
+  os().SetCurrentInstruction(Assembler::kVstmdb, Assembler::kLoadStoreMultiple);
   os() << "vstmdb" << ConditionPrinter(it_block_, cond) << dt << " " << rn
        << write_back << ", " << dreglist;
 }
@@ -6187,6 +6777,7 @@ void Disassembler::vstmdb(Condition cond,
                           Register rn,
                           WriteBack write_back,
                           SRegisterList sreglist) {
+  os().SetCurrentInstruction(Assembler::kVstmdb, Assembler::kLoadStoreMultiple);
   os() << "vstmdb" << ConditionPrinter(it_block_, cond) << dt << " " << rn
        << write_back << ", " << sreglist;
 }
@@ -6196,6 +6787,7 @@ void Disassembler::vstmia(Condition cond,
                           Register rn,
                           WriteBack write_back,
                           DRegisterList dreglist) {
+  os().SetCurrentInstruction(Assembler::kVstmia, Assembler::kLoadStoreMultiple);
   os() << "vstmia" << ConditionPrinter(it_block_, cond) << dt << " " << rn
        << write_back << ", " << dreglist;
 }
@@ -6205,6 +6797,7 @@ void Disassembler::vstmia(Condition cond,
                           Register rn,
                           WriteBack write_back,
                           SRegisterList sreglist) {
+  os().SetCurrentInstruction(Assembler::kVstmia, Assembler::kLoadStoreMultiple);
   os() << "vstmia" << ConditionPrinter(it_block_, cond) << dt << " " << rn
        << write_back << ", " << sreglist;
 }
@@ -6213,6 +6806,7 @@ void Disassembler::vstr(Condition cond,
                         DataType dt,
                         DRegister rd,
                         const MemOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kVstr, Assembler::kFpNeon);
   os() << "vstr" << ConditionPrinter(it_block_, cond) << dt << " " << rd << ", "
        << PrintMemOperand(kStoreDoublePrecisionLocation, operand);
 }
@@ -6221,12 +6815,14 @@ void Disassembler::vstr(Condition cond,
                         DataType dt,
                         SRegister rd,
                         const MemOperand& operand) {
+  os().SetCurrentInstruction(Assembler::kVstr, Assembler::kFpNeon);
   os() << "vstr" << ConditionPrinter(it_block_, cond) << dt << " " << rd << ", "
        << PrintMemOperand(kStoreSinglePrecisionLocation, operand);
 }
 
 void Disassembler::vsub(
     Condition cond, DataType dt, DRegister rd, DRegister rn, DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVsub, Assembler::kFpNeon);
   os() << "vsub" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -6237,6 +6833,7 @@ void Disassembler::vsub(
 
 void Disassembler::vsub(
     Condition cond, DataType dt, QRegister rd, QRegister rn, QRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVsub, Assembler::kFpNeon);
   os() << "vsub" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -6247,6 +6844,7 @@ void Disassembler::vsub(
 
 void Disassembler::vsub(
     Condition cond, DataType dt, SRegister rd, SRegister rn, SRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVsub, Assembler::kFpNeon);
   os() << "vsub" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -6257,18 +6855,21 @@ void Disassembler::vsub(
 
 void Disassembler::vsubhn(
     Condition cond, DataType dt, DRegister rd, QRegister rn, QRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVsubhn, Assembler::kFpNeon);
   os() << "vsubhn" << ConditionPrinter(it_block_, cond) << dt << " " << rd
        << ", " << rn << ", " << rm;
 }
 
 void Disassembler::vsubl(
     Condition cond, DataType dt, QRegister rd, DRegister rn, DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVsubl, Assembler::kFpNeon);
   os() << "vsubl" << ConditionPrinter(it_block_, cond) << dt << " " << rd
        << ", " << rn << ", " << rm;
 }
 
 void Disassembler::vsubw(
     Condition cond, DataType dt, QRegister rd, QRegister rn, DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVsubw, Assembler::kFpNeon);
   os() << "vsubw" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -6281,6 +6882,7 @@ void Disassembler::vswp(Condition cond,
                         DataType dt,
                         DRegister rd,
                         DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVswp, Assembler::kFpNeon);
   os() << "vswp" << ConditionPrinter(it_block_, cond) << dt << " " << rd << ", "
        << rm;
 }
@@ -6289,6 +6891,7 @@ void Disassembler::vswp(Condition cond,
                         DataType dt,
                         QRegister rd,
                         QRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVswp, Assembler::kFpNeon);
   os() << "vswp" << ConditionPrinter(it_block_, cond) << dt << " " << rd << ", "
        << rm;
 }
@@ -6298,6 +6901,7 @@ void Disassembler::vtbl(Condition cond,
                         DRegister rd,
                         const NeonRegisterList& nreglist,
                         DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVtbl, Assembler::kFpNeon);
   os() << "vtbl" << ConditionPrinter(it_block_, cond) << dt << " " << rd << ", "
        << nreglist << ", " << rm;
 }
@@ -6307,6 +6911,7 @@ void Disassembler::vtbx(Condition cond,
                         DRegister rd,
                         const NeonRegisterList& nreglist,
                         DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVtbx, Assembler::kFpNeon);
   os() << "vtbx" << ConditionPrinter(it_block_, cond) << dt << " " << rd << ", "
        << nreglist << ", " << rm;
 }
@@ -6315,6 +6920,7 @@ void Disassembler::vtrn(Condition cond,
                         DataType dt,
                         DRegister rd,
                         DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVtrn, Assembler::kFpNeon);
   os() << "vtrn" << ConditionPrinter(it_block_, cond) << dt << " " << rd << ", "
        << rm;
 }
@@ -6323,12 +6929,14 @@ void Disassembler::vtrn(Condition cond,
                         DataType dt,
                         QRegister rd,
                         QRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVtrn, Assembler::kFpNeon);
   os() << "vtrn" << ConditionPrinter(it_block_, cond) << dt << " " << rd << ", "
        << rm;
 }
 
 void Disassembler::vtst(
     Condition cond, DataType dt, DRegister rd, DRegister rn, DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVtst, Assembler::kFpNeon);
   os() << "vtst" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -6339,6 +6947,7 @@ void Disassembler::vtst(
 
 void Disassembler::vtst(
     Condition cond, DataType dt, QRegister rd, QRegister rn, QRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVtst, Assembler::kFpNeon);
   os() << "vtst" << ConditionPrinter(it_block_, cond) << dt;
   os() << " ";
   if (!rd.Is(rn)) {
@@ -6351,6 +6960,7 @@ void Disassembler::vuzp(Condition cond,
                         DataType dt,
                         DRegister rd,
                         DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVuzp, Assembler::kFpNeon);
   os() << "vuzp" << ConditionPrinter(it_block_, cond) << dt << " " << rd << ", "
        << rm;
 }
@@ -6359,6 +6969,7 @@ void Disassembler::vuzp(Condition cond,
                         DataType dt,
                         QRegister rd,
                         QRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVuzp, Assembler::kFpNeon);
   os() << "vuzp" << ConditionPrinter(it_block_, cond) << dt << " " << rd << ", "
        << rm;
 }
@@ -6367,6 +6978,7 @@ void Disassembler::vzip(Condition cond,
                         DataType dt,
                         DRegister rd,
                         DRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVzip, Assembler::kFpNeon);
   os() << "vzip" << ConditionPrinter(it_block_, cond) << dt << " " << rd << ", "
        << rm;
 }
@@ -6375,11 +6987,13 @@ void Disassembler::vzip(Condition cond,
                         DataType dt,
                         QRegister rd,
                         QRegister rm) {
+  os().SetCurrentInstruction(Assembler::kVzip, Assembler::kFpNeon);
   os() << "vzip" << ConditionPrinter(it_block_, cond) << dt << " " << rd << ", "
        << rm;
 }
 
 void Disassembler::yield(Condition cond, EncodingSize size) {
+  os().SetCurrentInstruction(Assembler::kYield, Assembler::kMisc);
   os() << "yield" << ConditionPrinter(it_block_, cond) << size;
 }
 

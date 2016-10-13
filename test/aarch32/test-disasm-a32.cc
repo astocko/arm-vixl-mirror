@@ -376,9 +376,9 @@ TEST(macro_assembler_InstructionCondRROp) {
 
   // Negate the immediate.
   COMPARE_T32(Orn(r0, r1, 0xffffff),
-              "orr r0, r1, #4278190080\n");
+              "orr r0, r1, #0xff000000\n");
   COMPARE_T32(Orns(r0, r1, 0xffffff),
-              "orrs r0, r1, #4278190080\n");
+              "orrs r0, r1, #0xff000000\n");
   CLEANUP();
 }
 
@@ -388,9 +388,9 @@ TEST(macro_assembler_InstructionCondSizeRROp) {
 
   // Negate the immediate.
   COMPARE_T32(Orr(r0, r1, 0xffffff),
-              "orn r0, r1, #4278190080\n");
+              "orn r0, r1, #0xff000000\n");
   COMPARE_T32(Orrs(r0, r1, 0xffffff),
-              "orns r0, r1, #4278190080\n");
+              "orns r0, r1, #0xff000000\n");
   CLEANUP();
 }
 
