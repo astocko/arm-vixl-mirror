@@ -473,10 +473,30 @@ int MacroAssembler::MoveImmediateHelper(MacroAssembler* masm,
   // applying move-keep operations to move-zero and move-inverted initial
   // values.
 
+  int64_t cursor = masm->GetCursorAddress<int64_t>();
+  int64_t offset = (int64_t)imm - cursor;
+
+  int64_t aligned_pc = cursor & ~0xFFF;
+  int64_t aligned_offset = imm - aligned_pc;
   // Try to move the immediate in one instruction, and if that fails, switch to
   // using multiple instructions.
   if (OneInstrMoveImmediateHelper(masm, rd, imm)) {
     return 1;
+  } else if (std::abs(offset) <= 0xFFFFF) {
+    // If the pointer is within 1MB of PC then it can be loaded in 1 instruction
+    if (emit_code) masm->adr(rd, (int32_t)offset);
+    return 1;
+  } else if (std::abs(aligned_offset) < 0xFFFFFFFFLL && !(aligned_offset & 0xFFF)) {
+    if (!(aligned_offset & 0xFFF)) {
+      // If the pointer is 4KB aligned and within 4GB it can be loaded in 1 instruction
+      if (emit_code) masm->adrp(rd, aligned_offset >> 12);
+      return 1;
+    } else {
+      // If the pointer is not aligned but within 4GB it takes two instructions
+      if (emit_code) masm->adrp(rd, (int32_t)(aligned_offset & ~0xFFF) >> 12);
+      if (emit_code) masm->add(rd, rd, Operand(imm & 0xFFF));
+      return 2;
+    }
   } else {
     int instruction_count = 0;
     unsigned reg_size = rd.GetSizeInBits();
