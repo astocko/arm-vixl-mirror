@@ -178,7 +178,20 @@ class Assembler {
   void iteee(Condition cond) { it(cond, 0xf); }
 
   // Start of generated code.
+  enum InstructionClass {
+    kUndefInstructionClass,
+    kArithmetic,
+    kBitwise,
+    kShift,
+    kAddress,
+    kBranch,
+    kSystem,
+    kFpNeon,
+    kMisc,
+    kLoadStoreMultiple
+  };
   enum InstructionType {
+    kUndefInstructionType,
     kAdc,
     kAdcs,
     kAdd,

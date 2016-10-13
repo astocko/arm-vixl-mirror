@@ -34,6 +34,7 @@ extern "C" {
 #include "aarch32/constants-aarch32.h"
 #include "aarch32/label-aarch32.h"
 #include "aarch32/operand-aarch32.h"
+#include "aarch32/assembler-aarch32.h"
 
 namespace vixl {
 namespace aarch32 {
@@ -159,11 +160,29 @@ class Disassembler {
 
   class DisassemblerStream {
     std::ostream& os_;
+    Assembler::InstructionType current_instruction_type_;
+    Assembler::InstructionClass current_instruction_class_;
 
    public:
-    explicit DisassemblerStream(std::ostream& os) : os_(os) {}
+    explicit DisassemblerStream(
+        std::ostream& os)  // NOLINT [runtime/references]
+        : os_(os),
+          current_instruction_type_(Assembler::kUndefInstructionType),
+          current_instruction_class_(Assembler::kUndefInstructionClass) {}
     virtual ~DisassemblerStream() {}
     std::ostream& os() const { return os_; }
+    void SetCurrentInstruction(
+        Assembler::InstructionType current_instruction_type,
+        Assembler::InstructionClass current_instruction_class) {
+      current_instruction_type_ = current_instruction_type;
+      current_instruction_class_ = current_instruction_class;
+    }
+    Assembler::InstructionType GetCurrentInstructionType() const {
+      return current_instruction_type_;
+    }
+    Assembler::InstructionClass GetCurrentInstructionClass() const {
+      return current_instruction_class_;
+    }
     template <typename T>
     DisassemblerStream& operator<<(T value) {
       os_ << value;
@@ -279,6 +298,10 @@ class Disassembler {
     }
     virtual DisassemblerStream& operator<<(const Operand& operand) {
       if (operand.IsImmediate()) {
+        if (GetCurrentInstructionClass() == Assembler::kBitwise) {
+          return *this << "#0x" << std::hex << operand.GetImmediate()
+                       << std::dec;
+        }
         return *this << "#" << operand.GetImmediate();
       }
       if (operand.IsImmediateShiftedRegister()) {
