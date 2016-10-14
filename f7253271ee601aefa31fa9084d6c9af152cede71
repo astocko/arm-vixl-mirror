@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7af0899e_75aab7d5",
+        "filename": "src/assembler-base-vixl.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-10-14T16:34:21Z",
+      "side": 1,
+      "message": "If I have a const Assembler, I get a reference, but otherwise I get a pointer. These should be made consistent. Perhaps the const version could return a const pointer.",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 57
+      },
+      "revId": "f7253271ee601aefa31fa9084d6c9af152cede71",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7af0899e_d5ae0be7",
+        "filename": "src/code-buffer-vixl.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-10-14T16:34:21Z",
+      "side": 1,
+      "message": "I don\u0027t really like the \u0027byte\u0027 type. What was the reason for the change?",
+      "range": {
+        "startLine": 61,
+        "startChar": 23,
+        "endLine": 61,
+        "endChar": 27
+      },
+      "revId": "f7253271ee601aefa31fa9084d6c9af152cede71",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
