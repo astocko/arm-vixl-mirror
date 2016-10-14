@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7af0899e_830c4c96",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-10-14T15:29:31Z",
+      "side": 1,
+      "message": "Please wrap long lines to 80 characters.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 79
+      },
+      "revId": "1b5a97bcafa11995381ebe186d892de73f4c096e",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7af0899e_8383accb",
+        "filename": "src/aarch64/macro-assembler-aarch64.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 477,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-10-14T15:29:31Z",
+      "side": 1,
+      "message": "What worries me about this is that it only works if the code is not relocated after it is generated. This function has no way to know if \u0027imm\u0027 is supposed to be pc-relative or if it just happens to match the cursor address by chance.\n\nI would expect that MoveImmediateHelper would be used for moving absolute (not relocatable) values. Normally we\u0027d use a `Label`-based mechanism for addresses that should move with the code but in this case it seems that you know the address ahead of time, and the `Label` code currently assumes that that isn\u0027t the case for addresses higher than the cursor (pc).\n\nOff the top of my head, I think there are two obvious approaches for this: we could add a helper that looks like `MovePCRelativeAddress(..., int64_t offset)`, or we could make something like `AdrFarAddress(..., Label* target)`, then bind the label later. Each approach has advantages and disadvantages and I\u0027m not entirely sure which is best.\n\nFinally, it seems to me that it would be rare that you\u0027d know in advance the address of a label far ahead of the PC, at least where that address should be relocated with the code. What is the use-case here?",
+      "range": {
+        "startLine": 476,
+        "startChar": 0,
+        "endLine": 477,
+        "endChar": 41
+      },
+      "revId": "1b5a97bcafa11995381ebe186d892de73f4c096e",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7af0899e_c325b40b",
+        "filename": "src/aarch64/macro-assembler-aarch64.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 479,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-10-14T15:29:31Z",
+      "side": 1,
+      "message": "VIXL convention is to use lower-case hexadecimal constants. Also, in this case it would be wise to be explicit about the types: `~UINT64_C(0xfff)`, or even better, `cursor \u0026 ~((UINT64_C(1) \u003c\u003c kPageSizeLog2) - 1)`.",
+      "range": {
+        "startLine": 479,
+        "startChar": 33,
+        "endLine": 479,
+        "endChar": 38
+      },
+      "revId": "1b5a97bcafa11995381ebe186d892de73f4c096e",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7af0899e_635fa073",
+        "filename": "src/aarch64/macro-assembler-aarch64.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-10-14T15:29:31Z",
+      "side": 1,
+      "message": "Use `INT64_C` rather than the `LL` suffix; it\u0027s more portable in general. (Some compilers complain about `LL` in C++98 mode, but `L` (long) is only a 32 bit type on some targets.)\n\nWe\u0027d also tend to use a semantically-clear constant or helper function rather than a plain literal. In this case, we should use `IsImmPCRelAddressing(offset \u003e\u003e kPageSizeLog2)`. That function doesn\u0027t exist yet, but look at IsImmAddSub for an example.\n\nAlso note that VIXL convention is to use parentheses around clauses in expressions like this (like `((a \u003c b) \u0026\u0026 c)`), and we don\u0027t rely on implicit conversions from integers to bools. Overall, this should probably look like `(((offset % kPageSize) \u003d\u003d 0) \u0026\u0026 IsImmPCRelAddressing(offset \u003e\u003e kPageSizeLog2)`",
+      "revId": "1b5a97bcafa11995381ebe186d892de73f4c096e",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
