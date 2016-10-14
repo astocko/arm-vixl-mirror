@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7af0899e_15b9b32e",
+        "filename": "src/code-generation-scopes-vixl.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-10-14T16:42:13Z",
+      "side": 1,
+      "message": "kNoCheck",
+      "range": {
+        "startLine": 52,
+        "startChar": 4,
+        "endLine": 52,
+        "endChar": 12
+      },
+      "revId": "9ce93af5fc8454512ab9aeb4c723a813ab922295",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7af0899e_55821b53",
+        "filename": "src/code-generation-scopes-vixl.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-10-14T16:42:13Z",
+      "side": 1,
+      "message": "I don\u0027t like having #ifdef DEBUG in headers; it causes problems with mismatched flags. Technically it\u0027s Ok here because the whole class is in the header, but assuming that we aren\u0027t relying on inlining too much, we\u0027d be better off putting this in a .cc file.",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 6
+      },
+      "revId": "9ce93af5fc8454512ab9aeb4c723a813ab922295",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
