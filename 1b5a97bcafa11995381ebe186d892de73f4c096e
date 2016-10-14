@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "7af0899e_15e7f341",
+        "filename": "src/aarch64/macro-assembler-aarch64.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 477,
+      "author": {
+        "id": 1000265
+      },
+      "writtenOn": "2016-10-14T17:34:39Z",
+      "side": 1,
+      "message": "I think a reasonable thing to do in this regard then would be to check what the Assembler\u0027s PositionIndepedentCodeOption is, and only go down the adrp/adr path if it is using the PositionDependentCode option.\nThe times when we would know the address ahead of time can be multiple things. One perspective of this is when your code has to actually call out to helper routines that are off in C land, or even pre-emitted code locations(outside of Vixl\u0027s view). Comes in very handy to load these addresses in a single ADRP versus having some literal pool filled with pointers that you would have to LDR from (May not be possible if you can\u0027t stuff a literal pool nearby due to other optimizations). Another case would be if you have some page aligned LUT of values that is generated off in C land, that you can\u0027t stuff in vixl code space due to other concerns that can be thought up.\nCases like these crop up /all/ the time in various applications that use JITs extensively.\nSo I think the right approach would definitely be a MovePCRelativeAddress with an integer instead of a label.",
+      "parentUuid": "7af0899e_8383accb",
+      "range": {
+        "startLine": 476,
+        "startChar": 0,
+        "endLine": 477,
+        "endChar": 41
+      },
+      "revId": "1b5a97bcafa11995381ebe186d892de73f4c096e",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7af0899e_c325b40b",
         "filename": "src/aarch64/macro-assembler-aarch64.cc",
         "patchSetId": 1
