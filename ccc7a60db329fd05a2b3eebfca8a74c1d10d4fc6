@@ -128,6 +128,24 @@
     },
     {
       "key": {
+        "uuid": "7af0899e_18c8ca73",
+        "filename": "src/aarch64/macro-assembler-aarch64.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 559,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-10-17T14:37:53Z",
+      "side": 1,
+      "message": "I\u0027ve published a fix here, so you can just pass offset directly:\nhttps://review.linaro.org/#/c/14813",
+      "parentUuid": "7af0899e_78f8eee5",
+      "revId": "ccc7a60db329fd05a2b3eebfca8a74c1d10d4fc6",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7af0899e_98f31a0a",
         "filename": "src/aarch64/macro-assembler-aarch64.cc",
         "patchSetId": 2
