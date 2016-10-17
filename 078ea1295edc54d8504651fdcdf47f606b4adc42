@@ -16,6 +16,24 @@
       "revId": "078ea1295edc54d8504651fdcdf47f606b4adc42",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7af0899e_189f2a61",
+        "filename": "src/code-buffer-vixl.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-10-17T16:17:37Z",
+      "side": 1,
+      "message": "Removed it.",
+      "parentUuid": "7af0899e_b8c0967d",
+      "revId": "078ea1295edc54d8504651fdcdf47f606b4adc42",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
