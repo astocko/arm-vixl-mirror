@@ -1,0 +1,147 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7af0899e_f88cde81",
+        "filename": "src/aarch64/assembler-aarch64.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 2730,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-10-17T10:31:11Z",
+      "side": 1,
+      "message": "I think I would just use IsImmPCRelAddress for this (assuming it matches the semantics of ImmPCRelAddress, as described below).",
+      "range": {
+        "startLine": 2728,
+        "startChar": 0,
+        "endLine": 2730,
+        "endChar": 3
+      },
+      "revId": "ccc7a60db329fd05a2b3eebfca8a74c1d10d4fc6",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7af0899e_1890ca94",
+        "filename": "src/aarch64/assembler-aarch64.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 2734,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-10-17T10:31:11Z",
+      "side": 1,
+      "message": "We already have IsAligned\u003ckPageSize\u003e(imm). You could make a convenient IsPageAligned(imm) in utils-vixl.h if you want to, like IsWordAligned.",
+      "range": {
+        "startLine": 2732,
+        "startChar": 0,
+        "endLine": 2734,
+        "endChar": 3
+      },
+      "revId": "ccc7a60db329fd05a2b3eebfca8a74c1d10d4fc6",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7af0899e_b892569d",
+        "filename": "src/aarch64/assembler-aarch64.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 2738,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-10-17T10:31:11Z",
+      "side": 1,
+      "message": "This should work in the same way as ImmPCRelAddress, so it\u0027s a simple wrapper around IsInt21(). ImmPCRelAddress should then assert IsImmPCRelAddress rather than IsInt32. The name should match too; I suggested IsImmPCRelAddressing from memory but I got it slightly wrong.",
+      "range": {
+        "startLine": 2736,
+        "startChar": 0,
+        "endLine": 2738,
+        "endChar": 3
+      },
+      "revId": "ccc7a60db329fd05a2b3eebfca8a74c1d10d4fc6",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7af0899e_58e9b219",
+        "filename": "src/aarch64/macro-assembler-aarch64.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 481,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-10-17T10:31:11Z",
+      "side": 1,
+      "message": "Style: We avoid assignments in \u0027if\u0027 statements.",
+      "range": {
+        "startLine": 480,
+        "startChar": 12,
+        "endLine": 481,
+        "endChar": 67
+      },
+      "revId": "ccc7a60db329fd05a2b3eebfca8a74c1d10d4fc6",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7af0899e_38ee6623",
+        "filename": "src/aarch64/macro-assembler-aarch64.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 549,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-10-17T10:31:11Z",
+      "side": 1,
+      "message": "This has a problem; if masm is NULL, the helper doesn\u0027t correctly return the number of instructions. That is, in part, why I suggested a MovePCRelativeAddress function that works independently of MoveImmediateHelper. MovePCRelativeAddress could assume a valid MacroAssembler, and therefore doesn\u0027t need to be static.",
+      "revId": "ccc7a60db329fd05a2b3eebfca8a74c1d10d4fc6",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7af0899e_78f8eee5",
+        "filename": "src/aarch64/macro-assembler-aarch64.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 559,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-10-17T10:31:11Z",
+      "side": 1,
+      "message": "\u0027adr\u0027 actually takes an \u0027int\u0027, but this appears to be a bug. It should take an `int64_t`. (I\u0027ll have a look at fixing that in a minute.)\n\nIn general, we use C-style casts only in one or two places, where absolutely necessary. In this case we would use `static_cast\u003cint32_t\u003e(offset)`.",
+      "revId": "ccc7a60db329fd05a2b3eebfca8a74c1d10d4fc6",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7af0899e_98f31a0a",
+        "filename": "src/aarch64/macro-assembler-aarch64.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 564,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-10-17T10:31:11Z",
+      "side": 1,
+      "message": "Please use spaces rather than tabs. (The linter should pick it up.)",
+      "revId": "ccc7a60db329fd05a2b3eebfca8a74c1d10d4fc6",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
