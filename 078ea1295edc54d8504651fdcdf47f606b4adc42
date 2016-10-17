@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7af0899e_b8c0967d",
+        "filename": "src/code-buffer-vixl.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1000219
+      },
+      "writtenOn": "2016-10-17T11:01:12Z",
+      "side": 1,
+      "message": "Do we need this method? It\u0027s a little strange that you can write masm.Getbuffer().GetBuffer(). When instead you can get the same result with masm.GetBuffer().GetStartAddress().",
+      "revId": "078ea1295edc54d8504651fdcdf47f606b4adc42",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
