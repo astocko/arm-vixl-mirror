@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7af0899e_0b81928f",
+        "filename": "src/aarch64/macro-assembler-aarch64.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 579,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-10-18T15:54:40Z",
+      "side": 1,
+      "message": "What\u0027s this for? Can\u0027t the pointer just be used directly?",
+      "range": {
+        "startLine": 579,
+        "startChar": 2,
+        "endLine": 579,
+        "endChar": 52
+      },
+      "revId": "c29586a5384f2690f69044af6e08aa9a09b91b2d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7af0899e_4b4a7a84",
+        "filename": "src/code-generation-scopes-vixl.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-10-18T15:54:40Z",
+      "side": 1,
+      "message": "In general \"do not \u003cA\u003e to \u003cB\u003e\" is ambiguous. It\u0027s clearer to write it as \"To \u003cB\u003e, do not \u003cA\u003e.\"",
+      "range": {
+        "startLine": 192,
+        "startChar": 9,
+        "endLine": 193,
+        "endChar": 68
+      },
+      "revId": "c29586a5384f2690f69044af6e08aa9a09b91b2d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7af0899e_8b446275",
+        "filename": "src/code-generation-scopes-vixl.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-10-18T15:54:40Z",
+      "side": 1,
+      "message": "This should surely call CodeBufferCheckScope::Close(), shouldn\u0027t it?",
+      "range": {
+        "startLine": 205,
+        "startChar": 0,
+        "endLine": 213,
+        "endChar": 3
+      },
+      "revId": "c29586a5384f2690f69044af6e08aa9a09b91b2d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7af0899e_2b4f2e94",
+        "filename": "src/code-generation-scopes-vixl.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-10-18T15:54:40Z",
+      "side": 1,
+      "message": "Perhaps it would be better to template CodeBufferCheckScope to set the type of assembler_, so we can avoid this cast.\n\nAlternatively, give EmissionCheckScope a CodeBufferCheckScope member, instead of deriving from it.\n\nThere\u0027s nothing really wrong with the dynamic cast, but it just looks a bit surprising in this context.",
+      "revId": "c29586a5384f2690f69044af6e08aa9a09b91b2d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
