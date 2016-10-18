@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7af0899e_4b127ab5",
+        "filename": "src/code-generation-scopes-vixl.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-10-18T13:13:59Z",
+      "side": 1,
+      "message": "kNoCheck",
+      "range": {
+        "startLine": 52,
+        "startChar": 4,
+        "endLine": 52,
+        "endChar": 12
+      },
+      "revId": "8148dd30dbf0615a5438d501eb5cf984e2a71e4e",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
