@@ -16,6 +16,24 @@
       "revId": "3976edb2d3b98f0012c4f18b7242a6382c2d136c",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7af0899e_eb16c6f0",
+        "filename": "src/utils-vixl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-10-18T10:28:18Z",
+      "side": 1,
+      "message": "I don\u0027t think so; we haven\u0027t made an official release of VIXL since adding those deprecations. Their purpose is to help people who were using them in the last version.",
+      "parentUuid": "7af0899e_cb1f8a08",
+      "revId": "3976edb2d3b98f0012c4f18b7242a6382c2d136c",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
