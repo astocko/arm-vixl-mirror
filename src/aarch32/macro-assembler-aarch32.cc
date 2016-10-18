@@ -357,13 +357,13 @@ void MacroAssembler::Switch(Register reg, JumpTableBase* table) {
     Add(scratch, scratch, Operand(reg, LSL, table->GetOffsetShift()));
     switch (table->GetOffsetShift()) {
       case 0:
-        Ldrb(scratch, scratch);
+        Ldrb(scratch, MemOperand(scratch));
         break;
       case 1:
-        Ldrh(scratch, scratch);
+        Ldrh(scratch, MemOperand(scratch));
         break;
       case 2:
-        Ldr(scratch, scratch);
+        Ldr(scratch, MemOperand(scratch));
         break;
       default:
         VIXL_ABORT_WITH_MSG("Unsupported jump table size");

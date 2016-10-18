@@ -628,6 +628,8 @@ class MacroAssembler : public Assembler {
     Ldr(al, rt, v);
   }
 
+  void Ldr(Register rt, Register v) { Ldr(al, rt, MemOperand(v)); }
+
   // Generic Ldrd(rt, rt2, data)
   void Ldrd(Condition cond, Register rt, Register rt2, uint64_t v) {
     RawLiteral* literal =
