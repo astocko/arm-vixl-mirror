@@ -93,6 +93,30 @@
       "revId": "9ce93af5fc8454512ab9aeb4c723a813ab922295",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7af0899e_2b172ea5",
+        "filename": "src/code-generation-scopes-vixl.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-10-18T13:13:59Z",
+      "side": 1,
+      "message": "Ok. I wonder if it would be worth having tests that use debug headers with release builds, and vice-versa. That sounds like fun.",
+      "parentUuid": "7af0899e_78b58ecc",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 6
+      },
+      "revId": "9ce93af5fc8454512ab9aeb4c723a813ab922295",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
