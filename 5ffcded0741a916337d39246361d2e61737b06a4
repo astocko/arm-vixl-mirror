@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7af0899e_6b2bf630",
+        "filename": "src/utils-vixl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-10-18T10:23:34Z",
+      "side": 0,
+      "message": "We had a `bool` there???",
+      "range": {
+        "startLine": 123,
+        "startChar": 25,
+        "endLine": 123,
+        "endChar": 29
+      },
+      "revId": "5ffcded0741a916337d39246361d2e61737b06a4",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
