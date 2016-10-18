@@ -48,6 +48,23 @@
     },
     {
       "key": {
+        "uuid": "7af0899e_ce3958da",
+        "filename": "src/code-generation-scopes-vixl.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-10-18T16:41:43Z",
+      "side": 1,
+      "message": "kReserveBufferSpace\n\nCodeBufferCheckScope::kCheck is deprecated.",
+      "revId": "c29586a5384f2690f69044af6e08aa9a09b91b2d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7af0899e_8b446275",
         "filename": "src/code-generation-scopes-vixl.h",
         "patchSetId": 9
