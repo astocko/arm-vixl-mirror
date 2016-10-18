@@ -22,6 +22,30 @@
       "revId": "5ffcded0741a916337d39246361d2e61737b06a4",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7af0899e_4bff1a02",
+        "filename": "src/utils-vixl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-10-18T08:11:56Z",
+      "side": 1,
+      "message": "In that case, it does the wrong thing (as it did before this patch). I plan to fix it but these kinds of patches tend to snowball into huge rewrites, and I want to get this patch out so that it doesn\u0027t block this one: https://review.linaro.org/14750",
+      "parentUuid": "7af0899e_b8cd3660",
+      "range": {
+        "startLine": 121,
+        "startChar": 9,
+        "endLine": 121,
+        "endChar": 17
+      },
+      "revId": "5ffcded0741a916337d39246361d2e61737b06a4",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
