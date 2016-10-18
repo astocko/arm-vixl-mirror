@@ -50,6 +50,24 @@
       "revId": "24ca5bd10f614ed1b8481396a5f0dc48fcf127b6",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7af0899e_78174e52",
+        "filename": "src/aarch32/macro-assembler-aarch32.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 537,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-10-18T08:07:10Z",
+      "side": 1,
+      "message": "Thanks for pointing this out Vincent. I will need to revisit the implementation, and guarantee that we cannot reenable the MacroAssembler within an assembly accurate scope.",
+      "parentUuid": "9a0b7d60_27e76542",
+      "revId": "24ca5bd10f614ed1b8481396a5f0dc48fcf127b6",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
