@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7af0899e_384f8694",
+        "filename": "src/aarch32/disasm-aarch32.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 67330,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-10-18T07:13:45Z",
+      "side": 1,
+      "message": "Use `IsAligned` here and below?",
+      "revId": "7758e66cbc5d1209ccdc78eea23a8b391eb1d7a2",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
