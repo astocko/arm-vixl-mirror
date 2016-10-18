@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "7af0899e_6be2d604",
+        "filename": "src/assembler-base-vixl.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-10-18T10:52:22Z",
+      "side": 1,
+      "message": "I grepped through the code to find whether we already had this. But nothing was showing this; we have getters for base types.\n\nSo for now I suggest we stick to this. But we can easily change that later if we need to.",
+      "parentUuid": "7af0899e_6b81364a",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 57
+      },
+      "revId": "f7253271ee601aefa31fa9084d6c9af152cede71",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7af0899e_d5ae0be7",
         "filename": "src/code-buffer-vixl.cc",
         "patchSetId": 6
