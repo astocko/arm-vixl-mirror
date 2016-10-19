@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7af0899e_e4f7138b",
+        "filename": "test/test-code-generation-scopes.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-10-19T16:43:18Z",
+      "side": 1,
+      "message": "INVALSET_ probably isn\u0027t appropriate.",
+      "revId": "28bb6f7ac2dd5c62907e5b057a1e927fefba72fd",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
