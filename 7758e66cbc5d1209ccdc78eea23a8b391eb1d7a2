@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "7af0899e_c492d79e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000221
+      },
+      "writtenOn": "2016-10-19T15:18:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7af0899e_78490e8b",
+      "revId": "7758e66cbc5d1209ccdc78eea23a8b391eb1d7a2",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7af0899e_384f8694",
         "filename": "src/aarch32/disasm-aarch32.cc",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2016-10-18T07:13:45Z",
       "side": 1,
       "message": "Use `IsAligned` here and below?",
+      "revId": "7758e66cbc5d1209ccdc78eea23a8b391eb1d7a2",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7af0899e_a47ceb73",
+        "filename": "src/aarch32/disasm-aarch32.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 67330,
+      "author": {
+        "id": 1000221
+      },
+      "writtenOn": "2016-10-19T15:18:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7af0899e_384f8694",
       "revId": "7758e66cbc5d1209ccdc78eea23a8b391eb1d7a2",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
