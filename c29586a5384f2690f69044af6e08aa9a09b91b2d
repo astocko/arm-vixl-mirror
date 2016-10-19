@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7af0899e_84aa8fd2",
+        "filename": "src/aarch64/macro-assembler-aarch64.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 579,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-10-19T15:17:47Z",
+      "side": 1,
+      "message": "It can if you have a pointer to `MacroAssembler`, but not if you have a pointer to `MacroAssemblerInterface`.",
+      "parentUuid": "7af0899e_0b81928f",
+      "range": {
+        "startLine": 579,
+        "startChar": 2,
+        "endLine": 579,
+        "endChar": 52
+      },
+      "revId": "c29586a5384f2690f69044af6e08aa9a09b91b2d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7af0899e_4b4a7a84",
         "filename": "src/code-generation-scopes-vixl.h",
         "patchSetId": 9
@@ -36,6 +60,30 @@
       "writtenOn": "2016-10-18T15:54:40Z",
       "side": 1,
       "message": "In general \"do not \u003cA\u003e to \u003cB\u003e\" is ambiguous. It\u0027s clearer to write it as \"To \u003cB\u003e, do not \u003cA\u003e.\"",
+      "range": {
+        "startLine": 192,
+        "startChar": 9,
+        "endLine": 193,
+        "endChar": 68
+      },
+      "revId": "c29586a5384f2690f69044af6e08aa9a09b91b2d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7af0899e_2e31fca2",
+        "filename": "src/code-generation-scopes-vixl.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-10-19T15:17:47Z",
+      "side": 1,
+      "message": "Done.\nThis was a copy paste.",
+      "parentUuid": "7af0899e_4b4a7a84",
       "range": {
         "startLine": 192,
         "startChar": 9,
@@ -65,6 +113,24 @@
     },
     {
       "key": {
+        "uuid": "7af0899e_6e2b0431",
+        "filename": "src/code-generation-scopes-vixl.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-10-19T15:17:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7af0899e_ce3958da",
+      "revId": "c29586a5384f2690f69044af6e08aa9a09b91b2d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7af0899e_8b446275",
         "filename": "src/code-generation-scopes-vixl.h",
         "patchSetId": 9
@@ -88,6 +154,30 @@
     },
     {
       "key": {
+        "uuid": "7af0899e_ae1ccc14",
+        "filename": "src/code-generation-scopes-vixl.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-10-19T15:17:47Z",
+      "side": 1,
+      "message": "It should.\n\nIt was working fine, because `Close()` was protected. So it was only called from the destructor.\n\nMade it public and added tests.",
+      "parentUuid": "7af0899e_8b446275",
+      "range": {
+        "startLine": 205,
+        "startChar": 0,
+        "endLine": 213,
+        "endChar": 3
+      },
+      "revId": "c29586a5384f2690f69044af6e08aa9a09b91b2d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7af0899e_2b4f2e94",
         "filename": "src/code-generation-scopes-vixl.h",
         "patchSetId": 9
@@ -99,6 +189,24 @@
       "writtenOn": "2016-10-18T15:54:40Z",
       "side": 1,
       "message": "Perhaps it would be better to template CodeBufferCheckScope to set the type of assembler_, so we can avoid this cast.\n\nAlternatively, give EmissionCheckScope a CodeBufferCheckScope member, instead of deriving from it.\n\nThere\u0027s nothing really wrong with the dynamic cast, but it just looks a bit surprising in this context.",
+      "revId": "c29586a5384f2690f69044af6e08aa9a09b91b2d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7af0899e_0e1a4017",
+        "filename": "src/code-generation-scopes-vixl.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-10-19T15:17:47Z",
+      "side": 1,
+      "message": "I am not convinced by the template solution, and not keen on breaking the inheritance.\nThe other clean and simple solution I see to avoid is to do as before: keep a pointer to `MacroAssemblerInterface` in EmissionCheckScope, and get rid of `GetMacroAssembler()`. But that means an additional data member, and having two pointers to the asm/masm, which I am wary of because I want to avoid situations where they are not in sync.\n\nI ended up chosing to have another pointer. This code should not change much over time, so we get this correctly we should not have to worry too much in the future about keeping the two pointers in sync.",
+      "parentUuid": "7af0899e_2b4f2e94",
       "revId": "c29586a5384f2690f69044af6e08aa9a09b91b2d",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
