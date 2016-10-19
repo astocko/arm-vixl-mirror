@@ -291,7 +291,7 @@ void MacroAssembler::PerformEnsureEmit(Label::Offset target, uint32_t size) {
     }
     EmitLiteralPool(option);
   }
-  bind(&after_pools);
+  BindHelper(&after_pools);
   if (GetBuffer()->IsManaged()) {
     bool grow_requested;
     GetBuffer()->EnsureSpaceFor(size, &grow_requested);
@@ -377,7 +377,7 @@ void MacroAssembler::Switch(Register reg, JumpTableBase* table) {
                                  CodeBufferCheckScope::kMaximumSize);
     add(pc, pc, Operand(scratch, LSL, 2));
     VIXL_ASSERT((GetCursorOffset() - branch_location) == 4);
-    bind(&jump_table);
+    BindHelper(&jump_table);
     GenerateSwitchTable(table, table_size);
   } else {
     // Thumb mode - We have tbb and tbh to do this for 8 or 16bit offsets.
@@ -400,7 +400,7 @@ void MacroAssembler::Switch(Register reg, JumpTableBase* table) {
       add(pc, pc, scratch);
       // add pc, pc, rm fits in 16bit T2 (except for rm = sp)
       VIXL_ASSERT((GetCursorOffset() - branch_location) == 2);
-      bind(&jump_table);
+      BindHelper(&jump_table);
       GenerateSwitchTable(table, table_size);
     } else {
       VIXL_ASSERT((table->GetOffsetShift() == 0) ||
@@ -422,7 +422,7 @@ void MacroAssembler::Switch(Register reg, JumpTableBase* table) {
       }
       // tbb/tbh is a 32bit instruction
       VIXL_ASSERT((GetCursorOffset() - branch_location) == 4);
-      bind(&jump_table);
+      BindHelper(&jump_table);
       GenerateSwitchTable(table, table_size);
     }
   }
