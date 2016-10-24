@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7af0899e_bc124360",
+        "filename": "src/aarch64/macro-assembler-aarch64.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 3167,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-10-24T16:07:39Z",
+      "side": 0,
+      "message": "Can we implement this (marked deprecated) using the new ExactAssemblyScope? I\u0027m concerned about backwards-compatibility, especially since this is probably the most-used of our scopes.",
+      "revId": "586c6b98fb8159e0a77d0c3d425551eaddc7adcd",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}

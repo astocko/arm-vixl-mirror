@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7af0899e_dc08ef2f",
+        "filename": "src/aarch64/macro-assembler-aarch64.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-10-24T16:07:39Z",
+      "side": 1,
+      "message": "The important feature is that this can be used whilst actually emitting the pools, without creating a circular dependency. I think the comment should make this more clear.",
+      "range": {
+        "startLine": 93,
+        "startChar": 0,
+        "endLine": 95,
+        "endChar": 38
+      },
+      "revId": "b89c50eb698db89b08787800fb79355bb3c83772",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
