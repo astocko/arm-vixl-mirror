@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7af0899e_5c94ff36",
+        "filename": "SConstruct",
+        "patchSetId": 1
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-10-24T12:33:11Z",
+      "side": 1,
+      "message": "Shouldn\u0027t we differentiate using the test/aarch64 and test/aarch32 directories instead?",
+      "range": {
+        "startLine": 96,
+        "startChar": 0,
+        "endLine": 105,
+        "endChar": 8
+      },
+      "revId": "586c6b98fb8159e0a77d0c3d425551eaddc7adcd",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
