@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "7af0899e_5c2b5f82",
+        "filename": "src/aarch32/disasm-aarch32.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 67331,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-10-24T07:57:02Z",
+      "side": 1,
+      "message": "Then maybe use a new helper `IsMultiple`?",
+      "parentUuid": "7af0899e_ba3b6637",
+      "range": {
+        "startLine": 67331,
+        "startChar": 14,
+        "endLine": 67331,
+        "endChar": 60
+      },
+      "revId": "eb7cca837ef8966f9a667e89744ab825748843e8",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7af0899e_faedeef0",
         "filename": "src/aarch32/disasm-aarch32.cc",
         "patchSetId": 2
