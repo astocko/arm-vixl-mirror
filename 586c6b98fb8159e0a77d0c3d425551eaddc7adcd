@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "7af0899e_bf09952e",
+        "filename": "SConstruct",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1000219
+      },
+      "writtenOn": "2016-10-24T16:26:51Z",
+      "side": 1,
+      "message": "Ooops, this should have been `target_arch`, not just `target`.",
+      "revId": "586c6b98fb8159e0a77d0c3d425551eaddc7adcd",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7af0899e_5c94ff36",
         "filename": "SConstruct",
         "patchSetId": 1
