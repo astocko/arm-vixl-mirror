@@ -16,6 +16,24 @@
       "revId": "586c6b98fb8159e0a77d0c3d425551eaddc7adcd",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7af0899e_9f72d9e3",
+        "filename": "src/aarch64/macro-assembler-aarch64.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 3167,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-10-25T15:40:59Z",
+      "side": 0,
+      "message": "We can. Done!\n\nI tested by adding `-Wno-deprecated` to the `SConstruct` file and modifying a benchmark to use this instead.",
+      "parentUuid": "7af0899e_bc124360",
+      "revId": "586c6b98fb8159e0a77d0c3d425551eaddc7adcd",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
