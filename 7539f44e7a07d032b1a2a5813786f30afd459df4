@@ -16,6 +16,24 @@
       "revId": "7539f44e7a07d032b1a2a5813786f30afd459df4",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7af0899e_9f03f972",
+        "filename": "SConstruct",
+        "patchSetId": 1
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-10-25T10:40:22Z",
+      "side": 1,
+      "message": "`UnknownVariables()` has to be called after we build the environment.",
+      "parentUuid": "7af0899e_1f73894e",
+      "revId": "7539f44e7a07d032b1a2a5813786f30afd459df4",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
