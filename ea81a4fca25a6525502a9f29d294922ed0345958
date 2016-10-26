@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7af0899e_620af0d3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-10-26T09:51:36Z",
+      "side": 1,
+      "message": "Nit: Upper case and full stop.",
+      "revId": "ea81a4fca25a6525502a9f29d294922ed0345958",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7af0899e_82055cc4",
+        "filename": "src/aarch32/disasm-aarch32.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-10-26T09:51:36Z",
+      "side": 1,
+      "message": "It feels off to have to include the assembler header in the disassembler. Should `InstructionType` and `InstructionClass` be in some other header (instructions-aarch32.h?) so that one does not need to include the assembler header?",
+      "revId": "ea81a4fca25a6525502a9f29d294922ed0345958",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
