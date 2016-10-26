@@ -105,6 +105,24 @@
       "revId": "ea81a4fca25a6525502a9f29d294922ed0345958",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7af0899e_c25ac482",
+        "filename": "src/aarch32/disasm-aarch32.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-10-26T16:23:25Z",
+      "side": 1,
+      "message": "You shouldn\u0027t have to include and depend upon the disassembler header, though. The dependency tree might be simple now but forbidding the inclusion of the header makes it much easier to keep the dependencies under control.\n\nOn top of that, instructions-aarch32.h seems to be a more sensible place for InstructionType and InstructionClass anyway; they\u0027re instruction properties, not assembly functions.",
+      "parentUuid": "7af0899e_227468fc",
+      "revId": "ea81a4fca25a6525502a9f29d294922ed0345958",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
