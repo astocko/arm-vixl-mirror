@@ -141,6 +141,24 @@
       "revId": "ea81a4fca25a6525502a9f29d294922ed0345958",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7af0899e_62ccb036",
+        "filename": "src/aarch32/disasm-aarch32.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-10-26T16:28:28Z",
+      "side": 1,
+      "message": "Surely they could just be free types, couldn\u0027t they? vixl::aarch32::InstructionType makes more sense than vixl::aarch32::Assembler::InstructionType.\n\nI wasn\u0027t involved with (or don\u0027t remember) the discussions about removing the Instruction class. The Instruction class in VIXL-AArch64 isn\u0027t a parent of either the Assembler or the Disassembler. Logically, it shouldn\u0027t be a parent.",
+      "parentUuid": "7af0899e_0254cc52",
+      "revId": "ea81a4fca25a6525502a9f29d294922ed0345958",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
