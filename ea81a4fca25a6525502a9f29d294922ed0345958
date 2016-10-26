@@ -87,6 +87,24 @@
       "revId": "ea81a4fca25a6525502a9f29d294922ed0345958",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7af0899e_227468fc",
+        "filename": "src/aarch32/disasm-aarch32.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000221
+      },
+      "writtenOn": "2016-10-26T16:19:58Z",
+      "side": 1,
+      "message": "You can still use only the disassembler. The compiler will have some work to parse all the assembler include but it will only keep the enum we need.\nMy understanding was that VIXL is a monolithic library for which you can use only one of its components.",
+      "parentUuid": "7af0899e_026dec32",
+      "revId": "ea81a4fca25a6525502a9f29d294922ed0345958",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
