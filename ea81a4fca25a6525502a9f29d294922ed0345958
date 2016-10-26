@@ -123,6 +123,24 @@
       "revId": "ea81a4fca25a6525502a9f29d294922ed0345958",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7af0899e_0254cc52",
+        "filename": "src/aarch32/disasm-aarch32.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000221
+      },
+      "writtenOn": "2016-10-26T16:23:40Z",
+      "side": 1,
+      "message": "Maybe the right location to put InstructionType and InstructionClass is in the Instructions class from which Assembler and Disassembler used to inherit. It has been removed because it was, at this time, empty.\nIf we don\u0027t put back the Instructions class, I don\u0027t see another semantically correct location for InstructionType and InstructionClass.",
+      "parentUuid": "7af0899e_227468fc",
+      "revId": "ea81a4fca25a6525502a9f29d294922ed0345958",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
