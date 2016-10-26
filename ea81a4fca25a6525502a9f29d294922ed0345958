@@ -159,6 +159,24 @@
       "revId": "ea81a4fca25a6525502a9f29d294922ed0345958",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7af0899e_02db2cee",
+        "filename": "src/aarch32/disasm-aarch32.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000221
+      },
+      "writtenOn": "2016-10-26T17:30:51Z",
+      "side": 1,
+      "message": "Yes I can put them directly in instructions-aarch32.h\n\nSemantically, Assembler and Disassembler should inherit from a common class as they share the same CPU definition but I\u0027m find keeping everything directly in instructions-aarch32.h",
+      "parentUuid": "7af0899e_62ccb036",
+      "revId": "ea81a4fca25a6525502a9f29d294922ed0345958",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
