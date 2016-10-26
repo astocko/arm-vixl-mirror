@@ -69,6 +69,24 @@
       "revId": "ea81a4fca25a6525502a9f29d294922ed0345958",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7af0899e_026dec32",
+        "filename": "src/aarch32/disasm-aarch32.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-10-26T16:14:49Z",
+      "side": 1,
+      "message": "I\u0027m not sure where you got that idea from. Some users of VIXL are using the disassembler but not the assembler. We should aim to keep VIXL as modular as possible, and that includes avoiding dependencies between the disassembler and assembler.",
+      "parentUuid": "7af0899e_621790a4",
+      "revId": "ea81a4fca25a6525502a9f29d294922ed0345958",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
