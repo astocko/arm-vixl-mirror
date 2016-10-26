@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7af0899e_22c1082f",
+        "filename": "src/aarch32/macro-assembler-aarch32.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 631,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-10-26T13:44:16Z",
+      "side": 1,
+      "message": "I would prefer not to have this, but to require users to call MemOperand (like in AArch64).",
+      "revId": "2b87a78d1d3bf82d75cb2359a906a073535aee58",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
