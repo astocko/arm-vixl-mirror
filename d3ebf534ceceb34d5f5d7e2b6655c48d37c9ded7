@@ -16,6 +16,24 @@
       "revId": "d3ebf534ceceb34d5f5d7e2b6655c48d37c9ded7",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7af0899e_c5e76ee3",
+        "filename": "src/aarch32/assembler-aarch32.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1000221
+      },
+      "writtenOn": "2016-10-27T16:04:47Z",
+      "side": 1,
+      "message": "Mixing assembler and macro-assembler as you do here seems a bad idea. In your case, I would write:\n{\n  AssembleAccurateScope scope(...);\n  __ ldr(...);\n  __ add(...);\n}\n      // Bind the same label as `target` above.\n__ Bind(GetLabelFor(...));\n{\n  AssembleAccurateScope scope(...);\n  __ sub(...);\n  __ str(...);\n}\n\nAssemblerAccurateScope should be used only for small independent chunks of code. Putting a label which can be used from outside the scope breaks this.\n\nI should recommend that if you bind a label within an AssemblerAccurateScope, it can only be used within the same scope.",
+      "parentUuid": "7af0899e_25e4723a",
+      "revId": "d3ebf534ceceb34d5f5d7e2b6655c48d37c9ded7",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
