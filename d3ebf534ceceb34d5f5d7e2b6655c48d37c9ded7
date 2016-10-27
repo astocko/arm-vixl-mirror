@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7af0899e_25e4723a",
+        "filename": "src/aarch32/assembler-aarch32.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-10-27T10:25:27Z",
+      "side": 1,
+      "message": "This feels wrong to me. What if the label actually has to be bound within an `AssemblerAccurateScope`?\n\n\nIn one code generation stub:\n\n    Label* target \u003d GetLabelFor(...);\n    __ Cbz(reg, block_entry);\n    \nIn another:\n\n    // We want to emit some critical code here.\n    {\n      AssembleAccurateScope scope(...);\n      __ ldr(...);\n      __ add(...);\n      // Bind the same label as `target` above.\n      // We cannot use `Bind` because we are in an accurate scope.\n      __ bind(GetLabelFor(...));\n      __ sub(...);\n      __ str(...);\n    }\n\nThe first idea I had to solve this was to let the label have a pointer to the the veneer pool tracking it (NULL if not tracked). And in `Assembler::bind` we call back the veneer pool if necessary to get rid of the info for that label.",
+      "revId": "d3ebf534ceceb34d5f5d7e2b6655c48d37c9ded7",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
