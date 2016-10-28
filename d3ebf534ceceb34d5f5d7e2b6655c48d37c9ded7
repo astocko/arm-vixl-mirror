@@ -52,6 +52,24 @@
       "revId": "d3ebf534ceceb34d5f5d7e2b6655c48d37c9ded7",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7af0899e_05db36ee",
+        "filename": "src/aarch32/assembler-aarch32.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-10-28T08:54:27Z",
+      "side": 1,
+      "message": "Indeed, both starting and ending a scope could trigger the emission of pools (or anything else) into the code.\n\nWe know of use-cases where long-lived labels need to be bound inside InstructionAccurateScopes; this is a basic requirement for instruction patching, for example. It\u0027s only a very small step to go from there to branching to it. The V8 deoptimisation mechanism comes very close to doing this. It uses calculated offsets, but a Label-based approach would be quite a reasonable implementation.\n\nI\u0027m happy to accept this patch now because it catches a bug that otherwise would have been hidden, but I think we should really support a consistent usage for Labels; they should work consistently irrespective of what they\u0027re bound to.",
+      "parentUuid": "7af0899e_a55fc271",
+      "revId": "d3ebf534ceceb34d5f5d7e2b6655c48d37c9ded7",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
