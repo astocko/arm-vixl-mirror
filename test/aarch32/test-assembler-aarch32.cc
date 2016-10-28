@@ -1770,6 +1770,7 @@ TEST(set_isa_noop) {
   {
     Assembler assm(A32);
     CheckInstructionSetA32(assm);
+    CodeBufferCheckScope scope(&assm, kMaxInstructionSizeInBytes);
     assm.bx(lr);
     VIXL_ASSERT(assm.GetCursorOffset() > 0);
     CheckInstructionSetA32(assm);
@@ -1782,6 +1783,7 @@ TEST(set_isa_noop) {
   {
     Assembler assm(T32);
     CheckInstructionSetT32(assm);
+    CodeBufferCheckScope scope(&assm, kMaxInstructionSizeInBytes);
     assm.bx(lr);
     VIXL_ASSERT(assm.GetCursorOffset() > 0);
     CheckInstructionSetT32(assm);
