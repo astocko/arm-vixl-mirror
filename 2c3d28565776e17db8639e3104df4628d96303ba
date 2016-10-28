@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7af0899e_7082ba53",
+        "filename": "src/aarch32/macro-assembler-aarch32.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1000221
+      },
+      "writtenOn": "2016-10-28T14:58:11Z",
+      "side": 1,
+      "message": "Currently, VIXL aarch32 haven\u0027t any multiple inheritance. I would like to keep that.\nMost projects which could use VIXL doesn\u0027t allow multiple inheritance.",
+      "revId": "2c3d28565776e17db8639e3104df4628d96303ba",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
