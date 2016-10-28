@@ -26,6 +26,10 @@
 
 #include "test-runner.h"
 
+#ifdef VIXL_INCLUDE_TARGET_AARCH32
+#include "aarch32/macro-assembler-aarch32.h"
+#endif
+
 #ifdef VIXL_INCLUDE_TARGET_AARCH64
 #include "aarch64/macro-assembler-aarch64.h"
 #endif
@@ -37,8 +41,22 @@ namespace vixl {
 
 // This file contains tests for code generation scopes.
 
+#ifdef VIXL_INCLUDE_TARGET_AARCH32
+TEST(CodeBufferCheckScope_basic_32) {
+  aarch32::MacroAssembler masm;
+
+  {
+    CodeBufferCheckScope scope(&masm, aarch32::kA32InstructionSizeInBytes);
+    __ Mov(aarch32::r0, 0);
+  }
+
+  masm.FinalizeCode();
+}
+#endif  // VIXL_INCLUDE_TARGET_AARCH32
+
+
 #ifdef VIXL_INCLUDE_TARGET_AARCH64
-TEST(CodeBufferCheckScope_basic) {
+TEST(CodeBufferCheckScope_basic_64) {
   aarch64::MacroAssembler masm;
 
   {
@@ -48,9 +66,57 @@ TEST(CodeBufferCheckScope_basic) {
 
   masm.FinalizeCode();
 }
+#endif  // VIXL_INCLUDE_TARGET_AARCH64
 
 
-TEST(CodeBufferCheckScope_Open) {
+#ifdef VIXL_INCLUDE_TARGET_AARCH32
+TEST(CodeBufferCheckScope_assembler_use_32) {
+  aarch32::MacroAssembler masm;
+
+  {
+    CodeBufferCheckScope scope(&masm, 2 * aarch32::kA32InstructionSizeInBytes);
+    __ Mov(aarch32::r0, 0);
+    __ mov(aarch32::r1, 1);
+  }
+
+  masm.FinalizeCode();
+}
+#endif  // VIXL_INCLUDE_TARGET_AARCH32
+
+
+#ifdef VIXL_INCLUDE_TARGET_AARCH64
+TEST(CodeBufferCheckScope_assembler_use_64) {
+  aarch64::MacroAssembler masm;
+
+  {
+    CodeBufferCheckScope scope(&masm, 2 * aarch64::kInstructionSize);
+    __ Mov(aarch64::x0, 0);
+    __ movz(aarch64::x1, 1);
+  }
+
+  masm.FinalizeCode();
+}
+#endif  // VIXL_INCLUDE_TARGET_AARCH64
+
+
+#ifdef VIXL_INCLUDE_TARGET_AARCH32
+TEST(CodeBufferCheckScope_Open_32) {
+  aarch32::MacroAssembler masm;
+
+  {
+    CodeBufferCheckScope scope;
+    __ Mov(aarch32::r0, 0);
+    scope.Open(&masm, aarch32::kA32InstructionSizeInBytes);
+    __ Mov(aarch32::r1, 1);
+  }
+
+  masm.FinalizeCode();
+}
+#endif  // VIXL_INCLUDE_TARGET_AARCH32
+
+
+#ifdef VIXL_INCLUDE_TARGET_AARCH64
+TEST(CodeBufferCheckScope_Open_64) {
   aarch64::MacroAssembler masm;
 
   {
@@ -62,9 +128,27 @@ TEST(CodeBufferCheckScope_Open) {
 
   masm.FinalizeCode();
 }
+#endif  // VIXL_INCLUDE_TARGET_AARCH64
 
 
-TEST(CodeBufferCheckScope_Close) {
+#ifdef VIXL_INCLUDE_TARGET_AARCH32
+TEST(CodeBufferCheckScope_Close_32) {
+  aarch32::MacroAssembler masm;
+
+  {
+    CodeBufferCheckScope scope(&masm, aarch32::kA32InstructionSizeInBytes);
+    __ Mov(aarch32::r0, 0);
+    scope.Close();
+    __ Mov(aarch32::r1, 1);
+  }
+
+  masm.FinalizeCode();
+}
+#endif  // VIXL_INCLUDE_TARGET_AARCH32
+
+
+#ifdef VIXL_INCLUDE_TARGET_AARCH64
+TEST(CodeBufferCheckScope_Close_64) {
   aarch64::MacroAssembler masm;
 
   {
@@ -76,9 +160,29 @@ TEST(CodeBufferCheckScope_Close) {
 
   masm.FinalizeCode();
 }
+#endif  // VIXL_INCLUDE_TARGET_AARCH64
 
 
-TEST(CodeBufferCheckScope_Open_Close) {
+#ifdef VIXL_INCLUDE_TARGET_AARCH32
+TEST(CodeBufferCheckScope_Open_Close_32) {
+  aarch32::MacroAssembler masm;
+
+  {
+    CodeBufferCheckScope scope;
+    __ Mov(aarch32::r0, 0);
+    scope.Open(&masm, aarch32::kA32InstructionSizeInBytes);
+    __ Mov(aarch32::r1, 1);
+    scope.Close();
+    __ Mov(aarch32::r2, 2);
+  }
+
+  masm.FinalizeCode();
+}
+#endif  // VIXL_INCLUDE_TARGET_AARCH32
+
+
+#ifdef VIXL_INCLUDE_TARGET_AARCH64
+TEST(CodeBufferCheckScope_Open_Close_64) {
   aarch64::MacroAssembler masm;
 
   {
@@ -92,8 +196,10 @@ TEST(CodeBufferCheckScope_Open_Close) {
 
   masm.FinalizeCode();
 }
+#endif  // VIXL_INCLUDE_TARGET_AARCH64
 
 
+#ifdef VIXL_INCLUDE_TARGET_AARCH64
 TEST(EmissionCheckScope_basic) {
   aarch64::MacroAssembler masm;
 
