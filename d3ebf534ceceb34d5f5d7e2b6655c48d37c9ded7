@@ -34,6 +34,24 @@
       "revId": "d3ebf534ceceb34d5f5d7e2b6655c48d37c9ded7",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7af0899e_a55fc271",
+        "filename": "src/aarch32/assembler-aarch32.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-10-28T08:26:39Z",
+      "side": 1,
+      "message": "With your suggestion there could be emission of pools between the two pieces of code.\n\nI just put up an random example illustrate the question. Are we sure (or convinced enough) that there is no valid use-case for binding the label (that we branch to from \u0027outside\u0027) in the middle of an assembler accurate sequence?",
+      "parentUuid": "7af0899e_c5e76ee3",
+      "revId": "d3ebf534ceceb34d5f5d7e2b6655c48d37c9ded7",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
