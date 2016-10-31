@@ -16,6 +16,24 @@
       "revId": "64a0d9a2a5103f91238b0a1007334de7cdf7772c",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aed85c8_4d03b973",
+        "filename": "src/aarch32/macro-assembler-aarch32.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-10-31T11:42:12Z",
+      "side": 1,
+      "message": "I don\u0027t think it does. We can keep it private. Updated the code.",
+      "parentUuid": "5aed85c8_4dec59c8",
+      "revId": "64a0d9a2a5103f91238b0a1007334de7cdf7772c",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
