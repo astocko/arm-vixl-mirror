@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5aed85c8_4dec59c8",
+        "filename": "src/aarch32/macro-assembler-aarch32.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1000219
+      },
+      "writtenOn": "2016-10-31T11:14:17Z",
+      "side": 1,
+      "message": "Does it make sense to expose this scope to the user? Can you keep inside the MacroAssembler\u0027s private definitions?",
+      "revId": "64a0d9a2a5103f91238b0a1007334de7cdf7772c",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
