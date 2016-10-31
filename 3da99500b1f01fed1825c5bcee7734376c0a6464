@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5aed85c8_0d09b195",
+        "filename": "src/aarch32/macro-assembler-aarch32.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 9171,
+      "author": {
+        "id": 1000219
+      },
+      "writtenOn": "2016-10-31T11:24:51Z",
+      "side": 1,
+      "message": "I don\u0027t think we have to deprecate things when it comes to the AArch32 target, you can just remove it.",
+      "revId": "3da99500b1f01fed1825c5bcee7734376c0a6464",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
