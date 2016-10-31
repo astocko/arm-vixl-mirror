@@ -16,6 +16,24 @@
       "revId": "2c3d28565776e17db8639e3104df4628d96303ba",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aed85c8_0dbff1d1",
+        "filename": "src/aarch32/macro-assembler-aarch32.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-10-31T08:44:46Z",
+      "side": 1,
+      "message": "The aarch64 backend also does not have multiple inheritance except for the equivalent occurrence.\n\nIf you look at the `MacroAssemblerInterface` class, you will see that it is a pure virtual interface without any data members (typical C++ implementation of interfaces). I think it is a valid exception to the rule of not having multiple inheritance that we should otherwise follow. We want to enforce a common `MacroAssembler` interface to all backends. I think it is worth it.",
+      "parentUuid": "7af0899e_7082ba53",
+      "revId": "2c3d28565776e17db8639e3104df4628d96303ba",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
