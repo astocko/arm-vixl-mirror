@@ -16,6 +16,24 @@
       "revId": "aaae8896ff9c4246b995f959d850c18416ab2759",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aed85c8_8dcda160",
+        "filename": "src/aarch32/macro-assembler-aarch32.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-10-31T11:18:45Z",
+      "side": 1,
+      "message": "Good spot. I agree `AsAssemblerBase()` is a better name. Updated the code.",
+      "parentUuid": "5aed85c8_4db579cc",
+      "revId": "aaae8896ff9c4246b995f959d850c18416ab2759",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
