@@ -256,21 +256,40 @@ void MacroAssembler::VeneerPoolManager::Emit(Label::Offset target) {
 }
 
 
+// We use a subclass to access the protected `ExactAssemblyScope` constructor
+// giving us control over the pools, and make the constructor private to limit
+// usage to code paths emitting pools.
+class ExactAssemblyScopeWithoutPoolsCheck : public ExactAssemblyScope {
+ private:
+  ExactAssemblyScopeWithoutPoolsCheck(MacroAssembler* masm,
+                                      size_t size,
+                                      SizePolicy size_policy = kExactSize)
+      : ExactAssemblyScope(masm,
+                           size,
+                           size_policy,
+                           ExactAssemblyScope::kIgnorePools) {}
+
+  friend void MacroAssembler::EmitLiteralPool(LiteralPool* const literal_pool,
+                                              EmitOption option);
+
+  // TODO: `PerformEnsureEmit` is `private`, preventing us from making it a
+  // friend.
+  friend class MacroAssembler;
+};
+
+
 void MacroAssembler::PerformEnsureEmit(Label::Offset target, uint32_t size) {
   EmitOption option = kBranchRequired;
   Label after_pools;
   if (target >= veneer_pool_manager_.GetCheckpoint()) {
-    // Here, we can't use an AssemblerAccurateScope as it would call
-    // PerformEnsureEmit in an infinite loop.
     VIXL_ASSERT(!AllowAssembler());
-#ifdef VIXL_DEBUG
-    SetAllowAssembler(true);
-#endif
-    b(&after_pools);
-    VIXL_ASSERT(AllowAssembler());
-#ifdef VIXL_DEBUG
-    SetAllowAssembler(false);
-#endif
+    {
+      ExactAssemblyScopeWithoutPoolsCheck
+          guard(this,
+                kMaxInstructionSizeInBytes,
+                ExactAssemblyScope::kMaximumSize);
+      b(&after_pools);
+    }
     veneer_pool_manager_.Emit(target);
     option = kNoBranchRequired;
   }
@@ -315,6 +334,43 @@ void MacroAssembler::ComputeCheckpoint() {
   VIXL_ASSERT(IsInt32(buffer_size));
   Label::Offset buffer_checkpoint = static_cast<Label::Offset>(buffer_size);
   checkpoint_ = std::min(checkpoint_, buffer_checkpoint);
+}
+
+
+void MacroAssembler::EmitLiteralPool(LiteralPool* const literal_pool,
+                                     EmitOption option) {
+  if (literal_pool->GetSize() > 0) {
+#ifdef VIXL_DEBUG
+    for (LiteralPool::RawLiteralListIterator literal_it =
+             literal_pool->GetFirst();
+         literal_it != literal_pool->GetEnd();
+         literal_it++) {
+      RawLiteral* literal = *literal_it;
+      VIXL_ASSERT(GetCursorOffset() < literal->GetCheckpoint());
+    }
+#endif
+    Label after_literal;
+    if (option == kBranchRequired) {
+      GetBuffer()->EnsureSpaceFor(kMaxInstructionSizeInBytes);
+      VIXL_ASSERT(!AllowAssembler());
+      {
+        ExactAssemblyScopeWithoutPoolsCheck
+            guard(this,
+                  kMaxInstructionSizeInBytes,
+                  ExactAssemblyScope::kMaximumSize);
+        b(&after_literal);
+      }
+    }
+    GetBuffer()->Align();
+    GetBuffer()->EnsureSpaceFor(literal_pool->GetSize());
+    for (LiteralPool::RawLiteralListIterator it = literal_pool->GetFirst();
+         it != literal_pool->GetEnd();
+         it++) {
+      place(*it);
+    }
+    if (option == kBranchRequired) bind(&after_literal);
+    literal_pool->Clear();
+  }
 }
 
 
@@ -370,12 +426,12 @@ void MacroAssembler::Switch(Register reg, JumpTableBase* table) {
         VIXL_ABORT_WITH_MSG("Unsupported jump table size");
     }
     // Emit whatever needs to be emitted if we want to
-    // correctly rescord the position of the branch instruction
+    // correctly record the position of the branch instruction
     uint32_t branch_location = GetCursorOffset();
     table->SetBranchLocation(branch_location + GetArchitectureStatePCOffset());
-    AssemblerAccurateScope scope(this,
-                                 table_size + kA32InstructionSizeInBytes,
-                                 CodeBufferCheckScope::kMaximumSize);
+    ExactAssemblyScope scope(this,
+                             table_size + kA32InstructionSizeInBytes,
+                             ExactAssemblyScope::kMaximumSize);
     add(pc, pc, Operand(scratch, LSL, 2));
     VIXL_ASSERT((GetCursorOffset() - branch_location) == 4);
     bind(&jump_table);
@@ -391,13 +447,13 @@ void MacroAssembler::Switch(Register reg, JumpTableBase* table) {
       // so let's do the shift before
       Lsl(scratch, scratch, 1);
       // Emit whatever needs to be emitted if we want to
-      // correctly rescord the position of the branch instruction
+      // correctly record the position of the branch instruction
       uint32_t branch_location = GetCursorOffset();
       table->SetBranchLocation(branch_location +
                                GetArchitectureStatePCOffset());
-      AssemblerAccurateScope scope(this,
-                                   table_size + kMaxInstructionSizeInBytes,
-                                   CodeBufferCheckScope::kMaximumSize);
+      ExactAssemblyScope scope(this,
+                               table_size + kMaxInstructionSizeInBytes,
+                               ExactAssemblyScope::kMaximumSize);
       add(pc, pc, scratch);
       // add pc, pc, rm fits in 16bit T2 (except for rm = sp)
       VIXL_ASSERT((GetCursorOffset() - branch_location) == 2);
@@ -411,9 +467,9 @@ void MacroAssembler::Switch(Register reg, JumpTableBase* table) {
       uint32_t branch_location = GetCursorOffset();
       table->SetBranchLocation(branch_location +
                                GetArchitectureStatePCOffset());
-      AssemblerAccurateScope scope(this,
-                                   table_size + kMaxInstructionSizeInBytes,
-                                   CodeBufferCheckScope::kMaximumSize);
+      ExactAssemblyScope scope(this,
+                               table_size + kMaxInstructionSizeInBytes,
+                               ExactAssemblyScope::kMaximumSize);
       if (table->GetOffsetShift() == 0) {
         // 8bit offsets
         tbb(scratch, reg);
