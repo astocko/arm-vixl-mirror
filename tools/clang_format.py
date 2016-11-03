@@ -75,7 +75,11 @@ def ClangFormat(filename, in_place = False, progress_prefix = ''):
   printer.PrintOverwritableLine('Processing %s' % filename,
                                 type = printer.LINE_TYPE_LINTER)
 
-  cmd_format = ['clang-format-3.6', filename]
+  if platform == "darwin":
+    cmd_format = ['clang-format-mp-3.6', filename]
+  else
+    cmd_format = ['clang-format-3.6', filename]
+
   temp_file, temp_file_name = tempfile.mkstemp(prefix = 'clang_format_')
   cmd_format_string = '$ ' + ' '.join(cmd_format) + ' > %s' % temp_file_name
   p_format = subprocess.Popen(cmd_format,
