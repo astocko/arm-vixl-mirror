@@ -1,0 +1,7 @@
+Code-Review+2: Martyn Capewell <martyn.capewell@arm.com>
+Verified+1: Alexandre Rames <alexandre.rames@linaro.org>
+Submitted-by: Alexandre Rames <alexandre.rames@linaro.org>
+Submitted-at: Thu, 03 Nov 2016 13:05:53 +0000
+Reviewed-on: https://review.linaro.org/15119
+Project: arm/vixl
+Branch: refs/heads/master
