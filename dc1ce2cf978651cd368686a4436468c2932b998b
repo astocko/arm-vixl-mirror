@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5aed85c8_565fca72",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000222
+      },
+      "writtenOn": "2016-11-03T11:23:21Z",
+      "side": 1,
+      "message": "Expand this description to say why it\u0027s needed - what bug does it fix, or for what is it preparing the way?",
+      "revId": "dc1ce2cf978651cd368686a4436468c2932b998b",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
