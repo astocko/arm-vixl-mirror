@@ -40,7 +40,6 @@ import git
 import printer
 import util
 
-
 is_output_redirected = not sys.stdout.isatty()
 
 # Catch SIGINT to gracefully exit when ctrl+C is pressed.
@@ -75,7 +74,11 @@ def ClangFormat(filename, in_place = False, progress_prefix = ''):
   printer.PrintOverwritableLine('Processing %s' % filename,
                                 type = printer.LINE_TYPE_LINTER)
 
-  cmd_format = ['clang-format-3.6', filename]
+  if sys.platform == "darwin":
+    cmd_format = ['clang-format-mp-3.6', filename]
+  else:
+    cmd_format = ['clang-format-3.6', filename]
+
   temp_file, temp_file_name = tempfile.mkstemp(prefix = 'clang_format_')
   cmd_format_string = '$ ' + ' '.join(cmd_format) + ' > %s' % temp_file_name
   p_format = subprocess.Popen(cmd_format,
@@ -100,7 +103,10 @@ def ClangFormat(filename, in_place = False, progress_prefix = ''):
   rc += p_diff.wait()
 
   if in_place:
-      cmd_format = ['clang-format-3.6', '-i', filename]
+      if sys.platform == "darwin":
+        cmd_format = ['clang-format-mp-3.6', '-i', filename]
+      else:
+        cmd_format = ['clang-format-3.6', '-i', filename]
       p_format = subprocess.Popen(cmd_format,
                                   stdout=temp_file, stderr=subprocess.STDOUT)
 
@@ -128,7 +134,11 @@ def ClangFormatWrapper(args):
 
 # Returns the total number of files incorrectly formatted.
 def ClangFormatFiles(files, in_place = False, jobs = 1, progress_prefix = ''):
-  if not util.IsCommandAvailable('clang-format-3.6'):
+  if sys.platform == "darwin":
+    cmd = 'clang-format-mp-3.6'
+  else:
+    cmd = 'clang-format-3.6'
+  if not util.IsCommandAvailable(cmd):
     print(
       printer.COLOUR_RED + \
       ("`clang-format-3.6` not found. Please ensure it is installed "
