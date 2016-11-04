@@ -22,6 +22,30 @@
       "revId": "f737e0a4f195a250aaa928da43895ffe6ed57e4d",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aed85c8_bc39adda",
+        "filename": "tools/util.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1000219
+      },
+      "writtenOn": "2016-11-04T11:02:50Z",
+      "side": 1,
+      "message": "Ah, since we were using `.*` before then it was required to make the matcher not greedy. I guess since \\S doesn\u0027t match whitespaces we do not need it anymore.",
+      "parentUuid": "5aed85c8_e1a6ee52",
+      "range": {
+        "startLine": 89,
+        "startChar": 30,
+        "endLine": 89,
+        "endChar": 31
+      },
+      "revId": "f737e0a4f195a250aaa928da43895ffe6ed57e4d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
