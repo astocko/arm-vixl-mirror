@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5aed85c8_2168f6f4",
+        "filename": "src/aarch64/assembler-aarch64.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-11-04T09:34:57Z",
+      "side": 1,
+      "message": "Fixed.",
+      "range": {
+        "startLine": 105,
+        "startChar": 56,
+        "endLine": 105,
+        "endChar": 57
+      },
+      "revId": "04b01bf8cf70aebe6b4870b60bb963996809cf60",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
