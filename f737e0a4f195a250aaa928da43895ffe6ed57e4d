@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5aed85c8_e1a6ee52",
+        "filename": "tools/util.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-11-04T09:31:19Z",
+      "side": 1,
+      "message": "Why do you need this `?`?",
+      "range": {
+        "startLine": 89,
+        "startChar": 30,
+        "endLine": 89,
+        "endChar": 31
+      },
+      "revId": "f737e0a4f195a250aaa928da43895ffe6ed57e4d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
