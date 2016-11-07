@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5aed85c8_d66c5539",
+        "filename": "src/aarch32/macro-assembler-aarch32.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 486,
+      "author": {
+        "id": 1000219
+      },
+      "writtenOn": "2016-11-07T18:33:44Z",
+      "side": 1,
+      "message": "Should these be implemented in the `MacroAssemblerInterface`? Or would you rather keep the interface an \"pure\" interface? I don\u0027t really mind either, just a suggestion.",
+      "revId": "9a2031ce6e26304a2c7ba60659e9b07abe89d20d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aed85c8_b669c927",
+        "filename": "src/aarch32/macro-assembler-aarch32.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 9249,
+      "author": {
+        "id": 1000219
+      },
+      "writtenOn": "2016-11-07T18:33:44Z",
+      "side": 1,
+      "message": "(Again, just a suggestion, it might not be a good idea).\n\nI can see the only aarch32::MacroAssembler specific bit here is `EnsureEmitFor`. However, the AArch64 MacroAssembler also has such method. Could we make `EnsureEmitFor` part of the MacroAssemblerInterface and then move this entire scope to \"code-generation-scopes-vixl.h\"?",
+      "revId": "9a2031ce6e26304a2c7ba60659e9b07abe89d20d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
