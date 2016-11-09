@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5aed85c8_cf715479",
+        "filename": "src/aarch32/macro-assembler-aarch32.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 488,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-11-09T16:51:48Z",
+      "side": 1,
+      "message": "Can\u0027t this `Align()` be improved for T32?\nFor T32 couldn\u0027t we have an alignment of only 2 bytes after the literal? Should I create a task for that?",
+      "revId": "5f0ebb2dcaebd8a0300ee19a67c4f6bc7092d778",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
