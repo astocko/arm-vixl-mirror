@@ -16,6 +16,24 @@
       "revId": "5f0ebb2dcaebd8a0300ee19a67c4f6bc7092d778",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aed85c8_aff5e8cc",
+        "filename": "src/aarch32/macro-assembler-aarch32.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 488,
+      "author": {
+        "id": 1000221
+      },
+      "writtenOn": "2016-11-09T17:00:54Z",
+      "side": 1,
+      "message": "I think that, even for T32, it\u0027s better to be 4 byte alignment. This way the jump after the pool will target a 4 byte aligned code which can be faster to load and execute.",
+      "parentUuid": "5aed85c8_cf715479",
+      "revId": "5f0ebb2dcaebd8a0300ee19a67c4f6bc7092d778",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
