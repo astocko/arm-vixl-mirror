@@ -16,6 +16,24 @@
       "revId": "c20b61665251bb3249587c5b6630edc7beff9433",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aed85c8_accdf65f",
+        "filename": "test/aarch64/test-assembler-aarch64.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 22577,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-11-09T11:02:25Z",
+      "side": 1,
+      "message": "I am not sure. In the design of the scopes the `CodeBufferCheckScope` is there to allow code emission. Since `bind` does not generate any code, do we really want to enforce having a scope (with size 0)?\nMaybe instead we can add a check that `bind` does not generate any code.",
+      "parentUuid": "5aed85c8_ec47fe49",
+      "revId": "c20b61665251bb3249587c5b6630edc7beff9433",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
