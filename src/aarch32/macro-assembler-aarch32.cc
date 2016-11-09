@@ -279,7 +279,7 @@ void MacroAssembler::PerformEnsureEmit(Label::Offset target, uint32_t size) {
   // to avoid any overflow. If we already generated the veneers, we can
   // emit the pool (the branch is already done).
   VIXL_ASSERT(GetCursorOffset() <= literal_pool_manager_.GetCheckpoint());
-  if ((target > literal_pool_manager_.GetCheckpoint()) ||
+  if ((target >= literal_pool_manager_.GetCheckpoint()) ||
       (option == kNoBranchRequired)) {
     // We will generate the literal pool. Generate all the veneers which
     // would become out of range.

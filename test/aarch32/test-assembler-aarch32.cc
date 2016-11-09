@@ -1125,7 +1125,7 @@ TEST(emit_literal) {
   // Emit code up to the maximum literal load range and ensure the pool
   // has not been emitted.
   static const int ldrd_size = 255 - 4;
-  ptrdiff_t end = masm.GetBuffer()->GetCursorOffset() + ldrd_size;
+  ptrdiff_t end = AlignDown(masm.GetBuffer()->GetCursorOffset() + ldrd_size, 4);
   while (masm.GetBuffer()->GetCursorOffset() < end) {
     // Random instruction that does not affect the test, ie
     // an instruction that does not depend on a literal.
