@@ -34,6 +34,24 @@
       "revId": "c20b61665251bb3249587c5b6630edc7beff9433",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aed85c8_ecd7feeb",
+        "filename": "test/aarch64/test-assembler-aarch64.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 22577,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-11-09T11:07:41Z",
+      "side": 1,
+      "message": "It\u0027s easier to restrict it now than later, and \u0027Bind\u0027 offers an obvious (and more consistent) alternative, so I\u0027d be tempted to argue for requiring a scope.",
+      "parentUuid": "5aed85c8_accdf65f",
+      "revId": "c20b61665251bb3249587c5b6630edc7beff9433",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
