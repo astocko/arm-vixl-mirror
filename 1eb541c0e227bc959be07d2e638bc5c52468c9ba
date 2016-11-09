@@ -16,6 +16,24 @@
       "revId": "1eb541c0e227bc959be07d2e638bc5c52468c9ba",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aed85c8_afc0487d",
+        "filename": "src/aarch32/macro-assembler-aarch32.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 482,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-11-09T16:47:00Z",
+      "side": 1,
+      "message": "Oh so the `AlignUp` is actually not necessary. Instead I should align before `EnsureEmitFor`. We were not doing it before, but now that \u0027EnsureEmitFor\u0027 does not align its size this will be required.",
+      "parentUuid": "5aed85c8_af92089d",
+      "revId": "1eb541c0e227bc959be07d2e638bc5c52468c9ba",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
