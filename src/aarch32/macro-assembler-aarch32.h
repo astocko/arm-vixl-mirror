@@ -478,7 +478,7 @@ class MacroAssembler : public Assembler {
     VIXL_ASSERT(literal->IsManuallyPlaced());
     size_t literal_size = literal->GetSize();
     VIXL_ASSERT(IsUint32(literal_size));
-    EnsureEmitFor(static_cast<uint32_t>(literal_size));
+    EnsureEmitFor(static_cast<uint32_t>(AlignUp(literal_size, 4)));
     PlaceHelper(literal);
     GetBuffer()->Align();
   }
@@ -497,7 +497,7 @@ class MacroAssembler : public Assembler {
   bool LiteralPoolIsEmpty() const { return literal_pool_manager_.IsEmpty(); }
 
   void EnsureEmitFor(uint32_t size) {
-    Label::Offset target = AlignUp(GetCursorOffset() + size, 4);
+    Label::Offset target = GetCursorOffset() + size;
     if (target < checkpoint_) return;
     PerformEnsureEmit(target, size);
   }
