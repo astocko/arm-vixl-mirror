@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5aed85c8_af92089d",
+        "filename": "src/aarch32/macro-assembler-aarch32.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 482,
+      "author": {
+        "id": 1000221
+      },
+      "writtenOn": "2016-11-09T16:11:42Z",
+      "side": 1,
+      "message": "It looks like we also have to call GetBuffer()-\u003eAlign() before PlaceHelper. Using T32, the buffer maybe only 2 byte aligned.",
+      "revId": "1eb541c0e227bc959be07d2e638bc5c52468c9ba",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
