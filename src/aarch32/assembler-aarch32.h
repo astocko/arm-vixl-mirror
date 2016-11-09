@@ -62,6 +62,7 @@ class Assembler : public internal::AssemblerBase {
   void AdvanceIT() { it_mask_ = (it_mask_ << 1) & 0xf; }
   void BindHelper(Label* label);
   void PlaceHelper(RawLiteral* literal) {
+    GetBuffer()->Align();
     BindHelper(literal);
     GetBuffer()->EmitData(literal->GetDataAddress(), literal->GetSize());
   }
