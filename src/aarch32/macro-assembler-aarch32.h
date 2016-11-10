@@ -502,6 +502,9 @@ class MacroAssembler : public Assembler {
   bool LiteralPoolIsEmpty() const { return literal_pool_manager_.IsEmpty(); }
 
   void EnsureEmitFor(uint32_t size) {
+    // TODO: This is sub-optimal. We should take the buffer size into account in
+    // `checkpoint_` to only perform this when `target >= checkpoint_`.
+    GetBuffer()->EnsureSpaceFor(size);
     Label::Offset target = GetCursorOffset() + size;
     if (target < checkpoint_) return;
     PerformEnsureEmit(target, size);
