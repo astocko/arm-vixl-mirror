@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "5aed85c8_4a1712a4",
+        "filename": "src/aarch64/macro-assembler-aarch64.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 505,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-11-10T17:00:30Z",
+      "side": 1,
+      "message": "Labels may keep a pointer to the pool.",
+      "revId": "c20b61665251bb3249587c5b6630edc7beff9433",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5aed85c8_ec47fe49",
         "filename": "test/aarch64/test-assembler-aarch64.cc",
         "patchSetId": 2
