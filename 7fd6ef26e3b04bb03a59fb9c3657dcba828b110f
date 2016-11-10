@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5aed85c8_aafe7669",
+        "filename": "test/aarch32/test-assembler-aarch32.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1979,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-11-10T16:34:06Z",
+      "side": 1,
+      "message": "Perhaps also VIXL_CHECK(masm.GetBuffer()-\u003eGetCapacity() \u003e\u003d size);",
+      "revId": "7fd6ef26e3b04bb03a59fb9c3657dcba828b110f",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
