@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "5aed85c8_2a20c6f6",
+        "filename": "src/aarch32/macro-assembler-aarch32.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 507,
+      "author": {
+        "id": 1000221
+      },
+      "writtenOn": "2016-11-10T18:16:32Z",
+      "side": 1,
+      "message": "This is already done by PerformEnsureEmit.\nMost of all, this is done at the end of PerformEnsureEmit because some room may have been used by the generated pool (and therefore, putting EnsureSpaceFor before doesn\u0027t ensure anything.",
+      "revId": "7fd6ef26e3b04bb03a59fb9c3657dcba828b110f",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5aed85c8_aafe7669",
         "filename": "test/aarch32/test-assembler-aarch32.cc",
         "patchSetId": 5
