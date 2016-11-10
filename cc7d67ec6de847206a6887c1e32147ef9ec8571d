@@ -16,6 +16,24 @@
       "revId": "cc7d67ec6de847206a6887c1e32147ef9ec8571d",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aed85c8_6a2beeeb",
+        "filename": "src/aarch32/instructions-aarch32.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 714,
+      "author": {
+        "id": 1000221
+      },
+      "writtenOn": "2016-11-10T16:42:08Z",
+      "side": 1,
+      "message": "This is just a remainder that the line above will never generate a negative value.",
+      "parentUuid": "5aed85c8_2af2869a",
+      "revId": "cc7d67ec6de847206a6887c1e32147ef9ec8571d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
