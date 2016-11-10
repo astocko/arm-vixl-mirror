@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5aed85c8_8ab57acf",
+        "filename": "src/aarch32/macro-assembler-aarch32.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1000221
+      },
+      "writtenOn": "2016-11-10T15:58:36Z",
+      "side": 1,
+      "message": "PerformEnsureEmit is called by:\nvoid EnsureEmitFor(uint32_t size) {\n  Label::Offset target \u003d AlignUp(GetCursorOffset() + size, 4);\n  if (target \u003c checkpoint_) return;\n  PerformEnsureEmit(target, size);\n}\nThat means that it is called if target \u003e\u003d checkpoint.\nThe tests within PerformEnsureEmit must follow the same rule.\nThat means that the wrong test is the test on literals and not this one.",
+      "revId": "9df2fb322f38eb6c64ba350182b0b7488e5d6184",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
