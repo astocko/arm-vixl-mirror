@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5aed85c8_8aec5ac9",
+        "filename": "test/aarch32/test-assembler-aarch32.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1997,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-11-10T16:10:08Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be a separate test?",
+      "range": {
+        "startLine": 1990,
+        "startChar": 0,
+        "endLine": 1997,
+        "endChar": 3
+      },
+      "revId": "85adeee32d233e8f1323f1b11dd2f4af92ee78d3",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aed85c8_ead07ef9",
+        "filename": "test/aarch32/test-assembler-aarch32.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2025,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-11-10T16:10:08Z",
+      "side": 1,
+      "message": "On an unrelated note, I don\u0027t think we should have a MacroAssembler::Nop() function, or if we do, it shouldn\u0027t be required to generate any code. I think it would be safer to use some other instruction here.",
+      "revId": "85adeee32d233e8f1323f1b11dd2f4af92ee78d3",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aed85c8_cacdc25f",
+        "filename": "test/aarch32/test-assembler-aarch32.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2040,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-11-10T16:10:08Z",
+      "side": 1,
+      "message": "Same comments as for the literal pool test.",
+      "revId": "85adeee32d233e8f1323f1b11dd2f4af92ee78d3",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
