@@ -1164,21 +1164,30 @@ TEST(emit_literal) {
   __ Ldrd(r0, r1, 0x1234567890abcdef);
   ASSERT_LITERAL_POOL_SIZE(8);
 
-  // Emit code up to the maximum literal load range and ensure the pool
-  // has not been emitted.
-  static const int ldrd_size = 255 - 4;
-  ptrdiff_t end = masm.GetBuffer()->GetCursorOffset() + ldrd_size;
-  while (masm.GetBuffer()->GetCursorOffset() < end) {
+  Label start;
+  __ Bind(&start);
+  const int kLdrdRange = 255;
+  const int kLessThanLdrdRange = 100;
+
+  while (masm.GetSizeOfCodeGeneratedSince(&start) < kLessThanLdrdRange) {
     // Random instruction that does not affect the test, ie
     // an instruction that does not depend on a literal.
     // Avoid Nop as it can be skipped by the macro-assembler.
     __ Mov(r5, 0);
   }
-  // Check that the pool has not been emited along the way.
+  // Check that emission of the pool can be deferred, so that it has not been
+  // emitted until now
   ASSERT_LITERAL_POOL_SIZE(8);
-  // This extra instruction should trigger an emit of the pool.
-  __ Mov(r5, 0);
-  // The pool should have been emitted.
+
+  // Continue generating code until we reach the maximum range of the LDRD
+  // instruction.
+  while (masm.GetSizeOfCodeGeneratedSince(&start) < kLdrdRange) {
+    // Random instruction that does not affect the test, ie
+    // an instruction that does not depend on a literal.
+    // Avoid Nop as it can be skipped by the macro-assembler.
+    __ Mov(r5, 0);
+  }
+  // At this point the pool should have been emitted.
   ASSERT_LITERAL_POOL_SIZE(0);
 
   StringLiteral big_literal(std::string(260, 'x').c_str());
@@ -1887,6 +1896,7 @@ TEST(set_isa_noop) {
   {
     Assembler assm(A32);
     CheckInstructionSetA32(assm);
+    CodeBufferCheckScope scope(&assm, kMaxInstructionSizeInBytes);
     assm.bx(lr);
     VIXL_ASSERT(assm.GetCursorOffset() > 0);
     CheckInstructionSetA32(assm);
@@ -1899,6 +1909,7 @@ TEST(set_isa_noop) {
   {
     Assembler assm(T32);
     CheckInstructionSetT32(assm);
+    CodeBufferCheckScope scope(&assm, kMaxInstructionSizeInBytes);
     assm.bx(lr);
     VIXL_ASSERT(assm.GetCursorOffset() > 0);
     CheckInstructionSetT32(assm);

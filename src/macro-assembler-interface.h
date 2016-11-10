@@ -33,7 +33,7 @@ namespace vixl {
 
 class MacroAssemblerInterface {
  public:
-  virtual internal::AssemblerBase* GetAssemblerBase() = 0;
+  virtual internal::AssemblerBase* AsAssemblerBase() = 0;
 
   virtual ~MacroAssemblerInterface() {}
 
