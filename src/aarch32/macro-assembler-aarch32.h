@@ -9204,6 +9204,7 @@ class CodeBufferCheckScope {
                        AssertPolicy assert_policy = kMaximumSize)
       : masm_(masm) {
     masm->EnsureEmitFor(size);
+    masm->GetBuffer()->EnsureSpaceFor(size);
 #ifdef VIXL_DEBUG
     initial_cursor_offset_ = masm->GetCursorOffset();
     size_ = size;
