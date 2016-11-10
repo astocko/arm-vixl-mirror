@@ -504,6 +504,7 @@ class MacroAssembler : public Assembler {
   void EnsureEmitFor(uint32_t size) {
     Label::Offset target = GetCursorOffset() + size;
     if (target < checkpoint_) return;
+    GetBuffer()->EnsureSpaceFor(size);
     PerformEnsureEmit(target, size);
   }
 

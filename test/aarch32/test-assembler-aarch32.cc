@@ -1965,5 +1965,18 @@ TEST(logical_arithmetic_identities) {
 }
 
 
+TEST(scope_grow_buffer) {
+  static const int kSmallCapacity = 4 * kA32InstructionSizeInBytes;
+  MacroAssembler masm(kSmallCapacity);
+  VIXL_CHECK(masm.GetBuffer()->GetCapacity() == kSmallCapacity);
+
+  int32_t size = 10 * kSmallCapacity;
+  AssemblerAccurateScope scope(&masm, size);
+  for (; size > 0; size -= kA32InstructionSizeInBytes) {
+    __ nop();
+  }
+
+  masm.FinalizeCode();
+}
 }  // namespace aarch32
 }  // namespace vixl
