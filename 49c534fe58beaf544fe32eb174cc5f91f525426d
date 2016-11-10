@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5aed85c8_2a03a6b9",
+        "filename": "src/aarch32/macro-assembler-aarch32.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-11-10T14:25:36Z",
+      "side": 1,
+      "message": "This comparison looks fine when looking at the tests. But it is not coherent with `aarch32::MacroAssembler::EnsureEmitFor()`.\n\nI am not confident the AArch64 pools are very \u0027precise\u0027 when dealing with the margin before emission. But this precision was not a goal for the AArch64 pools.\n\nI raised http://jira.arm.com/browse/VIXL1-167 to unify, clarify, and clean the API and behaviour of pools.",
+      "revId": "49c534fe58beaf544fe32eb174cc5f91f525426d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
