@@ -34,6 +34,24 @@
       "revId": "9df2fb322f38eb6c64ba350182b0b7488e5d6184",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3afa9182_0f6889f4",
+        "filename": "src/aarch32/macro-assembler-aarch32.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-11-15T09:32:52Z",
+      "side": 1,
+      "message": "I looked at the new tests again, and they look right to me. Please take a look. If we agree the tests are correct, then the code needs to be adapted to preserve the meaning of the helpers, which is what I tried to do here.\n\nI ran the tests with `target \u003c\u003d checkpoint_` in `EnsureEmitFor()`, and everything seems to work fine. I could update that place as well, but we need to make sure that all pieces of code that uses this \u0027checkpoint\u0027 agree on what it means. From working on it, I find it is actually a \u0027limit\u0027. So when a user/pool says its checkpoint is `x`, that means we can generate code/data up to `x` safely.",
+      "parentUuid": "3afa9182_0fc1a9e4",
+      "revId": "9df2fb322f38eb6c64ba350182b0b7488e5d6184",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
