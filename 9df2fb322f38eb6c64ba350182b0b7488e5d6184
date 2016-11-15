@@ -16,6 +16,24 @@
       "revId": "9df2fb322f38eb6c64ba350182b0b7488e5d6184",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3afa9182_0fc1a9e4",
+        "filename": "src/aarch32/macro-assembler-aarch32.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-11-15T09:15:02Z",
+      "side": 1,
+      "message": "I need to take time to have a look but I am not convinced yet. Maybe it is the opposite and the literal test is write and all others are wrong. The meaning of the helpers should be correct.",
+      "parentUuid": "5aed85c8_8ab57acf",
+      "revId": "9df2fb322f38eb6c64ba350182b0b7488e5d6184",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
