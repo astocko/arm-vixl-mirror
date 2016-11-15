@@ -1089,7 +1089,7 @@ TEST(mov_and_literal) {
   // Generate enough instructions to have, after this loop, only one more
   // instruction that can be generated (Mov(r2, 0x7ff80000) needs two assembler
   // instructions).
-  while (masm.GetMarginBeforePoolEmission() >
+  while (masm.GetMarginBeforeLiteralEmission() >
          static_cast<int32_t>(kMaxInstructionSizeInBytes)) {
     VIXL_CHECK(!masm.LiteralPoolIsEmpty());
     __ Mov(r2, r0);
@@ -2177,6 +2177,7 @@ TEST(scratch_register_checks) {
                  temps.IsAvailable(reg));
     }
   }
+
   TEARDOWN();
 }
 
@@ -2262,6 +2263,138 @@ TEST(nop) {
   masm.FinalizeCode();
 
   TEARDOWN();
+}
+
+
+// Check that `GetMarginBeforeLiteralEmission()` is precise.
+TEST_T32(literal_pool_margin) {
+  SETUP();
+
+  START();
+
+  VIXL_CHECK(masm.VeneerPoolIsEmpty());
+  VIXL_CHECK(masm.LiteralPoolIsEmpty());
+
+  // Create a single literal.
+  __ Ldrd(r0, r1, 0x1234567890abcdef);
+
+  VIXL_CHECK(!masm.LiteralPoolIsEmpty());
+
+  // Generate code to fill all the margin we have before generating the literal
+  // pool.
+  int32_t margin = masm.GetMarginBeforeLiteralEmission();
+  {
+    AssemblerAccurateScope scope(&masm, margin, CodeBufferCheckScope::kExactSize);
+    // Opening the scope should not have triggered the emission of the literal
+    // pool.
+    VIXL_CHECK(!masm.LiteralPoolIsEmpty());
+    while (margin > 0) {
+      __ nop();
+      margin -= k16BitT32InstructionSizeInBytes;
+    }
+  }
+
+  // There should be no margin left to emit the literal pool.
+  VIXL_CHECK(!masm.LiteralPoolIsEmpty());
+  VIXL_CHECK(masm.GetMarginBeforeLiteralEmission() == 0);
+
+  // So emitting a single instruction should force emission of the pool.
+  __ Nop();
+  VIXL_CHECK(masm.LiteralPoolIsEmpty());
+  END();
+
+  RUN();
+
+  // Check that the literals loaded correctly.
+  ASSERT_EQUAL_32(0x90abcdef, r0);
+  ASSERT_EQUAL_32(0x12345678, r1);
+
+  TEARDOWN();
+}
+
+
+// Check that `GetMarginBeforeVeneerEmission()` is precise.
+TEST_T32(veneer_pool_margin) {
+  SETUP();
+
+  START();
+
+  VIXL_CHECK(masm.VeneerPoolIsEmpty());
+  VIXL_CHECK(masm.LiteralPoolIsEmpty());
+
+  // Create a single veneer.
+  Label target;
+  __ Cbz(r0, &target);
+
+  VIXL_CHECK(!masm.VeneerPoolIsEmpty());
+
+  // Generate code to fill all the margin we have before generating the veneer
+  // pool.
+  int32_t margin = masm.GetMarginBeforeVeneerEmission();
+  {
+    AssemblerAccurateScope scope(&masm, margin, CodeBufferCheckScope::kExactSize);
+    // Opening the scope should not have triggered the emission of the veneer
+    // pool.
+    VIXL_CHECK(!masm.VeneerPoolIsEmpty());
+    while (margin > 0) {
+      __ nop();
+      margin -= k16BitT32InstructionSizeInBytes;
+    }
+  }
+  // There should be no margin left to emit the veneer pool.
+  VIXL_CHECK(masm.GetMarginBeforeVeneerEmission() == 0);
+
+  // So emitting a single instruction should force emission of the pool.
+  // We cannot simply check that the veneer pool is empty, because the veneer
+  // emitted for the CBZ instruction above is itself tracked by the veneer
+  // mechanisms. Instead, check that some 'unexpected' code is generated.
+  Label check;
+  __ Bind(&check);
+  {
+    AssemblerAccurateScope scope(&masm, 2, AssemblerAccurateScope::kMaximumSize);
+    // Do not actually generate any code.
+  }
+  VIXL_CHECK(masm.GetSizeOfCodeGeneratedSince(&check) > 0);
+  __ Bind(&target);
+  VIXL_CHECK(masm.VeneerPoolIsEmpty());
+
+  END();
+
+  RUN();
+
+  // Check that the veneers loaded correctly.
+  ASSERT_EQUAL_32(0x90abcdef, r0);
+  ASSERT_EQUAL_32(0x12345678, r1);
+
+  TEARDOWN();
+}
+
+
+TEST(code_buffer_precise_growth) {
+  static const int kBaseBufferSize = 16;
+  MacroAssembler masm(kBaseBufferSize, T32);
+
+  VIXL_CHECK(masm.GetBuffer()->GetCapacity() == kBaseBufferSize);
+
+  {
+    // Fill the buffer with nops.
+    AssemblerAccurateScope scope(&masm,
+                                 kBaseBufferSize,
+                                 CodeBufferCheckScope::kExactSize);
+    for (int i = 0; i < kBaseBufferSize; i += k16BitT32InstructionSizeInBytes) {
+      __ nop();
+    }
+  }
+
+  // The buffer should not have grown yet.
+  VIXL_CHECK(masm.GetBuffer()->GetCapacity() == kBaseBufferSize);
+
+  // Generating a single instruction should force the buffer to grow.
+  __ Nop();
+
+  VIXL_CHECK(masm.GetBuffer()->GetCapacity() > kBaseBufferSize);
+
+  masm.FinalizeCode();
 }
 
 
