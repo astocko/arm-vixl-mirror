@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3afa9182_6f9f8d04",
+        "filename": "test/aarch32/test-assembler-aarch32.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1997,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-11-15T09:15:02Z",
+      "side": 1,
+      "message": "No. It is an assumption within this test. If that happens to change, we want to know it here.",
+      "parentUuid": "5aed85c8_8aec5ac9",
+      "range": {
+        "startLine": 1990,
+        "startChar": 0,
+        "endLine": 1997,
+        "endChar": 3
+      },
+      "revId": "85adeee32d233e8f1323f1b11dd2f4af92ee78d3",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5aed85c8_ead07ef9",
         "filename": "test/aarch32/test-assembler-aarch32.cc",
         "patchSetId": 1
@@ -36,6 +60,24 @@
       "writtenOn": "2016-11-10T16:10:08Z",
       "side": 1,
       "message": "On an unrelated note, I don\u0027t think we should have a MacroAssembler::Nop() function, or if we do, it shouldn\u0027t be required to generate any code. I think it would be safer to use some other instruction here.",
+      "revId": "85adeee32d233e8f1323f1b11dd2f4af92ee78d3",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3afa9182_2fbc656c",
+        "filename": "test/aarch32/test-assembler-aarch32.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2025,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-11-15T09:15:02Z",
+      "side": 1,
+      "message": "I have the opposite opinion.\nI would favour *having* a `MacroASsembler::Nop()` function, and ensuring it *does* generate something.\n\nThe intent is clearer than writing a `Mov` instruction with different registers. Programmers will not write a `Nop` by mistake; it has no other purpose (in the MAsm) than generating \u0027something\u0027 that we do not care about. So I believe `Nop()` should not be optimised away.",
+      "parentUuid": "5aed85c8_ead07ef9",
       "revId": "85adeee32d233e8f1323f1b11dd2f4af92ee78d3",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
