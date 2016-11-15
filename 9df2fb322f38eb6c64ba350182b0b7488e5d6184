@@ -52,6 +52,24 @@
       "revId": "9df2fb322f38eb6c64ba350182b0b7488e5d6184",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3afa9182_32884822",
+        "filename": "src/aarch32/macro-assembler-aarch32.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1000221
+      },
+      "writtenOn": "2016-11-15T22:08:44Z",
+      "side": 1,
+      "message": "I think you are right.\nThat means that, in macro-assembler-aarch32.h in EnsureEmitFor, the correct test should be:\nif (target \u003c\u003d checkpoint_) return;\n\nCan you fix this too?\n\nThat also means that my fix (https://review.linaro.org/15457) is not correct and I will have to work on it.",
+      "parentUuid": "3afa9182_0f6889f4",
+      "revId": "9df2fb322f38eb6c64ba350182b0b7488e5d6184",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
