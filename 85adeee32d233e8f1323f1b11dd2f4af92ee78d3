@@ -120,6 +120,24 @@
     },
     {
       "key": {
+        "uuid": "3afa9182_756e3acb",
+        "filename": "test/aarch32/test-assembler-aarch32.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2025,
+      "author": {
+        "id": 1000221
+      },
+      "writtenOn": "2016-11-16T15:47:25Z",
+      "side": 1,
+      "message": "I agree that Nop is useful. If we optimize it, that means that we remove the meaning of nop and therefore, we should remove \"Nop\" from the macro-assembler.\nIf we leave it in the macro-assembler, I think it has to generate a nop.",
+      "parentUuid": "3afa9182_72e8107d",
+      "revId": "85adeee32d233e8f1323f1b11dd2f4af92ee78d3",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5aed85c8_cacdc25f",
         "filename": "test/aarch32/test-assembler-aarch32.cc",
         "patchSetId": 1
