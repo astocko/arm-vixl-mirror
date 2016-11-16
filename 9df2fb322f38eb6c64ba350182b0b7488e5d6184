@@ -70,6 +70,24 @@
       "revId": "9df2fb322f38eb6c64ba350182b0b7488e5d6184",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3afa9182_52ed148b",
+        "filename": "src/aarch32/macro-assembler-aarch32.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-11-16T10:16:52Z",
+      "side": 1,
+      "message": "Ok I will fix it there too. I already prepared that change yesterday.",
+      "parentUuid": "3afa9182_32884822",
+      "revId": "9df2fb322f38eb6c64ba350182b0b7488e5d6184",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
