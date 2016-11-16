@@ -68,6 +68,15 @@ const int kBitsPerByte = 8;
 
 }  // namespace vixl
 
+// Detect the host's pointer size.
+#if (UINTPTR_MAX == UINT32_MAX)
+#define VIXL_HOST_POINTER_32
+#elif(UINTPTR_MAX == UINT64_MAX)
+#define VIXL_HOST_POINTER_64
+#else
+#error "Unsupported host pointer size."
+#endif
+
 #define VIXL_ABORT()                              \
   do {                                            \
     printf("in %s, line %i", __FILE__, __LINE__); \
