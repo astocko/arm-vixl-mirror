@@ -805,15 +805,6 @@ class MacroAssembler : public Assembler {
                         QRegister rd,
                         const QOperand& operand) VIXL_OVERRIDE;
   virtual void Delegate(InstructionType type,
-                        InstructionCondMop instruction,
-                        Condition cond,
-                        const MemOperand& operand) VIXL_OVERRIDE;
-  virtual void Delegate(InstructionType type,
-                        InstructionCondRMop instruction,
-                        Condition cond,
-                        Register rd,
-                        const MemOperand& operand) VIXL_OVERRIDE;
-  virtual void Delegate(InstructionType type,
                         InstructionCondSizeRMop instruction,
                         Condition cond,
                         EncodingSize size,
@@ -822,13 +813,6 @@ class MacroAssembler : public Assembler {
   virtual void Delegate(InstructionType type,
                         InstructionCondRRMop instruction,
                         Condition cond,
-                        Register rt,
-                        Register rt2,
-                        const MemOperand& operand) VIXL_OVERRIDE;
-  virtual void Delegate(InstructionType type,
-                        InstructionCondRRRMop instruction,
-                        Condition cond,
-                        Register rd,
                         Register rt,
                         Register rt2,
                         const MemOperand& operand) VIXL_OVERRIDE;
