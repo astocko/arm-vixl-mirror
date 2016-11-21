@@ -1,0 +1,7 @@
+Code-Review+2: Jacob Bramley <jacob.bramley@arm.com>
+Verified+1: Alexandre Rames <alexandre.rames@linaro.org>
+Submitted-by: Alexandre Rames <alexandre.rames@linaro.org>
+Submitted-at: Mon, 21 Nov 2016 16:52:18 +0000
+Reviewed-on: https://review.linaro.org/15413
+Project: arm/vixl
+Branch: refs/heads/master
