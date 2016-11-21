@@ -16,6 +16,24 @@
       "revId": "b8a560aa3c0f3e68a627cb0e74f88cd92ad3ecc0",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3afa9182_26364a04",
+        "filename": "src/aarch32/assembler-aarch32.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-11-21T15:04:14Z",
+      "side": 1,
+      "message": "Right. Fixed.",
+      "parentUuid": "3afa9182_e6544223",
+      "revId": "b8a560aa3c0f3e68a627cb0e74f88cd92ad3ecc0",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
