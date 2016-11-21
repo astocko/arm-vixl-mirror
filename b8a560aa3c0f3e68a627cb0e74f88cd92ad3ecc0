@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3afa9182_e6544223",
+        "filename": "src/aarch32/assembler-aarch32.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-11-21T14:58:50Z",
+      "side": 1,
+      "message": "We shouldn\u0027t align before placing literals in the Assembler. (It allows for code size rather than performance optimisations, for example.)",
+      "revId": "b8a560aa3c0f3e68a627cb0e74f88cd92ad3ecc0",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
