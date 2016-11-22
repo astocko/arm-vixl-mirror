@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3afa9182_73edaf8b",
+        "filename": "test/aarch32/test-assembler-aarch32.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1175,
+      "author": {
+        "id": 1000221
+      },
+      "writtenOn": "2016-11-22T16:05:27Z",
+      "side": 1,
+      "message": "This will only work for A32. For T32, you will generate 2 bytes less. That\u0027s because, the always reserve 4 bytes even for a 16 bit instruction (the last 16 bit nop which could fit before emitting the pool won\u0027t be generated as we required a 32 bit available space)\nThat the reason of:\nwhile (masm-\u003eGetBuffer()-\u003eGetCursorOffset() + kMaxInstructionSizeInBytes \u003c\u003d end) {",
+      "revId": "00a5eb837ae923765c4f64587a195b24484f92e5",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3afa9182_d301033b",
+        "filename": "test/aarch32/test-assembler-aarch32.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 2286,
+      "author": {
+        "id": 1000221
+      },
+      "writtenOn": "2016-11-22T16:05:27Z",
+      "side": 1,
+      "message": "once again, it shouldn\u0027t work with T32",
+      "revId": "00a5eb837ae923765c4f64587a195b24484f92e5",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3afa9182_b3fef736",
+        "filename": "test/aarch32/test-assembler-aarch32.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 2342,
+      "author": {
+        "id": 1000221
+      },
+      "writtenOn": "2016-11-22T16:05:27Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "00a5eb837ae923765c4f64587a195b24484f92e5",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
