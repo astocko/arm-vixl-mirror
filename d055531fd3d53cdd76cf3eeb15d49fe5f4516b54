@@ -16,6 +16,24 @@
       "revId": "d055531fd3d53cdd76cf3eeb15d49fe5f4516b54",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3afa9182_7325afaa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-11-22T11:09:07Z",
+      "side": 1,
+      "message": "I restricted to exactly because that is what we will actually use and test, but we can. I will update the message and tests.",
+      "parentUuid": "3afa9182_3304c714",
+      "revId": "d055531fd3d53cdd76cf3eeb15d49fe5f4516b54",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
