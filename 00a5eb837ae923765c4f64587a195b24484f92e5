@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "3afa9182_f3f87f4b",
+        "filename": "test/aarch32/test-assembler-aarch32.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1175,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-11-22T16:25:59Z",
+      "side": 1,
+      "message": "I don\u0027t understand. Are you talking about the MacroAssembler?\n\nI use the Assembler, not the MacroAssembler, so nothing checks for size except for the scope, which checks exactly what I ask it.\n\nThe tests do pass!",
+      "parentUuid": "3afa9182_73edaf8b",
+      "revId": "00a5eb837ae923765c4f64587a195b24484f92e5",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3afa9182_d301033b",
         "filename": "test/aarch32/test-assembler-aarch32.cc",
         "patchSetId": 9
