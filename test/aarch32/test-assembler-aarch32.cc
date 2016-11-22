@@ -2251,5 +2251,21 @@ TEST(scratch_register_checks_v) {
 }
 
 
+TEST(nop) {
+  SETUP();
+
+  Label start;
+  __ Bind(&start);
+  __ Nop();
+  size_t nop_size = (isa == T32) ? k16BitT32InstructionSizeInBytes : kA32InstructionSizeInBytes;
+  // `MacroAssembler::Nop` must generate at least one nop.
+  VIXL_CHECK(masm.GetSizeOfCodeGeneratedSince(&start) >= nop_size);
+
+  masm.FinalizeCode();
+
+  TEARDOWN();
+}
+
+
 }  // namespace aarch32
 }  // namespace vixl
