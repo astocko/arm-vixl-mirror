@@ -2079,6 +2079,7 @@ TEST_NOASM(set_isa_noop) {
   {
     Assembler assm(A32);
     CheckInstructionSetA32(assm);
+    CodeBufferCheckScope scope(&assm, kMaxInstructionSizeInBytes);
     assm.bx(lr);
     VIXL_ASSERT(assm.GetCursorOffset() > 0);
     CheckInstructionSetA32(assm);
@@ -2091,6 +2092,7 @@ TEST_NOASM(set_isa_noop) {
   {
     Assembler assm(T32);
     CheckInstructionSetT32(assm);
+    CodeBufferCheckScope scope(&assm, kMaxInstructionSizeInBytes);
     assm.bx(lr);
     VIXL_ASSERT(assm.GetCursorOffset() > 0);
     CheckInstructionSetT32(assm);
@@ -2443,7 +2445,7 @@ TEST(code_buffer_precise_growth) {
 
 
 TEST_T32(out_of_space_immediately_before_PerformEnsureEmit) {
-  static const int kBaseBufferSize = 16;
+  static const int kBaseBufferSize = 64;
   MacroAssembler masm(kBaseBufferSize, T32);
 
   VIXL_CHECK(masm.GetBuffer()->GetCapacity() == kBaseBufferSize);
