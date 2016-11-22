@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3afa9182_73ec8fc8",
+        "filename": "test/aarch32/test-assembler-aarch32.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 2444,
+      "author": {
+        "id": 1000226
+      },
+      "writtenOn": "2016-11-22T14:12:38Z",
+      "side": 1,
+      "message": "shouldn\u0027t this be VeneerPoolIsEmpty()?",
+      "revId": "c071a4f01a2fb637b8b5d8ea025792b85ba94bb6",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
