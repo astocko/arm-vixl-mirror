@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3afa9182_3304c714",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-11-22T10:39:31Z",
+      "side": 1,
+      "message": "Shouldn\u0027t we make MacroAssembler::Nop generate _at least_ one instruction?",
+      "revId": "d055531fd3d53cdd76cf3eeb15d49fe5f4516b54",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
