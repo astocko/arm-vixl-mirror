@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "3afa9182_d6da91e8",
+        "filename": "test/aarch32/test-assembler-aarch32.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 2260,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-11-23T09:54:42Z",
+      "side": 1,
+      "message": "This line is too long.",
+      "revId": "c724269f928c4ed123cc98975243d1e41270fe5f",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3afa9182_73176f52",
         "filename": "test/aarch32/test-assembler-aarch32.cc",
         "patchSetId": 6
@@ -31,6 +48,24 @@
       "side": 1,
       "message": "That is what I had, but Jacob argued that we should have `Nop()` generate *at least* one nop. I\u0027ll chat with him today.",
       "parentUuid": "3afa9182_73176f52",
+      "revId": "c724269f928c4ed123cc98975243d1e41270fe5f",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3afa9182_76d63dc7",
+        "filename": "test/aarch32/test-assembler-aarch32.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 2262,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-11-23T09:54:42Z",
+      "side": 1,
+      "message": "As discussed (admittedly with a subset of the team), I think that \"Nop()\" should be free to generate more code than that. This might be useful for stress tests (varying the size of a Nop) and suchlike.\n\nIf you want exactly one instruction, the Assembler\u0027s \"nop()\" can do that for you.",
+      "parentUuid": "3afa9182_9683e9cb",
       "revId": "c724269f928c4ed123cc98975243d1e41270fe5f",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
