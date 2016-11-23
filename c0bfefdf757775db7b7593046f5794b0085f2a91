@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3afa9182_091d1e67",
+        "filename": "src/aarch32/label-aarch32.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-11-23T14:43:06Z",
+      "side": 1,
+      "message": "\u003c\u003d",
+      "revId": "c0bfefdf757775db7b7593046f5794b0085f2a91",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3afa9182_c9c31689",
+        "filename": "src/aarch32/macro-assembler-aarch32.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-11-23T14:43:06Z",
+      "side": 1,
+      "message": "Ditto.",
+      "revId": "c0bfefdf757775db7b7593046f5794b0085f2a91",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
