@@ -1,0 +1,9 @@
+Code-Review+2: Rodolph Perfetta <rodolph.perfetta@arm.com>
+Code-Review+2: Vincent Belliard <vincent.belliard@arm.com>
+Code-Review+1: Jacob Bramley <jacob.bramley@arm.com>
+Verified+1: Alexandre Rames <alexandre.rames@linaro.org>
+Submitted-by: Alexandre Rames <alexandre.rames@linaro.org>
+Submitted-at: Wed, 23 Nov 2016 15:15:35 +0000
+Reviewed-on: https://review.linaro.org/15701
+Project: arm/vixl
+Branch: refs/heads/master
