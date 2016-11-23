@@ -2,6 +2,46 @@
   "comments": [
     {
       "key": {
+        "uuid": "3afa9182_a91cca14",
+        "filename": "test/aarch32/test-assembler-aarch32.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 1080,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-11-23T15:11:29Z",
+      "side": 1,
+      "message": "two?\n\n(Ditto below.)",
+      "revId": "21ad6cd84c46f91eac22256ea08d3c9e7e911089",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3afa9182_091a3e17",
+        "filename": "test/aarch32/test-assembler-aarch32.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 1084,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-11-23T15:11:29Z",
+      "side": 1,
+      "message": "What does \"should not fire\" mean?\n\n(Ditto below.)",
+      "range": {
+        "startLine": 1083,
+        "startChar": 69,
+        "endLine": 1084,
+        "endChar": 14
+      },
+      "revId": "21ad6cd84c46f91eac22256ea08d3c9e7e911089",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3afa9182_09bebeff",
         "filename": "test/aarch32/test-assembler-aarch32.cc",
         "patchSetId": 10
