@@ -16,6 +16,24 @@
       "revId": "76d2aa94ca6b97de7ec005e4a47d6f9e8f30af6d",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3afa9182_09907e94",
+        "filename": "test/aarch32/test-assembler-aarch32.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 2420,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-11-23T13:08:04Z",
+      "side": 1,
+      "message": "Fixed here and in other places, in this commit and others in the series.",
+      "parentUuid": "3afa9182_5631810a",
+      "revId": "76d2aa94ca6b97de7ec005e4a47d6f9e8f30af6d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
