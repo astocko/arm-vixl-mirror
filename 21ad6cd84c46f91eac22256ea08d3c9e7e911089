@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "3afa9182_09c87e73",
+        "filename": "test/aarch32/test-assembler-aarch32.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 1080,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-11-23T15:27:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3afa9182_a91cca14",
+      "revId": "21ad6cd84c46f91eac22256ea08d3c9e7e911089",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3afa9182_091a3e17",
         "filename": "test/aarch32/test-assembler-aarch32.cc",
         "patchSetId": 10
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "3afa9182_e9c41261",
+        "filename": "test/aarch32/test-assembler-aarch32.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 1084,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-11-23T15:27:18Z",
+      "side": 1,
+      "message": "Refphrased.",
+      "parentUuid": "3afa9182_091a3e17",
+      "range": {
+        "startLine": 1083,
+        "startChar": 69,
+        "endLine": 1084,
+        "endChar": 14
+      },
+      "revId": "21ad6cd84c46f91eac22256ea08d3c9e7e911089",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3afa9182_09bebeff",
         "filename": "test/aarch32/test-assembler-aarch32.cc",
         "patchSetId": 10
@@ -53,6 +95,24 @@
       "writtenOn": "2016-11-23T14:12:09Z",
       "side": 1,
       "message": "This is always reached right? We could jump over it:\n\n```\nLabel check;\n__ B(\u0026end);\n__ Bind(\u0026check);\n__ Mov(r1, 0x12345678);\n```\n\nAnd do the same in the next test.",
+      "revId": "21ad6cd84c46f91eac22256ea08d3c9e7e911089",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3afa9182_89abce88",
+        "filename": "test/aarch32/test-assembler-aarch32.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 1087,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-11-23T15:27:18Z",
+      "side": 1,
+      "message": "We actually do not branch to `check` since we use a CBZ. I would rather avoid changing the behaviour of the test here, when I am only trying to \u0027fix\u0027 it for incoming scope patches.",
+      "parentUuid": "3afa9182_09bebeff",
       "revId": "21ad6cd84c46f91eac22256ea08d3c9e7e911089",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
