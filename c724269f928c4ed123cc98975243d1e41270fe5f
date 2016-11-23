@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "3afa9182_76175d52",
+        "filename": "test/aarch32/test-assembler-aarch32.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 2260,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-11-23T11:29:06Z",
+      "side": 1,
+      "message": "Fixed.\n\nAlso fixed a couple of other long lines in this file on the way.",
+      "parentUuid": "3afa9182_d6da91e8",
+      "revId": "c724269f928c4ed123cc98975243d1e41270fe5f",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3afa9182_73176f52",
         "filename": "test/aarch32/test-assembler-aarch32.cc",
         "patchSetId": 6
