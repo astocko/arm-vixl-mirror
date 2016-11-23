@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "3afa9182_9683e9cb",
+        "filename": "test/aarch32/test-assembler-aarch32.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 2262,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-11-23T08:39:50Z",
+      "side": 1,
+      "message": "That is what I had, but Jacob argued that we should have `Nop()` generate *at least* one nop. I\u0027ll chat with him today.",
+      "parentUuid": "3afa9182_73176f52",
+      "revId": "c724269f928c4ed123cc98975243d1e41270fe5f",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3afa9182_d30bc329",
         "filename": "test/aarch64/test-assembler-aarch64.cc",
         "patchSetId": 6
