@@ -241,4 +241,16 @@ inline void USE(const T1&, const T2&, const T3&, const T4&) {}
 #error "Please see the release notes for USE_SIMULATOR."
 #endif
 
+// Use this macro in the private section to disable the copy constructor and
+// operator.
+#if __cplusplus >= 201103L
+#define VIXL_DISALLOW_COPY(Type) \
+  Type(const Type&) = delete;    \
+  void operator=(const Type&) = delete
+#else
+#define VIXL_DISALLOW_COPY(Type) \
+  Type(const Type&);             \
+  void operator=(const Type&)
+#endif
+
 #endif  // VIXL_GLOBALS_H
