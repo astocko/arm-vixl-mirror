@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3afa9182_a709912e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000222
+      },
+      "writtenOn": "2016-11-24T18:49:54Z",
+      "side": 1,
+      "message": "Can you expand this a little? For example, some of the justification for the patch you\u0027ve given in the comments could be useful here.",
+      "revId": "21e3276e75c3f78a45e6ccdd1e39d64928a31f44",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
