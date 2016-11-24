@@ -53,6 +53,7 @@ void Assembler::Reset() { GetBuffer()->Reset(); }
 
 
 void Assembler::bind(Label* label) {
+  VIXL_ASSERT(AllowAssembler());
   BindToOffset(label, GetBuffer()->GetCursorOffset());
 }
 

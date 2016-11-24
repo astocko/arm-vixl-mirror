@@ -39,11 +39,12 @@ namespace vixl {
 namespace aarch64 {
 
 class LabelTestHelper;  // Forward declaration.
+class VeneerPool;
 
 
 class Label {
  public:
-  Label() : location_(kLocationUnbound) {}
+  Label() : location_(kLocationUnbound), veneer_pool_(NULL) {}
   ~Label() {
     // If the label has been linked to, it needs to be bound to a target.
     VIXL_ASSERT(!IsLinked() || IsBound());
@@ -92,7 +93,20 @@ class Label {
     // Labels can only be bound once.
     VIXL_ASSERT(!IsBound());
     location_ = location;
+    if (veneer_pool_ != NULL) {
+      NotifyJustBoundToVeneerPool();
+      veneer_pool_ = NULL;
+    }
   }
+
+  void SetTrackedBy(VeneerPool* veneer_pool) {
+    // A `Label` can only be used by one `MacroAssembler`, and so by one
+    // `VeneerPool`.
+    VIXL_ASSERT((veneer_pool_ == NULL) || (veneer_pool_ == veneer_pool));
+    veneer_pool_ = veneer_pool;
+  }
+
+  void NotifyJustBoundToVeneerPool();
 
   void AddLink(ptrdiff_t instruction) {
     // If a label is bound, the assembler already has the information it needs
@@ -137,15 +151,14 @@ class Label {
 
   static const ptrdiff_t kLocationUnbound = -1;
 
-// It is not safe to copy labels, so disable the copy constructor and operator
-// by declaring them private (without an implementation).
-#if __cplusplus >= 201103L
-  Label(const Label&) = delete;
-  void operator=(const Label&) = delete;
-#else
-  Label(const Label&);
-  void operator=(const Label&);
-#endif
+  // The veneer pool that tracks this label, or `NULL` if it is not tracked.
+  VeneerPool* veneer_pool_;
+
+  // It is not safe to copy labels.
+  // Mechanisms for labels, branch instructions, and veneer pools involve
+  // maintaing information about and pointers to different objects. This
+  // information is 'exclusive', and its duplication would cause bugs.
+  VIXL_DISALLOW_COPY(Label);
 
   // The Assembler class is responsible for binding and linking labels, since
   // the stored offsets need to be consistent with the Assembler's buffer.

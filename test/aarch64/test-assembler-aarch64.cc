@@ -22623,5 +22623,36 @@ TEST(nop) {
 }
 
 
+TEST(branch_with_masm_bind_with_asm) {
+  SETUP();
+
+  START();
+
+  VIXL_CHECK(masm.GetNumberOfPotentialVeneers() == 0);
+
+  Label target;
+
+  __ Mov(x0, 0);
+  __ Cbz(x0, &target);
+  VIXL_CHECK(masm.GetNumberOfPotentialVeneers() == 1);
+
+  // Bind the label with the `Assembler`.
+  {
+    ExactAssemblyScope scope(&masm, 0);
+    __ bind(&target);
+  }
+
+  // The `MacroAssembler` should now know that the previous `cbz` has been bound
+  // and will not require a veneer.
+  VIXL_CHECK(masm.GetNumberOfPotentialVeneers() == 0);
+
+  END();
+
+  RUN();
+
+  TEARDOWN();
+}
+
+
 }  // namespace aarch64
 }  // namespace vixl

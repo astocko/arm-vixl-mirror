@@ -32,6 +32,12 @@ namespace vixl {
 namespace aarch64 {
 
 
+void Label::NotifyJustBoundToVeneerPool() {
+  VIXL_ASSERT(veneer_pool_ != NULL);
+  veneer_pool_->HandleJustBoundLabel(this);
+}
+
+
 void Pool::Release() {
   if (--monitor_ == 0) {
     // Ensure the pool has not been blocked for too long.
@@ -203,8 +209,7 @@ void VeneerPool::RegisterUnresolvedBranch(ptrdiff_t branch_pos,
   BranchInfo branch_info = BranchInfo(branch_pos, label, branch_type);
   unresolved_branches_.insert(branch_info);
   UpdateNextCheckPoint();
-  // TODO: In debug mode register the label with the assembler to make sure it
-  // is bound with masm Bind and not asm bind.
+  label->SetTrackedBy(this);
 }
 
 
@@ -302,6 +307,7 @@ void VeneerPool::Emit(EmitOption option, size_t amount) {
 
   UpdateNextCheckPoint();
 
+  ExactAssemblyScopeWithoutPoolsCheck guard(masm_, 0);
   masm_->bind(&end);
 }
 
@@ -671,7 +677,8 @@ void MacroAssembler::Tbz(const Register& rt, unsigned bit_pos, Label* label) {
 
 void MacroAssembler::Bind(Label* label) {
   VIXL_ASSERT(allow_macro_instructions_);
-  veneer_pool_.DeleteUnresolvedBranchInfoForLabel(label);
+  // The label will notify the veneer pool when it is bound.
+  ExactAssemblyScope scope(this, 0);
   bind(label);
 }
 
