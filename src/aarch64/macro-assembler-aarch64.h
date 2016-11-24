@@ -250,6 +250,10 @@ class VeneerPool : public Pool {
                                 ImmBranchType branch_type);
   void DeleteUnresolvedBranchInfoForLabel(Label* label);
 
+  void HandleJustBoundLabel(Label* label) {
+    DeleteUnresolvedBranchInfoForLabel(label);
+  }
+
   bool ShouldEmitVeneer(int64_t max_reachable_pc, size_t amount);
   bool ShouldEmitVeneers(size_t amount) {
     return ShouldEmitVeneer(unresolved_branches_.GetFirstLimit(), amount);
@@ -496,6 +500,10 @@ class VeneerPool : public Pool {
 
   // Information about unresolved (forward) branches.
   BranchInfoSet unresolved_branches_;
+
+ private:
+  // Copying the veneer pool is not safe. Labels may keep a pointer to the pool.
+  VIXL_DISALLOW_COPY(VeneerPool);
 };
 
 
