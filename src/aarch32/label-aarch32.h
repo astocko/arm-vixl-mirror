@@ -254,7 +254,9 @@ class Label {
 class VeneerPoolManager {
  public:
   explicit VeneerPoolManager(MacroAssembler* masm)
-      : masm_(masm), checkpoint_(Label::kMaxOffset) {}
+      : masm_(masm),
+        checkpoint_(Label::kMaxOffset),
+        last_label_reference_offset_(0) {}
   bool IsEmpty() const { return checkpoint_ == Label::kMaxOffset; }
   Label::Offset GetCheckpoint() const {
     // Make room for a branch over the pools.
@@ -275,6 +277,8 @@ class VeneerPoolManager {
   // A default value of Label::kMaxOffset means that the checkpoint is
   // invalid.
   Label::Offset checkpoint_;
+  // Offset where the last reference to a label has been added to the pool.
+  Label::Offset last_label_reference_offset_;
 };
 
 }  // namespace aarch32

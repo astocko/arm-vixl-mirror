@@ -2983,5 +2983,344 @@ TEST_NOASM(out_of_space_immediately_before_PerformEnsureEmit) {
 }
 
 
+TEST_T32(veneer_mirrored_branches) {
+  SETUP();
+
+  START();
+
+  const int kMaxBranchCount = 256;
+
+  for (int branch_count = 1; branch_count < kMaxBranchCount; branch_count++) {
+    Label* targets = new Label[branch_count];
+
+    for (int i = 0; i < branch_count; i++) {
+      __ Cbz(r0, &targets[i]);
+    }
+
+    for (int i = 0; i < branch_count; i++) {
+      __ Bind(&targets[branch_count - i - 1]);
+      __ Orr(r0, r0, r0);
+    }
+
+    delete[] targets;
+  }
+
+  END();
+
+  RUN();
+
+  TEARDOWN();
+}
+
+
+TEST_T32(branch_fuzz_example) {
+  SETUP();
+
+  START();
+
+  Label l[64];
+  __ And(r0, r0, r0);
+  __ Cbz(r0, &l[30]);
+  __ And(r0, r0, r0);
+  __ Cbz(r0, &l[22]);
+  __ And(r0, r0, r0);
+  __ Cbz(r0, &l[1]);
+  __ Cbz(r0, &l[15]);
+  __ Cbz(r0, &l[9]);
+  __ Cbz(r0, &l[6]);
+  __ Bind(&l[26]);
+  __ Cbz(r0, &l[29]);
+  __ And(r0, r0, r0);
+  __ And(r0, r0, r0);
+  __ Cbz(r0, &l[22]);
+  __ Bind(&l[12]);
+  __ Bind(&l[22]);
+  __ Cbz(r0, &l[10]);
+  __ And(r0, r0, r0);
+  __ Cbz(r0, &l[30]);
+  __ Cbz(r0, &l[17]);
+  __ Cbz(r0, &l[27]);
+  __ Cbz(r0, &l[11]);
+  __ Bind(&l[7]);
+  __ Cbz(r0, &l[18]);
+  __ Bind(&l[14]);
+  __ Cbz(r0, &l[1]);
+  __ Bind(&l[18]);
+  __ Cbz(r0, &l[11]);
+  __ Cbz(r0, &l[6]);
+  __ Bind(&l[21]);
+  __ Cbz(r0, &l[28]);
+  __ And(r0, r0, r0);
+  __ Cbz(r0, &l[28]);
+  __ Cbz(r0, &l[22]);
+  __ Bind(&l[23]);
+  __ Cbz(r0, &l[21]);
+  __ Cbz(r0, &l[28]);
+  __ Cbz(r0, &l[9]);
+  __ Bind(&l[9]);
+  __ Cbz(r0, &l[4]);
+  __ And(r0, r0, r0);
+  __ Cbz(r0, &l[10]);
+  __ And(r0, r0, r0);
+  __ Bind(&l[8]);
+  __ And(r0, r0, r0);
+  __ Cbz(r0, &l[10]);
+  __ And(r0, r0, r0);
+  __ Cbz(r0, &l[17]);
+  __ Bind(&l[10]);
+  __ Cbz(r0, &l[8]);
+  __ Cbz(r0, &l[25]);
+  __ Cbz(r0, &l[4]);
+  __ Bind(&l[28]);
+  __ And(r0, r0, r0);
+  __ Cbz(r0, &l[16]);
+  __ Bind(&l[19]);
+  __ Cbz(r0, &l[14]);
+  __ Cbz(r0, &l[28]);
+  __ Cbz(r0, &l[26]);
+  __ Cbz(r0, &l[21]);
+  __ And(r0, r0, r0);
+  __ Bind(&l[24]);
+  __ And(r0, r0, r0);
+  __ Cbz(r0, &l[24]);
+  __ Cbz(r0, &l[24]);
+  __ Cbz(r0, &l[19]);
+  __ Cbz(r0, &l[26]);
+  __ Cbz(r0, &l[4]);
+  __ And(r0, r0, r0);
+  __ Cbz(r0, &l[27]);
+  __ Cbz(r0, &l[14]);
+  __ Cbz(r0, &l[5]);
+  __ Cbz(r0, &l[18]);
+  __ Cbz(r0, &l[5]);
+  __ Cbz(r0, &l[6]);
+  __ Cbz(r0, &l[28]);
+  __ Cbz(r0, &l[15]);
+  __ Cbz(r0, &l[0]);
+  __ Cbz(r0, &l[10]);
+  __ Cbz(r0, &l[16]);
+  __ Cbz(r0, &l[30]);
+  __ Cbz(r0, &l[8]);
+  __ Cbz(r0, &l[16]);
+  __ Cbz(r0, &l[22]);
+  __ Cbz(r0, &l[27]);
+  __ Cbz(r0, &l[12]);
+  __ Cbz(r0, &l[0]);
+  __ Cbz(r0, &l[23]);
+  __ Cbz(r0, &l[27]);
+  __ Cbz(r0, &l[16]);
+  __ Cbz(r0, &l[24]);
+  __ Cbz(r0, &l[17]);
+  __ Cbz(r0, &l[4]);
+  __ Cbz(r0, &l[11]);
+  __ Cbz(r0, &l[6]);
+  __ Cbz(r0, &l[23]);
+  __ Bind(&l[16]);
+  __ Cbz(r0, &l[10]);
+  __ Cbz(r0, &l[17]);
+  __ Cbz(r0, &l[12]);
+  __ And(r0, r0, r0);
+  __ Cbz(r0, &l[11]);
+  __ Cbz(r0, &l[17]);
+  __ Cbz(r0, &l[1]);
+  __ Cbz(r0, &l[3]);
+  __ Cbz(r0, &l[18]);
+  __ Bind(&l[4]);
+  __ Cbz(r0, &l[31]);
+  __ Cbz(r0, &l[25]);
+  __ Cbz(r0, &l[22]);
+  __ And(r0, r0, r0);
+  __ Cbz(r0, &l[19]);
+  __ Cbz(r0, &l[16]);
+  __ Cbz(r0, &l[21]);
+  __ Cbz(r0, &l[27]);
+  __ Bind(&l[1]);
+  __ Cbz(r0, &l[9]);
+  __ Cbz(r0, &l[13]);
+  __ Cbz(r0, &l[10]);
+  __ Cbz(r0, &l[6]);
+  __ Cbz(r0, &l[30]);
+  __ Cbz(r0, &l[28]);
+  __ Cbz(r0, &l[7]);
+  __ Cbz(r0, &l[17]);
+  __ Bind(&l[0]);
+  __ Cbz(r0, &l[13]);
+  __ Cbz(r0, &l[11]);
+  __ Cbz(r0, &l[19]);
+  __ Cbz(r0, &l[22]);
+  __ Cbz(r0, &l[9]);
+  __ And(r0, r0, r0);
+  __ Cbz(r0, &l[15]);
+  __ Cbz(r0, &l[31]);
+  __ Cbz(r0, &l[2]);
+  __ And(r0, r0, r0);
+  __ Cbz(r0, &l[6]);
+  __ Bind(&l[27]);
+  __ Bind(&l[13]);
+  __ Cbz(r0, &l[23]);
+  __ Cbz(r0, &l[7]);
+  __ Bind(&l[2]);
+  __ And(r0, r0, r0);
+  __ Cbz(r0, &l[1]);
+  __ Bind(&l[15]);
+  __ Cbz(r0, &l[13]);
+  __ Cbz(r0, &l[17]);
+  __ Cbz(r0, &l[8]);
+  __ Cbz(r0, &l[30]);
+  __ Cbz(r0, &l[8]);
+  __ Cbz(r0, &l[27]);
+  __ Cbz(r0, &l[2]);
+  __ Cbz(r0, &l[31]);
+  __ Cbz(r0, &l[4]);
+  __ Cbz(r0, &l[11]);
+  __ Bind(&l[29]);
+  __ Cbz(r0, &l[7]);
+  __ Cbz(r0, &l[5]);
+  __ Cbz(r0, &l[11]);
+  __ Cbz(r0, &l[24]);
+  __ Cbz(r0, &l[9]);
+  __ Cbz(r0, &l[3]);
+  __ Cbz(r0, &l[3]);
+  __ Cbz(r0, &l[22]);
+  __ Cbz(r0, &l[19]);
+  __ Cbz(r0, &l[4]);
+  __ Bind(&l[6]);
+  __ And(r0, r0, r0);
+  __ And(r0, r0, r0);
+  __ Cbz(r0, &l[9]);
+  __ Cbz(r0, &l[3]);
+  __ Cbz(r0, &l[23]);
+  __ Cbz(r0, &l[12]);
+  __ Cbz(r0, &l[1]);
+  __ Cbz(r0, &l[22]);
+  __ Cbz(r0, &l[24]);
+  __ And(r0, r0, r0);
+  __ Cbz(r0, &l[16]);
+  __ Cbz(r0, &l[19]);
+  __ Cbz(r0, &l[20]);
+  __ Cbz(r0, &l[1]);
+  __ Cbz(r0, &l[4]);
+  __ Cbz(r0, &l[1]);
+  __ Cbz(r0, &l[25]);
+  __ Cbz(r0, &l[21]);
+  __ Cbz(r0, &l[20]);
+  __ Cbz(r0, &l[29]);
+  __ And(r0, r0, r0);
+  __ Cbz(r0, &l[10]);
+  __ Cbz(r0, &l[5]);
+  __ And(r0, r0, r0);
+  __ Cbz(r0, &l[25]);
+  __ Cbz(r0, &l[26]);
+  __ Cbz(r0, &l[28]);
+  __ Cbz(r0, &l[19]);
+  __ And(r0, r0, r0);
+  __ Bind(&l[17]);
+  __ And(r0, r0, r0);
+  __ And(r0, r0, r0);
+  __ And(r0, r0, r0);
+  __ And(r0, r0, r0);
+  __ Cbz(r0, &l[6]);
+  __ And(r0, r0, r0);
+  __ Cbz(r0, &l[5]);
+  __ Cbz(r0, &l[26]);
+  __ Cbz(r0, &l[28]);
+  __ Cbz(r0, &l[24]);
+  __ Bind(&l[20]);
+  __ And(r0, r0, r0);
+  __ Cbz(r0, &l[10]);
+  __ Cbz(r0, &l[19]);
+  __ Cbz(r0, &l[6]);
+  __ And(r0, r0, r0);
+  __ Cbz(r0, &l[13]);
+  __ Cbz(r0, &l[15]);
+  __ Cbz(r0, &l[22]);
+  __ Cbz(r0, &l[8]);
+  __ Cbz(r0, &l[6]);
+  __ Cbz(r0, &l[23]);
+  __ Cbz(r0, &l[6]);
+  __ And(r0, r0, r0);
+  __ Cbz(r0, &l[13]);
+  __ Bind(&l[31]);
+  __ Cbz(r0, &l[14]);
+  __ Cbz(r0, &l[5]);
+  __ Cbz(r0, &l[1]);
+  __ Cbz(r0, &l[17]);
+  __ Cbz(r0, &l[27]);
+  __ Cbz(r0, &l[10]);
+  __ Cbz(r0, &l[30]);
+  __ Cbz(r0, &l[14]);
+  __ Cbz(r0, &l[24]);
+  __ Cbz(r0, &l[26]);
+  __ And(r0, r0, r0);
+  __ Cbz(r0, &l[2]);
+  __ Cbz(r0, &l[21]);
+  __ Cbz(r0, &l[5]);
+  __ Cbz(r0, &l[24]);
+  __ And(r0, r0, r0);
+  __ Cbz(r0, &l[24]);
+  __ Cbz(r0, &l[17]);
+  __ And(r0, r0, r0);
+  __ And(r0, r0, r0);
+  __ Cbz(r0, &l[24]);
+  __ And(r0, r0, r0);
+  __ Cbz(r0, &l[17]);
+  __ Cbz(r0, &l[12]);
+  __ And(r0, r0, r0);
+  __ Cbz(r0, &l[9]);
+  __ Cbz(r0, &l[9]);
+  __ Cbz(r0, &l[31]);
+  __ Cbz(r0, &l[25]);
+  __ And(r0, r0, r0);
+  __ And(r0, r0, r0);
+  __ Cbz(r0, &l[13]);
+  __ Cbz(r0, &l[14]);
+  __ Cbz(r0, &l[5]);
+  __ Cbz(r0, &l[5]);
+  __ Cbz(r0, &l[12]);
+  __ Cbz(r0, &l[3]);
+  __ Cbz(r0, &l[25]);
+  __ Bind(&l[11]);
+  __ Cbz(r0, &l[15]);
+  __ Cbz(r0, &l[20]);
+  __ Cbz(r0, &l[22]);
+  __ Cbz(r0, &l[19]);
+  __ And(r0, r0, r0);
+  __ Cbz(r0, &l[19]);
+  __ And(r0, r0, r0);
+  __ Cbz(r0, &l[21]);
+  __ Cbz(r0, &l[0]);
+  __ And(r0, r0, r0);
+  __ Cbz(r0, &l[16]);
+  __ Cbz(r0, &l[28]);
+  __ Cbz(r0, &l[18]);
+  __ Cbz(r0, &l[3]);
+  __ And(r0, r0, r0);
+  __ Cbz(r0, &l[15]);
+  __ Cbz(r0, &l[8]);
+  __ Cbz(r0, &l[25]);
+  __ Cbz(r0, &l[1]);
+  __ Cbz(r0, &l[21]);
+  __ Cbz(r0, &l[1]);
+  __ Cbz(r0, &l[29]);
+  __ Cbz(r0, &l[15]);
+  __ And(r0, r0, r0);
+  __ Cbz(r0, &l[24]);
+  __ Cbz(r0, &l[3]);
+  __ Cbz(r0, &l[9]);
+  __ Cbz(r0, &l[9]);
+  __ Cbz(r0, &l[24]);
+  __ And(r0, r0, r0);
+  __ Cbz(r0, &l[19]);
+  __ And(r0, r0, r0);
+  __ Cbz(r0, &l[30]);
+
+  END();
+
+  RUN();
+
+  TEARDOWN();
+}
+
+
 }  // namespace aarch32
 }  // namespace vixl

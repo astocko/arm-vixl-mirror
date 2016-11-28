@@ -175,18 +175,35 @@ void UseScratchRegisterScope::ExcludeAll() {
 
 
 void VeneerPoolManager::AddLabel(Label* label) {
+  if (last_label_reference_offset_ != 0) {
+    // If the pool grows faster than the instruction stream, we must adjust
+    // the checkpoint to compensate. The veneer pool entries take 32 bits, so
+    // this can only occur when two consecutive 16-bit instructions add veneer
+    // pool entries.
+    // This is typically the case for cbz and cbnz (other forward branches
+    // have a 32 bit variant which is always used).
+    if (last_label_reference_offset_ + 2 * k16BitT32InstructionSizeInBytes ==
+        static_cast<uint32_t>(masm_->GetCursorOffset())) {
+      // We found two 16 bit forward branches generated one after the other.
+      checkpoint_ -=
+          k32BitT32InstructionSizeInBytes - k16BitT32InstructionSizeInBytes;
+    }
+  }
   if (!label->IsInVeneerPool()) {
     label->SetVeneerPoolManager(this);
     labels_.push_back(label);
   }
   Label::ForwardReference& back = label->GetBackForwardRef();
   back.SetIsBranch();
+  last_label_reference_offset_ = back.GetLocation();
   label->UpdateCheckpoint();
   Label::Offset tmp = label->GetCheckpoint();
   if (checkpoint_ > tmp) {
     checkpoint_ = tmp;
-    masm_->ComputeCheckpoint();
   }
+  // Always compute the global checkpoint as, adding veneers shorten the
+  // literals' checkpoint.
+  masm_->ComputeCheckpoint();
 }
 
 
@@ -311,7 +328,7 @@ void MacroAssembler::PerformEnsureEmit(Label::Offset target, uint32_t size) {
     Label::Offset veneers_target =
         target + static_cast<Label::Offset>(literal_pool_size);
     VIXL_ASSERT(veneers_target >= 0);
-    if (veneers_target >= veneer_pool_manager_.GetCheckpoint()) {
+    if (veneers_target > veneer_pool_manager_.GetCheckpoint()) {
       veneer_pool_manager_.Emit(veneers_target);
     }
     EmitLiteralPool(option);
