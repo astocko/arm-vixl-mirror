@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3afa9182_1daa7419",
+        "filename": "src/aarch32/label-aarch32.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-11-29T18:00:35Z",
+      "side": 1,
+      "message": "Didn\u0027t we agree that this should be \"\u003c\u003d\"?",
+      "revId": "6b6c9501881df0165bfebcbce1190d625f30b1c1",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3afa9182_fda68852",
+        "filename": "src/aarch32/macro-assembler-aarch32.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-11-29T18:00:35Z",
+      "side": 1,
+      "message": "Ditto.",
+      "revId": "6b6c9501881df0165bfebcbce1190d625f30b1c1",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
