@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "3afa9182_781106ac",
+        "filename": "src/aarch32/macro-assembler-aarch32.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-11-30T18:06:38Z",
+      "side": 1,
+      "message": "I agree they should be protected. But they were public in the aarch64 code, so I did not want to change the permissions.\n\nI think there are a bunch of other methods that are currently public but should be private in the MAsm. I will raise a ticket for that.",
+      "parentUuid": "3afa9182_582b6aeb",
+      "revId": "206493c4a473134e30b55ce09fd45d77d0a66cbc",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3afa9182_f8ee96b3",
         "filename": "src/aarch32/macro-assembler-aarch32.h",
         "patchSetId": 17
@@ -30,6 +48,30 @@
       "writtenOn": "2016-11-30T16:30:20Z",
       "side": 1,
       "message": "Are these assertions necessary? Couldn\u0027t this be used, for example to return the pool blocks to a known state?\n\nIf you want to enforce strict synchronisation between the veneer and literal pools then perhaps BlockPools should assert !IsBlocked().",
+      "range": {
+        "startLine": 126,
+        "startChar": 0,
+        "endLine": 127,
+        "endChar": 50
+      },
+      "revId": "206493c4a473134e30b55ce09fd45d77d0a66cbc",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3afa9182_d8259a0b",
+        "filename": "src/aarch32/macro-assembler-aarch32.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-11-30T18:06:38Z",
+      "side": 1,
+      "message": "It cannot be used to return to a known state. The `Reset()` methods are there for this.\n\nI moved the asserts to their respective `Release()` methods.\n\nBut we cannot add `!IsBlocked()` to `BlockPools()`. `Block` and `Release` are cumulative.",
+      "parentUuid": "3afa9182_f8ee96b3",
       "range": {
         "startLine": 126,
         "startChar": 0,
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "3afa9182_1820c2f6",
+        "filename": "src/aarch32/macro-assembler-aarch32.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-11-30T18:06:38Z",
+      "side": 1,
+      "message": "Removed the comment.\nFor other sizes one can use `EmissionCheckScope`.",
+      "parentUuid": "3afa9182_38301e56",
+      "range": {
+        "startLine": 139,
+        "startChar": 0,
+        "endLine": 140,
+        "endChar": 77
+      },
+      "revId": "206493c4a473134e30b55ce09fd45d77d0a66cbc",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3afa9182_9835d248",
         "filename": "test/aarch32/test-assembler-aarch32.cc",
         "patchSetId": 17
@@ -76,6 +142,30 @@
       "writtenOn": "2016-11-30T16:30:20Z",
       "side": 1,
       "message": "It\u0027d perhaps be more conventional to write this using \u0027while\u0027:\n\n\nint32_t end \u003d masm.GetCursorOffset() + space;\nwhile (masm.GetCursorOffset() \u003c end) {\n  __ nop();\n}",
+      "range": {
+        "startLine": 1366,
+        "startChar": 4,
+        "endLine": 1367,
+        "endChar": 41
+      },
+      "revId": "206493c4a473134e30b55ce09fd45d77d0a66cbc",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3afa9182_f81cd6c3",
+        "filename": "test/aarch32/test-assembler-aarch32.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 1367,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-11-30T18:06:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3afa9182_9835d248",
       "range": {
         "startLine": 1366,
         "startChar": 4,
