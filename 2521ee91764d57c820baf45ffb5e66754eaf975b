@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3afa9182_b83b6e37",
+        "filename": "src/aarch32/macro-assembler-aarch32.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-11-30T16:43:38Z",
+      "side": 1,
+      "message": "so we have to make the MacroAssembler a friend.\n\n(The existing comment has the opposite meaning.)",
+      "range": {
+        "startLine": 297,
+        "startChar": 45,
+        "endLine": 298,
+        "endChar": 12
+      },
+      "revId": "2521ee91764d57c820baf45ffb5e66754eaf975b",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3afa9182_1849e2d0",
+        "filename": "test/test-code-generation-scopes.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 682,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-11-30T16:43:38Z",
+      "side": 1,
+      "message": "For readability, add parentheses around the division clause: (a / b) + 1",
+      "revId": "2521ee91764d57c820baf45ffb5e66754eaf975b",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
