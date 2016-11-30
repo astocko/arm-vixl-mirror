@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3afa9182_582b6aeb",
+        "filename": "src/aarch32/macro-assembler-aarch32.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-11-30T16:30:20Z",
+      "side": 1,
+      "message": "If possible, these should be protected.\n\nIf they must be public, they should have a comment indicating that they aren\u0027t safe to use arbitrarily, because the pools could end up going out of range. (The code generation design document explains this problem for the existing BlockPoolsScope.)",
+      "revId": "206493c4a473134e30b55ce09fd45d77d0a66cbc",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3afa9182_f8ee96b3",
+        "filename": "src/aarch32/macro-assembler-aarch32.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-11-30T16:30:20Z",
+      "side": 1,
+      "message": "Are these assertions necessary? Couldn\u0027t this be used, for example to return the pool blocks to a known state?\n\nIf you want to enforce strict synchronisation between the veneer and literal pools then perhaps BlockPools should assert !IsBlocked().",
+      "range": {
+        "startLine": 126,
+        "startChar": 0,
+        "endLine": 127,
+        "endChar": 50
+      },
+      "revId": "206493c4a473134e30b55ce09fd45d77d0a66cbc",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3afa9182_38301e56",
+        "filename": "src/aarch32/macro-assembler-aarch32.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-11-30T16:30:20Z",
+      "side": 1,
+      "message": "Perhaps remove the comment (since most of it is self-explanatory), and add a size argument to the constructor with default value kTypicalMacroInstructionMaxSize. Existing uses remain clear and unchanged, and it allows us to use the same class for all macros by overriding the size.\n\nOtherwise, we should perhaps rename it to TypicalMacroEmissionCheckScope (and TypicalMacroEmissionCheckScope::kMaxSize).",
+      "range": {
+        "startLine": 139,
+        "startChar": 0,
+        "endLine": 140,
+        "endChar": 77
+      },
+      "revId": "206493c4a473134e30b55ce09fd45d77d0a66cbc",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3afa9182_9835d248",
+        "filename": "test/aarch32/test-assembler-aarch32.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 1367,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2016-11-30T16:30:20Z",
+      "side": 1,
+      "message": "It\u0027d perhaps be more conventional to write this using \u0027while\u0027:\n\n\nint32_t end \u003d masm.GetCursorOffset() + space;\nwhile (masm.GetCursorOffset() \u003c end) {\n  __ nop();\n}",
+      "range": {
+        "startLine": 1366,
+        "startChar": 4,
+        "endLine": 1367,
+        "endChar": 41
+      },
+      "revId": "206493c4a473134e30b55ce09fd45d77d0a66cbc",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
