@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3afa9182_988312cc",
+        "filename": "src/aarch32/macro-assembler-aarch32.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-11-30T18:06:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3afa9182_b83b6e37",
+      "range": {
+        "startLine": 297,
+        "startChar": 45,
+        "endLine": 298,
+        "endChar": 12
+      },
+      "revId": "2521ee91764d57c820baf45ffb5e66754eaf975b",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3afa9182_1849e2d0",
         "filename": "test/test-code-generation-scopes.cc",
         "patchSetId": 7
@@ -36,6 +60,24 @@
       "writtenOn": "2016-11-30T16:43:38Z",
       "side": 1,
       "message": "For readability, add parentheses around the division clause: (a / b) + 1",
+      "revId": "2521ee91764d57c820baf45ffb5e66754eaf975b",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3afa9182_387e5ee5",
+        "filename": "test/test-code-generation-scopes.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 682,
+      "author": {
+        "id": 1000225
+      },
+      "writtenOn": "2016-11-30T18:06:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3afa9182_1849e2d0",
       "revId": "2521ee91764d57c820baf45ffb5e66754eaf975b",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
