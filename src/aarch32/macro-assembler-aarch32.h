@@ -990,10 +990,10 @@ class MacroAssembler : public Assembler, public MacroAssemblerInterface {
         Adcs(cond, rd, rn, operand);
         break;
       case DontCare:
-        bool can_be_16bit_encoded = IsUsingT32() && cond.Is(al) && rd.IsLow() &&
-                                    rn.Is(rd) && operand.IsPlainRegister() &&
-                                    operand.GetBaseRegister().IsLow();
-        if (can_be_16bit_encoded) {
+        bool setflags_is_smaller = IsUsingT32() && cond.Is(al) && rd.IsLow() &&
+                                   rn.Is(rd) && operand.IsPlainRegister() &&
+                                   operand.GetBaseRegister().IsLow();
+        if (setflags_is_smaller) {
           Adcs(cond, rd, rn, operand);
         } else {
           Adc(cond, rd, rn, operand);
@@ -1043,7 +1043,7 @@ class MacroAssembler : public Assembler, public MacroAssemblerInterface {
         (operand.IsImmediate() && (operand.GetImmediate() <= 255) &&
          rd.IsLow() && rn.Is(rd)) ||
         // ADD{<c>}{<q>} <Rd>, SP, #<imm8> ; T1
-        (operand.IsImmediate() && (operand.GetImmediate() <= 508) &&
+        (operand.IsImmediate() && (operand.GetImmediate() <= 1020) &&
          ((operand.GetImmediate() & 0x3) == 0) && rd.IsLow() && rn.IsSP()) ||
         // ADD<c>{<q>} <Rd>, <Rn>, <Rm>
         (operand.IsPlainRegister() && rd.IsLow() && rn.IsLow() &&
@@ -1074,16 +1074,14 @@ class MacroAssembler : public Assembler, public MacroAssemblerInterface {
         Adds(cond, rd, rn, operand);
         break;
       case DontCare:
-        bool can_be_16bit_encoded =
+        bool setflags_is_smaller =
             IsUsingT32() && cond.Is(al) &&
-            ((operand.IsPlainRegister() &&
-              ((rd.IsLow() && rn.IsLow() &&
-                operand.GetBaseRegister().IsLow()) ||
-               rd.Is(rn))) ||
+            ((operand.IsPlainRegister() && rd.IsLow() && rn.IsLow() &&
+              operand.GetBaseRegister().IsLow()) ||
              (operand.IsImmediate() &&
               ((rd.IsLow() && rn.IsLow() && (operand.GetImmediate() < 8)) ||
                (rd.IsLow() && rn.Is(rd) && (operand.GetImmediate() < 256)))));
-        if (can_be_16bit_encoded) {
+        if (setflags_is_smaller) {
           Adds(cond, rd, rn, operand);
         } else {
           Add(cond, rd, rn, operand);
@@ -1162,10 +1160,10 @@ class MacroAssembler : public Assembler, public MacroAssemblerInterface {
         Ands(cond, rd, rn, operand);
         break;
       case DontCare:
-        bool can_be_16bit_encoded = IsUsingT32() && cond.Is(al) && rd.IsLow() &&
-                                    rn.Is(rd) && operand.IsPlainRegister() &&
-                                    operand.GetBaseRegister().IsLow();
-        if (can_be_16bit_encoded) {
+        bool setflags_is_smaller = IsUsingT32() && cond.Is(al) && rd.IsLow() &&
+                                   rn.Is(rd) && operand.IsPlainRegister() &&
+                                   operand.GetBaseRegister().IsLow();
+        if (setflags_is_smaller) {
           Ands(cond, rd, rn, operand);
         } else {
           And(cond, rd, rn, operand);
@@ -1227,10 +1225,12 @@ class MacroAssembler : public Assembler, public MacroAssemblerInterface {
         Asrs(cond, rd, rm, operand);
         break;
       case DontCare:
-        bool can_be_16bit_encoded = IsUsingT32() && cond.Is(al) && rd.IsLow() &&
-                                    rm.IsLow() && operand.IsImmediate() &&
-                                    (operand.GetImmediate() < 32);
-        if (can_be_16bit_encoded) {
+        bool setflags_is_smaller =
+            IsUsingT32() && cond.Is(al) && rd.IsLow() && rm.IsLow() &&
+            ((operand.IsImmediate() && (operand.GetImmediate() >= 1) &&
+              (operand.GetImmediate() <= 32)) ||
+             (operand.IsPlainRegister() && rd.Is(rm)));
+        if (setflags_is_smaller) {
           Asrs(cond, rd, rm, operand);
         } else {
           Asr(cond, rd, rm, operand);
@@ -1339,10 +1339,10 @@ class MacroAssembler : public Assembler, public MacroAssemblerInterface {
         Bics(cond, rd, rn, operand);
         break;
       case DontCare:
-        bool can_be_16bit_encoded = IsUsingT32() && cond.Is(al) && rd.IsLow() &&
-                                    rn.Is(rd) && operand.IsPlainRegister() &&
-                                    operand.GetBaseRegister().IsLow();
-        if (can_be_16bit_encoded) {
+        bool setflags_is_smaller = IsUsingT32() && cond.Is(al) && rd.IsLow() &&
+                                   rn.Is(rd) && operand.IsPlainRegister() &&
+                                   operand.GetBaseRegister().IsLow();
+        if (setflags_is_smaller) {
           Bics(cond, rd, rn, operand);
         } else {
           Bic(cond, rd, rn, operand);
@@ -1643,10 +1643,10 @@ class MacroAssembler : public Assembler, public MacroAssemblerInterface {
         Eors(cond, rd, rn, operand);
         break;
       case DontCare:
-        bool can_be_16bit_encoded = IsUsingT32() && cond.Is(al) && rd.IsLow() &&
-                                    rn.Is(rd) && operand.IsPlainRegister() &&
-                                    operand.GetBaseRegister().IsLow();
-        if (can_be_16bit_encoded) {
+        bool setflags_is_smaller = IsUsingT32() && cond.Is(al) && rd.IsLow() &&
+                                   rn.Is(rd) && operand.IsPlainRegister() &&
+                                   operand.GetBaseRegister().IsLow();
+        if (setflags_is_smaller) {
           Eors(cond, rd, rn, operand);
         } else {
           Eor(cond, rd, rn, operand);
@@ -1765,7 +1765,6 @@ class MacroAssembler : public Assembler, public MacroAssemblerInterface {
     isb(cond, option);
   }
   void Isb(MemoryBarrier option) { Isb(al, option); }
-
 
   void Lda(Condition cond, Register rt, const MemOperand& operand) {
     VIXL_ASSERT(!AliasesAvailableScratchRegister(rt));
@@ -2254,11 +2253,12 @@ class MacroAssembler : public Assembler, public MacroAssemblerInterface {
         Lsls(cond, rd, rm, operand);
         break;
       case DontCare:
-        bool can_be_16bit_encoded = IsUsingT32() && cond.Is(al) && rd.IsLow() &&
-                                    rm.IsLow() && operand.IsImmediate() &&
-                                    (operand.GetImmediate() < 32) &&
-                                    (operand.GetImmediate() != 0);
-        if (can_be_16bit_encoded) {
+        bool setflags_is_smaller =
+            IsUsingT32() && cond.Is(al) && rd.IsLow() && rm.IsLow() &&
+            ((operand.IsImmediate() && (operand.GetImmediate() >= 1) &&
+              (operand.GetImmediate() < 32)) ||
+             (operand.IsPlainRegister() && rd.Is(rm)));
+        if (setflags_is_smaller) {
           Lsls(cond, rd, rm, operand);
         } else {
           Lsl(cond, rd, rm, operand);
@@ -2320,10 +2320,12 @@ class MacroAssembler : public Assembler, public MacroAssemblerInterface {
         Lsrs(cond, rd, rm, operand);
         break;
       case DontCare:
-        bool can_be_16bit_encoded = IsUsingT32() && cond.Is(al) && rd.IsLow() &&
-                                    rm.IsLow() && operand.IsImmediate() &&
-                                    (operand.GetImmediate() < 32);
-        if (can_be_16bit_encoded) {
+        bool setflags_is_smaller =
+            IsUsingT32() && cond.Is(al) && rd.IsLow() && rm.IsLow() &&
+            ((operand.IsImmediate() && (operand.GetImmediate() >= 1) &&
+              (operand.GetImmediate() <= 32)) ||
+             (operand.IsPlainRegister() && rd.Is(rm)));
+        if (setflags_is_smaller) {
           Lsrs(cond, rd, rm, operand);
         } else {
           Lsr(cond, rd, rm, operand);
@@ -2463,13 +2465,15 @@ class MacroAssembler : public Assembler, public MacroAssemblerInterface {
         Movs(cond, rd, operand);
         break;
       case DontCare:
-        bool can_be_16bit_encoded =
+        bool setflags_is_smaller =
             IsUsingT32() && cond.Is(al) &&
             ((operand.IsImmediateShiftedRegister() && rd.IsLow() &&
               operand.GetBaseRegister().IsLow() &&
-              (operand.GetShiftAmount() < 32) &&
-              (operand.GetShift().IsLSL() || operand.GetShift().IsLSR() ||
-               operand.GetShift().IsASR())) ||
+              (operand.GetShiftAmount() >= 1) &&
+              (((operand.GetShiftAmount() <= 32) &&
+                ((operand.GetShift().IsLSR() || operand.GetShift().IsASR()))) ||
+               ((operand.GetShiftAmount() < 32) &&
+                operand.GetShift().IsLSL()))) ||
              (operand.IsRegisterShiftedRegister() && rd.IsLow() &&
               operand.GetBaseRegister().Is(rd) &&
               operand.GetShiftRegister().IsLow() &&
@@ -2477,7 +2481,7 @@ class MacroAssembler : public Assembler, public MacroAssemblerInterface {
                operand.GetShift().IsASR() || operand.GetShift().IsROR())) ||
              (operand.IsImmediate() && rd.IsLow() &&
               (operand.GetImmediate() < 256)));
-        if (can_be_16bit_encoded) {
+        if (setflags_is_smaller) {
           Movs(cond, rd, operand);
         } else {
           Mov(cond, rd, operand);
@@ -2562,9 +2566,9 @@ class MacroAssembler : public Assembler, public MacroAssemblerInterface {
         Muls(cond, rd, rn, rm);
         break;
       case DontCare:
-        bool can_be_16bit_encoded = IsUsingT32() && cond.Is(al) && rd.IsLow() &&
-                                    rn.IsLow() && rm.Is(rd);
-        if (can_be_16bit_encoded) {
+        bool setflags_is_smaller = IsUsingT32() && cond.Is(al) && rd.IsLow() &&
+                                   rn.IsLow() && rm.Is(rd);
+        if (setflags_is_smaller) {
           Muls(cond, rd, rn, rm);
         } else {
           Mul(cond, rd, rn, rm);
@@ -2614,10 +2618,10 @@ class MacroAssembler : public Assembler, public MacroAssemblerInterface {
         Mvns(cond, rd, operand);
         break;
       case DontCare:
-        bool can_be_16bit_encoded = IsUsingT32() && cond.Is(al) && rd.IsLow() &&
-                                    operand.IsPlainRegister() &&
-                                    operand.GetBaseRegister().IsLow();
-        if (can_be_16bit_encoded) {
+        bool setflags_is_smaller = IsUsingT32() && cond.Is(al) && rd.IsLow() &&
+                                   operand.IsPlainRegister() &&
+                                   operand.GetBaseRegister().IsLow();
+        if (setflags_is_smaller) {
           Mvns(cond, rd, operand);
         } else {
           Mvn(cond, rd, operand);
@@ -2750,10 +2754,10 @@ class MacroAssembler : public Assembler, public MacroAssemblerInterface {
         Orrs(cond, rd, rn, operand);
         break;
       case DontCare:
-        bool can_be_16bit_encoded = IsUsingT32() && cond.Is(al) && rd.IsLow() &&
-                                    rn.Is(rd) && operand.IsPlainRegister() &&
-                                    operand.GetBaseRegister().IsLow();
-        if (can_be_16bit_encoded) {
+        bool setflags_is_smaller = IsUsingT32() && cond.Is(al) && rd.IsLow() &&
+                                   rn.Is(rd) && operand.IsPlainRegister() &&
+                                   operand.GetBaseRegister().IsLow();
+        if (setflags_is_smaller) {
           Orrs(cond, rd, rn, operand);
         } else {
           Orr(cond, rd, rn, operand);
@@ -3092,7 +3096,14 @@ class MacroAssembler : public Assembler, public MacroAssemblerInterface {
         Rors(cond, rd, rm, operand);
         break;
       case DontCare:
-        Ror(cond, rd, rm, operand);
+        bool setflags_is_smaller = IsUsingT32() && cond.Is(al) && rd.IsLow() &&
+                                   rm.IsLow() && operand.IsPlainRegister() &&
+                                   rd.Is(rm);
+        if (setflags_is_smaller) {
+          Rors(cond, rd, rm, operand);
+        } else {
+          Ror(cond, rd, rm, operand);
+        }
         break;
     }
   }
@@ -3185,10 +3196,10 @@ class MacroAssembler : public Assembler, public MacroAssemblerInterface {
         Rsbs(cond, rd, rn, operand);
         break;
       case DontCare:
-        bool can_be_16bit_encoded = IsUsingT32() && cond.Is(al) && rd.IsLow() &&
-                                    rn.IsLow() && operand.IsImmediate() &&
-                                    (operand.GetImmediate() == 0);
-        if (can_be_16bit_encoded) {
+        bool setflags_is_smaller = IsUsingT32() && cond.Is(al) && rd.IsLow() &&
+                                   rn.IsLow() && operand.IsImmediate() &&
+                                   (operand.GetImmediate() == 0);
+        if (setflags_is_smaller) {
           Rsbs(cond, rd, rn, operand);
         } else {
           Rsb(cond, rd, rn, operand);
@@ -3334,10 +3345,10 @@ class MacroAssembler : public Assembler, public MacroAssemblerInterface {
         Sbcs(cond, rd, rn, operand);
         break;
       case DontCare:
-        bool can_be_16bit_encoded = IsUsingT32() && cond.Is(al) && rd.IsLow() &&
-                                    rn.Is(rd) && operand.IsPlainRegister() &&
-                                    operand.GetBaseRegister().IsLow();
-        if (can_be_16bit_encoded) {
+        bool setflags_is_smaller = IsUsingT32() && cond.Is(al) && rd.IsLow() &&
+                                   rn.Is(rd) && operand.IsPlainRegister() &&
+                                   operand.GetBaseRegister().IsLow();
+        if (setflags_is_smaller) {
           Sbcs(cond, rd, rn, operand);
         } else {
           Sbc(cond, rd, rn, operand);
@@ -4568,14 +4579,14 @@ class MacroAssembler : public Assembler, public MacroAssemblerInterface {
         Subs(cond, rd, rn, operand);
         break;
       case DontCare:
-        bool can_be_16bit_encoded =
+        bool setflags_is_smaller =
             IsUsingT32() && cond.Is(al) &&
             ((operand.IsPlainRegister() && rd.IsLow() && rn.IsLow() &&
               operand.GetBaseRegister().IsLow()) ||
              (operand.IsImmediate() &&
               ((rd.IsLow() && rn.IsLow() && (operand.GetImmediate() < 8)) ||
                (rd.IsLow() && rn.Is(rd) && (operand.GetImmediate() < 256)))));
-        if (can_be_16bit_encoded) {
+        if (setflags_is_smaller) {
           Subs(cond, rd, rn, operand);
         } else {
           Sub(cond, rd, rn, operand);
