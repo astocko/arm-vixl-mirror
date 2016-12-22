@@ -1,0 +1,9 @@
+Code-Review+1: Artem Serov <artem.serov@linaro.org>
+Code-Review+1: Xueliang Zhong <xueliang.zhong@linaro.org>
+Code-Review+2: Serban Constantinescu <serban.constantinescu@linaro.org>
+Verified+1: Serban Constantinescu <serban.constantinescu@linaro.org>
+Submitted-by: Serban Constantinescu <serban.constantinescu@linaro.org>
+Submitted-at: Thu, 22 Dec 2016 10:24:54 +0000
+Reviewed-on: https://review.linaro.org/16536
+Project: arm/vixl
+Branch: refs/heads/master
