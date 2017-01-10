@@ -798,6 +798,28 @@ class Simulator : public DecoderVisitor {
   virtual void Run();
   void RunFrom(const Instruction* first);
 
+
+#if defined(VIXL_HAS_ABI_SUPPORT) && __cplusplus >= 201103L && \
+    (defined(__clang__) || GCC_VERSION_OR_NEWER(4, 9, 1))
+  // Templated `RunFrom` version taking care of passing arguments and returning
+  // the result value.
+  // Be careful that, if arguments need to be passed on the stack, the stack has
+  // to be in a state where writing the arguments will succeed.
+  // TODO: Provide helpers and usage.
+  // It requires VIXL's ABI features, and C++11 or greater.
+  // Also, the initialisation of tuples is incorrect in GCC before 4.9.1:
+  // https://gcc.gnu.org/bugzilla/show_bug.cgi?id=51253
+  template <class R, class... P>
+  R RunFrom(const Instruction* code, P... arguments) {
+    ABI abi;
+    std::tuple<P...> unused_tuple {
+      (WriteGenericOperand(abi.GetNextParameterGenericOperand<P>(), arguments),
+       arguments)... };
+    RunFrom(code);
+    return ReadGenericOperand<R>(abi.GetReturnGenericOperand<R>());
+  }
+#endif
+
   // Execution ends when the PC hits this address.
   static const Instruction* kEndOfSimAddress;
 
