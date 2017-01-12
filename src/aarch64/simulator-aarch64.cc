@@ -2954,8 +2954,8 @@ void Simulator::VisitException(const Instruction* instr) {
         case kPrintfOpcode:
           DoPrintf(instr);
           return;
-        case kRuntimeCallOpcode:
-          DoRuntimeCall(instr);
+        case kBranchToRuntimeOpcode:
+          DoBranchToRuntime(instr);
           return;
         default:
           HostBreakpoint();
@@ -5369,21 +5369,21 @@ void Simulator::DoPrintf(const Instruction* instr) {
 
 
 #ifdef VIXL_HAS_SIMULATED_RUNTIME_CALL_SUPPORT
-void Simulator::DoRuntimeCall(const Instruction* instr) {
-  VIXL_STATIC_ASSERT(kRuntimeCallAddressSize == sizeof(uintptr_t));
-  // The appropriate `Simulator::SimulateRuntimeCall()` wrapper and the function
+void Simulator::DoBranchToRuntime(const Instruction* instr) {
+  VIXL_STATIC_ASSERT(kBranchToRuntimeAddressSize == sizeof(uintptr_t));
+  // The appropriate `Simulator::SimulateBranchToRuntime()` wrapper and the function
   // to call are passed inlined in the assembly.
   uintptr_t call_wrapper_address =
-      Memory::Read<uintptr_t>(instr + kRuntimeCallWrapperOffset);
+      Memory::Read<uintptr_t>(instr + kBranchToRuntimeWrapperOffset);
   uintptr_t function_address =
-      Memory::Read<uintptr_t>(instr + kRuntimeCallFunctionOffset);
+      Memory::Read<uintptr_t>(instr + kBranchToRuntimeFunctionOffset);
   auto runtime_call_wrapper =
       reinterpret_cast<void (*)(Simulator*, uintptr_t)>(call_wrapper_address);
   runtime_call_wrapper(this, function_address);
-  WritePc(instr->GetInstructionAtOffset(kRuntimeCallLength));
+  WritePc(instr->GetInstructionAtOffset(kBranchToRuntimeLength));
 }
 #else
-void Simulator::DoRuntimeCall(const Instruction* instr) {
+void Simulator::DoBranchToRuntime(const Instruction* instr) {
   USE(instr);
   VIXL_UNREACHABLE();
 }
