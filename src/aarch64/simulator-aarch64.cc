@@ -5377,10 +5377,17 @@ void Simulator::DoBranchToRuntime(const Instruction* instr) {
       Memory::Read<uintptr_t>(instr + kBranchToRuntimeWrapperOffset);
   uintptr_t function_address =
       Memory::Read<uintptr_t>(instr + kBranchToRuntimeFunctionOffset);
+  uint32_t parameters =
+      Memory::Read<uint32_t>(instr + kBranchToRuntimeParametersOffset);
   auto runtime_call_wrapper =
       reinterpret_cast<void (*)(Simulator*, uintptr_t)>(call_wrapper_address);
+
   runtime_call_wrapper(this, function_address);
-  WritePc(instr->GetInstructionAtOffset(kBranchToRuntimeLength));
+  if ((parameters & RUNTIME_BRANCH_LINK) != 0) {
+    WritePc(instr->GetInstructionAtOffset(kBranchToRuntimeLength));
+  } else {
+    WritePc(ReadRegister<Instruction*>(kLinkRegCode));
+  }
 }
 #else
 void Simulator::DoBranchToRuntime(const Instruction* instr) {
