@@ -3025,7 +3025,7 @@ class MacroAssembler : public Assembler, public MacroAssemblerInterface {
 
 // Support for simulated runtime calls.
 
-// `CallRuntime` requires variadic templating, that is only available from
+// `BranchToRuntime` requires variadic templating, that is only available from
 // C++11.
 #if __cplusplus >= 201103L
 #define VIXL_HAS_MACROASSEMBLER_RUNTIME_CALL_SUPPORT
@@ -3033,7 +3033,12 @@ class MacroAssembler : public Assembler, public MacroAssemblerInterface {
 
 #ifdef VIXL_HAS_MACROASSEMBLER_RUNTIME_CALL_SUPPORT
   template <typename R, typename... P>
-  void CallRuntime(R (*function)(P...));
+  void BranchToRuntime(R (*function)(P...));
+
+  template <typename R, typename... P>
+  void CallRuntime(R (*function)(P...)) {
+    BranchToRuntime(function);
+  }
 #endif  // #ifdef VIXL_HAS_MACROASSEMBLER_RUNTIME_CALL_SUPPORT
 
  protected:
@@ -3361,30 +3366,29 @@ class UseScratchRegisterScope {
 
 // `R` stands for 'return type', and `P` for 'parameter types'.
 template <typename R, typename... P>
-void MacroAssembler::CallRuntime(R (*function)(P...)) {
+void MacroAssembler::BranchToRuntime(R (*function)(P...)) {
   if (generate_simulator_code_) {
 #ifdef VIXL_HAS_SIMULATED_RUNTIME_CALL_SUPPORT
     uintptr_t runtime_call_wrapper_address = reinterpret_cast<uintptr_t>(
-        &(Simulator::RuntimeCallStructHelper<R, P...>::Wrapper));
+        &(Simulator::BranchToRuntimeStructHelper<R, P...>::Wrapper));
     uintptr_t function_address = reinterpret_cast<uintptr_t>(function);
 
     EmissionCheckScope guard(this,
-                             kInstructionSize + 2 * kRuntimeCallAddressSize,
+                             kBranchToRuntimeLength,
                              CodeBufferCheckScope::kExactSize);
     Label start;
     bind(&start);
     {
       ExactAssemblyScope scope(this, kInstructionSize);
-      hlt(kRuntimeCallOpcode);
+      hlt(kBranchToRuntimeOpcode);
     }
     VIXL_ASSERT(GetSizeOfCodeGeneratedSince(&start) ==
-                kRuntimeCallWrapperOffset);
+                kBranchToRuntimeWrapperOffset);
     dc(runtime_call_wrapper_address);
     VIXL_ASSERT(GetSizeOfCodeGeneratedSince(&start) ==
-                kRuntimeCallFunctionOffset);
+                kBranchToRuntimeFunctionOffset);
     dc(function_address);
-    VIXL_ASSERT(GetSizeOfCodeGeneratedSince(&start) ==
-                kRuntimeCallFunctionOffset + kRuntimeCallAddressSize);
+    VIXL_ASSERT(GetSizeOfCodeGeneratedSince(&start) == kBranchToRuntimeLength);
 #else
     VIXL_UNREACHABLE();
 #endif  // #ifdef VIXL_HAS_SIMULATED_RUNTIME_CALL_SUPPORT

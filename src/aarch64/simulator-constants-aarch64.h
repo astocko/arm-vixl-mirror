@@ -50,7 +50,7 @@ enum DebugHltOpcodes {
   kPrintfOpcode,
   kTraceOpcode,
   kLogOpcode,
-  kRuntimeCallOpcode,
+  kBranchToRuntimeOpcode,
   // Aliases.
   kDebugHltFirstOpcode = kUnreachableOpcode,
   kDebugHltLastOpcode = kLogOpcode
@@ -140,14 +140,14 @@ enum TraceCommand { TRACE_ENABLE = 1, TRACE_DISABLE = 2 };
 const unsigned kLogParamsOffset = 1 * kInstructionSize;
 const unsigned kLogLength = 2 * kInstructionSize;
 
-// Runtime call simulation - kRuntimeCall
-const unsigned kRuntimeCallWrapperOffset = 1 * kInstructionSize;
+// Branch to runtime simulation - kBranchToRuntime
+const unsigned kBranchToRuntimeWrapperOffset = 1 * kInstructionSize;
 // The size of a pointer on host.
-const unsigned kRuntimeCallAddressSize = sizeof(uintptr_t);
-const unsigned kRuntimeCallFunctionOffset =
-    kRuntimeCallWrapperOffset + kRuntimeCallAddressSize;
-const unsigned kRuntimeCallLength =
-    kRuntimeCallFunctionOffset + kRuntimeCallAddressSize;
+const unsigned kBranchToRuntimeAddressSize = sizeof(uintptr_t);
+const unsigned kBranchToRuntimeFunctionOffset =
+    kBranchToRuntimeWrapperOffset + kBranchToRuntimeAddressSize;
+const unsigned kBranchToRuntimeLength =
+    kBranchToRuntimeFunctionOffset + kBranchToRuntimeAddressSize;
 
 }  // namespace aarch64
 }  // namespace vixl
