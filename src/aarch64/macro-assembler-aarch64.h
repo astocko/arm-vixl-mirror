@@ -3033,11 +3033,16 @@ class MacroAssembler : public Assembler, public MacroAssemblerInterface {
 
 #ifdef VIXL_HAS_MACROASSEMBLER_RUNTIME_CALL_SUPPORT
   template <typename R, typename... P>
-  void BranchToRuntime(R (*function)(P...));
+  void BranchToRuntime(R (*function)(P...), RuntimeBranchParameters);
 
   template <typename R, typename... P>
   void CallRuntime(R (*function)(P...)) {
-    BranchToRuntime(function);
+    BranchToRuntime(function, RUNTIME_BRANCH_LINK);
+  }
+
+  template <typename R, typename... P>
+  void JumpToRuntime(R (*function)(P...)) {
+    BranchToRuntime(function, RUNTIME_BRANCH_NONE);
   }
 #endif  // #ifdef VIXL_HAS_MACROASSEMBLER_RUNTIME_CALL_SUPPORT
 
@@ -3366,7 +3371,8 @@ class UseScratchRegisterScope {
 
 // `R` stands for 'return type', and `P` for 'parameter types'.
 template <typename R, typename... P>
-void MacroAssembler::BranchToRuntime(R (*function)(P...)) {
+void MacroAssembler::BranchToRuntime(R (*function)(P...),
+                                     RuntimeBranchParameters parameters) {
   if (generate_simulator_code_) {
 #ifdef VIXL_HAS_SIMULATED_RUNTIME_CALL_SUPPORT
     uintptr_t runtime_call_wrapper_address = reinterpret_cast<uintptr_t>(
@@ -3388,6 +3394,9 @@ void MacroAssembler::BranchToRuntime(R (*function)(P...)) {
     VIXL_ASSERT(GetSizeOfCodeGeneratedSince(&start) ==
                 kBranchToRuntimeFunctionOffset);
     dc(function_address);
+    VIXL_ASSERT(GetSizeOfCodeGeneratedSince(&start) ==
+                kBranchToRuntimeParametersOffset);
+    dc32(parameters);
     VIXL_ASSERT(GetSizeOfCodeGeneratedSince(&start) == kBranchToRuntimeLength);
 #else
     VIXL_UNREACHABLE();
@@ -3396,7 +3405,11 @@ void MacroAssembler::BranchToRuntime(R (*function)(P...)) {
     UseScratchRegisterScope temps(this);
     Register temp = temps.AcquireX();
     Mov(temp, reinterpret_cast<uint64_t>(function));
-    Blr(temp);
+    if ((parameters & RUNTIME_BRANCH_LINK) != 0) {
+      Blr(temp);
+    } else {
+      Br(temp);
+    }
   }
 }
 

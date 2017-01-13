@@ -141,13 +141,22 @@ const unsigned kLogParamsOffset = 1 * kInstructionSize;
 const unsigned kLogLength = 2 * kInstructionSize;
 
 // Branch to runtime simulation - kBranchToRuntime
+enum RuntimeBranchParameters {
+  // If set branch and link, otherwise only branch to the target.
+  RUNTIME_BRANCH_LINK = 1 << 0,
+
+  RUNTIME_BRANCH_NONE = 0
+};
+
 const unsigned kBranchToRuntimeWrapperOffset = 1 * kInstructionSize;
 // The size of a pointer on host.
 const unsigned kBranchToRuntimeAddressSize = sizeof(uintptr_t);
 const unsigned kBranchToRuntimeFunctionOffset =
     kBranchToRuntimeWrapperOffset + kBranchToRuntimeAddressSize;
-const unsigned kBranchToRuntimeLength =
+const unsigned kBranchToRuntimeParametersOffset =
     kBranchToRuntimeFunctionOffset + kBranchToRuntimeAddressSize;
+const unsigned kBranchToRuntimeLength =
+    kBranchToRuntimeParametersOffset + sizeof(uint32_t);
 
 }  // namespace aarch64
 }  // namespace vixl
