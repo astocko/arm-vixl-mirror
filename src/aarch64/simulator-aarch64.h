@@ -1648,8 +1648,9 @@ class Simulator : public DecoderVisitor {
 
 // Runtime call emulation support.
 // It requires VIXL's ABI features, and C++11 or greater.
-// Also, the initialisation of the tuples in RuntimeCall(Non)Void is incorrect
-// in GCC before 4.9.1: https://gcc.gnu.org/bugzilla/show_bug.cgi?id=51253
+// Also, the initialisation of the tuples in BranchToRuntime(Non)Void is
+// incorrect in GCC before 4.9.1:
+// https://gcc.gnu.org/bugzilla/show_bug.cgi?id=51253
 #if defined(VIXL_HAS_ABI_SUPPORT) && __cplusplus >= 201103L && \
     (defined(__clang__) || GCC_VERSION_OR_NEWER(4, 9, 1))
 
@@ -1694,49 +1695,49 @@ class Simulator : public DecoderVisitor {
 
   // Expand the argument tuple and perform the call.
   template <typename R, typename... P, std::size_t... I>
-  R DoRuntimeCall(R (*function)(P...),
-                  std::tuple<P...> arguments,
-                  local_index_sequence<I...>) {
+  R DoBranchToRuntime(R (*function)(P...),
+                      std::tuple<P...> arguments,
+                      local_index_sequence<I...>) {
     return function(std::get<I>(arguments)...);
   }
 
   template <typename R, typename... P>
-  void RuntimeCallNonVoid(R (*function)(P...)) {
+  void BranchToRuntimeNonVoid(R (*function)(P...)) {
     ABI abi;
     std::tuple<P...> argument_operands{
         ReadGenericOperand<P>(abi.GetNextParameterGenericOperand<P>())...};
-    R return_value = DoRuntimeCall(function,
-                                   argument_operands,
-                                   __local_index_sequence_for<P...>{});
+    R return_value = DoBranchToRuntime(function,
+                                       argument_operands,
+                                       __local_index_sequence_for<P...>{});
     WriteGenericOperand(abi.GetReturnGenericOperand<R>(), return_value);
   }
 
   template <typename R, typename... P>
-  void RuntimeCallVoid(R (*function)(P...)) {
+  void BranchToRuntimeVoid(R (*function)(P...)) {
     ABI abi;
     std::tuple<P...> argument_operands{
         ReadGenericOperand<P>(abi.GetNextParameterGenericOperand<P>())...};
-    DoRuntimeCall(function,
-                  argument_operands,
-                  __local_index_sequence_for<P...>{});
+    DoBranchToRuntime(function,
+                      argument_operands,
+                      __local_index_sequence_for<P...>{});
   }
 
   // We use `struct` for `void` return type specialisation.
   template <typename R, typename... P>
-  struct RuntimeCallStructHelper {
+  struct BranchToRuntimeStructHelper {
     static void Wrapper(Simulator* simulator, uintptr_t function_pointer) {
       R (*function)(P...) = reinterpret_cast<R (*)(P...)>(function_pointer);
-      simulator->RuntimeCallNonVoid(function);
+      simulator->BranchToRuntimeNonVoid(function);
     }
   };
 
   // Partial specialization when the return type is `void`.
   template <typename... P>
-  struct RuntimeCallStructHelper<void, P...> {
+  struct BranchToRuntimeStructHelper<void, P...> {
     static void Wrapper(Simulator* simulator, uintptr_t function_pointer) {
       void (*function)(P...) =
           reinterpret_cast<void (*)(P...)>(function_pointer);
-      simulator->RuntimeCallVoid(function);
+      simulator->BranchToRuntimeVoid(function);
     }
   };
 #endif
@@ -2989,7 +2990,7 @@ class Simulator : public DecoderVisitor {
 #ifndef VIXL_HAS_SIMULATED_RUNTIME_CALL_SUPPORT
   VIXL_NO_RETURN_IN_DEBUG_MODE
 #endif
-  void DoRuntimeCall(const Instruction* instr);
+  void DoBranchToRuntime(const Instruction* instr);
 
   // Processor state ---------------------------------------
 
