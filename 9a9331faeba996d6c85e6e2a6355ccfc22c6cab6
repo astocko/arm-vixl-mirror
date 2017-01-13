@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ba1f61a0_a208722e",
+        "filename": "test/test-code-generation-scopes.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 1000226
+      },
+      "writtenOn": "2017-01-13T21:07:56Z",
+      "side": 1,
+      "message": "yes something look amiss, I\u0027ll look into it next week.",
+      "parentUuid": "ba1f61a0_42189684",
+      "revId": "9a9331faeba996d6c85e6e2a6355ccfc22c6cab6",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba1f61a0_221da274",
         "filename": "test/test-code-generation-scopes.cc",
         "patchSetId": 3
@@ -30,6 +48,30 @@
       "writtenOn": "2017-01-13T20:53:21Z",
       "side": 1,
       "message": "Can\u0027t those tests be run for T32 as well?",
+      "range": {
+        "startLine": 419,
+        "startChar": 4,
+        "endLine": 419,
+        "endChar": 8
+      },
+      "revId": "9a9331faeba996d6c85e6e2a6355ccfc22c6cab6",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba1f61a0_c20be629",
+        "filename": "test/test-code-generation-scopes.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 1000226
+      },
+      "writtenOn": "2017-01-13T21:07:56Z",
+      "side": 1,
+      "message": "Those tests make sense when ldr and ldrd have different range which is only true in A32. Obviously the test should run in T32",
+      "parentUuid": "ba1f61a0_221da274",
       "range": {
         "startLine": 419,
         "startChar": 4,
