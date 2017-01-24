@@ -22,6 +22,30 @@
       "revId": "1974b92fac9a1a264a179cbc7c60272e3bd4641e",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_3b8f8f25",
+        "filename": "third_party/android/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1000157
+      },
+      "writtenOn": "2017-01-24T10:41:54Z",
+      "side": 1,
+      "message": "I think it\u0027s more consistent for both targets to specify the ISA they are able to generate code for.",
+      "parentUuid": "9a245df4_3ba14faa",
+      "range": {
+        "startLine": 99,
+        "startChar": 8,
+        "endLine": 99,
+        "endChar": 35
+      },
+      "revId": "1974b92fac9a1a264a179cbc7c60272e3bd4641e",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
