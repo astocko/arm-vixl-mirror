@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a245df4_3ba14faa",
+        "filename": "third_party/android/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1000240
+      },
+      "writtenOn": "2017-01-24T10:28:18Z",
+      "side": 1,
+      "message": "I\u0027ve read the vixl64 code, and I was thinking is this  really needed here? The macro VIXL_INCLUDE_TARGET_A64 (and VIXL_INCLUDE_TARGET_AARCH64) is not used by VIXL A64\u0027s assembler \u0026 macro assembler.",
+      "range": {
+        "startLine": 99,
+        "startChar": 8,
+        "endLine": 99,
+        "endChar": 35
+      },
+      "revId": "1974b92fac9a1a264a179cbc7c60272e3bd4641e",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
