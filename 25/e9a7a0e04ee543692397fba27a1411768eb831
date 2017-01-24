@@ -1,0 +1,9 @@
+Code-Review+1: Kevin Brodsky <kevin.brodsky@linaro.org>
+Code-Review+1: Xueliang Zhong <xueliang.zhong@linaro.org>
+Code-Review+2: Scott Wakeling <scott.wakeling@linaro.org>
+Verified+1: Scott Wakeling <scott.wakeling@linaro.org>
+Submitted-by: Scott Wakeling <scott.wakeling@linaro.org>
+Submitted-at: Tue, 24 Jan 2017 10:56:40 +0000
+Reviewed-on: https://review.linaro.org/16966
+Project: arm/vixl
+Branch: refs/heads/master
