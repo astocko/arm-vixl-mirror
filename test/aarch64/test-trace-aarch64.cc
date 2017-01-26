@@ -50,7 +50,7 @@ namespace aarch64 {
 static void GenerateTestSequenceBase(MacroAssembler* masm) {
   ExactAssemblyScope guard(masm,
                            masm->GetBuffer()->GetRemainingBytes(),
-                           ExactAssemblyScope::kMaximumSize);
+                           Policy::kMaximumSize);
 
   __ adc(w3, w4, w5);
   __ adc(x6, x7, x8);
@@ -394,7 +394,7 @@ static void GenerateTestSequenceBase(MacroAssembler* masm) {
 static void GenerateTestSequenceFP(MacroAssembler* masm) {
   ExactAssemblyScope guard(masm,
                            masm->GetBuffer()->GetRemainingBytes(),
-                           ExactAssemblyScope::kMaximumSize);
+                           Policy::kMaximumSize);
 
   // Scalar floating point instructions.
   __ fabd(d13, d2, d19);
@@ -608,7 +608,7 @@ static void GenerateTestSequenceFP(MacroAssembler* masm) {
 static void GenerateTestSequenceNEON(MacroAssembler* masm) {
   ExactAssemblyScope guard(masm,
                            masm->GetBuffer()->GetRemainingBytes(),
-                           ExactAssemblyScope::kMaximumSize);
+                           Policy::kMaximumSize);
 
   // NEON integer instructions.
   __ abs(d19, d0);
@@ -2513,7 +2513,7 @@ static void GenerateTestSequenceNEON(MacroAssembler* masm) {
 static void GenerateTestSequenceNEONFP(MacroAssembler* masm) {
   ExactAssemblyScope guard(masm,
                            masm->GetBuffer()->GetRemainingBytes(),
-                           ExactAssemblyScope::kMaximumSize);
+                           Policy::kMaximumSize);
 
   // NEON floating point instructions.
   __ fabd(v3.V2D(), v25.V2D(), v8.V2D());

@@ -95,21 +95,9 @@ void LiteralPool::CheckEmitForBranch(size_t range) {
   if (GetMaxSize() >= range) Emit();
 }
 
-// We use a subclass to access the protected `ExactAssemblyScope` constructor
-// giving us control over the pools. This allows us to use this scope within
-// code emitting pools without creating a circular dependency.
-// We keep the constructor private to restrict usage of this helper class.
-class ExactAssemblyScopeWithoutPoolsCheck : public ExactAssemblyScope {
- private:
-  ExactAssemblyScopeWithoutPoolsCheck(MacroAssembler* masm, size_t size)
-      : ExactAssemblyScope(masm,
-                           size,
-                           ExactAssemblyScope::kExactSize,
-                           ExactAssemblyScope::kIgnorePools) {}
 
-  friend void LiteralPool::Emit(LiteralPool::EmitOption);
-  friend void VeneerPool::Emit(VeneerPool::EmitOption, size_t);
-};
+typedef vixl::internal::ExactAssemblyScopeWithoutPoolsCheck
+    ExactAssemblyScopeWithoutPoolsCheck;
 
 
 void LiteralPool::Emit(EmitOption option) {
@@ -126,8 +114,8 @@ void LiteralPool::Emit(EmitOption option) {
   {
     CodeBufferCheckScope guard(masm_,
                                emit_size,
-                               CodeBufferCheckScope::kCheck,
-                               CodeBufferCheckScope::kExactSize);
+                               Policy::kReserveBufferSpace,
+                               Policy::kExactSize);
 #ifdef VIXL_DEBUG
     // Also explicitly disallow usage of the `MacroAssembler` here.
     masm_->SetAllowMacroInstructions(false);
@@ -283,8 +271,8 @@ void VeneerPool::Emit(EmitOption option, size_t amount) {
                          amount + kVeneerEmissionMargin)) {
       CodeBufferCheckScope scope(masm_,
                                  kVeneerCodeSize,
-                                 CodeBufferCheckScope::kCheck,
-                                 CodeBufferCheckScope::kExactSize);
+                                 Policy::kReserveBufferSpace,
+                                 Policy::kExactSize);
       ptrdiff_t branch_pos = branch_info->pc_offset_;
       Instruction* branch = masm_->GetInstructionAt(branch_pos);
       Label* label = branch_info->label_;
@@ -2055,9 +2043,7 @@ void MacroAssembler::PushHelper(int count,
                                 const CPURegister& src3) {
   // Ensure that we don't unintentionally modify scratch or debug registers.
   // Worst case for size is 2 stp.
-  ExactAssemblyScope scope(this,
-                           2 * kInstructionSize,
-                           ExactAssemblyScope::kMaximumSize);
+  ExactAssemblyScope scope(this, 2 * kInstructionSize, Policy::kMaximumSize);
 
   VIXL_ASSERT(AreSameSizeAndType(src0, src1, src2, src3));
   VIXL_ASSERT(size == src0.GetSizeInBytes());
@@ -2099,9 +2085,7 @@ void MacroAssembler::PopHelper(int count,
                                const CPURegister& dst3) {
   // Ensure that we don't unintentionally modify scratch or debug registers.
   // Worst case for size is 2 ldp.
-  ExactAssemblyScope scope(this,
-                           2 * kInstructionSize,
-                           ExactAssemblyScope::kMaximumSize);
+  ExactAssemblyScope scope(this, 2 * kInstructionSize, Policy::kMaximumSize);
 
   VIXL_ASSERT(AreSameSizeAndType(dst0, dst1, dst2, dst3));
   VIXL_ASSERT(size == dst0.GetSizeInBytes());

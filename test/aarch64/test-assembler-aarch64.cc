@@ -1681,9 +1681,7 @@ static void TbzRangePoolLimitHelper(TestBranchSignature test_branch) {
       // veneer.
       end = masm.GetCursorOffset() + (kTbzRange - 4);
       {
-        ExactAssemblyScope scope(&masm,
-                                 kTbzRange,
-                                 ExactAssemblyScope::kMaximumSize);
+        ExactAssemblyScope scope(&masm, kTbzRange, Policy::kMaximumSize);
         while (masm.GetCursorOffset() < end) __ nop();
       }
 
@@ -1879,9 +1877,7 @@ TEST(adrp) {
 
   // Waste space until the start of a page.
   {
-    ExactAssemblyScope scope(&masm,
-                             kPageSize,
-                             ExactAssemblyScope::kMaximumSize);
+    ExactAssemblyScope scope(&masm, kPageSize, Policy::kMaximumSize);
     const uintptr_t kPageOffsetMask = kPageSize - 1;
     while ((masm.GetCursorAddress<uintptr_t>() & kPageOffsetMask) != 0) {
       __ b(&start);
@@ -1953,9 +1949,7 @@ static void AdrpPageBoundaryHelper(unsigned offset_into_page) {
   Label start;
 
   {
-    ExactAssemblyScope scope(&masm,
-                             kMaxCodeSize,
-                             ExactAssemblyScope::kMaximumSize);
+    ExactAssemblyScope scope(&masm, kMaxCodeSize, Policy::kMaximumSize);
     // Initialize NZCV with `eq` flags.
     __ cmp(wzr, wzr);
     // Waste space until the start of a page.
@@ -2033,9 +2027,7 @@ static void AdrpOffsetHelper(int64_t offset) {
   Label page;
 
   {
-    ExactAssemblyScope scope(&masm,
-                             kMaxCodeSize,
-                             ExactAssemblyScope::kMaximumSize);
+    ExactAssemblyScope scope(&masm, kMaxCodeSize, Policy::kMaximumSize);
     // Initialize NZCV with `eq` flags.
     __ cmp(wzr, wzr);
     // Waste space until the start of a page.

@@ -357,17 +357,13 @@ TEST_A32(EmissionCheckScope_emit_pool_32) {
     // Check that opening the scope with a reserved space well below the limit
     // at which can generate the literal pool does not force the emission of
     // the pool.
-    EmissionCheckScope scope(&masm,
-                             kLessThanLdrdRange,
-                             EmissionCheckScope::kMaximumSize);
+    EmissionCheckScope scope(&masm, kLessThanLdrdRange, Policy::kMaximumSize);
     ASSERT_LITERAL_POOL_SIZE_32(8);
   }
 
   {
     // Check that the scope forces emission of the pool if necessary.
-    EmissionCheckScope scope(&masm,
-                             kLdrdRange + 1,
-                             EmissionCheckScope::kMaximumSize);
+    EmissionCheckScope scope(&masm, kLdrdRange + 1, Policy::kMaximumSize);
     ASSERT_LITERAL_POOL_SIZE_32(0);
   }
 
@@ -398,7 +394,7 @@ TEST(EmissionCheckScope_emit_pool_64) {
     // the pool.
     EmissionCheckScope scope(&masm,
                              10 * aarch64::kInstructionSize,
-                             EmissionCheckScope::kMaximumSize);
+                             Policy::kMaximumSize);
     ASSERT_LITERAL_POOL_SIZE_64(8);
   }
 
@@ -406,7 +402,7 @@ TEST(EmissionCheckScope_emit_pool_64) {
     // Check that the scope forces emission of the pool if necessary.
     EmissionCheckScope scope(&masm,
                              aarch64::kMaxLoadLiteralRange + 1,
-                             EmissionCheckScope::kMaximumSize);
+                             Policy::kMaximumSize);
     ASSERT_LITERAL_POOL_SIZE_64(0);
   }
 
@@ -433,17 +429,13 @@ TEST_A32(EmissionCheckScope_emit_pool_on_Open_32) {
     // Check that opening the scope with a reserved space well below the limit
     // at which can generate the literal pool does not force the emission of
     // the pool.
-    EmissionCheckScope scope(&masm,
-                             kLessThanLdrdRange,
-                             EmissionCheckScope::kMaximumSize);
+    EmissionCheckScope scope(&masm, kLessThanLdrdRange, Policy::kMaximumSize);
     ASSERT_LITERAL_POOL_SIZE_32(8);
   }
 
   {
     // Check that the scope forces emission of the pool if necessary.
-    EmissionCheckScope scope(&masm,
-                             kLdrdRange + 1,
-                             EmissionCheckScope::kMaximumSize);
+    EmissionCheckScope scope(&masm, kLdrdRange + 1, Policy::kMaximumSize);
     ASSERT_LITERAL_POOL_SIZE_32(0);
   }
 
@@ -468,18 +460,14 @@ TEST(EmissionCheckScope_emit_pool_on_Open_64) {
     // at which can generate the literal pool does not force the emission of
     // the pool.
     EmissionCheckScope scope;
-    scope.Open(&masm,
-               10 * aarch64::kInstructionSize,
-               EmissionCheckScope::kMaximumSize);
+    scope.Open(&masm, 10 * aarch64::kInstructionSize, Policy::kMaximumSize);
     ASSERT_LITERAL_POOL_SIZE_64(8);
   }
 
   {
     // Check that the scope forces emission of the pool if necessary.
     EmissionCheckScope scope;
-    scope.Open(&masm,
-               aarch64::kMaxLoadLiteralRange + 1,
-               EmissionCheckScope::kMaximumSize);
+    scope.Open(&masm, aarch64::kMaxLoadLiteralRange + 1, Policy::kMaximumSize);
     ASSERT_LITERAL_POOL_SIZE_64(0);
   }
 
