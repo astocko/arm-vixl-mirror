@@ -60,50 +60,46 @@
 // tests.
 #define MAX_SIZE_GENERATED 1024
 
-#define COMPARE(ASM, EXP)                                             \
-  masm.Reset();                                                       \
-  {                                                                   \
-    ExactAssemblyScope guard(&masm,                                   \
-                             MAX_SIZE_GENERATED,                      \
-                             ExactAssemblyScope::kMaximumSize);       \
-    masm.ASM;                                                         \
-  }                                                                   \
-  masm.FinalizeCode();                                                \
-  decoder.Decode(masm.GetBuffer()->GetStartAddress<Instruction*>());  \
-  encoding = *masm.GetBuffer()->GetStartAddress<uint32_t*>();         \
-  if (strcmp(disasm.GetOutput(), EXP) != 0) {                         \
-    printf("\nEncoding: %08" PRIx32 "\nExpected: %s\nFound:    %s\n", \
-           encoding,                                                  \
-           EXP,                                                       \
-           disasm.GetOutput());                                       \
-    abort();                                                          \
-  }                                                                   \
-  if (Test::disassemble()) {                                          \
-    printf("----\n");                                                 \
-    printf("%08" PRIx32 "\t%s\n", encoding, disasm.GetOutput());      \
+#define COMPARE(ASM, EXP)                                                      \
+  masm.Reset();                                                                \
+  {                                                                            \
+    ExactAssemblyScope guard(&masm, MAX_SIZE_GENERATED, Policy::kMaximumSize); \
+    masm.ASM;                                                                  \
+  }                                                                            \
+  masm.FinalizeCode();                                                         \
+  decoder.Decode(masm.GetBuffer()->GetStartAddress<Instruction*>());           \
+  encoding = *masm.GetBuffer()->GetStartAddress<uint32_t*>();                  \
+  if (strcmp(disasm.GetOutput(), EXP) != 0) {                                  \
+    printf("\nEncoding: %08" PRIx32 "\nExpected: %s\nFound:    %s\n",          \
+           encoding,                                                           \
+           EXP,                                                                \
+           disasm.GetOutput());                                                \
+    abort();                                                                   \
+  }                                                                            \
+  if (Test::disassemble()) {                                                   \
+    printf("----\n");                                                          \
+    printf("%08" PRIx32 "\t%s\n", encoding, disasm.GetOutput());               \
   }
 
-#define COMPARE_PREFIX(ASM, EXP)                                      \
-  masm.Reset();                                                       \
-  {                                                                   \
-    ExactAssemblyScope guard(&masm,                                   \
-                             MAX_SIZE_GENERATED,                      \
-                             ExactAssemblyScope::kMaximumSize);       \
-    masm.ASM;                                                         \
-  }                                                                   \
-  masm.FinalizeCode();                                                \
-  decoder.Decode(masm.GetBuffer()->GetStartAddress<Instruction*>());  \
-  encoding = *masm.GetBuffer()->GetStartAddress<uint32_t*>();         \
-  if (strncmp(disasm.GetOutput(), EXP, strlen(EXP)) != 0) {           \
-    printf("\nEncoding: %08" PRIx32 "\nExpected: %s\nFound:    %s\n", \
-           encoding,                                                  \
-           EXP,                                                       \
-           disasm.GetOutput());                                       \
-    abort();                                                          \
-  }                                                                   \
-  if (Test::disassemble()) {                                          \
-    printf("----\n");                                                 \
-    printf("%08" PRIx32 "\t%s\n", encoding, disasm.GetOutput());      \
+#define COMPARE_PREFIX(ASM, EXP)                                               \
+  masm.Reset();                                                                \
+  {                                                                            \
+    ExactAssemblyScope guard(&masm, MAX_SIZE_GENERATED, Policy::kMaximumSize); \
+    masm.ASM;                                                                  \
+  }                                                                            \
+  masm.FinalizeCode();                                                         \
+  decoder.Decode(masm.GetBuffer()->GetStartAddress<Instruction*>());           \
+  encoding = *masm.GetBuffer()->GetStartAddress<uint32_t*>();                  \
+  if (strncmp(disasm.GetOutput(), EXP, strlen(EXP)) != 0) {                    \
+    printf("\nEncoding: %08" PRIx32 "\nExpected: %s\nFound:    %s\n",          \
+           encoding,                                                           \
+           EXP,                                                                \
+           disasm.GetOutput());                                                \
+    abort();                                                                   \
+  }                                                                            \
+  if (Test::disassemble()) {                                                   \
+    printf("----\n");                                                          \
+    printf("%08" PRIx32 "\t%s\n", encoding, disasm.GetOutput());               \
   }
 
 #define COMPARE_MACRO_BASE(ASM, EXP)                               \

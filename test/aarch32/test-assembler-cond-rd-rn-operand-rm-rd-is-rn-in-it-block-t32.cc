@@ -626,7 +626,7 @@ void TestHelper(Fn instruction,
     {
       // We never generate more that 4 bytes, as IT instructions are only
       // allowed for narrow encodings.
-      ExactAssemblyScope scope(&masm, 4, ExactAssemblyScope::kMaximumSize);
+      ExactAssemblyScope scope(&masm, 4, Policy::kMaximumSize);
       if (kTests[i].in_it_block) {
         masm.it(kTests[i].it_condition);
       }

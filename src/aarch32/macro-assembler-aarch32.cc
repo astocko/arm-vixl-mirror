@@ -36,23 +36,8 @@
 namespace vixl {
 namespace aarch32 {
 
-// We use a subclass to access the protected `ExactAssemblyScope` constructor
-// giving us control over the pools, and make the constructor private to limit
-// usage to code paths emitting pools.
-class ExactAssemblyScopeWithoutPoolsCheck : public ExactAssemblyScope {
- private:
-  ExactAssemblyScopeWithoutPoolsCheck(MacroAssembler* masm,
-                                      size_t size,
-                                      SizePolicy size_policy = kExactSize)
-      : ExactAssemblyScope(masm,
-                           size,
-                           size_policy,
-                           ExactAssemblyScope::kIgnorePools) {}
-
-  friend class MacroAssembler;
-  friend class VeneerPoolManager;
-};
-
+typedef vixl::internal::ExactAssemblyScopeWithoutPoolsCheck
+    ExactAssemblyScopeWithoutPoolsCheck;
 
 void UseScratchRegisterScope::Open(MacroAssembler* masm) {
   VIXL_ASSERT(masm_ == NULL);
@@ -333,7 +318,7 @@ void VeneerPoolManager::EmitLabel(Label* label, Label::Offset emitted_target) {
   // Generate the veneer.
   ExactAssemblyScopeWithoutPoolsCheck guard(masm_,
                                             kMaxInstructionSizeInBytes,
-                                            ExactAssemblyScope::kMaximumSize);
+                                            Policy::kMaximumSize);
   masm_->b(label);
   masm_->AddBranchLabel(label);
 }
@@ -422,10 +407,9 @@ void MacroAssembler::PerformEnsureEmit(Label::Offset target, uint32_t size) {
   }
   if (!IsVeneerPoolBlocked() && generate_veneers) {
     {
-      ExactAssemblyScopeWithoutPoolsCheck
-          guard(this,
-                kMaxInstructionSizeInBytes,
-                ExactAssemblyScope::kMaximumSize);
+      ExactAssemblyScopeWithoutPoolsCheck guard(this,
+                                                kMaxInstructionSizeInBytes,
+                                                Policy::kMaximumSize);
       b(&after_pools);
     }
     veneer_pool_manager_.Emit(target);
@@ -476,10 +460,9 @@ void MacroAssembler::EmitLiteralPool(LiteralPool* const literal_pool,
       GetBuffer()->EnsureSpaceFor(kMaxInstructionSizeInBytes);
       VIXL_ASSERT(!AllowAssembler());
       {
-        ExactAssemblyScopeWithoutPoolsCheck
-            guard(this,
-                  kMaxInstructionSizeInBytes,
-                  ExactAssemblyScope::kMaximumSize);
+        ExactAssemblyScopeWithoutPoolsCheck guard(this,
+                                                  kMaxInstructionSizeInBytes,
+                                                  Policy::kMaximumSize);
         b(&after_literal);
       }
     }
