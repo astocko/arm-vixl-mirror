@@ -3219,10 +3219,11 @@ inline void LiteralPool::SetNextRecommendedCheckpoint(ptrdiff_t offset) {
 
 class InstructionAccurateScope : public ExactAssemblyScope {
  public:
-  VIXL_DEPRECATED("ExactAssemblyScope",
-                  InstructionAccurateScope(MacroAssembler* masm,
-                                           int64_t count,
-                                           SizePolicy size_policy = kExactSize))
+  VIXL_DEPRECATED(
+      "ExactAssemblyScope",
+      InstructionAccurateScope(MacroAssembler* masm,
+                               int64_t count,
+                               Policy size_policy = Policy::kExactSize))
       : ExactAssemblyScope(masm, count * kInstructionSize, size_policy) {}
 };
 
@@ -3414,9 +3415,7 @@ void MacroAssembler::CallRuntimeHelper(R (*function)(P...),
         &(Simulator::RuntimeCallStructHelper<R, P...>::Wrapper));
     uintptr_t function_address = reinterpret_cast<uintptr_t>(function);
 
-    EmissionCheckScope guard(this,
-                             kRuntimeCallLength,
-                             CodeBufferCheckScope::kExactSize);
+    EmissionCheckScope guard(this, kRuntimeCallLength, Policy::kExactSize);
     Label start;
     bind(&start);
     {

@@ -666,9 +666,7 @@ TEST(adr_in_range) {
       size_of_generated_code = 18 * k32BitT32InstructionSizeInBytes +
                                3 * k16BitT32InstructionSizeInBytes;
     }
-    ExactAssemblyScope scope(&masm,
-                             size_of_generated_code,
-                             ExactAssemblyScope::kExactSize);
+    ExactAssemblyScope scope(&masm, size_of_generated_code);
 
     __ mov(r0, 0x0);  // Set to zero to indicate success.
     __ adr(r1, &label_3);
@@ -1122,7 +1120,7 @@ TEST_T32(veneer_pool_generated_by_macro_instruction) {
   // Use `ExactAssemblyScope` and the assembler to generate the code.
   int32_t space = masm.GetMarginBeforeVeneerEmission();
   {
-    ExactAssemblyScope scope(&masm, space, ExactAssemblyScope::kExactSize);
+    ExactAssemblyScope scope(&masm, space);
     while (space > 0) {
       __ nop();
       space -= k16BitT32InstructionSizeInBytes;
@@ -1288,9 +1286,7 @@ void EmitReusedLoadLiteralStressTest(InstructionSet isa, bool conditional) {
     // Generate nops, in order to bring the checkpoints of the Ldr and Ldrd
     // closer.
     {
-      ExactAssemblyScope scope(&masm,
-                               n * nop_size,
-                               ExactAssemblyScope::kExactSize);
+      ExactAssemblyScope scope(&masm, n * nop_size);
       for (int i = 0; i < n; ++i) {
         __ nop();
       }
@@ -1383,7 +1379,7 @@ TEST_T32(literal_pool_generated_by_macro_instruction) {
   // Use `ExactAssemblyScope` and the assembler to generate the code.
   int32_t space = masm.GetMarginBeforeLiteralEmission();
   {
-    ExactAssemblyScope scope(&masm, space, ExactAssemblyScope::kExactSize);
+    ExactAssemblyScope scope(&masm, space);
     while (space > 0) {
       __ nop();
       space -= k16BitT32InstructionSizeInBytes;
@@ -1480,7 +1476,7 @@ void EmitLdrdLiteralTest(MacroAssembler* masm) {
 
   int32_t margin = masm->GetMarginBeforeLiteralEmission();
   {
-    ExactAssemblyScope scope(masm, margin, ExactAssemblyScope::kExactSize);
+    ExactAssemblyScope scope(masm, margin);
     // Opening the scope should not have triggered the emission of the literal
     // pool.
     VIXL_CHECK(!masm->LiteralPoolIsEmpty());
@@ -1757,7 +1753,7 @@ TEST_A32(ldr_literal_range_same_time) {
 
   {
     int space = AlignDown(ldr_padding, kA32InstructionSizeInBytes);
-    ExactAssemblyScope scope(&masm, space, ExactAssemblyScope::kExactSize);
+    ExactAssemblyScope scope(&masm, space);
     int32_t end = masm.GetCursorOffset() + space;
     while (masm.GetCursorOffset() < end) {
       __ nop();
@@ -1769,7 +1765,7 @@ TEST_A32(ldr_literal_range_same_time) {
 
   {
     int space = AlignDown(ldrd_padding, kA32InstructionSizeInBytes);
-    ExactAssemblyScope scope(&masm, space, ExactAssemblyScope::kExactSize);
+    ExactAssemblyScope scope(&masm, space);
     for (int32_t end = masm.GetCursorOffset() + space;
          masm.GetCursorOffset() < end;) {
       __ nop();
@@ -2265,7 +2261,7 @@ TEST(custom_literal_place_range) {
 
     {
       int space = AlignDown(padding_before, nop_size);
-      ExactAssemblyScope scope(&masm, space, ExactAssemblyScope::kExactSize);
+      ExactAssemblyScope scope(&masm, space);
       for (int32_t end = masm.GetCursorOffset() + space;
            masm.GetCursorOffset() < end;) {
         __ nop();
@@ -2278,7 +2274,7 @@ TEST(custom_literal_place_range) {
 
     {
       int space = AlignDown(padding_after, nop_size);
-      ExactAssemblyScope scope(&masm, space, ExactAssemblyScope::kExactSize);
+      ExactAssemblyScope scope(&masm, space);
       for (int32_t end = masm.GetCursorOffset() + space;
            masm.GetCursorOffset() < end;) {
         __ nop();
@@ -2498,7 +2494,7 @@ TEST_T32(veneer_bind) {
     // Bind the target label using the `Assembler`.
     ExactAssemblyScope scope(&masm,
                              kMaxInstructionSizeInBytes,
-                             ExactAssemblyScope::kMaximumSize);
+                             Policy::kMaximumSize);
     __ bind(&target);
     __ nop();
   }
@@ -2532,9 +2528,7 @@ TEST_T32(b_narrow_and_cbz_sort) {
   }
 
   {
-    ExactAssemblyScope scope(&masm,
-                             k16BitT32InstructionSizeInBytes * kNops,
-                             ExactAssemblyScope::kExactSize);
+    ExactAssemblyScope scope(&masm, k16BitT32InstructionSizeInBytes * kNops);
     for (int i = 0; i < kNops; i++) {
       __ nop();
     }
@@ -2549,7 +2543,7 @@ TEST_T32(b_narrow_and_cbz_sort) {
   int32_t end = masm.GetCursorOffset() + margin;
 
   {
-    ExactAssemblyScope scope(&masm, margin, ExactAssemblyScope::kExactSize);
+    ExactAssemblyScope scope(&masm, margin);
     while (masm.GetCursorOffset() < end) {
       __ nop();
     }
@@ -2588,9 +2582,7 @@ TEST_T32(b_narrow_and_cbz_sort_2) {
   }
 
   {
-    ExactAssemblyScope scope(&masm,
-                             k16BitT32InstructionSizeInBytes * kNops,
-                             ExactAssemblyScope::kExactSize);
+    ExactAssemblyScope scope(&masm, k16BitT32InstructionSizeInBytes * kNops);
     for (int i = 0; i < kNops; i++) {
       __ nop();
     }
@@ -2676,7 +2668,7 @@ TEST_T32(unaligned_branch_after_literal) {
     Label after_pool;
     ExactAssemblyScope scope(&masm,
                              k16BitT32InstructionSizeInBytes + sizeof(int32_t),
-                             CodeBufferCheckScope::kMaximumSize);
+                             Policy::kMaximumSize);
     __ b(Narrow, &after_pool);
     __ place(&l0);
     VIXL_ASSERT((masm.GetBuffer()->GetCursorOffset() % 4) == 2);
@@ -3439,7 +3431,7 @@ TEST(literal_pool_margin) {
   int32_t margin = masm.GetMarginBeforeLiteralEmission();
   int32_t end = masm.GetCursorOffset() + margin;
   {
-    ExactAssemblyScope scope(&masm, margin, ExactAssemblyScope::kExactSize);
+    ExactAssemblyScope scope(&masm, margin);
     // Opening the scope should not have triggered the emission of the literal
     // pool.
     VIXL_CHECK(!masm.LiteralPoolIsEmpty());
@@ -3486,7 +3478,7 @@ TEST(veneer_pool_margin) {
   int32_t margin = masm.GetMarginBeforeVeneerEmission();
   int32_t end = masm.GetCursorOffset() + margin;
   {
-    ExactAssemblyScope scope(&masm, margin, ExactAssemblyScope::kExactSize);
+    ExactAssemblyScope scope(&masm, margin);
     // Opening the scope should not have triggered the emission of the veneer
     // pool.
     VIXL_CHECK(!masm.VeneerPoolIsEmpty());
@@ -3505,7 +3497,7 @@ TEST(veneer_pool_margin) {
   Label check;
   __ Bind(&check);
   {
-    ExactAssemblyScope scope(&masm, 2, ExactAssemblyScope::kMaximumSize);
+    ExactAssemblyScope scope(&masm, 2, Policy::kMaximumSize);
     // Do not actually generate any code.
   }
   VIXL_CHECK(masm.GetSizeOfCodeGeneratedSince(&check) > 0);
@@ -3891,9 +3883,7 @@ TEST_NOASM(code_buffer_precise_growth) {
 
   {
     // Fill the buffer with nops.
-    ExactAssemblyScope scope(&masm,
-                             kBaseBufferSize,
-                             ExactAssemblyScope::kExactSize);
+    ExactAssemblyScope scope(&masm, kBaseBufferSize);
     for (int i = 0; i < kBaseBufferSize; i += k16BitT32InstructionSizeInBytes) {
       __ nop();
     }
@@ -3931,7 +3921,7 @@ TEST_NOASM(out_of_space_immediately_before_EnsureEmitFor) {
   uint32_t space = static_cast<uint32_t>(masm.GetBuffer()->GetRemainingBytes());
   {
     // Fill the buffer with nops.
-    ExactAssemblyScope scope(&masm, space, ExactAssemblyScope::kExactSize);
+    ExactAssemblyScope scope(&masm, space);
     for (uint32_t i = 0; i < space; i += k16BitT32InstructionSizeInBytes) {
       __ nop();
     }
@@ -4000,7 +3990,7 @@ TEST_T32(distant_literal_references) {
   // Add enough nops to exceed the range of all loads.
   int space = 5000;
   {
-    ExactAssemblyScope scope(&masm, space, CodeBufferCheckScope::kExactSize);
+    ExactAssemblyScope scope(&masm, space);
     VIXL_ASSERT(masm.IsUsingT32());
     for (int i = 0; i < space; i += k16BitT32InstructionSizeInBytes) {
       __ nop();
@@ -4011,9 +4001,7 @@ TEST_T32(distant_literal_references) {
   do {                                                                        \
     if (!IsMultiple<k32BitT32InstructionSizeInBytes>(                         \
             masm.GetCursorOffset())) {                                        \
-      ExactAssemblyScope scope(&masm,                                         \
-                               k16BitT32InstructionSizeInBytes,               \
-                               ExactAssemblyScope::kExactSize);               \
+      ExactAssemblyScope scope(&masm, k16BitT32InstructionSizeInBytes);       \
       __ nop();                                                               \
     }                                                                         \
     VIXL_ASSERT(                                                              \
@@ -4073,7 +4061,7 @@ TEST_T32(distant_literal_references_unaligned_pc) {
   // to only a two-byte boundary.
   int space = 5002;
   {
-    ExactAssemblyScope scope(&masm, space, CodeBufferCheckScope::kExactSize);
+    ExactAssemblyScope scope(&masm, space);
     VIXL_ASSERT(masm.IsUsingT32());
     for (int i = 0; i < space; i += k16BitT32InstructionSizeInBytes) {
       __ nop();
@@ -4083,9 +4071,7 @@ TEST_T32(distant_literal_references_unaligned_pc) {
 #define ENSURE_NOT_ALIGNED()                                                   \
   do {                                                                         \
     if (IsMultiple<k32BitT32InstructionSizeInBytes>(masm.GetCursorOffset())) { \
-      ExactAssemblyScope scope(&masm,                                          \
-                               k16BitT32InstructionSizeInBytes,                \
-                               ExactAssemblyScope::kExactSize);                \
+      ExactAssemblyScope scope(&masm, k16BitT32InstructionSizeInBytes);        \
       __ nop();                                                                \
     }                                                                          \
     VIXL_ASSERT(                                                               \
@@ -4166,7 +4152,7 @@ TEST_T32(distant_literal_references_short_range) {
   // be generated to read the PC.
   int space = 4000;
   {
-    ExactAssemblyScope scope(&masm, space, CodeBufferCheckScope::kExactSize);
+    ExactAssemblyScope scope(&masm, space);
     VIXL_ASSERT(masm.IsUsingT32());
     for (int i = 0; i < space; i += k16BitT32InstructionSizeInBytes) {
       __ nop();
@@ -4177,9 +4163,7 @@ TEST_T32(distant_literal_references_short_range) {
   do {                                                                        \
     if (!IsMultiple<k32BitT32InstructionSizeInBytes>(                         \
             masm.GetCursorOffset())) {                                        \
-      ExactAssemblyScope scope(&masm,                                         \
-                               k16BitT32InstructionSizeInBytes,               \
-                               ExactAssemblyScope::kExactSize);               \
+      ExactAssemblyScope scope(&masm, k16BitT32InstructionSizeInBytes);       \
       __ nop();                                                               \
     }                                                                         \
     VIXL_ASSERT(                                                              \
@@ -4239,7 +4223,7 @@ TEST_T32(distant_literal_references_short_range_unaligned_pc) {
   // be generated to read the PC.
   int space = 4000;
   {
-    ExactAssemblyScope scope(&masm, space, CodeBufferCheckScope::kExactSize);
+    ExactAssemblyScope scope(&masm, space);
     VIXL_ASSERT(masm.IsUsingT32());
     for (int i = 0; i < space; i += k16BitT32InstructionSizeInBytes) {
       __ nop();
@@ -4249,9 +4233,7 @@ TEST_T32(distant_literal_references_short_range_unaligned_pc) {
 #define ENSURE_NOT_ALIGNED()                                                   \
   do {                                                                         \
     if (IsMultiple<k32BitT32InstructionSizeInBytes>(masm.GetCursorOffset())) { \
-      ExactAssemblyScope scope(&masm,                                          \
-                               k16BitT32InstructionSizeInBytes,                \
-                               ExactAssemblyScope::kExactSize);                \
+      ExactAssemblyScope scope(&masm, k16BitT32InstructionSizeInBytes);        \
       __ nop();                                                                \
     }                                                                          \
     VIXL_ASSERT(                                                               \
@@ -4310,9 +4292,7 @@ TEST_T32(distant_literal_references_long_range) {
 #define PAD_WITH_NOPS(space)                                             \
   do {                                                                   \
     {                                                                    \
-      ExactAssemblyScope scope(&masm,                                    \
-                               space,                                    \
-                               CodeBufferCheckScope::kExactSize);        \
+      ExactAssemblyScope scope(&masm, space);                            \
       VIXL_ASSERT(masm.IsUsingT32());                                    \
       for (int i = 0; i < space; i += k16BitT32InstructionSizeInBytes) { \
         __ nop();                                                        \
@@ -5123,7 +5103,7 @@ TEST_T32(veneer_and_literal4) {
   const int NUM2 = NUM_RANGE;
 
   {
-    ExactAssemblyScope aas(&masm, 2 * NUM1, CodeBufferCheckScope::kMaximumSize);
+    ExactAssemblyScope aas(&masm, 2 * NUM1, Policy::kMaximumSize);
     for (int i = 0; i < NUM1; i++) {
       __ nop();
     }
@@ -5132,14 +5112,14 @@ TEST_T32(veneer_and_literal4) {
   __ Cbz(r1, &end);
 
   {
-    ExactAssemblyScope aas(&masm, 2 * NUM2, CodeBufferCheckScope::kMaximumSize);
+    ExactAssemblyScope aas(&masm, 2 * NUM2, Policy::kMaximumSize);
     for (int i = 0; i < NUM2; i++) {
       __ nop();
     }
   }
 
   {
-    ExactAssemblyScope aas(&masm, 4, CodeBufferCheckScope::kMaximumSize);
+    ExactAssemblyScope aas(&masm, 4, Policy::kMaximumSize);
     __ add(r1, r1, 3);
   }
   __ Bind(&end);
@@ -5175,9 +5155,7 @@ TEST_T32(veneer_and_literal5) {
 
     {
       int num_nops = first_test + test;
-      ExactAssemblyScope aas(&masm,
-                             2 * num_nops,
-                             CodeBufferCheckScope::kMaximumSize);
+      ExactAssemblyScope aas(&masm, 2 * num_nops, Policy::kMaximumSize);
       for (int i = 0; i < num_nops; i++) {
         __ nop();
       }
@@ -5186,7 +5164,7 @@ TEST_T32(veneer_and_literal5) {
     __ Cbz(r1, &labels[test]);
 
     {
-      ExactAssemblyScope aas(&masm, 4, CodeBufferCheckScope::kMaximumSize);
+      ExactAssemblyScope aas(&masm, 4, Policy::kMaximumSize);
       __ add(r1, r1, 3);
     }
     __ Bind(&labels[test]);
@@ -5222,7 +5200,7 @@ TEST_T32(veneer_and_literal6) {
   // order to reach the maximum range of ldrd and cbz at the same time.
   {
     int nop_size = kLdrdRange - kCbzCbnzRange - 5 * kSizeForCbz;
-    ExactAssemblyScope scope(&masm, nop_size, CodeBufferCheckScope::kExactSize);
+    ExactAssemblyScope scope(&masm, nop_size);
     for (int i = 0; i < nop_size; i += k16BitT32InstructionSizeInBytes) {
       __ nop();
     }
@@ -5244,7 +5222,7 @@ TEST_T32(veneer_and_literal6) {
   // This scope will generate both veneers (they are both out of range).
   {
     int nop_size = kCbzCbnzRange;
-    ExactAssemblyScope scope(&masm, nop_size, CodeBufferCheckScope::kExactSize);
+    ExactAssemblyScope scope(&masm, nop_size);
     for (int i = 0; i < nop_size; i += k16BitT32InstructionSizeInBytes) {
       __ nop();
     }
@@ -5343,7 +5321,7 @@ TEST_T32(test_it_scope_and_literal_pool) {
   int32_t end = masm.GetCursorOffset() + margin;
 
   {
-    ExactAssemblyScope scope(&masm, margin, ExactAssemblyScope::kExactSize);
+    ExactAssemblyScope scope(&masm, margin);
     while (masm.GetCursorOffset() < end) {
       __ nop();
     }
@@ -5588,9 +5566,7 @@ TEST(blx) {
       size_of_generated_code = 5 * k32BitT32InstructionSizeInBytes +
                                3 * k16BitT32InstructionSizeInBytes;
     }
-    ExactAssemblyScope scope(&masm,
-                             size_of_generated_code,
-                             ExactAssemblyScope::kExactSize);
+    ExactAssemblyScope scope(&masm, size_of_generated_code);
     __ adr(r11, &func2);
     if (masm.IsUsingT32()) {
       // The jump target needs to have its least significant bit set to indicate
@@ -5637,13 +5613,11 @@ TEST_T32(b_near_hint) {
     // Generate a branch which should be narrow.
     EmissionCheckScope scope(&masm,
                              k16BitT32InstructionSizeInBytes,
-                             EmissionCheckScope::kExactSize);
+                             Policy::kExactSize);
     __ B(&start, kNear);
   }
   {
-    ExactAssemblyScope scope(&masm,
-                             kBNarrowRange,
-                             ExactAssemblyScope::kExactSize);
+    ExactAssemblyScope scope(&masm, kBNarrowRange);
     for (int32_t i = 0; i < kBNarrowRange;
          i += k16BitT32InstructionSizeInBytes) {
       __ nop();
@@ -5653,23 +5627,21 @@ TEST_T32(b_near_hint) {
     // Generate a branch which should be wide.
     EmissionCheckScope scope(&masm,
                              k32BitT32InstructionSizeInBytes,
-                             EmissionCheckScope::kExactSize);
+                             Policy::kExactSize);
     __ B(&start, kNear);
   }
   {
     // Generate a forward branch which should be narrow.
     EmissionCheckScope scope(&masm,
                              k16BitT32InstructionSizeInBytes,
-                             EmissionCheckScope::kExactSize);
+                             Policy::kExactSize);
     __ B(&end, kNear);
   }
 
   VIXL_CHECK(masm.GetMarginBeforeVeneerEmission() < kBNarrowRange);
 
   {
-    ExactAssemblyScope scope(&masm,
-                             kBNarrowRange,
-                             ExactAssemblyScope::kExactSize);
+    ExactAssemblyScope scope(&masm, kBNarrowRange);
     for (int32_t i = 0; i < kBNarrowRange;
          i += k16BitT32InstructionSizeInBytes) {
       __ nop();
@@ -5703,13 +5675,11 @@ TEST_T32(b_far_hint) {
     // Generate a branch which should be narrow.
     EmissionCheckScope scope(&masm,
                              k16BitT32InstructionSizeInBytes,
-                             EmissionCheckScope::kExactSize);
+                             Policy::kExactSize);
     __ B(&start, kFar);
   }
   {
-    ExactAssemblyScope scope(&masm,
-                             kBNarrowRange,
-                             ExactAssemblyScope::kExactSize);
+    ExactAssemblyScope scope(&masm, kBNarrowRange);
     for (int32_t i = 0; i < kBNarrowRange;
          i += k16BitT32InstructionSizeInBytes) {
       __ nop();
@@ -5719,14 +5689,14 @@ TEST_T32(b_far_hint) {
     // Generate a branch which should be wide.
     EmissionCheckScope scope(&masm,
                              k32BitT32InstructionSizeInBytes,
-                             EmissionCheckScope::kExactSize);
+                             Policy::kExactSize);
     __ B(&start, kFar);
   }
   {
     // Generate a forward branch which should be wide.
     EmissionCheckScope scope(&masm,
                              k32BitT32InstructionSizeInBytes,
-                             EmissionCheckScope::kExactSize);
+                             Policy::kExactSize);
     __ B(&end, kFar);
   }
 
@@ -5752,13 +5722,11 @@ TEST_T32(b_conditional_near_hint) {
     // Generate a branch which should be narrow.
     EmissionCheckScope scope(&masm,
                              k16BitT32InstructionSizeInBytes,
-                             EmissionCheckScope::kExactSize);
+                             Policy::kExactSize);
     __ B(eq, &start, kNear);
   }
   {
-    ExactAssemblyScope scope(&masm,
-                             kBConditionalNarrowRange,
-                             ExactAssemblyScope::kExactSize);
+    ExactAssemblyScope scope(&masm, kBConditionalNarrowRange);
     for (int32_t i = 0; i < kBConditionalNarrowRange;
          i += k16BitT32InstructionSizeInBytes) {
       __ nop();
@@ -5768,23 +5736,21 @@ TEST_T32(b_conditional_near_hint) {
     // Generate a branch which should be wide.
     EmissionCheckScope scope(&masm,
                              k32BitT32InstructionSizeInBytes,
-                             EmissionCheckScope::kExactSize);
+                             Policy::kExactSize);
     __ B(eq, &start, kNear);
   }
   {
     // Generate a forward branch which should be narrow.
     EmissionCheckScope scope(&masm,
                              k16BitT32InstructionSizeInBytes,
-                             EmissionCheckScope::kExactSize);
+                             Policy::kExactSize);
     __ B(eq, &end, kNear);
   }
 
   VIXL_CHECK(masm.GetMarginBeforeVeneerEmission() < kBConditionalNarrowRange);
 
   {
-    ExactAssemblyScope scope(&masm,
-                             kBConditionalNarrowRange,
-                             ExactAssemblyScope::kExactSize);
+    ExactAssemblyScope scope(&masm, kBConditionalNarrowRange);
     for (int32_t i = 0; i < kBConditionalNarrowRange;
          i += k16BitT32InstructionSizeInBytes) {
       __ nop();
@@ -5818,13 +5784,11 @@ TEST_T32(b_conditional_far_hint) {
     // Generate a branch which should be narrow.
     EmissionCheckScope scope(&masm,
                              k16BitT32InstructionSizeInBytes,
-                             EmissionCheckScope::kExactSize);
+                             Policy::kExactSize);
     __ B(eq, &start, kFar);
   }
   {
-    ExactAssemblyScope scope(&masm,
-                             kBConditionalNarrowRange,
-                             ExactAssemblyScope::kExactSize);
+    ExactAssemblyScope scope(&masm, kBConditionalNarrowRange);
     for (int32_t i = 0; i < kBConditionalNarrowRange;
          i += k16BitT32InstructionSizeInBytes) {
       __ nop();
@@ -5834,14 +5798,14 @@ TEST_T32(b_conditional_far_hint) {
     // Generate a branch which should be wide.
     EmissionCheckScope scope(&masm,
                              k32BitT32InstructionSizeInBytes,
-                             EmissionCheckScope::kExactSize);
+                             Policy::kExactSize);
     __ B(eq, &start, kFar);
   }
   {
     // Generate a forward branch which should be wide.
     EmissionCheckScope scope(&masm,
                              k32BitT32InstructionSizeInBytes,
-                             EmissionCheckScope::kExactSize);
+                             Policy::kExactSize);
     __ B(eq, &end, kFar);
   }
 

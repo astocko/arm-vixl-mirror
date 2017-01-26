@@ -35,287 +35,495 @@
 
 namespace vixl {
 
-// This scope will:
-// - Allow code emission from the specified `Assembler`.
-// - Optionally reserve space in the `CodeBuffer` (if it is managed by VIXL).
-// - Optionally, on destruction, check the size of the generated code.
-//   (The size can be either exact or a maximum size.)
-class CodeBufferCheckScope {
- public:
-  // Tell whether or not the scope needs to ensure the associated CodeBuffer
-  // has enough space for the requested size.
-  enum BufferSpacePolicy {
-    kReserveBufferSpace,
-    kDontReserveBufferSpace,
 
-    // Deprecated, but kept for backward compatibility.
-    kCheck = kReserveBufferSpace,
-    kNoCheck = kDontReserveBufferSpace
+// Forward declare internal::Scope.
+namespace internal {
+template <typename S, typename O, uint32_t M>
+class Scope;
+}
+
+// User facing scope policies.
+
+class Policy {
+ public:
+  // Bitfield declaration of all policies supported by scopes.
+  enum PolicyType {
+    kNone = 0,
+
+    // Guarantee that there is enough space in the code buffer by growing it if
+    // necessary.
+    kReserveBufferSpace = 0x1,
+
+    // Tell whether or not the scope should assert the amount of code emitted
+    // within it is consistent with the requested amount.
+    //   - The code emitted must be exactly size bytes:
+    kExactSize = 0x2,
+    //   - The code emitted must be at most size bytes:
+    kMaximumSize = 0x4
+    // TODO: The above checks are only performed in a debug build. Consider
+    // having extra policies for release builds.
   };
 
-  // Tell whether or not the scope should assert the amount of code emitted
-  // within the scope is consistent with the requested amount.
-  enum SizePolicy {
-    kNoAssert,    // Do not check the size of the code emitted.
-    kExactSize,   // The code emitted must be exactly size bytes.
-    kMaximumSize  // The code emitted must be at most size bytes.
-  };
+  // Masks defining the layout of policies in a bitfield.
+  static const uint32_t kReserveBufferSpaceMask = kReserveBufferSpace;
+  static const uint32_t kCheckSizeMask = kExactSize | kMaximumSize;
 
-  // This constructor implicitly calls `Open` to initialise the scope
-  // (`assembler` must not be `NULL`), so it is ready to use immediately after
-  // it has been constructed.
-  CodeBufferCheckScope(internal::AssemblerBase* assembler,
-                       size_t size,
-                       BufferSpacePolicy check_policy = kReserveBufferSpace,
-                       SizePolicy size_policy = kMaximumSize)
-      : assembler_(NULL), initialised_(false) {
-    Open(assembler, size, check_policy, size_policy);
+  // By default, a policy does nothing.
+  Policy() : value_(kNone) {}
+  // Allow implicitly creating a Policy from one of the underlying values:
+  // ~~~
+  // Policy p = Policy::kExactSize;
+  // Policy p(Policy::kReserveBufferSpace);
+  // ~~~
+  Policy(PolicyType value) : value_(value) {}  // NOLINT(runtime/explicit)
+
+  // Extract the underlying value of the policy, applying one of the predefined
+  // masks.
+  PolicyType GetValue(uint32_t mask) {
+    VIXL_ASSERT((mask == kReserveBufferSpaceMask) || (mask == kCheckSizeMask));
+    return static_cast<PolicyType>(value_ & mask);
   }
 
-  // This constructor does not implicitly initialise the scope. Instead, the
-  // user is required to explicitly call the `Open` function before using the
-  // scope.
-  CodeBufferCheckScope() : assembler_(NULL), initialised_(false) {
-    // Nothing to do.
-  }
-
-  virtual ~CodeBufferCheckScope() { Close(); }
-
-  // This function performs the actual initialisation work.
-  void Open(internal::AssemblerBase* assembler,
-            size_t size,
-            BufferSpacePolicy check_policy = kReserveBufferSpace,
-            SizePolicy size_policy = kMaximumSize) {
-    VIXL_ASSERT(!initialised_);
-    VIXL_ASSERT(assembler != NULL);
-    assembler_ = assembler;
-    if (check_policy == kReserveBufferSpace) {
-      assembler->GetBuffer()->EnsureSpaceFor(size);
-    }
-#ifdef VIXL_DEBUG
-    limit_ = assembler_->GetSizeOfCodeGenerated() + size;
-    assert_policy_ = size_policy;
-    previous_allow_assembler_ = assembler_->AllowAssembler();
-    assembler_->SetAllowAssembler(true);
-#else
-    USE(size_policy);
-#endif
-    initialised_ = true;
-  }
-
-  // This function performs the cleaning-up work. It must succeed even if the
-  // scope has not been opened. It is safe to call multiple times.
-  void Close() {
-#ifdef VIXL_DEBUG
-    if (!initialised_) {
-      return;
-    }
-    assembler_->SetAllowAssembler(previous_allow_assembler_);
-    switch (assert_policy_) {
-      case kNoAssert:
-        break;
-      case kExactSize:
-        VIXL_ASSERT(assembler_->GetSizeOfCodeGenerated() == limit_);
-        break;
-      case kMaximumSize:
-        VIXL_ASSERT(assembler_->GetSizeOfCodeGenerated() <= limit_);
-        break;
-      default:
-        VIXL_UNREACHABLE();
-    }
-#endif
-    initialised_ = false;
-  }
-
- protected:
-  internal::AssemblerBase* assembler_;
-  SizePolicy assert_policy_;
-  size_t limit_;
-  bool previous_allow_assembler_;
-  bool initialised_;
-};
-
-
-// This scope will:
-// - Do the same as `CodeBufferCheckSCope`, but:
-//   - If managed by VIXL, always reserve space in the `CodeBuffer`.
-//   - Always check the size (exact or maximum) of the generated code on
-//     destruction.
-// - Emit pools if the specified size would push them out of range.
-// - Block pools emission for the duration of the scope.
-// This scope allows the `Assembler` and `MacroAssembler` to be freely and
-// safely mixed for its duration.
-class EmissionCheckScope : public CodeBufferCheckScope {
- public:
-  // This constructor implicitly calls `Open` (when `masm` is not `NULL`) to
-  // initialise the scope, so it is ready to use immediately after it has been
-  // constructed.
-  EmissionCheckScope(MacroAssemblerInterface* masm,
-                     size_t size,
-                     SizePolicy size_policy = kMaximumSize) {
-    Open(masm, size, size_policy);
-  }
-
-  // This constructor does not implicitly initialise the scope. Instead, the
-  // user is required to explicitly call the `Open` function before using the
-  // scope.
-  EmissionCheckScope() {}
-
-  virtual ~EmissionCheckScope() { Close(); }
-
-  enum PoolPolicy {
-    // Do not forbid pool emission inside the scope. Pools will not be emitted
-    // on `Open` either.
-    kIgnorePools,
-    // Force pools to be generated on `Open` if necessary and block their
-    // emission inside the scope.
-    kBlockPools,
-    // Deprecated, but kept for backward compatibility.
-    kCheckPools = kBlockPools
-  };
-
-  void Open(MacroAssemblerInterface* masm,
-            size_t size,
-            SizePolicy size_policy = kMaximumSize) {
-    Open(masm, size, size_policy, kBlockPools);
-  }
-
-  void Close() {
-    if (!initialised_) {
-      return;
-    }
-    if (masm_ == NULL) {
-      // Nothing to do.
-      return;
-    }
-    // Perform the opposite of `Open`, which is:
-    //   - Check the code generation limit was not exceeded.
-    //   - Release the pools.
-    CodeBufferCheckScope::Close();
-    if (pool_policy_ == kBlockPools) {
-      masm_->ReleasePools();
-    }
-    VIXL_ASSERT(!initialised_);
-  }
-
- protected:
-  void Open(MacroAssemblerInterface* masm,
-            size_t size,
-            SizePolicy size_policy,
-            PoolPolicy pool_policy) {
-    if (masm == NULL) {
-      // Nothing to do.
-      // We may reach this point in a context of conditional code generation.
-      // See `aarch64::MacroAssembler::MoveImmediateHelper()` for an example.
-      return;
-    }
-    masm_ = masm;
-    pool_policy_ = pool_policy;
-    if (pool_policy_ == kBlockPools) {
-      // To avoid duplicating the work to check that enough space is available
-      // in the buffer, do not use the more generic `EnsureEmitFor()`. It is
-      // done below when opening `CodeBufferCheckScope`.
-      masm->EnsureEmitPoolsFor(size);
-      masm->BlockPools();
-    }
-    // The buffer should be checked *after* we emit the pools.
-    CodeBufferCheckScope::Open(masm->AsAssemblerBase(),
-                               size,
-                               kReserveBufferSpace,
-                               size_policy);
-    VIXL_ASSERT(initialised_);
-  }
-
-  // This constructor should only be used from code that is *currently
-  // generating* the pools, to avoid an infinite loop.
-  EmissionCheckScope(MacroAssemblerInterface* masm,
-                     size_t size,
-                     SizePolicy size_policy,
-                     PoolPolicy pool_policy) {
-    Open(masm, size, size_policy, pool_policy);
-  }
-
-  MacroAssemblerInterface* masm_;
-  PoolPolicy pool_policy_;
-};
-
-// Use this scope when you need a one-to-one mapping between methods and
-// instructions. This scope will:
-// - Do the same as `EmissionCheckScope`.
-// - Block access to the MacroAssemblerInterface (using run-time assertions).
-class ExactAssemblyScope : public EmissionCheckScope {
- public:
-  // This constructor implicitly calls `Open` (when `masm` is not `NULL`) to
-  // initialise the scope, so it is ready to use immediately after it has been
-  // constructed.
-  ExactAssemblyScope(MacroAssemblerInterface* masm,
-                     size_t size,
-                     SizePolicy size_policy = kExactSize) {
-    Open(masm, size, size_policy);
-  }
-
-  // This constructor does not implicitly initialise the scope. Instead, the
-  // user is required to explicitly call the `Open` function before using the
-  // scope.
-  ExactAssemblyScope() {}
-
-  virtual ~ExactAssemblyScope() { Close(); }
-
-  void Open(MacroAssemblerInterface* masm,
-            size_t size,
-            SizePolicy size_policy = kExactSize) {
-    Open(masm, size, size_policy, kBlockPools);
-  }
-
-  void Close() {
-    if (!initialised_) {
-      return;
-    }
-    if (masm_ == NULL) {
-      // Nothing to do.
-      return;
-    }
-#ifdef VIXL_DEBUG
-    masm_->SetAllowMacroInstructions(previous_allow_macro_assembler_);
-#else
-    USE(previous_allow_macro_assembler_);
-#endif
-    EmissionCheckScope::Close();
-  }
-
- protected:
-  // This protected constructor allows overriding the pool policy. It is
-  // available to allow this scope to be used in code that handles generation
-  // of pools.
-  ExactAssemblyScope(MacroAssemblerInterface* masm,
-                     size_t size,
-                     SizePolicy assert_policy,
-                     PoolPolicy pool_policy) {
-    Open(masm, size, assert_policy, pool_policy);
-  }
-
-  void Open(MacroAssemblerInterface* masm,
-            size_t size,
-            SizePolicy size_policy,
-            PoolPolicy pool_policy) {
-    VIXL_ASSERT(size_policy != kNoAssert);
-    if (masm == NULL) {
-      // Nothing to do.
-      return;
-    }
-    // Rely on EmissionCheckScope::Open to initialise `masm_` and
-    // `pool_policy_`.
-    EmissionCheckScope::Open(masm, size, size_policy, pool_policy);
-#ifdef VIXL_DEBUG
-    previous_allow_macro_assembler_ = masm->AllowMacroInstructions();
-    masm->SetAllowMacroInstructions(false);
-#endif
+  // Create a new Policy by combining two of them. They should not overlap.
+  static Policy Combine(const Policy& lhs, const Policy& rhs) {
+    VIXL_ASSERT((lhs.value_ & rhs.value_) == 0);
+    return Policy(static_cast<PolicyType>(lhs.value_ | rhs.value_));
   }
 
  private:
+  PolicyType value_;
+
+  // Allow the top-level scope to read `value_` directly to check the given
+  // policy is correct.
+  template <typename S, typename O, uint32_t M>
+  friend class internal::Scope;
+};
+
+namespace internal {
+
+// Underlying implementation of all of VIXL's scopes.
+//
+// A scope temporarily acts on the state of an object, which can be an
+// assembler, a macro-assembler or a code buffer. The scope semantics are:
+//
+// * The default constructor creates an "uninitialised" scope. When one does
+//   this, "Open" has to be called to initialise it.
+//
+//    ~~~
+//    Scope s;
+//    ~~~
+//
+// * Creating a scope by passing it an object initialises it and makes it
+//   effective unless said object is NULL.
+//
+//    ~~~
+//    // The scope becomes effective now.
+//    Scope s(&object, 4, Policy::kDoSomething);
+//    // This is equivalent to not initialising the scope.
+//    Scope s(NULL, 4, Policy::kDoSomething);
+//    ~~~
+//
+//  * If the scope is not initialised, the users may call "Open" to initialise
+//    it. It is illegal to initialise a scope if it is already initialised.
+//    Additionally, the object must not be NULL, unlike when using the
+//    constructor.
+//
+//    ~~~
+//    Scope s;
+//    s.Open(&object, 4, Policy::kDoSomething);
+//    ~~~
+//
+//  * The user may call "Close" at any time to reset the state of the
+//    object. "Close" may be called multiple times and has to work if the scope
+//    is not initialised. You may call "Open" again after a call to "Close".
+//
+//    ~~~
+//    {
+//      Scope s(&object, 4, Policy::kDoSomething);
+//      s.Close();
+//      // Do more things.
+//    }
+//    ~~~
+//
+//  * The destructor will always call "Close".
+
+// Adding new scopes utilities using the base `Scope` class.
+//
+// This class implements the user facing API. Users instantiate scopes by giving
+// a Policy, which includes zero or more rules to be enforced by the scope.
+//
+// Creating a new scope will be done by implementing the `DoOpen` and `DoClose`
+// methods. We can assume these methods will always mirror each other. A new
+// scope will need to know what type it acts on, such a `CodeBuffer` or
+// `MacroAssembler`, and what policies in accepts, represented as a mask. For
+// example:
+//
+// ~~~
+// class ReserveBufferScope : public Scope<ReserveBufferScope,
+//                                         CodeBuffer,
+//                                         Policy::kReserveBufferSpaceMask> {
+//   typedef Scope<ReserveBufferScope,
+//                 CodeBuffer,
+//                 Policy::kReserveBufferSpaceMask> Base;
+//
+//  public:
+//   ReserveBufferScope() : Base() {}
+//   ReserveBufferScope(CodeBuffer* buffer, size_t size, Policy policy)
+//       : Base(buffer, size, policy) {}
+//
+//  private:
+//   void DoOpen(CodeBuffer* buffer, size_t size, Policy policy) {
+//     if (policy.GetValue(Policy::kReserveBufferSpaceMask) ==
+//         Policy::kReserveBufferSpace) {
+//       buffer->EnsureSpaceFor(size);
+//     }
+//   }
+//   void DoClose(CodeBuffer* buffer, size_t size, Policy policy) {
+//     // Do nothing
+//   }
+//
+//   friend void Base::Open(CodeBuffer*, size_t, Policy);
+//   friend void Base::Close();
+// };
+// ~~~
+//
+// The example above shows we are using the "Curious Recurring Template
+// Pattern", which means we have to pass the derived type as the first template
+// parameter. The `Scope` base class will call back to `DoOpen` and `DoClose`
+// accordingly. However, since they are private methods of the derived class, we
+// have to specifically mark the `Open` and `Close` methods as friends.
+//
+// The main idea behind this design is that all the core functionality of a
+// scope is in one place: `DoOpen`/`DoClose`. And if one wants to create a new
+// scope by extending an existing one, they cannot redefine these methods to do
+// something else. This might be seen as a drawback but it forces us to keep
+// scopes self-contained and therefore easy to understand.
+
+// The template arguments are:
+//   S: Derived class implementing the scope.
+//   O: Object the scope acts on.
+//   M: uint32_t mask representing the policies the scope accepts.
+
+template <typename S, typename O, uint32_t M>
+class Scope {
+ public:
+  Scope() : initialised_(false) {}
+
+  Scope(O* object, size_t size, Policy policy) : initialised_(false) {
+    // TODO: Consider not allowing the object to be NULL.
+    if (object != NULL) {
+      Open(object, size, policy);
+    }
+  }
+
+  virtual ~Scope() { Close(); }
+
+  void Open(O* object, size_t size, Policy policy) {
+    // Check that the bits set in the given policy are consistent with what the
+    // scope accepts. In practice, that means that all bits outside of M should
+    // be cleared.
+    VIXL_ASSERT((policy.value_ & ~M) == 0);
+    VIXL_ASSERT(!initialised_);
+    static_cast<S*>(this)->DoOpen(object, size, policy);
+    object_ = object;
+    size_ = size;
+    policy_ = policy;
+    initialised_ = true;
+  }
+
+  void Close() {
+    if (!initialised_) {
+      return;
+    }
+    static_cast<S*>(this)->DoClose(object_, size_, policy_);
+    initialised_ = false;
+  }
+
+ private:
+  O* object_;
+  size_t size_;
+  Policy policy_;
+  bool initialised_;
+};
+
+// We want to allow the assembler temporarily and emit exactly a sequence of
+// instructions, but at the same time, we cannot emit literal or veneer
+// pools. This is useful internally for macro-assemblers to implement pools
+// themselves.
+// This scope will:
+//   - Make sure enough space is allocated in the buffer.
+//   - Restrict usage to the Assembler.
+//   - Check that we haven't emitted more than we said according to the
+//     CheckSize policy.
+class ExactAssemblyScopeWithoutPoolsCheck
+    : public Scope<ExactAssemblyScopeWithoutPoolsCheck,
+                   MacroAssemblerInterface,
+                   Policy::kCheckSizeMask> {
+  typedef Scope<ExactAssemblyScopeWithoutPoolsCheck,
+                MacroAssemblerInterface,
+                Policy::kCheckSizeMask> Base;
+
+ public:
+  ExactAssemblyScopeWithoutPoolsCheck(MacroAssemblerInterface* masm,
+                                      size_t size,
+                                      Policy policy = Policy::kExactSize)
+      : Base(masm, size, policy) {}
+
+ private:
+  void DoOpen(MacroAssemblerInterface* masm, size_t size, Policy /*policy*/) {
+    masm->AsAssemblerBase()->GetBuffer()->EnsureSpaceFor(size);
+
+    limit_ = masm->AsAssemblerBase()->GetSizeOfCodeGenerated() + size;
+
+    previous_allow_macro_assembler_ = masm->AllowMacroInstructions();
+    masm->SetAllowMacroInstructions(false);
+    previous_allow_assembler_ = masm->AsAssemblerBase()->AllowAssembler();
+    masm->AsAssemblerBase()->SetAllowAssembler(true);
+  }
+
+  void DoClose(MacroAssemblerInterface* masm, size_t /*size*/, Policy policy) {
+    switch (policy.GetValue(Policy::kCheckSizeMask)) {
+      case Policy::kExactSize:
+        VIXL_ASSERT(masm->AsAssemblerBase()->GetSizeOfCodeGenerated() ==
+                    limit_);
+        break;
+      case Policy::kMaximumSize:
+        VIXL_ASSERT(masm->AsAssemblerBase()->GetSizeOfCodeGenerated() <=
+                    limit_);
+        break;
+      default:
+        VIXL_UNREACHABLE();
+        break;
+    }
+
+    masm->SetAllowMacroInstructions(previous_allow_macro_assembler_);
+    masm->AsAssemblerBase()->SetAllowAssembler(previous_allow_assembler_);
+  }
+
+  // Needed so that the base class may call `DoOpen` and `DoClose` which are
+  // private.
+  friend void Base::Open(MacroAssemblerInterface*, size_t, Policy);
+  friend void Base::Close();
+
+  size_t limit_;
+  bool previous_allow_assembler_;
   bool previous_allow_macro_assembler_;
 };
 
+}  // namespace internal
+
+// This scope will:
+//   - Make sure enough space is allocated in the buffer according to the
+//     ReserveBufferSpace policy.
+//   - Allow usage of the Assembler directly.
+//   - Check that we haven't emitted more than we said according to the
+//     CheckSize policy.
+class CodeBufferCheckScope
+    : public internal::Scope<CodeBufferCheckScope,
+                             internal::AssemblerBase,
+                             Policy::kReserveBufferSpace |
+                                 Policy::kCheckSizeMask> {
+  typedef Scope<CodeBufferCheckScope,
+                internal::AssemblerBase,
+                Policy::kReserveBufferSpace | Policy::kCheckSizeMask> Base;
+
+ public:
+  CodeBufferCheckScope() : Base() {}
+
+  CodeBufferCheckScope(internal::AssemblerBase* assembler,
+                       size_t size,
+                       Policy reserve_policy = Policy::kReserveBufferSpace,
+                       Policy size_policy = Policy::kMaximumSize)
+      : Base(assembler, size, Policy::Combine(reserve_policy, size_policy)) {}
+  void Open(internal::AssemblerBase* assembler,
+            size_t size,
+            Policy reserve_policy = Policy::kReserveBufferSpace,
+            Policy size_policy = Policy::kMaximumSize) {
+    Base::Open(assembler, size, Policy::Combine(reserve_policy, size_policy));
+  }
+
+ private:
+  void DoOpen(internal::AssemblerBase* assembler, size_t size, Policy policy) {
+    if (policy.GetValue(Policy::kReserveBufferSpaceMask) ==
+        Policy::kReserveBufferSpace) {
+      assembler->GetBuffer()->EnsureSpaceFor(size);
+    }
+
+    limit_ = assembler->GetSizeOfCodeGenerated() + size;
+
+    previous_allow_assembler_ = assembler->AllowAssembler();
+    assembler->SetAllowAssembler(true);
+  }
+
+  void DoClose(internal::AssemblerBase* assembler,
+               size_t /*size*/,
+               Policy policy) {
+    switch (policy.GetValue(Policy::kCheckSizeMask)) {
+      case Policy::kExactSize:
+        VIXL_ASSERT(assembler->GetSizeOfCodeGenerated() == limit_);
+        break;
+      case Policy::kMaximumSize:
+        VIXL_ASSERT(assembler->GetSizeOfCodeGenerated() <= limit_);
+        break;
+      default:
+        break;
+    }
+
+    assembler->SetAllowAssembler(previous_allow_assembler_);
+  }
+
+  // Needed so that the base class may call `DoOpen` and `DoClose` which are
+  // private.
+  friend void Base::Open(internal::AssemblerBase*, size_t, Policy);
+  friend void Base::Close();
+
+  size_t limit_;
+  bool previous_allow_assembler_;
+};
+
+// This scope will:
+//   - Emit pools if the specified size would push them out of range.
+//   - Block pools emission for the duration of the scope.
+//   - Allocate space in the buffer if needed.
+//   - Allow usage of the Assembler directly.
+//   - Check that we haven't emitted more than we said according to the
+//     CheckSize policy.
+// This scope allows the `Assembler` and `MacroAssembler` to be freely and
+// safely mixed for its duration.
+class EmissionCheckScope : public internal::Scope<EmissionCheckScope,
+                                                  MacroAssemblerInterface,
+                                                  Policy::kCheckSizeMask> {
+  typedef Scope<EmissionCheckScope,
+                MacroAssemblerInterface,
+                Policy::kCheckSizeMask> Base;
+
+ public:
+  EmissionCheckScope() : Base() {}
+
+  EmissionCheckScope(MacroAssemblerInterface* masm,
+                     size_t size,
+                     Policy policy = Policy::kMaximumSize)
+      : Base(masm, size, policy) {}
+  void Open(MacroAssemblerInterface* masm,
+            size_t size,
+            Policy policy = Policy::kMaximumSize) {
+    Base::Open(masm, size, policy);
+  }
+
+ private:
+  void DoOpen(MacroAssemblerInterface* masm, size_t size, Policy /*policy*/) {
+    masm->EnsureEmitPoolsFor(size);
+    masm->BlockPools();
+
+    masm->AsAssemblerBase()->GetBuffer()->EnsureSpaceFor(size);
+
+    limit_ = masm->AsAssemblerBase()->GetSizeOfCodeGenerated() + size;
+
+    previous_allow_assembler_ = masm->AsAssemblerBase()->AllowAssembler();
+    masm->AsAssemblerBase()->SetAllowAssembler(true);
+  }
+
+  void DoClose(MacroAssemblerInterface* masm, size_t /*size*/, Policy policy) {
+    switch (policy.GetValue(Policy::kCheckSizeMask)) {
+      case Policy::kExactSize:
+        VIXL_ASSERT(masm->AsAssemblerBase()->GetSizeOfCodeGenerated() ==
+                    limit_);
+        break;
+      case Policy::kMaximumSize:
+        VIXL_ASSERT(masm->AsAssemblerBase()->GetSizeOfCodeGenerated() <=
+                    limit_);
+        break;
+      default:
+        VIXL_UNREACHABLE();
+        break;
+    }
+
+    masm->AsAssemblerBase()->SetAllowAssembler(previous_allow_assembler_);
+
+    masm->ReleasePools();
+  }
+
+  // Needed so that the base class may call `DoOpen` and `DoClose` which are
+  // private.
+  friend void Base::Open(MacroAssemblerInterface*, size_t, Policy);
+  friend void Base::Close();
+
+  size_t limit_;
+  bool previous_allow_assembler_;
+};
+
+// This scope will:
+//   - Emit pools if the specified size would push them out of range.
+//   - Block pools emission for the duration of the scope.
+//   - Allocate space in the buffer if needed.
+//   - Restrict usage to the Assembler.
+//   - Check that we haven't emitted more than we said according to the
+//     CheckSize policy.
+class ExactAssemblyScope : public internal::Scope<ExactAssemblyScope,
+                                                  MacroAssemblerInterface,
+                                                  Policy::kCheckSizeMask> {
+  typedef Scope<ExactAssemblyScope,
+                MacroAssemblerInterface,
+                Policy::kCheckSizeMask> Base;
+
+ public:
+  ExactAssemblyScope() : Base() {}
+
+  ExactAssemblyScope(MacroAssemblerInterface* masm,
+                     size_t size,
+                     Policy policy = Policy::kExactSize)
+      : Base(masm, size, policy) {}
+
+  void Open(MacroAssemblerInterface* masm,
+            size_t size,
+            Policy policy = Policy::kExactSize) {
+    Base::Open(masm, size, policy);
+  }
+
+ private:
+  void DoOpen(MacroAssemblerInterface* masm, size_t size, Policy /*policy*/) {
+    masm->EnsureEmitPoolsFor(size);
+    masm->BlockPools();
+
+    masm->AsAssemblerBase()->GetBuffer()->EnsureSpaceFor(size);
+
+    limit_ = masm->AsAssemblerBase()->GetSizeOfCodeGenerated() + size;
+
+    previous_allow_macro_assembler_ = masm->AllowMacroInstructions();
+    masm->SetAllowMacroInstructions(false);
+    previous_allow_assembler_ = masm->AsAssemblerBase()->AllowAssembler();
+    masm->AsAssemblerBase()->SetAllowAssembler(true);
+  }
+
+  void DoClose(MacroAssemblerInterface* masm, size_t /*size*/, Policy policy) {
+    switch (policy.GetValue(Policy::kCheckSizeMask)) {
+      case Policy::kExactSize:
+        VIXL_ASSERT(masm->AsAssemblerBase()->GetSizeOfCodeGenerated() ==
+                    limit_);
+        break;
+      case Policy::kMaximumSize:
+        VIXL_ASSERT(masm->AsAssemblerBase()->GetSizeOfCodeGenerated() <=
+                    limit_);
+        break;
+      default:
+        break;
+    }
+
+    masm->SetAllowMacroInstructions(previous_allow_macro_assembler_);
+    masm->AsAssemblerBase()->SetAllowAssembler(previous_allow_assembler_);
+
+    masm->ReleasePools();
+  }
+
+  // Needed so that the base class may call `DoOpen` and `DoClose` which are
+  // private.
+  friend void Base::Open(MacroAssemblerInterface*, size_t, Policy);
+  friend void Base::Close();
+
+  size_t limit_;
+  bool previous_allow_assembler_;
+  bool previous_allow_macro_assembler_;
+};
 
 }  // namespace vixl
 

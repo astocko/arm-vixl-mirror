@@ -44,7 +44,7 @@ int64_t LiteralExample(int64_t a, int64_t b) {
   {
     ExactAssemblyScope scope(&masm,
                              kInstructionSize + sizeof(int64_t),
-                             ExactAssemblyScope::kExactSize);
+                             Policy::kExactSize);
     Label over_literal;
     __ b(&over_literal);
     __ place(&manually_placed_literal);

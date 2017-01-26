@@ -31,9 +31,13 @@
 
 namespace vixl {
 
+class ExactAssemblyScope;
+class EmissionCheckScope;
 class CodeBufferCheckScope;
 
 namespace internal {
+
+class ExactAssemblyScopeWithoutPoolsCheck;
 
 class AssemblerBase {
  public:
@@ -68,8 +72,11 @@ class AssemblerBase {
  protected:
   void SetAllowAssembler(bool allow) { allow_assembler_ = allow; }
 
-  // CodeBufferCheckScope must be able to temporarily allow the assembler.
+  // The following scopes must be able to temporarily allow the assembler.
+  friend class vixl::ExactAssemblyScope;
   friend class vixl::CodeBufferCheckScope;
+  friend class vixl::EmissionCheckScope;
+  friend class vixl::internal::ExactAssemblyScopeWithoutPoolsCheck;
 
   // Buffer where the code is emitted.
   CodeBuffer buffer_;

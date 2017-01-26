@@ -66,6 +66,8 @@ class MacroAssemblerInterface {
   // pool blocking and temporarily disable the macro-assembler.
   friend class ExactAssemblyScope;
   friend class EmissionCheckScope;
+  friend class internal::ExactAssemblyScopeWithoutPoolsCheck;
+
   template <typename T>
   friend class PoolManager;
 };
