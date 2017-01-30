@@ -467,6 +467,12 @@ bool IsWordAligned(T pointer) {
   return IsAligned<4>(pointer);
 }
 
+template <typename T>
+inline bool IsAligned(T pointer, int alignment) {
+  VIXL_ASSERT(IsPowerOf2(alignment));
+  return (pointer & (alignment - 1)) == 0;
+}
+
 // Increment a pointer (up to 64 bits) until it has the specified alignment.
 template <class T>
 T AlignUp(T pointer, size_t alignment) {
