@@ -16,6 +16,24 @@
       "revId": "bc38deb7addf1255df3b8f5f28b7949b761692d1",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_69d65cc7",
+        "filename": "src/aarch64/operands-aarch64.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2017-02-03T09:01:52Z",
+      "side": 1,
+      "message": "No, UXTW takes a W register (and zero-extends it to 64 bits).\n\nFor the extend modes, the extend operation determines the size of the register (for assembly and disassembly purposes), not the sf bit: [US]XT[BHW] use W registers and [US]XTX use X registers.",
+      "parentUuid": "9a245df4_a92214ff",
+      "revId": "bc38deb7addf1255df3b8f5f28b7949b761692d1",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
