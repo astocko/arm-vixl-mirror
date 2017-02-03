@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a245df4_64ffa302",
+        "filename": "src/aarch64/macro-assembler-aarch64.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 3025,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2017-02-03T14:54:27Z",
+      "side": 1,
+      "message": "With this change, CallRuntime just becomes a pass-through.\n\nIn your other patch, I suggested renaming JumpToRuntime to TailCallRuntime. In that case, I think it might be better to have a CallRuntimeHelper function (ideally private).\n\nI\u0027m concerned about naming. In some contexts, a call is a type of branch and a jump is a branch that isn\u0027t a call, but in others, branch and jump are synonyms and neither of them are calls. I\u0027m not sure what context we can assume here.",
+      "revId": "e945f14c14461b233279b7f9139287f5d95b3f1f",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
