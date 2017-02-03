@@ -16,6 +16,24 @@
       "revId": "e945f14c14461b233279b7f9139287f5d95b3f1f",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_e4127357",
+        "filename": "src/aarch64/macro-assembler-aarch64.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 3025,
+      "author": {
+        "id": 1000284
+      },
+      "writtenOn": "2017-02-03T16:26:05Z",
+      "side": 1,
+      "message": "I was doing the mapping:\n\ncall \u003c-\u003e BL\njump \u003c-\u003e B\n\nWhat about using `BranchToRuntime` and `BranchAndLinkToRuntime` to clearly map it to the instruction used? This way we don\u0027t have to worry about what the branch represents.",
+      "parentUuid": "9a245df4_64ffa302",
+      "revId": "e945f14c14461b233279b7f9139287f5d95b3f1f",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
