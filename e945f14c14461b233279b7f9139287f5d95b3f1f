@@ -34,6 +34,24 @@
       "revId": "e945f14c14461b233279b7f9139287f5d95b3f1f",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_241dab67",
+        "filename": "src/aarch64/macro-assembler-aarch64.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 3025,
+      "author": {
+        "id": 1000284
+      },
+      "writtenOn": "2017-02-03T16:31:35Z",
+      "side": 1,
+      "message": "(We would mark `CallRuntime` as deprecated, and have a `BranchToRuntimeHelper` that would replace `BranchToRuntime`.)",
+      "parentUuid": "9a245df4_e4127357",
+      "revId": "e945f14c14461b233279b7f9139287f5d95b3f1f",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
