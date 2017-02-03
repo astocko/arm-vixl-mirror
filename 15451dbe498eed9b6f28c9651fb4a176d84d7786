@@ -1,0 +1,112 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a245df4_8912b060",
+        "filename": "src/aarch64/macro-assembler-aarch64.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 3033,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2017-02-03T14:45:57Z",
+      "side": 1,
+      "message": "This is really more like a tail call than a bare jump (because we pass arguments). Perhaps TailCallRuntime would be a better name.",
+      "revId": "15451dbe498eed9b6f28c9651fb4a176d84d7786",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_69177c52",
+        "filename": "src/aarch64/macro-assembler-aarch64.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 3425,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2017-02-03T14:45:57Z",
+      "side": 1,
+      "message": "See the comment I made about similar code in one of the other files.",
+      "revId": "15451dbe498eed9b6f28c9651fb4a176d84d7786",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_e92b6c92",
+        "filename": "src/aarch64/simulator-aarch64.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 5386,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2017-02-03T14:45:57Z",
+      "side": 1,
+      "message": "It would be better structured to avoid the not-equal-else pattern:\n\nif ((parameters \u0026 RUNTIME_BRANCH_LINK) \u003d\u003d 0) {\n  ...\n} else {\n  ...\n}",
+      "revId": "15451dbe498eed9b6f28c9651fb4a176d84d7786",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_092fe0a2",
+        "filename": "src/aarch64/simulator-aarch64.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 5389,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2017-02-03T14:45:57Z",
+      "side": 1,
+      "message": "So, branch-to-runtime is simulated by simply calling it, then immediately returning. That\u0027s reasonable, but it could probably do with a comment.",
+      "revId": "15451dbe498eed9b6f28c9651fb4a176d84d7786",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_291d8474",
+        "filename": "src/aarch64/simulator-constants-aarch64.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2017-02-03T14:45:57Z",
+      "side": 1,
+      "message": "I think we\u0027d prefer naming like kRuntimeBranchLink, though admittedly both are used in VIXL at the moment, I think.\n\nAlso, I question the value of the \u0027none\u0027 case, assuming that this parameter set is to be extended later. I don\u0027t like this pattern in general because you can test \"parameters \u0026 RUNTIME_BRANCH_LINK\" but not \"parameters \u0026 RUNTIME_BRANCH_NONE\", but the difference is not apparent.\n\nIf you want an explicit \"NONE\" value then make a \"MASK\" value that is applied and then compared with whichever value you care about.",
+      "range": {
+        "startLine": 145,
+        "startChar": 0,
+        "endLine": 148,
+        "endChar": 25
+      },
+      "revId": "15451dbe498eed9b6f28c9651fb4a176d84d7786",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_c90b082a",
+        "filename": "test/aarch64/test-assembler-aarch64.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 23262,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2017-02-03T14:45:57Z",
+      "side": 1,
+      "message": "Also check the value in w1.",
+      "revId": "15451dbe498eed9b6f28c9651fb4a176d84d7786",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
