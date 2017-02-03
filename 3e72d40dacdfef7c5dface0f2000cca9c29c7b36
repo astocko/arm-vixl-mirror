@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a245df4_4931d80a",
+        "filename": "src/aarch64/simulator-aarch64.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 808,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2017-02-03T14:11:18Z",
+      "side": 1,
+      "message": "I\u0027d indent that to match GenerateCode().",
+      "revId": "3e72d40dacdfef7c5dface0f2000cca9c29c7b36",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_29362404",
+        "filename": "src/aarch64/simulator-aarch64.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 827,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2017-02-03T14:11:18Z",
+      "side": 1,
+      "message": "Rewrap the lines please (here and below).\n\nI would prefer this to explicitly assert that GetNextParameterGenericOperand\u003cP\u003e() is a register, but I think that\u0027s pretty awkward with this construction.",
+      "range": {
+        "startLine": 824,
+        "startChar": 13,
+        "endLine": 827,
+        "endChar": 79
+      },
+      "revId": "3e72d40dacdfef7c5dface0f2000cca9c29c7b36",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_69401c57",
+        "filename": "test/aarch64/test-simulator-aarch64.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 4506,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2017-02-03T14:11:18Z",
+      "side": 1,
+      "message": "\"Dummy\" implies that it doesn\u0027t work, or is an unpopulated stub of some sort. I\u0027d use \"minimal\" instead.",
+      "revId": "3e72d40dacdfef7c5dface0f2000cca9c29c7b36",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_893bd0ea",
+        "filename": "test/aarch64/test-simulator-aarch64.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 4563,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2017-02-03T14:11:18Z",
+      "side": 1,
+      "message": "This is nice, but it would be nicer still if you could wrap the result of Generate* with a functor:\n\nauto fn \u003d GenerateFunction\u003cint32_t, void*, double\u003e(\u0026simulator, \u0026masm);\nfn(123, nullptr, 42.0);\n\n// ... or (if making it look like a function is uncomfortable) ...\n\nauto fn \u003d GenerateFunction\u003cint32_t, void*, double\u003e(\u0026masm);\nsimulator-\u003eRun(fn, 123, nullptr, 42.0)\n\nDo you think that\u0027s something that VIXL should provide?",
+      "range": {
+        "startLine": 4561,
+        "startChar": 0,
+        "endLine": 4563,
+        "endChar": 25
+      },
+      "revId": "3e72d40dacdfef7c5dface0f2000cca9c29c7b36",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
