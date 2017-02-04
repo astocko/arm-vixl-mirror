@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9a245df4_e439d3d9",
+        "filename": "src/aarch64/macro-assembler-aarch64.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 3033,
+      "author": {
+        "id": 1000284
+      },
+      "writtenOn": "2017-02-04T03:10:27Z",
+      "side": 1,
+      "message": "Agreed. Done.",
+      "parentUuid": "9a245df4_8912b060",
+      "revId": "15451dbe498eed9b6f28c9651fb4a176d84d7786",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a245df4_69177c52",
         "filename": "src/aarch64/macro-assembler-aarch64.h",
         "patchSetId": 3
@@ -30,6 +48,24 @@
       "writtenOn": "2017-02-03T14:45:57Z",
       "side": 1,
       "message": "See the comment I made about similar code in one of the other files.",
+      "revId": "15451dbe498eed9b6f28c9651fb4a176d84d7786",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_0448675a",
+        "filename": "src/aarch64/macro-assembler-aarch64.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 3425,
+      "author": {
+        "id": 1000284
+      },
+      "writtenOn": "2017-02-04T03:10:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a245df4_69177c52",
       "revId": "15451dbe498eed9b6f28c9651fb4a176d84d7786",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "9a245df4_c4364fe7",
+        "filename": "src/aarch64/simulator-aarch64.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 5386,
+      "author": {
+        "id": 1000284
+      },
+      "writtenOn": "2017-02-04T03:10:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a245df4_e92b6c92",
+      "revId": "15451dbe498eed9b6f28c9651fb4a176d84d7786",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a245df4_092fe0a2",
         "filename": "src/aarch64/simulator-aarch64.cc",
         "patchSetId": 3
@@ -64,6 +118,24 @@
       "writtenOn": "2017-02-03T14:45:57Z",
       "side": 1,
       "message": "So, branch-to-runtime is simulated by simply calling it, then immediately returning. That\u0027s reasonable, but it could probably do with a comment.",
+      "revId": "15451dbe498eed9b6f28c9651fb4a176d84d7786",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_24348bdd",
+        "filename": "src/aarch64/simulator-aarch64.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 5389,
+      "author": {
+        "id": 1000284
+      },
+      "writtenOn": "2017-02-04T03:10:27Z",
+      "side": 1,
+      "message": "Reading your comment I now recognise that we are not simply simulating a branch or branch and link instruction. We are really talking about calls, in the context of the AAPCS. For example the function called cannot read registers that are not argument registers and expect a valid value there. (Otherwise things would go wrong when simulating.)\n\nI will update my comment for the first patch of the series, and update the code here.",
+      "parentUuid": "9a245df4_092fe0a2",
       "revId": "15451dbe498eed9b6f28c9651fb4a176d84d7786",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
@@ -93,6 +165,30 @@
     },
     {
       "key": {
+        "uuid": "9a245df4_043187ec",
+        "filename": "src/aarch64/simulator-constants-aarch64.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1000284
+      },
+      "writtenOn": "2017-02-04T03:10:27Z",
+      "side": 1,
+      "message": "Will improve this.",
+      "parentUuid": "9a245df4_291d8474",
+      "range": {
+        "startLine": 145,
+        "startChar": 0,
+        "endLine": 148,
+        "endChar": 25
+      },
+      "revId": "15451dbe498eed9b6f28c9651fb4a176d84d7786",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a245df4_c90b082a",
         "filename": "test/aarch64/test-assembler-aarch64.cc",
         "patchSetId": 3
@@ -104,6 +200,24 @@
       "writtenOn": "2017-02-03T14:45:57Z",
       "side": 1,
       "message": "Also check the value in w1.",
+      "revId": "15451dbe498eed9b6f28c9651fb4a176d84d7786",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a245df4_6474c39c",
+        "filename": "test/aarch64/test-assembler-aarch64.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 23262,
+      "author": {
+        "id": 1000284
+      },
+      "writtenOn": "2017-02-04T03:10:27Z",
+      "side": 1,
+      "message": "You mean the result of `runtime_call_add_one`? Updated the code to do that.",
+      "parentUuid": "9a245df4_c90b082a",
       "revId": "15451dbe498eed9b6f28c9651fb4a176d84d7786",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
