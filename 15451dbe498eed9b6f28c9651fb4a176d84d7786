@@ -142,6 +142,24 @@
     },
     {
       "key": {
+        "uuid": "9a245df4_443c1f94",
+        "filename": "src/aarch64/simulator-aarch64.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 5389,
+      "author": {
+        "id": 1000284
+      },
+      "writtenOn": "2017-02-06T04:38:22Z",
+      "side": 1,
+      "message": "Also, the code was just wrong.",
+      "parentUuid": "9a245df4_24348bdd",
+      "revId": "15451dbe498eed9b6f28c9651fb4a176d84d7786",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a245df4_291d8474",
         "filename": "src/aarch64/simulator-constants-aarch64.h",
         "patchSetId": 3
