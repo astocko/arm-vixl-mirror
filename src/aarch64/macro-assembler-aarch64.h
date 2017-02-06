@@ -3034,7 +3034,17 @@ class MacroAssembler : public Assembler, public MacroAssemblerInterface {
 
 #ifdef VIXL_HAS_MACROASSEMBLER_RUNTIME_CALL_SUPPORT
   template <typename R, typename... P>
-  void CallRuntime(R (*function)(P...));
+  void CallRuntimeHelper(R (*function)(P...), RuntimeCallParameters);
+
+  template <typename R, typename... P>
+  void CallRuntime(R (*function)(P...)) {
+    CallRuntimeHelper(function, kNone);
+  }
+
+  template <typename R, typename... P>
+  void TailCallRuntime(R (*function)(P...)) {
+    CallRuntimeHelper(function, kTailCall);
+  }
 #endif  // #ifdef VIXL_HAS_MACROASSEMBLER_RUNTIME_CALL_SUPPORT
 
  protected:
@@ -3390,7 +3400,8 @@ class UseScratchRegisterScope {
 
 // `R` stands for 'return type', and `P` for 'parameter types'.
 template <typename R, typename... P>
-void MacroAssembler::CallRuntime(R (*function)(P...)) {
+void MacroAssembler::CallRuntimeHelper(R (*function)(P...),
+                                       RuntimeCallParameters parameters) {
   if (generate_simulator_code_) {
 #ifdef VIXL_HAS_SIMULATED_RUNTIME_CALL_SUPPORT
     uintptr_t runtime_call_wrapper_address = reinterpret_cast<uintptr_t>(
@@ -3398,7 +3409,7 @@ void MacroAssembler::CallRuntime(R (*function)(P...)) {
     uintptr_t function_address = reinterpret_cast<uintptr_t>(function);
 
     EmissionCheckScope guard(this,
-                             kInstructionSize + 2 * kRuntimeCallAddressSize,
+                             kRuntimeCallLength,
                              CodeBufferCheckScope::kExactSize);
     Label start;
     bind(&start);
@@ -3413,7 +3424,9 @@ void MacroAssembler::CallRuntime(R (*function)(P...)) {
                 kRuntimeCallFunctionOffset);
     dc(function_address);
     VIXL_ASSERT(GetSizeOfCodeGeneratedSince(&start) ==
-                kRuntimeCallFunctionOffset + kRuntimeCallAddressSize);
+                kRuntimeCallParametersOffset);
+    dc32(parameters);
+    VIXL_ASSERT(GetSizeOfCodeGeneratedSince(&start) == kRuntimeCallLength);
 #else
     VIXL_UNREACHABLE();
 #endif  // #ifdef VIXL_HAS_SIMULATED_RUNTIME_CALL_SUPPORT
@@ -3421,7 +3434,11 @@ void MacroAssembler::CallRuntime(R (*function)(P...)) {
     UseScratchRegisterScope temps(this);
     Register temp = temps.AcquireX();
     Mov(temp, reinterpret_cast<uint64_t>(function));
-    Blr(temp);
+    if ((parameters & kTailCallMask) == 0) {
+      Blr(temp);
+    } else {
+      Br(temp);
+    }
   }
 }
 
