@@ -147,6 +147,8 @@ def CanTargetA64(env):
 def CanTargetAArch64(env):
   return CanTargetA64(env)
 
+def CanTargetAArch32ART(env):
+  return 'art' in env['target']
 
 # By default, include the simulator only if AArch64 is targeted and we are not
 # building VIXL natively for AArch64.
@@ -162,6 +164,7 @@ def simulator_handler(env):
 def code_buffer_allocator_handler(env):
   directives = util.GetCompilerDirectives(env)
   if '__linux__' in directives:
+    # TODO(Serban): add description on where mmap might be better than malloc aot vs jit.
     env['code_buffer_allocator'] = 'mmap'
   else:
     env['code_buffer_allocator'] = 'malloc'
@@ -229,10 +232,11 @@ vars = Variables()
 # Define command line build options.
 vars.AddVariables(
     AliasedListVariable('target', 'Target ISA/Architecture', 'auto',
-                        ['aarch32', 'a32', 't32', 'aarch64', 'a64'],
+                        ['aarch32', 'a32', 't32', 'aarch64', 'a64', 'aarch32_art', 'art'],
                         {'aarch32' : ['a32', 't32'],
                          'a32' : ['a32'], 't32' : ['t32'],
-                         'aarch64' : ['a64'], 'a64' : ['a64']}),
+                         'aarch64' : ['a64'], 'a64' : ['a64'],
+                         'aarch32_art' : ['art']}),
     EnumVariable('mode', 'Build mode',
                  'release', allowed_values=config.build_options_modes),
     EnumVariable('negative_testing',
@@ -287,9 +291,10 @@ def target_handler(env):
   if Is32BitHost(env):
     # We use list(set(...)) to keep the same order as if it was specify as
     # an option.
+    # TODO(Serban): Why is this still here?
     env['target'] = list(set(['a32', 't32']))
   else:
-    env['target'] = list(set(['a64', 'a32', 't32']))
+    env['target'] = list(set(['a64', 'a32', 't32', 'art']))
 
 
 def target_validator(env):
@@ -306,6 +311,7 @@ def ProcessTargetOption(env):
   if 'a32' in env['target']: env['CCFLAGS'] += ['-DVIXL_INCLUDE_TARGET_A32']
   if 't32' in env['target']: env['CCFLAGS'] += ['-DVIXL_INCLUDE_TARGET_T32']
   if 'a64' in env['target']: env['CCFLAGS'] += ['-DVIXL_INCLUDE_TARGET_A64']
+  if 'art' in env['target']: env['CCFLAGS'] += ['-DVIXL_INCLUDE_TARGET_VIXL']
 
   target_validator(env)
 
@@ -350,6 +356,7 @@ def ConfigureEnvironmentForCompiler(env):
   if CanTargetA32(env) and CanTargetT32(env):
     # When building for only one aarch32 isa, fixing the no-return is not worth
     # the effort.
+    # TODO(Serban): Why?
     env.Append(CPPFLAGS = ['-Wmissing-noreturn'])
 
   compiler = util.CompilerInformation(env)
@@ -425,6 +432,9 @@ def VIXLLibraryTarget(env):
   if CanTargetAArch64(env):
     variant_dir_aarch64 = PrepareVariantDir(join('src', 'aarch64'), build_dir)
     sources.append(Glob(join(variant_dir_aarch64, '*.cc')))
+  if CanTargetAArch32ART(env):
+    variant_dir_aarch32_art = PepareVariantDir(join('src', 'aarch32_art'), build_dir)
+    sources.append(Glob(join(variant_dir_aarch32_art, '*.cc')))
   return env.Library(join(build_dir, 'vixl'), sources)
 
 
@@ -486,6 +496,10 @@ if CanTargetAArch32(env):
   test_objects.append(env.Object(
       Glob(join(test_aarch32_build_dir, '*.cc')),
       CPPPATH = env['CPPPATH'] + [config.dir_tests]))
+
+if CanTargetAArch32ART(env):
+  print("still lots to do")
+  exit(0)
 
 # AArch64 support
 if CanTargetAArch64(env):
