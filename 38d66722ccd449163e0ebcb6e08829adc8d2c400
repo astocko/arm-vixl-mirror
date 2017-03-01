@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a1969be_a6aec6e5",
+        "filename": "src/aarch64/macro-assembler-aarch64.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 3037,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2017-03-01T17:14:26Z",
+      "side": 1,
+      "message": "The second argument -- RuntimeCallParameters -- should have a name.\n\nAlso, since we treat it as a mask, it\u0027s likely that (when we have more than one option) it will have a value that isn\u0027t one of the enum values. This is undefined (or perhaps implementation-defined) behaviour in C++; an enum variable is assumed to hold one of the defined values for its type.\n\nIf we\u0027re going to use it as a mask, we should pass a raw uint32_t or something similar. An enum is still useful for the definitions of the values.",
+      "revId": "38d66722ccd449163e0ebcb6e08829adc8d2c400",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a1969be_e6b8be2c",
+        "filename": "src/aarch64/simulator-constants-aarch64.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2017-03-01T17:14:26Z",
+      "side": 1,
+      "message": "I know I suggested this but it looks weird now. Perhaps this would be better:\n\nkCallTypeMask \u003d 1 \u003c\u003c 0,\nkCall \u003d 0,\nkTailCall \u003d kCallTypeMask,\n\n...\n\nThen, test `parameters \u0026 kCallTypeMask` against either kCall or kTailCall.",
+      "revId": "38d66722ccd449163e0ebcb6e08829adc8d2c400",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a1969be_86abcad5",
+        "filename": "src/aarch64/simulator-constants-aarch64.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2017-03-01T17:14:26Z",
+      "side": 1,
+      "message": "I think it\u0027s unwise to make something in the global namespace called \"kNone\". Something like \"kNoCallParameters\" would be better.\n\nHowever, thinking about my last comment, an overall \u0027none\u0027 value probably doesn\u0027t make sense anyway. We must have either a call or a tail call, and neither of those make sense under \u0027none\u0027.",
+      "revId": "38d66722ccd449163e0ebcb6e08829adc8d2c400",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
