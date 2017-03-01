@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a1969be_a667e6e9",
+        "filename": "test/aarch64/test-simulator-aarch64.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 4467,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2017-03-01T16:40:28Z",
+      "side": 1,
+      "message": "I don\u0027t think quotation marks are needed around \u0027function\u0027. It _is_ a proper function, albeit a simple one.\n\nDitto below.",
+      "revId": "b94623f3faa3eded361023c3c978e382fa5b8988",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
