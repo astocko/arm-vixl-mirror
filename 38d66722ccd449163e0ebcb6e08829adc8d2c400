@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "7a1969be_e6027eb3",
+        "filename": "src/aarch64/macro-assembler-aarch64.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 3037,
+      "author": {
+        "id": 1000284
+      },
+      "writtenOn": "2017-03-02T06:00:14Z",
+      "side": 1,
+      "message": "Added a name.\n\nFor a simple case like that, what about a simple `bool`? An `enum` is just overkill here! We should use a bool and add a comment at use sites, like\n\n    CallRuntimeHelper(..., /* tail_call */ true);",
+      "parentUuid": "7a1969be_a6aec6e5",
+      "revId": "38d66722ccd449163e0ebcb6e08829adc8d2c400",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a1969be_e6b8be2c",
         "filename": "src/aarch64/simulator-constants-aarch64.h",
         "patchSetId": 5
