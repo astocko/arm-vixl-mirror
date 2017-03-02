@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "7a1969be_c602e20a",
+        "filename": "src/aarch64/macro-assembler-aarch64.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 3037,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2017-03-02T13:57:32Z",
+      "side": 1,
+      "message": "An enum is slightly cleaner at call sites, and it also means that we can\u0027t forget. An enum is also easier to extend, and this field looks like it is designed to be extended; it is called \u0027parameters\u0027 rather than \u0027type\u0027, for example.\n\nI think there are merits in both approaches but the enum method is the convention in VIXL so we should stick to it.",
+      "parentUuid": "7a1969be_e6027eb3",
+      "revId": "38d66722ccd449163e0ebcb6e08829adc8d2c400",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a1969be_e6b8be2c",
         "filename": "src/aarch64/simulator-constants-aarch64.h",
         "patchSetId": 5
