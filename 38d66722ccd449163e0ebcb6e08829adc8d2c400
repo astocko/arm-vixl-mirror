@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "7a1969be_ec19bf23",
+        "filename": "src/aarch64/macro-assembler-aarch64.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 3037,
+      "author": {
+        "id": 1000284
+      },
+      "writtenOn": "2017-03-07T01:41:30Z",
+      "side": 1,
+      "message": "I simplified the enum. For now and the foreseeable future we only need the distinction between two values.",
+      "parentUuid": "7a1969be_c602e20a",
+      "revId": "38d66722ccd449163e0ebcb6e08829adc8d2c400",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a1969be_e6b8be2c",
         "filename": "src/aarch64/simulator-constants-aarch64.h",
         "patchSetId": 5
