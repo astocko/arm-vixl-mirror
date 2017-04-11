@@ -269,6 +269,23 @@
     },
     {
       "key": {
+        "uuid": "3a1371a2_a77b6428",
+        "filename": "src/utils-vixl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 1000284
+      },
+      "writtenOn": "2017-04-11T01:50:04Z",
+      "side": 1,
+      "message": "Share with above?\n\n`T* pointer` to really restrict to pointer types?",
+      "revId": "e29842cd756b76cab1d60a652d144cfab54e0c6d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a1371a2_078d1832",
         "filename": "test/test-pool-manager.cc",
         "patchSetId": 1
