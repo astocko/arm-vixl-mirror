@@ -99,6 +99,40 @@
     },
     {
       "key": {
+        "uuid": "3a1371a2_c79b0071",
+        "filename": "src/pool-manager-impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1000284
+      },
+      "writtenOn": "2017-04-11T01:44:08Z",
+      "side": 1,
+      "message": "I did not dig into the code below, but wanted to discuss it. Please correct me if I am wrong!\n\nIt seems to me that the optional arguments and this code are here to handle corner cases for the LabelBase we are about to refer to.\nHowever this does not *guarantee* that we will be able to correctly generate code for the pool and the new reference. So why bother with this complicated code? Could we not get rid of the optional arguments and make this simpler?",
+      "revId": "e29842cd756b76cab1d60a652d144cfab54e0c6d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a1371a2_27881422",
+        "filename": "src/pool-manager-impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1000284
+      },
+      "writtenOn": "2017-04-11T01:44:08Z",
+      "side": 1,
+      "message": "objects_.back()",
+      "revId": "e29842cd756b76cab1d60a652d144cfab54e0c6d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a1969be_8e874d0f",
         "filename": "src/pool-manager-impl.h",
         "patchSetId": 1
@@ -110,6 +144,23 @@
       "writtenOn": "2017-04-11T01:14:17Z",
       "side": 1,
       "message": "This method is called \"often\", but is performing expensive computations. I think the actual work done here can be significantly reduced.\n\n* If `objects_` is always maintained sorted, we can insert new entries at the right place instead of sorting fully.\n\n* To avoid expensive work, we could introduce a `soft_checkpoint_`, that is a conservative estimate of the `checkpoint_`, and updated on operations on the list of objects tracked. We could then compute the precise `checkpoint_` only when we go over `soft_checkpoint_`.",
+      "revId": "e29842cd756b76cab1d60a652d144cfab54e0c6d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a1371a2_67820c02",
+        "filename": "src/pool-manager-impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 1000284
+      },
+      "writtenOn": "2017-04-11T01:44:08Z",
+      "side": 1,
+      "message": "Do PoolObjects pointers escape from the PoolManager? If not can we avoid allocating them?",
       "revId": "e29842cd756b76cab1d60a652d144cfab54e0c6d",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
@@ -212,6 +263,23 @@
       "writtenOn": "2017-04-11T01:14:17Z",
       "side": 1,
       "message": "unordered_map?",
+      "revId": "e29842cd756b76cab1d60a652d144cfab54e0c6d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a1371a2_078d1832",
+        "filename": "test/test-pool-manager.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 1000284
+      },
+      "writtenOn": "2017-04-11T01:44:08Z",
+      "side": 1,
+      "message": "Would it make sense to do this as part of `pool_manager.AddObjectReference(...)` to reduce the code?",
       "revId": "e29842cd756b76cab1d60a652d144cfab54e0c6d",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
