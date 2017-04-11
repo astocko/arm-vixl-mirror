@@ -1,0 +1,220 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a1969be_ee940146",
+        "filename": "src/pool-manager-impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000284
+      },
+      "writtenOn": "2017-04-11T01:14:17Z",
+      "side": 1,
+      "message": "Could we leave the responsibility of emitting the header, footer, and potential branch over the pool to the MAsm?\n- The PoolManager would only deal with pools themselves.\n- The MAsm can then do whatever it wants, as long as it correctly expresses the constraints to the PoolManager.",
+      "revId": "e29842cd756b76cab1d60a652d144cfab54e0c6d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a1969be_ce914554",
+        "filename": "src/pool-manager-impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1000284
+      },
+      "writtenOn": "2017-04-11T01:14:17Z",
+      "side": 1,
+      "message": "\"fixed size instruction set\" or \"fixed instruction size\".",
+      "range": {
+        "startLine": 60,
+        "startChar": 23,
+        "endLine": 60,
+        "endChar": 44
+      },
+      "revId": "e29842cd756b76cab1d60a652d144cfab54e0c6d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a1969be_6e881123",
+        "filename": "src/pool-manager-impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1000284
+      },
+      "writtenOn": "2017-04-11T01:14:17Z",
+      "side": 1,
+      "message": "Aren\u0027t `ShouldDeleteWhenPlaced` and `ShouldDeletePoolObjectOnPlacement` redundant?",
+      "range": {
+        "startLine": 97,
+        "startChar": 4,
+        "endLine": 99,
+        "endChar": 67
+      },
+      "revId": "e29842cd756b76cab1d60a652d144cfab54e0c6d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a1969be_4e8d5531",
+        "filename": "src/pool-manager-impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1000284
+      },
+      "writtenOn": "2017-04-11T01:14:17Z",
+      "side": 1,
+      "message": "The situation `pc_ \u003e checkpoint_` should not happen. Assert it. Also assert `num_bytes \u003e\u003d 0`. Then this check becomes useless, as covered by the next.",
+      "revId": "e29842cd756b76cab1d60a652d144cfab54e0c6d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a1969be_ae8209fe",
+        "filename": "src/pool-manager-impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1000284
+      },
+      "writtenOn": "2017-04-11T01:14:17Z",
+      "side": 1,
+      "message": "Do we *need* that assertion?\nAlthough I guess it won\u0027t happen with standard usage, is there a reason to disallow this?",
+      "revId": "e29842cd756b76cab1d60a652d144cfab54e0c6d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a1969be_8e874d0f",
+        "filename": "src/pool-manager-impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 1000284
+      },
+      "writtenOn": "2017-04-11T01:14:17Z",
+      "side": 1,
+      "message": "This method is called \"often\", but is performing expensive computations. I think the actual work done here can be significantly reduced.\n\n* If `objects_` is always maintained sorted, we can insert new entries at the right place instead of sorting fully.\n\n* To avoid expensive work, we could introduce a `soft_checkpoint_`, that is a conservative estimate of the `checkpoint_`, and updated on operations on the list of objects tracked. We could then compute the precise `checkpoint_` only when we go over `soft_checkpoint_`.",
+      "revId": "e29842cd756b76cab1d60a652d144cfab54e0c6d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a1969be_0e9cfd68",
+        "filename": "src/pool-manager.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1000284
+      },
+      "writtenOn": "2017-04-11T01:14:17Z",
+      "side": 1,
+      "message": "Maybe introduce a layer to check (in debug mode) that the masm does not emit more.\n\n    virtual void DoEmitPoolObject(MAsmI *masm) \u003d 0;\n    void EmitPoolObject(MAsmI *masm) {\n      T start \u003d masm-\u003eGetPos();\n      DoEmitPoolObject(mass);\n      T end \u003d mass-\u003eGetPos();\n      VIXL(end - start \u003c\u003d ...);\n    }",
+      "revId": "e29842cd756b76cab1d60a652d144cfab54e0c6d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a1371a2_07a6b8c1",
+        "filename": "src/pool-manager.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1000284
+      },
+      "writtenOn": "2017-04-11T01:14:17Z",
+      "side": 1,
+      "message": "I haven\u0027t had time to dig in details, but I am worried about:\n* overlap between the two\n* keeping them in sync\n\nFor example emission is done via LabelBase: `label_base-\u003eEmitPoolObject(masm);`\nBut the PoolManager tracks the size of the associated PoolObject.\n\n* Can the LabelBase change under the foot of the associated PoolObject?\n* What about live ranges issues? I suppose a `pool_object.abel_base_` is expected to live at least as long as `pool_object`. Is that enforced?",
+      "revId": "e29842cd756b76cab1d60a652d144cfab54e0c6d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a1371a2_67ab2c8a",
+        "filename": "src/pool-manager.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1000284
+      },
+      "writtenOn": "2017-04-11T01:14:17Z",
+      "side": 1,
+      "message": "Catch incompatible restrictions in debug mode.\n\nI think it could fairly easily happen for literals on T32. But it could be something we want to handle for advanced uses.\nFor example when trying to have a global patchable\nreference (e.g. a function address). It seems to me that with this new\ndesign we could handle from the start \"auto-duplicating\" pool objects, that\nwould show to the user as a single object, but actually live in multiple\nplaces in the stream.",
+      "revId": "e29842cd756b76cab1d60a652d144cfab54e0c6d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a1371a2_87910855",
+        "filename": "src/pool-manager.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 1000284
+      },
+      "writtenOn": "2017-04-11T01:14:17Z",
+      "side": 1,
+      "message": "Nit: `size_` and `object_alignment_` together to allow packing when T\u003d\u003d64 and int\u003d\u003d32?",
+      "revId": "e29842cd756b76cab1d60a652d144cfab54e0c6d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a1371a2_a7940445",
+        "filename": "src/pool-manager.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 506,
+      "author": {
+        "id": 1000284
+      },
+      "writtenOn": "2017-04-11T01:14:17Z",
+      "side": 1,
+      "message": "The trick I was using here was to delete elements by writing an invalid address marker (e.g. 0xbad), and having the algorithms work around it. This way deleting is cheap, and you can compact only at certain points (e.g. after emission).",
+      "revId": "e29842cd756b76cab1d60a652d144cfab54e0c6d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a1371a2_47b0b0f4",
+        "filename": "src/pool-manager.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 514,
+      "author": {
+        "id": 1000284
+      },
+      "writtenOn": "2017-04-11T01:14:17Z",
+      "side": 1,
+      "message": "unordered_map?",
+      "revId": "e29842cd756b76cab1d60a652d144cfab54e0c6d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
