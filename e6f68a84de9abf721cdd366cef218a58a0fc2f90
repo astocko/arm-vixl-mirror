@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a1371a2_6a09332c",
+        "filename": "test/aarch64/test-assembler-aarch64.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 23147,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2017-04-11T10:24:34Z",
+      "side": 1,
+      "message": "Something like `scratch_scope_basic_v` would be more appropriate. I\u0027d like to write more tests for UseScratchRegisterScope. At the moment we rely only on incidental usage in other tests; we don\u0027t have targeted tests for it.\n\nNote that \"acquire\" and \"release\" usually indicate lda/stl tests, though the names are otherwise reasonable.",
+      "revId": "e6f68a84de9abf721cdd366cef218a58a0fc2f90",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a1371a2_2aff3b03",
+        "filename": "test/aarch64/test-assembler-aarch64.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 23158,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2017-04-11T10:24:34Z",
+      "side": 1,
+      "message": "It would be useful to nest them, and to check the automatic (destructor-based) release mechanism.\n\nIt would also be nice to check the state of `masm.GetScratchFPRegisterList()` after each operation, or at least to check `temp.Aliases(\u003cdefault-fp-scratch-reg\u003e)`.",
+      "range": {
+        "startLine": 23150,
+        "startChar": 0,
+        "endLine": 23158,
+        "endChar": 22
+      },
+      "revId": "e6f68a84de9abf721cdd366cef218a58a0fc2f90",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
