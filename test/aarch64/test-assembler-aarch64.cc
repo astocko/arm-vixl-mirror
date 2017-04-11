@@ -23144,6 +23144,19 @@ TEST(nop) {
   masm.FinalizeCode();
 }
 
+TEST(scratch_reg_acquire_release) {
+  MacroAssembler masm;
+
+  UseScratchRegisterScope temps(&masm);
+  VRegister temp = temps.AcquireVRegisterOfSize(kQRegSize);
+  temps.Release(temp);
+
+  temp = temps.AcquireVRegisterOfSize(kDRegSize);
+  temps.Release(temp);
+
+  temp = temps.AcquireVRegisterOfSize(kSRegSize);
+  temps.Release(temp);
+}
 
 }  // namespace aarch64
 }  // namespace vixl
