@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "3a1371a2_c101253b",
+        "filename": "src/pool-manager-impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000272
+      },
+      "writtenOn": "2017-04-20T18:23:24Z",
+      "side": 1,
+      "message": "I\u0027m not sure how much difference this would make - the details of emitting the header/footer already lies with the MacroAssembler, the pool manager just calls the MacroAssembler methods and adds a branch over the pool or not according to what the MacroAssembler asks for. The pool manager has to know about the alignment of the header and the size of the header to calculate the checkpoint correctly - this info comes from the MacroAssembler when it creates the pool manager.\n\nThe MacroAssembler can also ask for the pools to be emitted conservatively, when there is nothing to be emitted (hence the check at the top of this function), and if the pool is empty then the MacroAssembler should skip emitting the header/footer too, so it\u0027s handy to have one function that does the whole thing for all backends. Perhaps factoring the actual pool object emission out would help here?",
+      "parentUuid": "7a1969be_ee940146",
+      "revId": "e29842cd756b76cab1d60a652d144cfab54e0c6d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a1969be_ce914554",
         "filename": "src/pool-manager-impl.h",
         "patchSetId": 1
@@ -65,6 +83,30 @@
     },
     {
       "key": {
+        "uuid": "3a1371a2_a1fea936",
+        "filename": "src/pool-manager-impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1000272
+      },
+      "writtenOn": "2017-04-20T18:23:24Z",
+      "side": 1,
+      "message": "Yes, I actually initialize one from the other (not sure why, probably premature optimisation :)). I\u0027ll get rid of ShouldDeleteWhenPlaced.",
+      "parentUuid": "7a1969be_6e881123",
+      "range": {
+        "startLine": 97,
+        "startChar": 4,
+        "endLine": 99,
+        "endChar": 67
+      },
+      "revId": "e29842cd756b76cab1d60a652d144cfab54e0c6d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a1969be_4e8d5531",
         "filename": "src/pool-manager-impl.h",
         "patchSetId": 1
@@ -76,6 +118,24 @@
       "writtenOn": "2017-04-11T01:14:17Z",
       "side": 1,
       "message": "The situation `pc_ \u003e checkpoint_` should not happen. Assert it. Also assert `num_bytes \u003e\u003d 0`. Then this check becomes useless, as covered by the next.",
+      "revId": "e29842cd756b76cab1d60a652d144cfab54e0c6d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a1371a2_01fcdd3d",
+        "filename": "src/pool-manager-impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1000272
+      },
+      "writtenOn": "2017-04-20T18:23:24Z",
+      "side": 1,
+      "message": "I\u0027ll modify CheckCurrentPC to add the assertion. But the checks are not redundant - if pc_ \u003d\u003d checkpoint_ and num_bytes \u003d\u003d 0 the second check will return false when we actually need to emit. To do a single check, we can check pc + num_bytes \u003e\u003d checkpoint but this is not the same (it\u0027s slightly more conservative).",
+      "parentUuid": "7a1969be_4e8d5531",
       "revId": "e29842cd756b76cab1d60a652d144cfab54e0c6d",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
@@ -99,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "3a1371a2_219ab914",
+        "filename": "src/pool-manager-impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1000272
+      },
+      "writtenOn": "2017-04-20T18:23:24Z",
+      "side": 1,
+      "message": "Only because we don\u0027t handle adding more padding to satisfy the minimum object location than the header size plus required alignment (see Emit()).\n\nThis should not happen with the instructions we support (so we should not need to worry about minimum locations anywhere other than for the first object), but I want to catch if the assumption was incorrect for some reason.",
+      "parentUuid": "7a1969be_ae8209fe",
+      "revId": "e29842cd756b76cab1d60a652d144cfab54e0c6d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a1371a2_c79b0071",
         "filename": "src/pool-manager-impl.h",
         "patchSetId": 1
@@ -110,6 +188,24 @@
       "writtenOn": "2017-04-11T01:44:08Z",
       "side": 1,
       "message": "I did not dig into the code below, but wanted to discuss it. Please correct me if I am wrong!\n\nIt seems to me that the optional arguments and this code are here to handle corner cases for the LabelBase we are about to refer to.\nHowever this does not *guarantee* that we will be able to correctly generate code for the pool and the new reference. So why bother with this complicated code? Could we not get rid of the optional arguments and make this simpler?",
+      "revId": "e29842cd756b76cab1d60a652d144cfab54e0c6d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a1371a2_61edd18b",
+        "filename": "src/pool-manager-impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1000272
+      },
+      "writtenOn": "2017-04-20T18:23:24Z",
+      "side": 1,
+      "message": "The point of this code is to tell the caller whether it is safe to emit the reference or whether the pools will have to be emitted first. The MacroAssembler would instead check if it is ok to add a reference to the pool\n*before* the reference is emitted. If not, it would ask the pool manager to emit the pool. It is important to be able to guarantee that emitting an instruction with a forward reference will not make pool emission impossible - at the moment (for aarch32) we only attempt to do this for load literal instructions (via rewinding) and we have some subtle bugs in that mechanism too.\n\nIt should be possible to check whether it is safe to emit an instruction at this point (given the information we give to the pool manager about the reference is correct). The first (simpler) check simply tries to see if we can trivially place the new object at the end of the pool. If not, we actually go through recalculating the checkpoint as if we had added the new object to the\npool, and if we end up with an impossible problem (the next pc would already past the checkpoint) we decide we need to emit the pool. It\u0027s similar to emitting the instruction first and then checking whether we have made the problem impossible - the information we need for both \"questions\" is the same, the current state of the pool plus the information for the new instruction.\n\nSo provided we generate one instruction at a time, we should be able to guarantee that we will trigger pool emission if necessary. This does not work if we try to emit multiple instructions that alter the pool state inside a scope that has blocked the pools, but I don\u0027t think this can be made to work without some more complex analysis of all the instructions in the scope, or unless the responsibility of not breaking the pools in that case lies with the user.\n\nThe code can of course have problems we didn\u0027t spot - so feel free to comment in more detail. Keep in mind this version was not aiming to be optimal, but primarily to be correct and make sure we address some remaining issues with pools - therefore you\u0027ll see some TODOs relating to optimisations.",
+      "parentUuid": "3a1371a2_c79b0071",
       "revId": "e29842cd756b76cab1d60a652d144cfab54e0c6d",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
@@ -150,6 +246,24 @@
     },
     {
       "key": {
+        "uuid": "3a1371a2_819f2d03",
+        "filename": "src/pool-manager-impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 1000272
+      },
+      "writtenOn": "2017-04-20T18:23:24Z",
+      "side": 1,
+      "message": "The first point is on the list of things to look at for making this faster (see TODO in AddObjectReference).\n\nI need to think about the second point - how to calculate a more conservative estimate. Probably would be more similar to our current checkpoint calculation for aarch32? I would prefer to check where most time is spent first, though - this first version is more focused on correctness.",
+      "parentUuid": "7a1969be_8e874d0f",
+      "revId": "e29842cd756b76cab1d60a652d144cfab54e0c6d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a1371a2_67820c02",
         "filename": "src/pool-manager-impl.h",
         "patchSetId": 1
@@ -178,6 +292,24 @@
       "writtenOn": "2017-04-11T01:14:17Z",
       "side": 1,
       "message": "Maybe introduce a layer to check (in debug mode) that the masm does not emit more.\n\n    virtual void DoEmitPoolObject(MAsmI *masm) \u003d 0;\n    void EmitPoolObject(MAsmI *masm) {\n      T start \u003d masm-\u003eGetPos();\n      DoEmitPoolObject(mass);\n      T end \u003d mass-\u003eGetPos();\n      VIXL(end - start \u003c\u003d ...);\n    }",
+      "revId": "e29842cd756b76cab1d60a652d144cfab54e0c6d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a1371a2_61a4b157",
+        "filename": "src/pool-manager.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1000272
+      },
+      "writtenOn": "2017-04-20T18:23:24Z",
+      "side": 1,
+      "message": "I can do - at the moment I do a less detailed check (if you see I keep track of the pc in PoolManager::Emit() and return the pc the pool manager assumes - so the MacroAssembler can assert they are the same).",
+      "parentUuid": "7a1969be_0e9cfd68",
       "revId": "e29842cd756b76cab1d60a652d144cfab54e0c6d",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
@@ -280,6 +412,24 @@
       "writtenOn": "2017-04-11T01:50:04Z",
       "side": 1,
       "message": "Share with above?\n\n`T* pointer` to really restrict to pointer types?",
+      "revId": "e29842cd756b76cab1d60a652d144cfab54e0c6d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a1371a2_c18805c9",
+        "filename": "src/utils-vixl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 1000272
+      },
+      "writtenOn": "2017-04-20T18:23:24Z",
+      "side": 1,
+      "message": "It\u0027s not only used for pointer types - the locations etc in the pool manager are cursor offsets (so will be int32_t for aarch32 and int64_t for aarch64).",
+      "parentUuid": "3a1371a2_a77b6428",
       "revId": "e29842cd756b76cab1d60a652d144cfab54e0c6d",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
