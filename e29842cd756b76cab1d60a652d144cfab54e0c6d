@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "3a1371a2_3f0ad0d2",
+        "filename": "src/pool-manager-impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000284
+      },
+      "writtenOn": "2017-04-25T02:11:55Z",
+      "side": 1,
+      "message": "My question/suggestion was about the structure. This is what I would look toward, but I can\u0027t see how realistic it is.\n\nIn my mind the pool header, footer, and branch over the pools, as responsibilities of codegen (so the masm in VIXL), while the pool manager would only be an interface to manage deferred emission of objects. So ideally the pool manager would not be aware of the masm at all.\nOf course we would then need an interface between the masm and the pool manager, that would become the de facto pool manager interface in VIXL. But theoretically, the pool manager logic could be used in other contexts.\n\nHowever I don\u0027t have any use for it! And realistically I don\u0027t expect any soon. So I think it is fair to keep the code as it is.",
+      "parentUuid": "3a1371a2_c101253b",
+      "revId": "e29842cd756b76cab1d60a652d144cfab54e0c6d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a1969be_ce914554",
         "filename": "src/pool-manager-impl.h",
         "patchSetId": 1
@@ -142,6 +160,24 @@
     },
     {
       "key": {
+        "uuid": "3a1371a2_3f1770a5",
+        "filename": "src/pool-manager-impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1000284
+      },
+      "writtenOn": "2017-04-25T02:11:55Z",
+      "side": 1,
+      "message": "I had not seen `Current` vs `Future`.\n\nWith the new assertion maybe you can simplify.",
+      "parentUuid": "3a1371a2_01fcdd3d",
+      "revId": "e29842cd756b76cab1d60a652d144cfab54e0c6d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a1969be_ae8209fe",
         "filename": "src/pool-manager-impl.h",
         "patchSetId": 1
@@ -177,6 +213,24 @@
     },
     {
       "key": {
+        "uuid": "3a1371a2_9f0ca496",
+        "filename": "src/pool-manager-impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1000284
+      },
+      "writtenOn": "2017-04-25T02:11:55Z",
+      "side": 1,
+      "message": "Ok. Catching early sounds fine.",
+      "parentUuid": "3a1371a2_219ab914",
+      "revId": "e29842cd756b76cab1d60a652d144cfab54e0c6d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a1371a2_c79b0071",
         "filename": "src/pool-manager-impl.h",
         "patchSetId": 1
@@ -206,6 +260,24 @@
       "side": 1,
       "message": "The point of this code is to tell the caller whether it is safe to emit the reference or whether the pools will have to be emitted first. The MacroAssembler would instead check if it is ok to add a reference to the pool\n*before* the reference is emitted. If not, it would ask the pool manager to emit the pool. It is important to be able to guarantee that emitting an instruction with a forward reference will not make pool emission impossible - at the moment (for aarch32) we only attempt to do this for load literal instructions (via rewinding) and we have some subtle bugs in that mechanism too.\n\nIt should be possible to check whether it is safe to emit an instruction at this point (given the information we give to the pool manager about the reference is correct). The first (simpler) check simply tries to see if we can trivially place the new object at the end of the pool. If not, we actually go through recalculating the checkpoint as if we had added the new object to the\npool, and if we end up with an impossible problem (the next pc would already past the checkpoint) we decide we need to emit the pool. It\u0027s similar to emitting the instruction first and then checking whether we have made the problem impossible - the information we need for both \"questions\" is the same, the current state of the pool plus the information for the new instruction.\n\nSo provided we generate one instruction at a time, we should be able to guarantee that we will trigger pool emission if necessary. This does not work if we try to emit multiple instructions that alter the pool state inside a scope that has blocked the pools, but I don\u0027t think this can be made to work without some more complex analysis of all the instructions in the scope, or unless the responsibility of not breaking the pools in that case lies with the user.\n\nThe code can of course have problems we didn\u0027t spot - so feel free to comment in more detail. Keep in mind this version was not aiming to be optimal, but primarily to be correct and make sure we address some remaining issues with pools - therefore you\u0027ll see some TODOs relating to optimisations.",
       "parentUuid": "3a1371a2_c79b0071",
+      "revId": "e29842cd756b76cab1d60a652d144cfab54e0c6d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a1371a2_bf2240ff",
+        "filename": "src/pool-manager-impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1000284
+      },
+      "writtenOn": "2017-04-25T02:11:55Z",
+      "side": 1,
+      "message": "Again, this is happening in my head, and maybe cannot happen anywhere else!\n\nTo me it looks like you are doing an optimal effort to correctly generate what is asked. But I am still not sure it guarantees that you will be able to generate what is asked.\n\nWhat if the new constraints imposed by the new `reference` and `label_base` are not compatible with the current constraints in the pool manager?\n\nHitting such a case might be possible because the user asks for something impossible, but also because the placement heuristics are not perfect (and should not be for complexity reasons).\n\nI am thinking of cases that involve an existing forward reference to a literal, followed by a backward reference to the same literal. The placement heuristics guarantee things will work for forward references. But adding this last *backward* reference may not play well.\n\nThe new reference would have a non-null intersection with the existing min/max locations, but force the object to overlap with another object in the pool.\n\nNeither\n1) emitting the pool before the new instruction (without modifying the code generated for the new instruction)\nnor 2) emitting the new instruction and the pool with the reference\nwould work.\n\nIn such a case we will have to emit the pool and then generate different code to refer to the object.\n\nSo my point was, **if** such cases are possible, although rare, is all this complicated logic worth it, since it only makes a best effort for a corner case?\n\nCan you let me know if you share my worry about the possible breaking case idea? If not I\u0027ll try to write a test-case to either prove my point or understand where I am wrong.",
+      "parentUuid": "3a1371a2_61edd18b",
       "revId": "e29842cd756b76cab1d60a652d144cfab54e0c6d",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
@@ -258,6 +330,24 @@
       "side": 1,
       "message": "The first point is on the list of things to look at for making this faster (see TODO in AddObjectReference).\n\nI need to think about the second point - how to calculate a more conservative estimate. Probably would be more similar to our current checkpoint calculation for aarch32? I would prefer to check where most time is spent first, though - this first version is more focused on correctness.",
       "parentUuid": "7a1969be_8e874d0f",
+      "revId": "e29842cd756b76cab1d60a652d144cfab54e0c6d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a1371a2_7f11e8ab",
+        "filename": "src/pool-manager-impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 1000284
+      },
+      "writtenOn": "2017-04-25T02:11:55Z",
+      "side": 1,
+      "message": "Sounds fine to me. But I know there were some benchmarks that can be critically sensitive to these things. There is a regex JS benchmark for example, that generates many branches and tracks many veneers. So it will be worth keeping an eye on this.",
+      "parentUuid": "3a1371a2_819f2d03",
       "revId": "e29842cd756b76cab1d60a652d144cfab54e0c6d",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
@@ -430,6 +520,24 @@
       "side": 1,
       "message": "It\u0027s not only used for pointer types - the locations etc in the pool manager are cursor offsets (so will be int32_t for aarch32 and int64_t for aarch64).",
       "parentUuid": "3a1371a2_a77b6428",
+      "revId": "e29842cd756b76cab1d60a652d144cfab54e0c6d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a1371a2_df257c0b",
+        "filename": "src/utils-vixl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 1000284
+      },
+      "writtenOn": "2017-04-25T02:11:55Z",
+      "side": 1,
+      "message": "My primary point was about sharing the implementations. If there is a reason not to share, maybe distinguish the two. Should it be T* pointer above?",
+      "parentUuid": "3a1371a2_c18805c9",
       "revId": "e29842cd756b76cab1d60a652d144cfab54e0c6d",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
