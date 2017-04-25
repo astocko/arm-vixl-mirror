@@ -284,6 +284,24 @@
     },
     {
       "key": {
+        "uuid": "3a1371a2_1f771404",
+        "filename": "src/pool-manager-impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1000284
+      },
+      "writtenOn": "2017-04-25T05:39:49Z",
+      "side": 1,
+      "message": "I\u0027ve been thinking more about this while after leaving the bus. Writing things down helped.\n\nIf I read correctly, my test-case is covered as part of the case where the checkpoint is recalculated. What I missed was that if the pool is emitted, codegen will not try to generate code with the same reference!",
+      "parentUuid": "3a1371a2_bf2240ff",
+      "revId": "e29842cd756b76cab1d60a652d144cfab54e0c6d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a1371a2_27881422",
         "filename": "src/pool-manager-impl.h",
         "patchSetId": 1
