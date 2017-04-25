@@ -302,6 +302,24 @@
     },
     {
       "key": {
+        "uuid": "3a1371a2_9a3b12eb",
+        "filename": "src/pool-manager-impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1000272
+      },
+      "writtenOn": "2017-04-25T13:40:14Z",
+      "side": 1,
+      "message": "Right!\n\nIn the case where we have a reference that triggers pool emission, there are two cases:\n\n1) Simple case: The pool is emitted and it includes the object we are referencing. This means the reference is now a backwards reference and the MacroAssembler will make sure to emit the right code for it (which will likely be different than the forward reference we were attempting to emit). The pool manager is not concerned with backward references.\n\n2) More complicated case: The pool must be emitted, but some objects may be skipped according to heuristics (otherwise we could have too many veneers too soon). None of the emitted objects is the object the new reference refers to. When skipping an object while emitting the pool, we must do so in a way that makes sure we keep it possible to emit the new reference and later emit the pool objects we skipped.\nOne way to think of it is by splitting it in two sub-cases:\na) All objects will be emitted and they do not include the object the new reference refers to (that would be case 1) - in this case we are free to emit the new reference.\nb) Some objects (not including the one the new reference refers to) are emitted and the rest are skipped, then we emit the new reference. I found this case a bit tricky to reason about, but there is a relatively simple check we can do. For making a decision whether to emit pool object X, we assume that if we defer emitting X we will need to fit all the remaining pool objects and footer, including the new object, before being able to emit X again, and only if that is possible we skip emitting the object. This is what ShouldSkipObject() does (in fact it\u0027s even more conservative than that, as it uses an estimate for the *total* pool size added to the new object size and potential alignment, instead of only looking at the remaining objects).",
+      "parentUuid": "3a1371a2_1f771404",
+      "revId": "e29842cd756b76cab1d60a652d144cfab54e0c6d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a1371a2_27881422",
         "filename": "src/pool-manager-impl.h",
         "patchSetId": 1
