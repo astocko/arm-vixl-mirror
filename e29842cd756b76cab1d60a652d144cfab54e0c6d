@@ -78,6 +78,30 @@
     },
     {
       "key": {
+        "uuid": "3a1371a2_9509232f",
+        "filename": "src/pool-manager-impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1000272
+      },
+      "writtenOn": "2017-05-03T16:13:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a1969be_ce914554",
+      "range": {
+        "startLine": 60,
+        "startChar": 23,
+        "endLine": 60,
+        "endChar": 44
+      },
+      "revId": "e29842cd756b76cab1d60a652d144cfab54e0c6d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a1969be_6e881123",
         "filename": "src/pool-manager-impl.h",
         "patchSetId": 1
@@ -113,6 +137,30 @@
       "side": 1,
       "message": "Yes, I actually initialize one from the other (not sure why, probably premature optimisation :)). I\u0027ll get rid of ShouldDeleteWhenPlaced.",
       "parentUuid": "7a1969be_6e881123",
+      "range": {
+        "startLine": 97,
+        "startChar": 4,
+        "endLine": 99,
+        "endChar": 67
+      },
+      "revId": "e29842cd756b76cab1d60a652d144cfab54e0c6d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a1371a2_750e2736",
+        "filename": "src/pool-manager-impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1000272
+      },
+      "writtenOn": "2017-05-03T16:13:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3a1371a2_a1fea936",
       "range": {
         "startLine": 97,
         "startChar": 4,
@@ -171,6 +219,24 @@
       "writtenOn": "2017-04-25T02:11:55Z",
       "side": 1,
       "message": "I had not seen `Current` vs `Future`.\n\nWith the new assertion maybe you can simplify.",
+      "parentUuid": "3a1371a2_01fcdd3d",
+      "revId": "e29842cd756b76cab1d60a652d144cfab54e0c6d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a1371a2_151d3367",
+        "filename": "src/pool-manager-impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1000272
+      },
+      "writtenOn": "2017-05-03T16:13:35Z",
+      "side": 1,
+      "message": "Done",
       "parentUuid": "3a1371a2_01fcdd3d",
       "revId": "e29842cd756b76cab1d60a652d144cfab54e0c6d",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
@@ -337,6 +403,24 @@
     },
     {
       "key": {
+        "uuid": "3a1371a2_d5127b57",
+        "filename": "src/pool-manager-impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1000272
+      },
+      "writtenOn": "2017-05-03T16:13:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3a1371a2_27881422",
+      "revId": "e29842cd756b76cab1d60a652d144cfab54e0c6d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a1969be_8e874d0f",
         "filename": "src/pool-manager-impl.h",
         "patchSetId": 1
@@ -407,6 +491,24 @@
     },
     {
       "key": {
+        "uuid": "3a1371a2_7988e122",
+        "filename": "src/pool-manager-impl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 1000272
+      },
+      "writtenOn": "2017-05-03T16:13:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3a1371a2_67820c02",
+      "revId": "e29842cd756b76cab1d60a652d144cfab54e0c6d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a1969be_0e9cfd68",
         "filename": "src/pool-manager.h",
         "patchSetId": 1
@@ -442,6 +544,24 @@
     },
     {
       "key": {
+        "uuid": "3a1371a2_caabf5d4",
+        "filename": "src/pool-manager.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1000272
+      },
+      "writtenOn": "2017-05-03T16:13:35Z",
+      "side": 1,
+      "message": "This change is actually more involved than it sounds, because we don\u0027t have a way to get the pc from the MacroAssemblerInterface at the moment, so I prefer to come back to it in a separate commit.",
+      "parentUuid": "3a1371a2_61a4b157",
+      "revId": "e29842cd756b76cab1d60a652d144cfab54e0c6d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a1371a2_07a6b8c1",
         "filename": "src/pool-manager.h",
         "patchSetId": 1
@@ -453,6 +573,24 @@
       "writtenOn": "2017-04-11T01:14:17Z",
       "side": 1,
       "message": "I haven\u0027t had time to dig in details, but I am worried about:\n* overlap between the two\n* keeping them in sync\n\nFor example emission is done via LabelBase: `label_base-\u003eEmitPoolObject(masm);`\nBut the PoolManager tracks the size of the associated PoolObject.\n\n* Can the LabelBase change under the foot of the associated PoolObject?\n* What about live ranges issues? I suppose a `pool_object.abel_base_` is expected to live at least as long as `pool_object`. Is that enforced?",
+      "revId": "e29842cd756b76cab1d60a652d144cfab54e0c6d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a1371a2_d5671be9",
+        "filename": "src/pool-manager.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1000272
+      },
+      "writtenOn": "2017-05-03T16:13:35Z",
+      "side": 1,
+      "message": "- The LabelBase should not change under the feet of the associated PoolObject. The only things that can change are whether the LabelBase is bound and its location. For literals, this can only happen for manually placed literals, which we don\u0027t track in the pool manager (we have assertions for this). For Labels, when we have a MacroAssembler, it will always make sure that the bound label is removed from the pool manager. That\u0027s even when Assembler::bind() is called in an ExactAssemblyScope. So I think we shouldn\u0027t have any issues with the LabelObject fields changing unexpectedly. About the slightly messier issue, the lifetime:\n\n- Yes, the LabelBase is expected to live at least as long as the PoolObject. At the moment we do not enforce this, and this is an existing issue. There are simple things that can go wrong: for example, in aarch32, we could construct a RawLiteral with a kDeletedOnPlacementByPool or kDeletedOnPoolDestruction policy *on the stack*. This will obviously go horribly wrong. A different way of dealing with this would possibly be to only allow \"manually deleted\" labels to be constructed directly, or alternatively have the MacroAssembler be responsible for creating the objects with some factory methods and then own them. With manually deleted literals, the only way I can think of to make this fail-safe would be to duplicate the information of the literal value and forward references etc, but then we probably lose some of the reasons we would want to use manually deleted literals in the first place. This is something we should look at, I think (and it has come up in discussions before), but it is kind of orthogonal to this change and would be hard to fix without breaking current usage.\n\nAbout overlap between the objects, I\u0027ve removed size_ from the PoolObject (redundant). The alignment field is necessary as it can be restricted by the various references.",
+      "parentUuid": "3a1371a2_07a6b8c1",
       "revId": "e29842cd756b76cab1d60a652d144cfab54e0c6d",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
@@ -476,6 +614,24 @@
     },
     {
       "key": {
+        "uuid": "3a1371a2_15b9b32e",
+        "filename": "src/pool-manager.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1000272
+      },
+      "writtenOn": "2017-05-03T16:13:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3a1371a2_67ab2c8a",
+      "revId": "e29842cd756b76cab1d60a652d144cfab54e0c6d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a1371a2_87910855",
         "filename": "src/pool-manager.h",
         "patchSetId": 1
@@ -487,6 +643,24 @@
       "writtenOn": "2017-04-11T01:14:17Z",
       "side": 1,
       "message": "Nit: `size_` and `object_alignment_` together to allow packing when T\u003d\u003d64 and int\u003d\u003d32?",
+      "revId": "e29842cd756b76cab1d60a652d144cfab54e0c6d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a1371a2_f519777a",
+        "filename": "src/pool-manager.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 1000272
+      },
+      "writtenOn": "2017-05-03T16:13:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3a1371a2_87910855",
       "revId": "e29842cd756b76cab1d60a652d144cfab54e0c6d",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
@@ -521,6 +695,24 @@
       "writtenOn": "2017-04-11T01:14:17Z",
       "side": 1,
       "message": "unordered_map?",
+      "revId": "e29842cd756b76cab1d60a652d144cfab54e0c6d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a1371a2_f5b5f731",
+        "filename": "src/pool-manager.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 514,
+      "author": {
+        "id": 1000272
+      },
+      "writtenOn": "2017-05-03T16:13:35Z",
+      "side": 1,
+      "message": "I can\u0027t use it here (C++11), but I\u0027ve removed this map anyway.",
+      "parentUuid": "3a1371a2_47b0b0f4",
       "revId": "e29842cd756b76cab1d60a652d144cfab54e0c6d",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
@@ -580,6 +772,24 @@
     },
     {
       "key": {
+        "uuid": "3a1371a2_0ab6ad3d",
+        "filename": "src/utils-vixl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 1000272
+      },
+      "writtenOn": "2017-05-03T16:13:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3a1371a2_df257c0b",
+      "revId": "e29842cd756b76cab1d60a652d144cfab54e0c6d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a1371a2_078d1832",
         "filename": "test/test-pool-manager.cc",
         "patchSetId": 1
@@ -591,6 +801,24 @@
       "writtenOn": "2017-04-11T01:44:08Z",
       "side": 1,
       "message": "Would it make sense to do this as part of `pool_manager.AddObjectReference(...)` to reduce the code?",
+      "revId": "e29842cd756b76cab1d60a652d144cfab54e0c6d",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a1371a2_999e7d55",
+        "filename": "test/test-pool-manager.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 1000272
+      },
+      "writtenOn": "2017-05-03T16:13:35Z",
+      "side": 1,
+      "message": "This would complicate integration quite a bit (due to the very different implementations of keeping track of references for aarch32 and aarch64) so I intentionally avoided making keeping track of references part of LabelBase (implementations can do whatever they want as the code is now). There are also references that the pool manager knows nothing about so I didn\u0027t want to impose a virtual method as an abstract interface for adding references to LabelBase either.",
+      "parentUuid": "3a1371a2_078d1832",
       "revId": "e29842cd756b76cab1d60a652d144cfab54e0c6d",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
