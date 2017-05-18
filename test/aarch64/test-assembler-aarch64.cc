@@ -23007,6 +23007,28 @@ double runtime_call_two_arguments_on_stack(int64_t arg1 __attribute__((unused)),
 
 void runtime_call_store_at_address(int64_t* address) { *address = 0xf00d; }
 
+enum RuntimeCallTestEnum {
+  Enum0,
+  Enum1,
+  Enum2
+};
+
+RuntimeCallTestEnum runtime_call_enum(RuntimeCallTestEnum e) {
+  return e;
+}
+
+#if __cplusplus >= 201103L
+enum class RuntimeCallTestEnumClass {
+  Enum0,
+  Enum1,
+  Enum2
+};
+
+RuntimeCallTestEnumClass runtime_call_enum_class(RuntimeCallTestEnumClass e) {
+  return e;
+}
+#endif
+
 // Test feature detection of calls to runtime functions.
 
 // C++11 should be sufficient to provide simulated runtime calls, except for a
@@ -23064,6 +23086,14 @@ TEST(runtime_calls) {
   __ CallRuntime(runtime_call_two_arguments_on_stack);
   __ Fmov(d21, d0);
   __ Pop(d1, d0);
+
+  // Test that the template mechanisms don't break with enums.
+  __ Mov(w0, 0);
+  __ CallRuntime(runtime_call_enum);
+#if __cplusplus >= 201103L
+  __ Mov(w0, 0);
+  __ CallRuntime(runtime_call_enum_class);
+#endif
 
   // Test `TailCallRuntime`.
 
