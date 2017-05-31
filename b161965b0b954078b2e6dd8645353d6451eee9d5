@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "facab960_b057fa01",
+        "filename": "test/aarch64/test-assembler-aarch64.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 23083,
+      "author": {
+        "id": 1000222
+      },
+      "writtenOn": "2017-05-31T09:58:48Z",
+      "side": 1,
+      "message": "Doesn\u0027t CallRuntime() already require c++11? Or are you doing it because enum class is orthogonal to CallRuntime()?",
+      "revId": "b161965b0b954078b2e6dd8645353d6451eee9d5",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "facab960_d05c7e28",
+        "filename": "test/aarch64/test-assembler-aarch64.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 23084,
+      "author": {
+        "id": 1000222
+      },
+      "writtenOn": "2017-05-31T09:58:48Z",
+      "side": 1,
+      "message": "What happens when you pass a value not represented by an enum class to a function expecting one? Template instantiation failure?",
+      "revId": "b161965b0b954078b2e6dd8645353d6451eee9d5",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
