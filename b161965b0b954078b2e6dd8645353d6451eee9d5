@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "facab960_50d86e1d",
+        "filename": "test/aarch64/test-assembler-aarch64.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 23083,
+      "author": {
+        "id": 1000284
+      },
+      "writtenOn": "2017-06-01T04:49:21Z",
+      "side": 1,
+      "message": "It was to mirror the declaration of the `runtime_call_enum` and `runtime_call_enum_class` above.\nInstead I moved those functions under the `#ifdef`.",
+      "parentUuid": "facab960_b057fa01",
+      "revId": "b161965b0b954078b2e6dd8645353d6451eee9d5",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "facab960_d05c7e28",
         "filename": "test/aarch64/test-assembler-aarch64.cc",
         "patchSetId": 3
@@ -30,6 +48,24 @@
       "writtenOn": "2017-05-31T09:58:48Z",
       "side": 1,
       "message": "What happens when you pass a value not represented by an enum class to a function expecting one? Template instantiation failure?",
+      "revId": "b161965b0b954078b2e6dd8645353d6451eee9d5",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "facab960_7004927e",
+        "filename": "test/aarch64/test-assembler-aarch64.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 23084,
+      "author": {
+        "id": 1000284
+      },
+      "writtenOn": "2017-06-01T04:49:21Z",
+      "side": 1,
+      "message": "Changed to use the `enum` value here instead of 0.\n\nThe fact that we generate code here does not change the approach. We are calling a function taking an `enum` argument. The caller is responsible for passing a valid value. Otherwise the behavior is undefined.\n\nThere is a way to check with templates whether the name \u0027x\u0027 is part of the enum (using SFINAE) , but I don\u0027t think there is a way to check whether a value is valid for a given enum type. I don\u0027t think it is an issue, since we behave like usual C++ code would.",
+      "parentUuid": "facab960_d05c7e28",
       "revId": "b161965b0b954078b2e6dd8645353d6451eee9d5",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
