@@ -36,6 +36,10 @@
 #include "instrument-aarch64.h"
 #include "simulator-constants-aarch64.h"
 
+#if __cplusplus >= 201103L
+#include <type_traits>
+#endif
+
 #ifdef VIXL_INCLUDE_SIMULATOR_AARCH64
 
 // These are only used for the ABI feature, and depend on checks performed for
@@ -997,6 +1001,68 @@ class Simulator : public DecoderVisitor {
 
   enum RegLogMode { LogRegWrites, NoRegLog };
 
+ private:
+#if __cplusplus >= 201103L
+  template <bool B, typename T = void>
+  using enable_if = std::enable_if<B, T>;
+#else
+  template <bool B, class T = void>
+  struct enable_if {};
+
+  template <typename T>
+  struct enable_if<true, T> {
+    typedef T type;
+  };
+#endif
+
+  template <typename T, typename E = void>
+  struct WriteRegisterHelper {
+    explicit WriteRegisterHelper(Simulator* simulator)
+        : simulator_(simulator) {}
+    void WriteRegister(unsigned code,
+                       T value,
+                       RegLogMode log_mode = LogRegWrites,
+                       Reg31Mode r31mode = Reg31IsZeroRegister) {
+      VIXL_STATIC_ASSERT((sizeof(T) == kWRegSizeInBytes) ||
+                         (sizeof(T) == kXRegSizeInBytes));
+      VIXL_ASSERT(
+          code < kNumberOfRegisters ||
+          ((r31mode == Reg31IsZeroRegister) && (code == kSPRegInternalCode)));
+
+      if ((code == 31) && (r31mode == Reg31IsZeroRegister)) {
+        return;
+      }
+
+      if ((r31mode == Reg31IsZeroRegister) && (code == kSPRegInternalCode)) {
+        code = 31;
+      }
+
+      simulator_->registers_[code].Write(value);
+
+      if (log_mode == LogRegWrites) simulator_->LogRegister(code, r31mode);
+    }
+
+    Simulator* simulator_;
+  };
+
+  template <typename T>
+  struct WriteRegisterHelper<
+      T,
+      typename enable_if<sizeof(T) < sizeof(int)>::type> {
+    WriteRegisterHelper(Simulator* simulator) : simulator_(simulator) {}
+    void WriteRegister(unsigned code,
+                       T value,
+                       RegLogMode log_mode = LogRegWrites,
+                       Reg31Mode r31mode = Reg31IsZeroRegister) {
+      // Sign-extend or zero-extend the value to the size of a W register, and
+      // fall back to the standard `WriteRegister`.
+      WriteRegisterHelper<int>(simulator_)
+          .WriteRegister(code, static_cast<int>(value), log_mode, r31mode);
+    }
+    Simulator* simulator_;
+  };
+
+ public:
   // Write 'value' into an integer register. The value is zero-extended. This
   // behaviour matches AArch64 register writes.
   template <typename T>
@@ -1004,24 +1070,9 @@ class Simulator : public DecoderVisitor {
                      T value,
                      RegLogMode log_mode = LogRegWrites,
                      Reg31Mode r31mode = Reg31IsZeroRegister) {
-    VIXL_STATIC_ASSERT((sizeof(T) == kWRegSizeInBytes) ||
-                       (sizeof(T) == kXRegSizeInBytes));
-    VIXL_ASSERT(
-        code < kNumberOfRegisters ||
-        ((r31mode == Reg31IsZeroRegister) && (code == kSPRegInternalCode)));
-
-    if ((code == 31) && (r31mode == Reg31IsZeroRegister)) {
-      return;
-    }
-
-    if ((r31mode == Reg31IsZeroRegister) && (code == kSPRegInternalCode)) {
-      code = 31;
-    }
-
-    registers_[code].Write(value);
-
-    if (log_mode == LogRegWrites) LogRegister(code, r31mode);
+    WriteRegisterHelper<T>(this).WriteRegister(code, value, log_mode, r31mode);
   }
+
   template <typename T>
   VIXL_DEPRECATED("WriteRegister",
                   void set_reg(unsigned code,
