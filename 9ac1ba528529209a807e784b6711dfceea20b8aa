@@ -54,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "facab960_d3b568ce",
+        "filename": "src/aarch64/simulator-aarch64.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1023,
+      "author": {
+        "id": 1000284
+      },
+      "writtenOn": "2017-06-05T16:31:46Z",
+      "side": 1,
+      "message": "That\u0027s exactly what I was talking about. That is only possible with a constexpr if. Otherwise the cast can be (and is for example for pointers) invalid.",
+      "parentUuid": "facab960_93bbe0c3",
+      "revId": "9ac1ba528529209a807e784b6711dfceea20b8aa",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "facab960_b3262467",
         "filename": "test/aarch64/test-assembler-aarch64.cc",
         "patchSetId": 1
