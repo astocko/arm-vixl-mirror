@@ -16,6 +16,40 @@
       "revId": "9ac1ba528529209a807e784b6711dfceea20b8aa",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "facab960_d32ba82e",
+        "filename": "src/aarch64/simulator-aarch64.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1023,
+      "author": {
+        "id": 1000284
+      },
+      "writtenOn": "2017-06-05T00:31:36Z",
+      "side": 1,
+      "message": "This was the assert failing for small types.",
+      "revId": "9ac1ba528529209a807e784b6711dfceea20b8aa",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "facab960_b3262467",
+        "filename": "test/aarch64/test-assembler-aarch64.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 23110,
+      "author": {
+        "id": 1000284
+      },
+      "writtenOn": "2017-06-05T00:31:36Z",
+      "side": 1,
+      "message": "Testing `-1` cast to various types here to check we are properly sign-extending. Otherwise we don\u0027t care much about the values. The issue was the `static_assert` failing at compile time during template instantiation.",
+      "revId": "9ac1ba528529209a807e784b6711dfceea20b8aa",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
