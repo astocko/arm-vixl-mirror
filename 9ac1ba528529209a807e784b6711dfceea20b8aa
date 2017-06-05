@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "facab960_732c9c4b",
+        "filename": "src/aarch64/simulator-aarch64.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1004,
+      "author": {
+        "id": 1000284
+      },
+      "writtenOn": "2017-06-05T00:29:52Z",
+      "side": 1,
+      "message": "All these changes could be replaced by 3 lines of code if we had access to constexpr if!",
+      "revId": "9ac1ba528529209a807e784b6711dfceea20b8aa",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
