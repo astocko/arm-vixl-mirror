@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "facab960_56b6a63e",
+        "filename": "src/aarch64/simulator-aarch64.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 1012,
+      "author": {
+        "id": 1000222
+      },
+      "writtenOn": "2017-06-06T18:34:48Z",
+      "side": 1,
+      "message": "This is annoying, but much easier to understand. I was surprised that the double cast was needed, but without it, the compiler complains about throwing away information for pointers, as you\u0027ve probably seen.",
+      "revId": "e938c7cf229b76acf815003f5d380c2ea9e61032",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
+    }
+  ]
+}
