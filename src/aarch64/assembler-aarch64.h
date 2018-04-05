@@ -2415,9 +2415,15 @@ class Assembler : public vixl::internal::AssemblerBase {
   // Signed saturating rounding doubling multiply returning high half.
   void sqrdmulh(const VRegister& vd, const VRegister& vn, const VRegister& vm);
 
+  // Signed dot product [Armv8.2].
+  void sdot(const VRegister& vd, const VRegister& vn, const VRegister& vm);
+
   // Signed saturating rounding doubling multiply accumulate returning high
   // half [Armv8.1].
   void sqrdmlah(const VRegister& vd, const VRegister& vn, const VRegister& vm);
+
+  // Unsigned dot product [Armv8.2].
+  void udot(const VRegister& vd, const VRegister& vn, const VRegister& vm);
 
   // Signed saturating rounding doubling multiply subtract returning high half
   // [Armv8.1].
@@ -2435,12 +2441,24 @@ class Assembler : public vixl::internal::AssemblerBase {
                 const VRegister& vm,
                 int vm_index);
 
+  // Signed dot product by element [Armv8.2].
+  void sdot(const VRegister& vd,
+            const VRegister& vn,
+            const VRegister& vm,
+            int vm_index);
+
   // Signed saturating rounding doubling multiply accumulate element returning
   // high half [Armv8.1].
   void sqrdmlah(const VRegister& vd,
                 const VRegister& vn,
                 const VRegister& vm,
                 int vm_index);
+
+  // Unsigned dot product by element [Armv8.2].
+  void udot(const VRegister& vd,
+            const VRegister& vn,
+            const VRegister& vm,
+            int vm_index);
 
   // Signed saturating rounding doubling multiply subtract element returning
   // high half [Armv8.1].
