@@ -360,6 +360,13 @@ CRC-32 checksum from double word.
     void crc32x(const Register& wd, const Register& wn, const Register& xm)
 
 
+### CSDB ###
+
+Conditional speculation dependency barrier.
+
+    void csdb()
+
+
 ### CSEL ###
 
 Conditional select: rd = cond ? rn : rm.
@@ -412,13 +419,6 @@ Conditional select negation: rd = cond ? rn : -rm.
                const Register& rn,
                const Register& rm,
                Condition cond)
-
-
-### DC ###
-
-
-
-    void dc(T data)
 
 
 ### DC ###
@@ -1671,7 +1671,7 @@ FP pairwise add vector.
 
 ### FCADD ###
 
-FP complex add [Armv8.3].
+FP complex add _(Armv8.3)_.
 
     void fcadd(const VRegister& vd,
                const VRegister& vn,
@@ -1743,7 +1743,7 @@ FP greater than.
 
 ### FCMLA ###
 
-FP complex multiply accumulate (by element) [Armv8.3].
+FP complex multiply accumulate (by element) _(Armv8.3)_.
 
     void fcmla(const VRegister& vd,
                const VRegister& vn,
@@ -1754,7 +1754,7 @@ FP complex multiply accumulate (by element) [Armv8.3].
 
 ### FCMLA ###
 
-FP complex multiply accumulate [Armv8.3].
+FP complex multiply accumulate _(Armv8.3)_.
 
     void fcmla(const VRegister& vd,
                const VRegister& vn,
@@ -3240,6 +3240,40 @@ Signed saturating negate.
     void sqneg(const VRegister& vd, const VRegister& vn)
 
 
+### SQRDMLAH ###
+
+Signed saturating rounding doubling multiply accumulate element returning high half _(Armv8.1)_.
+
+    void sqrdmlah(const VRegister& vd,
+                  const VRegister& vn,
+                  const VRegister& vm,
+                  int vm_index)
+
+
+### SQRDMLAH ###
+
+Signed saturating rounding doubling multiply accumulate returning high half _(Armv8.1)_.
+
+    void sqrdmlah(const VRegister& vd, const VRegister& vn, const VRegister& vm)
+
+
+### SQRDMLSH ###
+
+Signed saturating rounding doubling multiply subtract element returning high half _(Armv8.1)_.
+
+    void sqrdmlsh(const VRegister& vd,
+                  const VRegister& vn,
+                  const VRegister& vm,
+                  int vm_index)
+
+
+### SQRDMLSH ###
+
+Signed saturating rounding doubling multiply subtract returning high half _(Armv8.1)_.
+
+    void sqrdmlsh(const VRegister& vd, const VRegister& vn, const VRegister& vm)
+
+
 ### SQRDMULH ###
 
 Signed saturating rounding doubling multiply element returning high half.
@@ -4237,6 +4271,13 @@ Additional or pseudo instructions
 Bind a label to the current PC.
 
     void bind(Label* label)
+
+
+### DC ###
+
+Emit data in the instruction stream.
+
+    void dc(T data)
 
 
 ### DC32 ###

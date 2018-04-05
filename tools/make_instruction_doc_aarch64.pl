@@ -50,8 +50,11 @@ while(<IN>)
     # Extract the instruction.
     my($i) = $t =~ /(?:void|inline void) ([a-z][a-z0-9]{0,8})/;
 
-    # Extract the comment from before the function.
-    my($d) = $before =~ /.*  \/\/ ([A-Z].+?\.)$/;
+    # Extract the comment from before the function. Drop comment characters
+    # and format the architecture version suffix, if present.
+    my($d) = $before =~ /.*  \/\/ ([A-Z].+?\.)$/ms;
+    $d =~ s|\n  //||g;
+    $d =~ s|\[Armv(.+)\]|_\(Armv$1\)_|gi;
 
     # Extract and tidy up the function prototype.
     my($p) = $after =~ /(.*?\))/ms;
@@ -62,6 +65,12 @@ while(<IN>)
     my $type = 'integer';
     ($p =~ /VRegister/) and $type = 'float';
     ($i ~~ @extras) and $type = 'pseudo';
+
+    # Special case to distinguish dc() the data constant placing function from
+    # dc() the data cache maintenance instruction.
+    if (($i eq 'dc') and ($p =~ /\(T data\)/)) {
+      $type = 'pseudo';
+    }
 
     # Push the results into a hash keyed by prototype string.
     $inst{$p}->{'type'} = $type;
