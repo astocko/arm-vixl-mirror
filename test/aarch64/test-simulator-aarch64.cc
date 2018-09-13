@@ -137,6 +137,12 @@ static float rawbits_to_fp(uint32_t bits) { return RawbitsToFloat(bits); }
 
 static double rawbits_to_fp(uint64_t bits) { return RawbitsToDouble(bits); }
 
+// The rawbits_to_fp functions are only used for printing decimal values so we
+// just approximate FP16 as double.
+static double rawbits_to_fp(uint16_t bits) {
+  return FPToDouble(RawbitsToFloat16(bits), kIgnoreDefaultNaN);
+}
+
 
 // MacroAssembler member function pointers to pass to the test dispatchers.
 typedef void (MacroAssembler::*Test1OpFPHelper_t)(const FPRegister& fd,
@@ -203,10 +209,12 @@ static void Test1Op_Helper(Test1OpFPHelper_t helper,
                            uintptr_t results,
                            unsigned d_size,
                            unsigned n_size) {
-  VIXL_ASSERT((d_size == kDRegSize) || (d_size == kSRegSize));
-  VIXL_ASSERT((n_size == kDRegSize) || (n_size == kSRegSize));
+  VIXL_ASSERT((d_size == kDRegSize) || (d_size == kSRegSize) ||
+              (d_size == kHRegSize));
+  VIXL_ASSERT((n_size == kDRegSize) || (n_size == kSRegSize) ||
+              (n_size == kHRegSize));
 
-  SETUP_WITH_FEATURES(CPUFeatures::kFP);
+  SETUP_WITH_FEATURES(CPUFeatures::kFP, CPUFeatures::kFPHalf);
   START();
 
   // Roll up the loop to keep the code size down.
@@ -217,11 +225,28 @@ static void Test1Op_Helper(Test1OpFPHelper_t helper,
   Register length = w2;
   Register index_n = w3;
 
-  const int n_index_shift =
-      (n_size == kDRegSize) ? kDRegSizeInBytesLog2 : kSRegSizeInBytesLog2;
+  int n_index_shift;
+  FPRegister fd;
+  FPRegister fn;
+  if (n_size == kDRegSize) {
+    n_index_shift = kDRegSizeInBytesLog2;
+    fn = d1;
+  } else if (n_size == kSRegSize) {
+    n_index_shift = kSRegSizeInBytesLog2;
+    fn = s1;
+  } else {
+    n_index_shift = kHRegSizeInBytesLog2;
+    fn = h1;
+  }
 
-  FPRegister fd = (d_size == kDRegSize) ? d0 : s0;
-  FPRegister fn = (n_size == kDRegSize) ? d1 : s1;
+  if (d_size == kDRegSize) {
+    fd = d0;
+  } else if (d_size == kSRegSize) {
+    fd = s0;
+  } else {
+    fd = h0;
+  }
+
 
   __ Mov(out, results);
   __ Mov(inputs_base, inputs);
@@ -323,9 +348,10 @@ static void Test2Op_Helper(Test2OpFPHelper_t helper,
                            unsigned inputs_length,
                            uintptr_t results,
                            unsigned reg_size) {
-  VIXL_ASSERT((reg_size == kDRegSize) || (reg_size == kSRegSize));
+  VIXL_ASSERT((reg_size == kDRegSize) || (reg_size == kSRegSize) ||
+              (reg_size == kHRegSize));
 
-  SETUP_WITH_FEATURES(CPUFeatures::kFP);
+  SETUP_WITH_FEATURES(CPUFeatures::kFP, CPUFeatures::kFPHalf);
   START();
 
   // Roll up the loop to keep the code size down.
@@ -338,12 +364,33 @@ static void Test2Op_Helper(Test2OpFPHelper_t helper,
   Register index_m = w4;
 
   bool double_op = reg_size == kDRegSize;
-  const int index_shift =
-      double_op ? kDRegSizeInBytesLog2 : kSRegSizeInBytesLog2;
+  bool float_op = reg_size == kSRegSize;
+  int index_shift;
+  if (double_op) {
+    index_shift = kDRegSizeInBytesLog2;
+  } else if (float_op) {
+    index_shift = kSRegSizeInBytesLog2;
+  } else {
+    index_shift = kHRegSizeInBytesLog2;
+  }
 
-  FPRegister fd = double_op ? d0 : s0;
-  FPRegister fn = double_op ? d1 : s1;
-  FPRegister fm = double_op ? d2 : s2;
+  FPRegister fd;
+  FPRegister fn;
+  FPRegister fm;
+
+  if (double_op) {
+    fd = d0;
+    fn = d1;
+    fm = d2;
+  } else if (float_op) {
+    fd = s0;
+    fn = s1;
+    fm = s2;
+  } else {
+    fd = h0;
+    fn = h1;
+    fm = h2;
+  }
 
   __ Mov(out, results);
   __ Mov(inputs_base, inputs);
@@ -456,9 +503,10 @@ static void Test3Op_Helper(Test3OpFPHelper_t helper,
                            unsigned inputs_length,
                            uintptr_t results,
                            unsigned reg_size) {
-  VIXL_ASSERT((reg_size == kDRegSize) || (reg_size == kSRegSize));
+  VIXL_ASSERT((reg_size == kDRegSize) || (reg_size == kSRegSize) ||
+              (reg_size == kHRegSize));
 
-  SETUP_WITH_FEATURES(CPUFeatures::kFP);
+  SETUP_WITH_FEATURES(CPUFeatures::kFP, CPUFeatures::kFPHalf);
   START();
 
   // Roll up the loop to keep the code size down.
@@ -472,13 +520,19 @@ static void Test3Op_Helper(Test3OpFPHelper_t helper,
   Register index_a = w5;
 
   bool double_op = reg_size == kDRegSize;
-  const int index_shift =
-      double_op ? kDRegSizeInBytesLog2 : kSRegSizeInBytesLog2;
-
-  FPRegister fd = double_op ? d0 : s0;
-  FPRegister fn = double_op ? d1 : s1;
-  FPRegister fm = double_op ? d2 : s2;
-  FPRegister fa = double_op ? d3 : s3;
+  bool single_op = reg_size == kSRegSize;
+  int index_shift;
+  FPRegister fd(0, reg_size);
+  FPRegister fn(1, reg_size);
+  FPRegister fm(2, reg_size);
+  FPRegister fa(3, reg_size);
+  if (double_op) {
+    index_shift = kDRegSizeInBytesLog2;
+  } else if (single_op) {
+    index_shift = kSRegSizeInBytesLog2;
+  } else {
+    index_shift = kHRegSizeInBytesLog2;
+  }
 
   __ Mov(out, results);
   __ Mov(inputs_base, inputs);
@@ -872,9 +926,10 @@ static void TestFPToFixed_Helper(TestFPToFixedHelper_t helper,
                                  unsigned d_size,
                                  unsigned n_size) {
   VIXL_ASSERT((d_size == kXRegSize) || (d_size == kWRegSize));
-  VIXL_ASSERT((n_size == kDRegSize) || (n_size == kSRegSize));
+  VIXL_ASSERT((n_size == kDRegSize) || (n_size == kSRegSize) ||
+              (n_size == kHRegSize));
 
-  SETUP_WITH_FEATURES(CPUFeatures::kFP);
+  SETUP_WITH_FEATURES(CPUFeatures::kFP, CPUFeatures::kFPHalf);
   START();
 
   // Roll up the loop to keep the code size down.
@@ -885,11 +940,24 @@ static void TestFPToFixed_Helper(TestFPToFixedHelper_t helper,
   Register length = w2;
   Register index_n = w3;
 
-  const int n_index_shift =
-      (n_size == kDRegSize) ? kDRegSizeInBytesLog2 : kSRegSizeInBytesLog2;
+  int n_index_shift;
+  if (n_size == kDRegSize) {
+    n_index_shift = kDRegSizeInBytesLog2;
+  } else if (n_size == kSRegSize) {
+    n_index_shift = kSRegSizeInBytesLog2;
+  } else {
+    n_index_shift = kHRegSizeInBytesLog2;
+  }
 
   Register rd = (d_size == kXRegSize) ? Register(x10) : Register(w10);
-  FPRegister fn = (n_size == kDRegSize) ? d1 : s1;
+  FPRegister fn;
+  if (n_size == kDRegSize) {
+    fn = d1;
+  } else if (n_size == kSRegSize) {
+    fn = s1;
+  } else {
+    fn = h1;
+  }
 
   __ Mov(out, results);
   __ Mov(inputs_base, inputs);
@@ -924,9 +992,12 @@ static void TestFPToInt_Helper(TestFPToIntHelper_t helper,
                                unsigned d_size,
                                unsigned n_size) {
   VIXL_ASSERT((d_size == kXRegSize) || (d_size == kWRegSize));
-  VIXL_ASSERT((n_size == kDRegSize) || (n_size == kSRegSize));
+  VIXL_ASSERT((n_size == kDRegSize) || (n_size == kSRegSize) ||
+              (n_size == kHRegSize));
 
-  SETUP_WITH_FEATURES(CPUFeatures::kFP);
+  SETUP_WITH_FEATURES(CPUFeatures::kFP,
+                      CPUFeatures::kFPHalf,
+                      CPUFeatures::kJSCVT);
   START();
 
   // Roll up the loop to keep the code size down.
@@ -937,11 +1008,24 @@ static void TestFPToInt_Helper(TestFPToIntHelper_t helper,
   Register length = w2;
   Register index_n = w3;
 
-  const int n_index_shift =
-      (n_size == kDRegSize) ? kDRegSizeInBytesLog2 : kSRegSizeInBytesLog2;
+  int n_index_shift;
+  if (n_size == kDRegSize) {
+    n_index_shift = kDRegSizeInBytesLog2;
+  } else if (n_size == kSRegSize) {
+    n_index_shift = kSRegSizeInBytesLog2;
+  } else {
+    n_index_shift = kHRegSizeInBytesLog2;
+  }
 
   Register rd = (d_size == kXRegSize) ? Register(x10) : Register(w10);
-  FPRegister fn = (n_size == kDRegSize) ? d1 : s1;
+  FPRegister fn;
+  if (n_size == kDRegSize) {
+    fn = d1;
+  } else if (n_size == kSRegSize) {
+    fn = s1;
+  } else {
+    fn = h1;
+  }
 
   __ Mov(out, results);
   __ Mov(inputs_base, inputs);
@@ -1307,7 +1391,10 @@ static void Test1OpNEON_Helper(Test1OpNEONHelper_t helper,
   VIXL_ASSERT(vd_form != kFormatUndefined);
   VIXL_ASSERT(vn_form != kFormatUndefined);
 
-  SETUP_WITH_FEATURES(CPUFeatures::kNEON, CPUFeatures::kFP);
+  SETUP_WITH_FEATURES(CPUFeatures::kNEON,
+                      CPUFeatures::kFP,
+                      CPUFeatures::kRDM,
+                      CPUFeatures::kNEONHalf);
   START();
 
   // Roll up the loop to keep the code size down.
@@ -1505,7 +1592,9 @@ static void Test1OpAcrossNEON_Helper(Test1OpNEONHelper_t helper,
   VIXL_ASSERT(vd_form != kFormatUndefined);
   VIXL_ASSERT(vn_form != kFormatUndefined);
 
-  SETUP_WITH_FEATURES(CPUFeatures::kNEON, CPUFeatures::kFP);
+  SETUP_WITH_FEATURES(CPUFeatures::kNEON,
+                      CPUFeatures::kFP,
+                      CPUFeatures::kNEONHalf);
   START();
 
   // Roll up the loop to keep the code size down.
@@ -1730,7 +1819,12 @@ static void Test2OpNEON_Helper(Test2OpNEONHelper_t helper,
   VIXL_ASSERT(vn_form != kFormatUndefined);
   VIXL_ASSERT(vm_form != kFormatUndefined);
 
-  SETUP_WITH_FEATURES(CPUFeatures::kNEON, CPUFeatures::kFP);
+  CPUFeatures features;
+  features.Combine(CPUFeatures::kNEON, CPUFeatures::kNEONHalf);
+  features.Combine(CPUFeatures::kFP);
+  features.Combine(CPUFeatures::kRDM);
+  features.Combine(CPUFeatures::kDotProduct);
+  SETUP_WITH_FEATURES(features);
   START();
 
   // Roll up the loop to keep the code size down.
@@ -1966,12 +2060,20 @@ static void TestByElementNEON_Helper(TestByElementNEONHelper_t helper,
                                      uintptr_t results,
                                      VectorFormat vd_form,
                                      VectorFormat vn_form,
-                                     VectorFormat vm_form) {
+                                     VectorFormat vm_form,
+                                     unsigned vm_subvector_count = 1) {
   VIXL_ASSERT(vd_form != kFormatUndefined);
   VIXL_ASSERT(vn_form != kFormatUndefined);
   VIXL_ASSERT(vm_form != kFormatUndefined);
+  VIXL_ASSERT((vm_subvector_count != 0) && IsPowerOf2(vm_subvector_count));
 
-  SETUP_WITH_FEATURES(CPUFeatures::kNEON, CPUFeatures::kFP);
+  CPUFeatures features;
+  features.Combine(CPUFeatures::kNEON, CPUFeatures::kNEONHalf);
+  features.Combine(CPUFeatures::kFP);
+  features.Combine(CPUFeatures::kRDM);
+  features.Combine(CPUFeatures::kDotProduct);
+  SETUP_WITH_FEATURES(features);
+
   START();
 
   // Roll up the loop to keep the code size down.
@@ -2002,6 +2104,7 @@ static void TestByElementNEON_Helper(TestByElementNEONHelper_t helper,
   const unsigned vm_lane_bytes_log2 = LaneSizeInBytesLog2FromFormat(vm_form);
   const unsigned vm_lane_bits = LaneSizeInBitsFromFormat(vm_form);
 
+  VIXL_ASSERT((vm_bits * vm_subvector_count) <= kQRegSize);
 
   // Always load and store 128 bits regardless of the format.
   VRegister vd = v0.V16B();
@@ -2013,7 +2116,8 @@ static void TestByElementNEON_Helper(TestByElementNEONHelper_t helper,
 
   // These will have the correct format for calling the 'helper'.
   VRegister vn_helper = VRegister(1, vn_bits, vn_lane_count);
-  VRegister vm_helper = VRegister(2, vm_bits, vm_lane_count);
+  VRegister vm_helper =
+      VRegister(2, vm_bits * vm_subvector_count, vm_lane_count);
   VRegister vres_helper = VRegister(5, vd_bits, vd_lane_count);
 
   // 'v*tmp_single' will be either 'Vt.B', 'Vt.H', 'Vt.S' or 'Vt.D'.
@@ -2089,7 +2193,8 @@ static void TestByElementNEON(const char* name,
                               unsigned expected_length,
                               VectorFormat vd_form,
                               VectorFormat vn_form,
-                              VectorFormat vm_form) {
+                              VectorFormat vm_form,
+                              unsigned vm_subvector_count = 1) {
   VIXL_ASSERT(inputs_n_length > 0);
   VIXL_ASSERT(inputs_m_length > 0);
   VIXL_ASSERT(indices_length > 0);
@@ -2113,7 +2218,8 @@ static void TestByElementNEON(const char* name,
                            reinterpret_cast<uintptr_t>(results),
                            vd_form,
                            vn_form,
-                           vm_form);
+                           vm_form,
+                           vm_subvector_count);
 
   if (Test::generate_test_trace()) {
     // Print the results.
@@ -2228,7 +2334,9 @@ void Test2OpImmNEON_Helper(
     VectorFormat vn_form) {
   VIXL_ASSERT(vd_form != kFormatUndefined && vn_form != kFormatUndefined);
 
-  SETUP_WITH_FEATURES(CPUFeatures::kNEON, CPUFeatures::kFP);
+  SETUP_WITH_FEATURES(CPUFeatures::kNEON,
+                      CPUFeatures::kFP,
+                      CPUFeatures::kNEONHalf);
   START();
 
   // Roll up the loop to keep the code size down.
@@ -2691,37 +2799,49 @@ static void TestOpImmOpImmNEON(const char* name,
     CALL_TEST_FP_HELPER(mnemonic, s, type, kInputFloat##input);  \
   }
 
+#define DEFINE_TEST_FP_FP16(mnemonic, type, input)                \
+  TEST(mnemonic##_d) {                                            \
+    CALL_TEST_FP_HELPER(mnemonic, d, type, kInputDouble##input);  \
+  }                                                               \
+  TEST(mnemonic##_s) {                                            \
+    CALL_TEST_FP_HELPER(mnemonic, s, type, kInputFloat##input);   \
+  }                                                               \
+  TEST(mnemonic##_h) {                                            \
+    CALL_TEST_FP_HELPER(mnemonic, h, type, kInputFloat16##input); \
+  }
+
+
 // TODO: Test with a newer version of valgrind.
 //
 // Note: valgrind-3.10.0 does not properly interpret libm's fma() on x86_64.
 // Therefore this test will be exiting though an ASSERT and thus leaking
 // memory.
-DEFINE_TEST_FP(fmadd, 3Op, Basic)
-DEFINE_TEST_FP(fmsub, 3Op, Basic)
-DEFINE_TEST_FP(fnmadd, 3Op, Basic)
-DEFINE_TEST_FP(fnmsub, 3Op, Basic)
+DEFINE_TEST_FP_FP16(fmadd, 3Op, Basic)
+DEFINE_TEST_FP_FP16(fmsub, 3Op, Basic)
+DEFINE_TEST_FP_FP16(fnmadd, 3Op, Basic)
+DEFINE_TEST_FP_FP16(fnmsub, 3Op, Basic)
 
-DEFINE_TEST_FP(fadd, 2Op, Basic)
-DEFINE_TEST_FP(fdiv, 2Op, Basic)
-DEFINE_TEST_FP(fmax, 2Op, Basic)
-DEFINE_TEST_FP(fmaxnm, 2Op, Basic)
-DEFINE_TEST_FP(fmin, 2Op, Basic)
-DEFINE_TEST_FP(fminnm, 2Op, Basic)
-DEFINE_TEST_FP(fmul, 2Op, Basic)
-DEFINE_TEST_FP(fsub, 2Op, Basic)
-DEFINE_TEST_FP(fnmul, 2Op, Basic)
+DEFINE_TEST_FP_FP16(fadd, 2Op, Basic)
+DEFINE_TEST_FP_FP16(fdiv, 2Op, Basic)
+DEFINE_TEST_FP_FP16(fmax, 2Op, Basic)
+DEFINE_TEST_FP_FP16(fmaxnm, 2Op, Basic)
+DEFINE_TEST_FP_FP16(fmin, 2Op, Basic)
+DEFINE_TEST_FP_FP16(fminnm, 2Op, Basic)
+DEFINE_TEST_FP_FP16(fmul, 2Op, Basic)
+DEFINE_TEST_FP_FP16(fsub, 2Op, Basic)
+DEFINE_TEST_FP_FP16(fnmul, 2Op, Basic)
 
-DEFINE_TEST_FP(fabs, 1Op, Basic)
-DEFINE_TEST_FP(fmov, 1Op, Basic)
-DEFINE_TEST_FP(fneg, 1Op, Basic)
-DEFINE_TEST_FP(fsqrt, 1Op, Basic)
-DEFINE_TEST_FP(frinta, 1Op, Conversions)
-DEFINE_TEST_FP(frinti, 1Op, Conversions)
-DEFINE_TEST_FP(frintm, 1Op, Conversions)
-DEFINE_TEST_FP(frintn, 1Op, Conversions)
-DEFINE_TEST_FP(frintp, 1Op, Conversions)
-DEFINE_TEST_FP(frintx, 1Op, Conversions)
-DEFINE_TEST_FP(frintz, 1Op, Conversions)
+DEFINE_TEST_FP_FP16(fabs, 1Op, Basic)
+DEFINE_TEST_FP_FP16(fmov, 1Op, Basic)
+DEFINE_TEST_FP_FP16(fneg, 1Op, Basic)
+DEFINE_TEST_FP_FP16(fsqrt, 1Op, Basic)
+DEFINE_TEST_FP_FP16(frinta, 1Op, Conversions)
+DEFINE_TEST_FP_FP16(frinti, 1Op, Conversions)
+DEFINE_TEST_FP_FP16(frintm, 1Op, Conversions)
+DEFINE_TEST_FP_FP16(frintn, 1Op, Conversions)
+DEFINE_TEST_FP_FP16(frintp, 1Op, Conversions)
+DEFINE_TEST_FP_FP16(frintx, 1Op, Conversions)
+DEFINE_TEST_FP_FP16(frintz, 1Op, Conversions)
 
 TEST(fcmp_d) { CALL_TEST_FP_HELPER(fcmp, d, Cmp, kInputDoubleBasic); }
 TEST(fcmp_s) { CALL_TEST_FP_HELPER(fcmp, s, Cmp, kInputFloatBasic); }
@@ -2731,18 +2851,24 @@ TEST(fcmp_sz) { CALL_TEST_FP_HELPER(fcmp, sz, CmpZero, kInputFloatBasic); }
 TEST(fcvt_sd) { CALL_TEST_FP_HELPER(fcvt, sd, 1Op, kInputDoubleConversions); }
 TEST(fcvt_ds) { CALL_TEST_FP_HELPER(fcvt, ds, 1Op, kInputFloatConversions); }
 
-#define DEFINE_TEST_FP_TO_INT(mnemonic, type, input)              \
-  TEST(mnemonic##_xd) {                                           \
-    CALL_TEST_FP_HELPER(mnemonic, xd, type, kInputDouble##input); \
-  }                                                               \
-  TEST(mnemonic##_xs) {                                           \
-    CALL_TEST_FP_HELPER(mnemonic, xs, type, kInputFloat##input);  \
-  }                                                               \
-  TEST(mnemonic##_wd) {                                           \
-    CALL_TEST_FP_HELPER(mnemonic, wd, type, kInputDouble##input); \
-  }                                                               \
-  TEST(mnemonic##_ws) {                                           \
-    CALL_TEST_FP_HELPER(mnemonic, ws, type, kInputFloat##input);  \
+#define DEFINE_TEST_FP_TO_INT(mnemonic, type, input)               \
+  TEST(mnemonic##_xd) {                                            \
+    CALL_TEST_FP_HELPER(mnemonic, xd, type, kInputDouble##input);  \
+  }                                                                \
+  TEST(mnemonic##_xs) {                                            \
+    CALL_TEST_FP_HELPER(mnemonic, xs, type, kInputFloat##input);   \
+  }                                                                \
+  TEST(mnemonic##_xh) {                                            \
+    CALL_TEST_FP_HELPER(mnemonic, xh, type, kInputFloat16##input); \
+  }                                                                \
+  TEST(mnemonic##_wd) {                                            \
+    CALL_TEST_FP_HELPER(mnemonic, wd, type, kInputDouble##input);  \
+  }                                                                \
+  TEST(mnemonic##_ws) {                                            \
+    CALL_TEST_FP_HELPER(mnemonic, ws, type, kInputFloat##input);   \
+  }                                                                \
+  TEST(mnemonic##_wh) {                                            \
+    CALL_TEST_FP_HELPER(mnemonic, wh, type, kInputFloat16##input); \
   }
 
 DEFINE_TEST_FP_TO_INT(fcvtas, FPToS, Conversions)
@@ -2753,6 +2879,13 @@ DEFINE_TEST_FP_TO_INT(fcvtns, FPToS, Conversions)
 DEFINE_TEST_FP_TO_INT(fcvtnu, FPToU, Conversions)
 DEFINE_TEST_FP_TO_INT(fcvtzs, FPToFixedS, Conversions)
 DEFINE_TEST_FP_TO_INT(fcvtzu, FPToFixedU, Conversions)
+
+#define DEFINE_TEST_FP_TO_JS_INT(mnemonic, type, input)           \
+  TEST(mnemonic##_wd) {                                           \
+    CALL_TEST_FP_HELPER(mnemonic, wd, type, kInputDouble##input); \
+  }
+
+DEFINE_TEST_FP_TO_JS_INT(fjcvtzs, FPToS, Conversions)
 
 // TODO: Scvtf-fixed-point
 // TODO: Scvtf-integer
@@ -2833,6 +2966,33 @@ DEFINE_TEST_FP_TO_INT(fcvtzu, FPToFixedU, Conversions)
       kFormat##vnform,                                                    \
       kFormat##vmform)
 
+#define CALL_TEST_NEON_HELPER_ByElement_Dot_Product(mnemonic,           \
+                                                    vdform,             \
+                                                    vnform,             \
+                                                    vmform,             \
+                                                    input_d,            \
+                                                    input_n,            \
+                                                    input_m,            \
+                                                    indices,            \
+                                                    vm_subvector_count) \
+  TestByElementNEON(                                                    \
+      STRINGIFY(mnemonic) "_" STRINGIFY(vdform) "_" STRINGIFY(          \
+          vnform) "_" STRINGIFY(vmform),                                \
+      &MacroAssembler::mnemonic,                                        \
+      input_d,                                                          \
+      input_n,                                                          \
+      (sizeof(input_n) / sizeof(input_n[0])),                           \
+      input_m,                                                          \
+      (sizeof(input_m) / sizeof(input_m[0])),                           \
+      indices,                                                          \
+      (sizeof(indices) / sizeof(indices[0])),                           \
+      kExpected_NEON_##mnemonic##_##vdform##_##vnform##_##vmform,       \
+      kExpectedCount_NEON_##mnemonic##_##vdform##_##vnform##_##vmform,  \
+      kFormat##vdform,                                                  \
+      kFormat##vnform,                                                  \
+      kFormat##vmform,                                                  \
+      vm_subvector_count)
+
 #define CALL_TEST_NEON_HELPER_OpImmOpImm(helper,                   \
                                          mnemonic,                 \
                                          vdform,                   \
@@ -2912,12 +3072,24 @@ DEFINE_TEST_FP_TO_INT(fcvtzu, FPToFixedU, Conversions)
     CALL_TEST_NEON_HELPER_2SAME(mnemonic, 2D, kInputDouble##input); \
   }
 
-#define DEFINE_TEST_NEON_2SAME_FP_SCALAR(mnemonic, input)          \
-  TEST(mnemonic##_S) {                                             \
-    CALL_TEST_NEON_HELPER_2SAME(mnemonic, S, kInputFloat##input);  \
-  }                                                                \
-  TEST(mnemonic##_D) {                                             \
-    CALL_TEST_NEON_HELPER_2SAME(mnemonic, D, kInputDouble##input); \
+#define DEFINE_TEST_NEON_2SAME_FP_FP16(mnemonic, input)              \
+  DEFINE_TEST_NEON_2SAME_FP(mnemonic, input)                         \
+  TEST(mnemonic##_4H) {                                              \
+    CALL_TEST_NEON_HELPER_2SAME(mnemonic, 4H, kInputFloat16##input); \
+  }                                                                  \
+  TEST(mnemonic##_8H) {                                              \
+    CALL_TEST_NEON_HELPER_2SAME(mnemonic, 8H, kInputFloat16##input); \
+  }
+
+#define DEFINE_TEST_NEON_2SAME_FP_FP16_SCALAR(mnemonic, input)      \
+  TEST(mnemonic##_H) {                                              \
+    CALL_TEST_NEON_HELPER_2SAME(mnemonic, H, kInputFloat16##input); \
+  }                                                                 \
+  TEST(mnemonic##_S) {                                              \
+    CALL_TEST_NEON_HELPER_2SAME(mnemonic, S, kInputFloat##input);   \
+  }                                                                 \
+  TEST(mnemonic##_D) {                                              \
+    CALL_TEST_NEON_HELPER_2SAME(mnemonic, D, kInputDouble##input);  \
   }
 
 #define DEFINE_TEST_NEON_2SAME_SCALAR_B(mnemonic, input)          \
@@ -2985,9 +3157,15 @@ DEFINE_TEST_FP_TO_INT(fcvtzu, FPToFixedU, Conversions)
     CALL_TEST_NEON_HELPER_ACROSS(mnemonic, D, 4S, kInput32bits##input); \
   }
 
-#define DEFINE_TEST_NEON_ACROSS_FP(mnemonic, input)                    \
-  TEST(mnemonic##_S_4S) {                                              \
-    CALL_TEST_NEON_HELPER_ACROSS(mnemonic, S, 4S, kInputFloat##input); \
+#define DEFINE_TEST_NEON_ACROSS_FP(mnemonic, input)                      \
+  TEST(mnemonic##_H_4H) {                                                \
+    CALL_TEST_NEON_HELPER_ACROSS(mnemonic, H, 4H, kInputFloat16##input); \
+  }                                                                      \
+  TEST(mnemonic##_H_8H) {                                                \
+    CALL_TEST_NEON_HELPER_ACROSS(mnemonic, H, 8H, kInputFloat16##input); \
+  }                                                                      \
+  TEST(mnemonic##_S_4S) {                                                \
+    CALL_TEST_NEON_HELPER_ACROSS(mnemonic, S, 4S, kInputFloat##input);   \
   }
 
 #define CALL_TEST_NEON_HELPER_2DIFF(mnemonic, vdform, vnform, input_n) \
@@ -3080,12 +3258,15 @@ DEFINE_TEST_FP_TO_INT(fcvtzu, FPToFixedU, Conversions)
     CALL_TEST_NEON_HELPER_2DIFF(mnemonic, S, D, kInput64bits##input); \
   }
 
-#define DEFINE_TEST_NEON_2DIFF_FP_SCALAR_SD(mnemonic, input)           \
-  TEST(mnemonic##_S) {                                                 \
-    CALL_TEST_NEON_HELPER_2DIFF(mnemonic, S, 2S, kInputFloat##input);  \
-  }                                                                    \
-  TEST(mnemonic##_D) {                                                 \
-    CALL_TEST_NEON_HELPER_2DIFF(mnemonic, D, 2D, kInputDouble##input); \
+#define DEFINE_TEST_NEON_2DIFF_FP_SCALAR_SD(mnemonic, input)            \
+  TEST(mnemonic##_S) {                                                  \
+    CALL_TEST_NEON_HELPER_2DIFF(mnemonic, S, 2S, kInputFloat##input);   \
+  }                                                                     \
+  TEST(mnemonic##_D) {                                                  \
+    CALL_TEST_NEON_HELPER_2DIFF(mnemonic, D, 2D, kInputDouble##input);  \
+  }                                                                     \
+  TEST(mnemonic##_H) {                                                  \
+    CALL_TEST_NEON_HELPER_2DIFF(mnemonic, H, 2H, kInputFloat16##input); \
   }
 
 #define CALL_TEST_NEON_HELPER_3SAME(mnemonic, variant, input_d, input_nm) \
@@ -3152,24 +3333,36 @@ DEFINE_TEST_FP_TO_INT(fcvtzu, FPToFixedU, Conversions)
                                 kInput64bits##input);       \
   }
 
-#define DEFINE_TEST_NEON_3SAME_FP(mnemonic, input)          \
-  TEST(mnemonic##_2S) {                                     \
-    CALL_TEST_NEON_HELPER_3SAME(mnemonic,                   \
-                                2S,                         \
-                                kInputFloatAccDestination,  \
-                                kInputFloat##input);        \
-  }                                                         \
-  TEST(mnemonic##_4S) {                                     \
-    CALL_TEST_NEON_HELPER_3SAME(mnemonic,                   \
-                                4S,                         \
-                                kInputFloatAccDestination,  \
-                                kInputFloat##input);        \
-  }                                                         \
-  TEST(mnemonic##_2D) {                                     \
-    CALL_TEST_NEON_HELPER_3SAME(mnemonic,                   \
-                                2D,                         \
-                                kInputDoubleAccDestination, \
-                                kInputDouble##input);       \
+#define DEFINE_TEST_NEON_3SAME_FP(mnemonic, input)           \
+  TEST(mnemonic##_4H) {                                      \
+    CALL_TEST_NEON_HELPER_3SAME(mnemonic,                    \
+                                4H,                          \
+                                kInputFloat16AccDestination, \
+                                kInputFloat16##input);       \
+  }                                                          \
+  TEST(mnemonic##_8H) {                                      \
+    CALL_TEST_NEON_HELPER_3SAME(mnemonic,                    \
+                                8H,                          \
+                                kInputFloat16AccDestination, \
+                                kInputFloat16##input);       \
+  }                                                          \
+  TEST(mnemonic##_2S) {                                      \
+    CALL_TEST_NEON_HELPER_3SAME(mnemonic,                    \
+                                2S,                          \
+                                kInputFloatAccDestination,   \
+                                kInputFloat##input);         \
+  }                                                          \
+  TEST(mnemonic##_4S) {                                      \
+    CALL_TEST_NEON_HELPER_3SAME(mnemonic,                    \
+                                4S,                          \
+                                kInputFloatAccDestination,   \
+                                kInputFloat##input);         \
+  }                                                          \
+  TEST(mnemonic##_2D) {                                      \
+    CALL_TEST_NEON_HELPER_3SAME(mnemonic,                    \
+                                2D,                          \
+                                kInputDoubleAccDestination,  \
+                                kInputDouble##input);        \
   }
 
 #define DEFINE_TEST_NEON_3SAME_SCALAR_D(mnemonic, input)    \
@@ -3220,18 +3413,24 @@ DEFINE_TEST_FP_TO_INT(fcvtzu, FPToFixedU, Conversions)
                                 kInput64bits##input);       \
   }
 
-#define DEFINE_TEST_NEON_3SAME_FP_SCALAR(mnemonic, input)   \
-  TEST(mnemonic##_S) {                                      \
-    CALL_TEST_NEON_HELPER_3SAME(mnemonic,                   \
-                                S,                          \
-                                kInputFloatAccDestination,  \
-                                kInputFloat##input);        \
-  }                                                         \
-  TEST(mnemonic##_D) {                                      \
-    CALL_TEST_NEON_HELPER_3SAME(mnemonic,                   \
-                                D,                          \
-                                kInputDoubleAccDestination, \
-                                kInputDouble##input);       \
+#define DEFINE_TEST_NEON_3SAME_FP_SCALAR(mnemonic, input)    \
+  TEST(mnemonic##_H) {                                       \
+    CALL_TEST_NEON_HELPER_3SAME(mnemonic,                    \
+                                H,                           \
+                                kInputFloat16AccDestination, \
+                                kInputFloat16##input);       \
+  }                                                          \
+  TEST(mnemonic##_S) {                                       \
+    CALL_TEST_NEON_HELPER_3SAME(mnemonic,                    \
+                                S,                           \
+                                kInputFloatAccDestination,   \
+                                kInputFloat##input);         \
+  }                                                          \
+  TEST(mnemonic##_D) {                                       \
+    CALL_TEST_NEON_HELPER_3SAME(mnemonic,                    \
+                                D,                           \
+                                kInputDoubleAccDestination,  \
+                                kInputDouble##input);        \
   }
 
 #define CALL_TEST_NEON_HELPER_3DIFF(                             \
@@ -3453,6 +3652,27 @@ DEFINE_TEST_FP_TO_INT(fcvtzu, FPToFixedU, Conversions)
                                 kInput64bits##input);       \
   }
 
+#define DEFINE_TEST_NEON_3DIFF_DOUBLE_WIDE(mnemonic, input) \
+  TEST(mnemonic##_2S) {                                     \
+    CALL_TEST_NEON_HELPER_3DIFF(mnemonic,                   \
+                                2S,                         \
+                                8B,                         \
+                                8B,                         \
+                                kInput32bitsAccDestination, \
+                                kInput8bits##input,         \
+                                kInput8bits##input);        \
+  }                                                         \
+  TEST(mnemonic##_4S) {                                     \
+    CALL_TEST_NEON_HELPER_3DIFF(mnemonic,                   \
+                                4S,                         \
+                                16B,                        \
+                                16B,                        \
+                                kInput32bitsAccDestination, \
+                                kInput8bits##input,         \
+                                kInput8bits##input);        \
+  }
+
+
 #define CALL_TEST_NEON_HELPER_2OPIMM(             \
     mnemonic, vdform, vnform, input_n, input_imm) \
   {                                               \
@@ -3633,6 +3853,20 @@ DEFINE_TEST_FP_TO_INT(fcvtzu, FPToFixedU, Conversions)
   }
 
 #define DEFINE_TEST_NEON_2OPIMM_FCMP_ZERO(mnemonic, input, input_imm) \
+  TEST(mnemonic##_4H_2OPIMM) {                                        \
+    CALL_TEST_NEON_HELPER_2OPIMM(mnemonic,                            \
+                                 4H,                                  \
+                                 4H,                                  \
+                                 kInputFloat16##input,                \
+                                 kInputDoubleImm##input_imm);         \
+  }                                                                   \
+  TEST(mnemonic##_8H_2OPIMM) {                                        \
+    CALL_TEST_NEON_HELPER_2OPIMM(mnemonic,                            \
+                                 8H,                                  \
+                                 8H,                                  \
+                                 kInputFloat16##input,                \
+                                 kInputDoubleImm##input_imm);         \
+  }                                                                   \
   TEST(mnemonic##_2S_2OPIMM) {                                        \
     CALL_TEST_NEON_HELPER_2OPIMM(mnemonic,                            \
                                  2S,                                  \
@@ -3656,6 +3890,20 @@ DEFINE_TEST_FP_TO_INT(fcvtzu, FPToFixedU, Conversions)
   }
 
 #define DEFINE_TEST_NEON_2OPIMM_FP(mnemonic, input, input_imm) \
+  TEST(mnemonic##_4H_2OPIMM) {                                 \
+    CALL_TEST_NEON_HELPER_2OPIMM(mnemonic,                     \
+                                 4H,                           \
+                                 4H,                           \
+                                 kInputFloat16##input,         \
+                                 kInput16bitsImm##input_imm)   \
+  }                                                            \
+  TEST(mnemonic##_8H_2OPIMM) {                                 \
+    CALL_TEST_NEON_HELPER_2OPIMM(mnemonic,                     \
+                                 8H,                           \
+                                 8H,                           \
+                                 kInputFloat16##input,         \
+                                 kInput16bitsImm##input_imm)   \
+  }                                                            \
   TEST(mnemonic##_2S_2OPIMM) {                                 \
     CALL_TEST_NEON_HELPER_2OPIMM(mnemonic,                     \
                                  2S,                           \
@@ -3679,6 +3927,13 @@ DEFINE_TEST_FP_TO_INT(fcvtzu, FPToFixedU, Conversions)
   }
 
 #define DEFINE_TEST_NEON_2OPIMM_FP_SCALAR(mnemonic, input, input_imm) \
+  TEST(mnemonic##_H_2OPIMM) {                                         \
+    CALL_TEST_NEON_HELPER_2OPIMM(mnemonic,                            \
+                                 H,                                   \
+                                 H,                                   \
+                                 kInputFloat16##Basic,                \
+                                 kInput16bitsImm##input_imm)          \
+  }                                                                   \
   TEST(mnemonic##_S_2OPIMM) {                                         \
     CALL_TEST_NEON_HELPER_2OPIMM(mnemonic,                            \
                                  S,                                   \
@@ -3694,27 +3949,41 @@ DEFINE_TEST_FP_TO_INT(fcvtzu, FPToFixedU, Conversions)
                                  kInput64bitsImm##input_imm)          \
   }
 
-#define DEFINE_TEST_NEON_2OPIMM_SD(mnemonic, input, input_imm) \
-  TEST(mnemonic##_2S_2OPIMM) {                                 \
-    CALL_TEST_NEON_HELPER_2OPIMM(mnemonic,                     \
-                                 2S,                           \
-                                 2S,                           \
-                                 kInput32bits##input,          \
-                                 kInput32bitsImm##input_imm);  \
-  }                                                            \
-  TEST(mnemonic##_4S_2OPIMM) {                                 \
-    CALL_TEST_NEON_HELPER_2OPIMM(mnemonic,                     \
-                                 4S,                           \
-                                 4S,                           \
-                                 kInput32bits##input,          \
-                                 kInput32bitsImm##input_imm);  \
-  }                                                            \
-  TEST(mnemonic##_2D_2OPIMM) {                                 \
-    CALL_TEST_NEON_HELPER_2OPIMM(mnemonic,                     \
-                                 2D,                           \
-                                 2D,                           \
-                                 kInput64bits##input,          \
-                                 kInput64bitsImm##input_imm);  \
+#define DEFINE_TEST_NEON_2OPIMM_HSD(mnemonic, input, input_imm) \
+  TEST(mnemonic##_4H_2OPIMM) {                                  \
+    CALL_TEST_NEON_HELPER_2OPIMM(mnemonic,                      \
+                                 4H,                            \
+                                 4H,                            \
+                                 kInput16bits##input,           \
+                                 kInput16bitsImm##input_imm);   \
+  }                                                             \
+  TEST(mnemonic##_8H_2OPIMM) {                                  \
+    CALL_TEST_NEON_HELPER_2OPIMM(mnemonic,                      \
+                                 8H,                            \
+                                 8H,                            \
+                                 kInput16bits##input,           \
+                                 kInput16bitsImm##input_imm);   \
+  }                                                             \
+  TEST(mnemonic##_2S_2OPIMM) {                                  \
+    CALL_TEST_NEON_HELPER_2OPIMM(mnemonic,                      \
+                                 2S,                            \
+                                 2S,                            \
+                                 kInput32bits##input,           \
+                                 kInput32bitsImm##input_imm);   \
+  }                                                             \
+  TEST(mnemonic##_4S_2OPIMM) {                                  \
+    CALL_TEST_NEON_HELPER_2OPIMM(mnemonic,                      \
+                                 4S,                            \
+                                 4S,                            \
+                                 kInput32bits##input,           \
+                                 kInput32bitsImm##input_imm);   \
+  }                                                             \
+  TEST(mnemonic##_2D_2OPIMM) {                                  \
+    CALL_TEST_NEON_HELPER_2OPIMM(mnemonic,                      \
+                                 2D,                            \
+                                 2D,                            \
+                                 kInput64bits##input,           \
+                                 kInput64bitsImm##input_imm);   \
   }
 
 #define DEFINE_TEST_NEON_2OPIMM_SCALAR_D(mnemonic, input, input_imm) \
@@ -3726,14 +3995,21 @@ DEFINE_TEST_FP_TO_INT(fcvtzu, FPToFixedU, Conversions)
                                  kInput64bitsImm##input_imm);        \
   }
 
-#define DEFINE_TEST_NEON_2OPIMM_SCALAR_SD(mnemonic, input, input_imm) \
-  TEST(mnemonic##_S_2OPIMM) {                                         \
-    CALL_TEST_NEON_HELPER_2OPIMM(mnemonic,                            \
-                                 S,                                   \
-                                 S,                                   \
-                                 kInput32bits##input,                 \
-                                 kInput32bitsImm##input_imm);         \
-  }                                                                   \
+#define DEFINE_TEST_NEON_2OPIMM_SCALAR_HSD(mnemonic, input, input_imm) \
+  TEST(mnemonic##_H_2OPIMM) {                                          \
+    CALL_TEST_NEON_HELPER_2OPIMM(mnemonic,                             \
+                                 H,                                    \
+                                 H,                                    \
+                                 kInput16bits##input,                  \
+                                 kInput16bitsImm##input_imm);          \
+  }                                                                    \
+  TEST(mnemonic##_S_2OPIMM) {                                          \
+    CALL_TEST_NEON_HELPER_2OPIMM(mnemonic,                             \
+                                 S,                                    \
+                                 S,                                    \
+                                 kInput32bits##input,                  \
+                                 kInput32bitsImm##input_imm);          \
+  }                                                                    \
   DEFINE_TEST_NEON_2OPIMM_SCALAR_D(mnemonic, input, input_imm)
 
 #define DEFINE_TEST_NEON_2OPIMM_FP_SCALAR_D(mnemonic, input, input_imm) \
@@ -3745,14 +4021,21 @@ DEFINE_TEST_FP_TO_INT(fcvtzu, FPToFixedU, Conversions)
                                  kInputDoubleImm##input_imm);           \
   }
 
-#define DEFINE_TEST_NEON_2OPIMM_FP_SCALAR_SD(mnemonic, input, input_imm) \
-  TEST(mnemonic##_S_2OPIMM) {                                            \
-    CALL_TEST_NEON_HELPER_2OPIMM(mnemonic,                               \
-                                 S,                                      \
-                                 S,                                      \
-                                 kInputFloat##input,                     \
-                                 kInputDoubleImm##input_imm);            \
-  }                                                                      \
+#define DEFINE_TEST_NEON_2OPIMM_FP_SCALAR_HSD(mnemonic, input, input_imm) \
+  TEST(mnemonic##_H_2OPIMM) {                                             \
+    CALL_TEST_NEON_HELPER_2OPIMM(mnemonic,                                \
+                                 H,                                       \
+                                 H,                                       \
+                                 kInputFloat16##input,                    \
+                                 kInputDoubleImm##input_imm);             \
+  }                                                                       \
+  TEST(mnemonic##_S_2OPIMM) {                                             \
+    CALL_TEST_NEON_HELPER_2OPIMM(mnemonic,                                \
+                                 S,                                       \
+                                 S,                                       \
+                                 kInputFloat##input,                      \
+                                 kInputDoubleImm##input_imm);             \
+  }                                                                       \
   DEFINE_TEST_NEON_2OPIMM_FP_SCALAR_D(mnemonic, input, input_imm)
 
 #define DEFINE_TEST_NEON_2OPIMM_SCALAR(mnemonic, input, input_imm) \
@@ -3763,14 +4046,7 @@ DEFINE_TEST_FP_TO_INT(fcvtzu, FPToFixedU, Conversions)
                                  kInput8bits##input,               \
                                  kInput8bitsImm##input_imm);       \
   }                                                                \
-  TEST(mnemonic##_H_2OPIMM) {                                      \
-    CALL_TEST_NEON_HELPER_2OPIMM(mnemonic,                         \
-                                 H,                                \
-                                 H,                                \
-                                 kInput16bits##input,              \
-                                 kInput16bitsImm##input_imm);      \
-  }                                                                \
-  DEFINE_TEST_NEON_2OPIMM_SCALAR_SD(mnemonic, input, input_imm)
+  DEFINE_TEST_NEON_2OPIMM_SCALAR_HSD(mnemonic, input, input_imm)
 
 #define DEFINE_TEST_NEON_2OPIMM_LONG(mnemonic, input, input_imm) \
   TEST(mnemonic##_8H_2OPIMM) {                                   \
@@ -3814,6 +4090,52 @@ DEFINE_TEST_FP_TO_INT(fcvtzu, FPToFixedU, Conversions)
                                  4S,                             \
                                  kInput32bits##input,            \
                                  kInput32bitsImm##input_imm);    \
+  }
+
+#define CALL_TEST_NEON_HELPER_BYELEMENT_DOT_PRODUCT(mnemonic,           \
+                                                    vdform,             \
+                                                    vnform,             \
+                                                    vmform,             \
+                                                    input_d,            \
+                                                    input_n,            \
+                                                    input_m,            \
+                                                    indices,            \
+                                                    vm_subvector_count) \
+  {                                                                     \
+    CALL_TEST_NEON_HELPER_ByElement_Dot_Product(mnemonic,               \
+                                                vdform,                 \
+                                                vnform,                 \
+                                                vmform,                 \
+                                                input_d,                \
+                                                input_n,                \
+                                                input_m,                \
+                                                indices,                \
+                                                vm_subvector_count);    \
+  }
+
+#define DEFINE_TEST_NEON_BYELEMENT_DOT_PRODUCT(                        \
+    mnemonic, input_d, input_n, input_m)                               \
+  TEST(mnemonic##_2S_8B_B) {                                           \
+    CALL_TEST_NEON_HELPER_BYELEMENT_DOT_PRODUCT(mnemonic,              \
+                                                2S,                    \
+                                                8B,                    \
+                                                B,                     \
+                                                kInput32bits##input_d, \
+                                                kInput8bits##input_n,  \
+                                                kInput8bits##input_m,  \
+                                                kInputSIndices,        \
+                                                4);                    \
+  }                                                                    \
+  TEST(mnemonic##_4S_16B_B) {                                          \
+    CALL_TEST_NEON_HELPER_BYELEMENT_DOT_PRODUCT(mnemonic,              \
+                                                4S,                    \
+                                                16B,                   \
+                                                B,                     \
+                                                kInput32bits##input_d, \
+                                                kInput8bits##input_n,  \
+                                                kInput8bits##input_m,  \
+                                                kInputSIndices,        \
+                                                4);                    \
   }
 
 #define CALL_TEST_NEON_HELPER_BYELEMENT(                                  \
@@ -3894,6 +4216,26 @@ DEFINE_TEST_FP_TO_INT(fcvtzu, FPToFixedU, Conversions)
   }
 
 #define DEFINE_TEST_NEON_FP_BYELEMENT(mnemonic, input_d, input_n, input_m) \
+  TEST(mnemonic##_4H_4H_H) {                                               \
+    CALL_TEST_NEON_HELPER_BYELEMENT(mnemonic,                              \
+                                    4H,                                    \
+                                    4H,                                    \
+                                    H,                                     \
+                                    kInputFloat16##input_d,                \
+                                    kInputFloat16##input_n,                \
+                                    kInputFloat16##input_m,                \
+                                    kInputHIndices);                       \
+  }                                                                        \
+  TEST(mnemonic##_8H_8H_H) {                                               \
+    CALL_TEST_NEON_HELPER_BYELEMENT(mnemonic,                              \
+                                    8H,                                    \
+                                    8H,                                    \
+                                    H,                                     \
+                                    kInputFloat16##input_d,                \
+                                    kInputFloat16##input_n,                \
+                                    kInputFloat16##input_m,                \
+                                    kInputHIndices);                       \
+  }                                                                        \
   TEST(mnemonic##_2S_2S_S) {                                               \
     CALL_TEST_NEON_HELPER_BYELEMENT(mnemonic,                              \
                                     2S,                                    \
@@ -3926,6 +4268,16 @@ DEFINE_TEST_FP_TO_INT(fcvtzu, FPToFixedU, Conversions)
   }
 
 #define DEFINE_TEST_NEON_FP_BYELEMENT_SCALAR(mnemonic, inp_d, inp_n, inp_m) \
+  TEST(mnemonic##_H_H_H) {                                                  \
+    CALL_TEST_NEON_HELPER_BYELEMENT(mnemonic,                               \
+                                    H,                                      \
+                                    H,                                      \
+                                    H,                                      \
+                                    kInputFloat16##inp_d,                   \
+                                    kInputFloat16##inp_n,                   \
+                                    kInputFloat16##inp_m,                   \
+                                    kInputHIndices);                        \
+  }                                                                         \
   TEST(mnemonic##_S_S_S) {                                                  \
     CALL_TEST_NEON_HELPER_BYELEMENT(mnemonic,                               \
                                     S,                                      \
@@ -4135,6 +4487,10 @@ DEFINE_TEST_NEON_3SAME_8B_16B(pmul, Basic)
 DEFINE_TEST_NEON_3SAME_NO2D(uminp, Basic)
 DEFINE_TEST_NEON_3SAME_NO2D(umaxp, Basic)
 DEFINE_TEST_NEON_3SAME_HS(sqrdmulh, Basic)
+DEFINE_TEST_NEON_3SAME_HS(sqrdmlah, Basic)
+DEFINE_TEST_NEON_3SAME_HS(sqrdmlsh, Basic)
+DEFINE_TEST_NEON_3DIFF_DOUBLE_WIDE(udot, Basic)
+DEFINE_TEST_NEON_3DIFF_DOUBLE_WIDE(sdot, Basic)
 DEFINE_TEST_NEON_3SAME_FP(fmaxnmp, Basic)
 DEFINE_TEST_NEON_3SAME_FP(faddp, Basic)
 DEFINE_TEST_NEON_3SAME_FP(fmul, Basic)
@@ -4180,6 +4536,8 @@ DEFINE_TEST_NEON_3SAME_SCALAR(uqrshl, Basic)
 DEFINE_TEST_NEON_3SAME_SCALAR_D(sub, Basic)
 DEFINE_TEST_NEON_3SAME_SCALAR_D(cmeq, Basic)
 DEFINE_TEST_NEON_3SAME_SCALAR_HS(sqrdmulh, Basic)
+DEFINE_TEST_NEON_3SAME_SCALAR_HS(sqrdmlah, Basic)
+DEFINE_TEST_NEON_3SAME_SCALAR_HS(sqrdmlsh, Basic)
 DEFINE_TEST_NEON_3SAME_FP_SCALAR(fcmge, Basic)
 DEFINE_TEST_NEON_3SAME_FP_SCALAR(facge, Basic)
 DEFINE_TEST_NEON_3SAME_FP_SCALAR(fabd, Basic)
@@ -4245,9 +4603,9 @@ DEFINE_TEST_NEON_2OPIMM_NARROW(rshrn, Basic, TypeWidth)
 DEFINE_TEST_NEON_2OPIMM_NARROW(sqshrn, Basic, TypeWidth)
 DEFINE_TEST_NEON_2OPIMM_NARROW(sqrshrn, Basic, TypeWidth)
 DEFINE_TEST_NEON_2OPIMM_LONG(sshll, Basic, TypeWidthFromZero)
-DEFINE_TEST_NEON_2OPIMM_SD(scvtf,
-                           FixedPointConversions,
-                           TypeWidthFromZeroToWidth)
+DEFINE_TEST_NEON_2OPIMM_HSD(scvtf,
+                            FixedPointConversions,
+                            TypeWidthFromZeroToWidth)
 DEFINE_TEST_NEON_2OPIMM_FP(fcvtzs, Conversions, TypeWidthFromZeroToWidth)
 DEFINE_TEST_NEON_2OPIMM(ushr, Basic, TypeWidth)
 DEFINE_TEST_NEON_2OPIMM(usra, Basic, TypeWidth)
@@ -4262,9 +4620,9 @@ DEFINE_TEST_NEON_2OPIMM_NARROW(sqrshrun, Basic, TypeWidth)
 DEFINE_TEST_NEON_2OPIMM_NARROW(uqshrn, Basic, TypeWidth)
 DEFINE_TEST_NEON_2OPIMM_NARROW(uqrshrn, Basic, TypeWidth)
 DEFINE_TEST_NEON_2OPIMM_LONG(ushll, Basic, TypeWidthFromZero)
-DEFINE_TEST_NEON_2OPIMM_SD(ucvtf,
-                           FixedPointConversions,
-                           TypeWidthFromZeroToWidth)
+DEFINE_TEST_NEON_2OPIMM_HSD(ucvtf,
+                            FixedPointConversions,
+                            TypeWidthFromZeroToWidth)
 DEFINE_TEST_NEON_2OPIMM_FP(fcvtzu, Conversions, TypeWidthFromZeroToWidth)
 
 
@@ -4277,9 +4635,9 @@ DEFINE_TEST_NEON_2OPIMM_SCALAR_D(shl, Basic, TypeWidthFromZero)
 DEFINE_TEST_NEON_2OPIMM_SCALAR(sqshl, Basic, TypeWidthFromZero)
 DEFINE_TEST_NEON_2OPIMM_SCALAR_NARROW(sqshrn, Basic, TypeWidth)
 DEFINE_TEST_NEON_2OPIMM_SCALAR_NARROW(sqrshrn, Basic, TypeWidth)
-DEFINE_TEST_NEON_2OPIMM_SCALAR_SD(scvtf,
-                                  FixedPointConversions,
-                                  TypeWidthFromZeroToWidth)
+DEFINE_TEST_NEON_2OPIMM_SCALAR_HSD(scvtf,
+                                   FixedPointConversions,
+                                   TypeWidthFromZeroToWidth)
 DEFINE_TEST_NEON_2OPIMM_FP_SCALAR(fcvtzs, Conversions, TypeWidthFromZeroToWidth)
 DEFINE_TEST_NEON_2OPIMM_SCALAR_D(ushr, Basic, TypeWidth)
 DEFINE_TEST_NEON_2OPIMM_SCALAR_D(usra, Basic, TypeWidth)
@@ -4293,9 +4651,9 @@ DEFINE_TEST_NEON_2OPIMM_SCALAR_NARROW(sqshrun, Basic, TypeWidth)
 DEFINE_TEST_NEON_2OPIMM_SCALAR_NARROW(sqrshrun, Basic, TypeWidth)
 DEFINE_TEST_NEON_2OPIMM_SCALAR_NARROW(uqshrn, Basic, TypeWidth)
 DEFINE_TEST_NEON_2OPIMM_SCALAR_NARROW(uqrshrn, Basic, TypeWidth)
-DEFINE_TEST_NEON_2OPIMM_SCALAR_SD(ucvtf,
-                                  FixedPointConversions,
-                                  TypeWidthFromZeroToWidth)
+DEFINE_TEST_NEON_2OPIMM_SCALAR_HSD(ucvtf,
+                                   FixedPointConversions,
+                                   TypeWidthFromZeroToWidth)
 DEFINE_TEST_NEON_2OPIMM_FP_SCALAR(fcvtzu, Conversions, TypeWidthFromZeroToWidth)
 
 
@@ -4316,22 +4674,22 @@ DEFINE_TEST_NEON_2DIFF_NARROW(xtn, Basic)
 DEFINE_TEST_NEON_2DIFF_NARROW(sqxtn, Basic)
 DEFINE_TEST_NEON_2DIFF_FP_NARROW(fcvtn, Conversions)
 DEFINE_TEST_NEON_2DIFF_FP_LONG(fcvtl, Conversions)
-DEFINE_TEST_NEON_2SAME_FP(frintn, Conversions)
-DEFINE_TEST_NEON_2SAME_FP(frintm, Conversions)
-DEFINE_TEST_NEON_2SAME_FP(fcvtns, Conversions)
-DEFINE_TEST_NEON_2SAME_FP(fcvtms, Conversions)
-DEFINE_TEST_NEON_2SAME_FP(fcvtas, Conversions)
+DEFINE_TEST_NEON_2SAME_FP_FP16(frintn, Conversions)
+DEFINE_TEST_NEON_2SAME_FP_FP16(frintm, Conversions)
+DEFINE_TEST_NEON_2SAME_FP_FP16(fcvtns, Conversions)
+DEFINE_TEST_NEON_2SAME_FP_FP16(fcvtms, Conversions)
+DEFINE_TEST_NEON_2SAME_FP_FP16(fcvtas, Conversions)
 // SCVTF (vector, integer) covered by SCVTF(vector, fixed point) with fbits 0.
 DEFINE_TEST_NEON_2OPIMM_FCMP_ZERO(fcmgt, Basic, Zero)
 DEFINE_TEST_NEON_2OPIMM_FCMP_ZERO(fcmeq, Basic, Zero)
 DEFINE_TEST_NEON_2OPIMM_FCMP_ZERO(fcmlt, Basic, Zero)
-DEFINE_TEST_NEON_2SAME_FP(fabs, Basic)
-DEFINE_TEST_NEON_2SAME_FP(frintp, Conversions)
-DEFINE_TEST_NEON_2SAME_FP(frintz, Conversions)
-DEFINE_TEST_NEON_2SAME_FP(fcvtps, Conversions)
+DEFINE_TEST_NEON_2SAME_FP_FP16(fabs, Basic)
+DEFINE_TEST_NEON_2SAME_FP_FP16(frintp, Conversions)
+DEFINE_TEST_NEON_2SAME_FP_FP16(frintz, Conversions)
+DEFINE_TEST_NEON_2SAME_FP_FP16(fcvtps, Conversions)
 // FCVTZS(vector, integer) covered by FCVTZS(vector, fixed point) with fbits 0.
 DEFINE_TEST_NEON_2SAME_2S_4S(urecpe, Basic)
-DEFINE_TEST_NEON_2SAME_FP(frecpe, Basic)
+DEFINE_TEST_NEON_2SAME_FP_FP16(frecpe, Basic)
 DEFINE_TEST_NEON_2SAME_BH(rev32, Basic)
 DEFINE_TEST_NEON_2DIFF_LONG(uaddlp, Basic)
 DEFINE_TEST_NEON_2SAME(usqadd, Basic)
@@ -4345,23 +4703,23 @@ DEFINE_TEST_NEON_2DIFF_NARROW(sqxtun, Basic)
 DEFINE_TEST_NEON_2OPIMM_LONG(shll, Basic, SHLL)
 DEFINE_TEST_NEON_2DIFF_NARROW(uqxtn, Basic)
 DEFINE_TEST_NEON_2DIFF_FP_NARROW_2S(fcvtxn, Conversions)
-DEFINE_TEST_NEON_2SAME_FP(frinta, Conversions)
-DEFINE_TEST_NEON_2SAME_FP(frintx, Conversions)
-DEFINE_TEST_NEON_2SAME_FP(fcvtnu, Conversions)
-DEFINE_TEST_NEON_2SAME_FP(fcvtmu, Conversions)
-DEFINE_TEST_NEON_2SAME_FP(fcvtau, Conversions)
+DEFINE_TEST_NEON_2SAME_FP_FP16(frinta, Conversions)
+DEFINE_TEST_NEON_2SAME_FP_FP16(frintx, Conversions)
+DEFINE_TEST_NEON_2SAME_FP_FP16(fcvtnu, Conversions)
+DEFINE_TEST_NEON_2SAME_FP_FP16(fcvtmu, Conversions)
+DEFINE_TEST_NEON_2SAME_FP_FP16(fcvtau, Conversions)
 // UCVTF (vector, integer) covered by UCVTF(vector, fixed point) with fbits 0.
 DEFINE_TEST_NEON_2SAME_8B_16B(not_, Basic)
 DEFINE_TEST_NEON_2SAME_8B_16B(rbit, Basic)
 DEFINE_TEST_NEON_2OPIMM_FCMP_ZERO(fcmge, Basic, Zero)
 DEFINE_TEST_NEON_2OPIMM_FCMP_ZERO(fcmle, Basic, Zero)
-DEFINE_TEST_NEON_2SAME_FP(fneg, Basic)
-DEFINE_TEST_NEON_2SAME_FP(frinti, Conversions)
-DEFINE_TEST_NEON_2SAME_FP(fcvtpu, Conversions)
+DEFINE_TEST_NEON_2SAME_FP_FP16(fneg, Basic)
+DEFINE_TEST_NEON_2SAME_FP_FP16(frinti, Conversions)
+DEFINE_TEST_NEON_2SAME_FP_FP16(fcvtpu, Conversions)
 // FCVTZU(vector, integer) covered by FCVTZU(vector, fixed point) with fbits 0.
 DEFINE_TEST_NEON_2SAME_2S_4S(ursqrte, Basic)
-DEFINE_TEST_NEON_2SAME_FP(frsqrte, Basic)
-DEFINE_TEST_NEON_2SAME_FP(fsqrt, Basic)
+DEFINE_TEST_NEON_2SAME_FP_FP16(frsqrte, Basic)
+DEFINE_TEST_NEON_2SAME_FP_FP16(fsqrt, Basic)
 
 
 // Advanced SIMD scalar two-register miscellaneous.
@@ -4372,17 +4730,17 @@ DEFINE_TEST_NEON_2OPIMM_SCALAR_D(cmeq, Basic, Zero)
 DEFINE_TEST_NEON_2OPIMM_SCALAR_D(cmlt, Basic, Zero)
 DEFINE_TEST_NEON_2SAME_SCALAR_D(abs, Basic)
 DEFINE_TEST_NEON_2DIFF_SCALAR_NARROW(sqxtn, Basic)
-DEFINE_TEST_NEON_2SAME_FP_SCALAR(fcvtns, Conversions)
-DEFINE_TEST_NEON_2SAME_FP_SCALAR(fcvtms, Conversions)
-DEFINE_TEST_NEON_2SAME_FP_SCALAR(fcvtas, Conversions)
+DEFINE_TEST_NEON_2SAME_FP_FP16_SCALAR(fcvtns, Conversions)
+DEFINE_TEST_NEON_2SAME_FP_FP16_SCALAR(fcvtms, Conversions)
+DEFINE_TEST_NEON_2SAME_FP_FP16_SCALAR(fcvtas, Conversions)
 // SCVTF (vector, integer) covered by SCVTF(vector, fixed point) with fbits 0.
-DEFINE_TEST_NEON_2OPIMM_FP_SCALAR_SD(fcmgt, Basic, Zero)
-DEFINE_TEST_NEON_2OPIMM_FP_SCALAR_SD(fcmeq, Basic, Zero)
-DEFINE_TEST_NEON_2OPIMM_FP_SCALAR_SD(fcmlt, Basic, Zero)
-DEFINE_TEST_NEON_2SAME_FP_SCALAR(fcvtps, Conversions)
+DEFINE_TEST_NEON_2OPIMM_FP_SCALAR_HSD(fcmgt, Basic, Zero)
+DEFINE_TEST_NEON_2OPIMM_FP_SCALAR_HSD(fcmeq, Basic, Zero)
+DEFINE_TEST_NEON_2OPIMM_FP_SCALAR_HSD(fcmlt, Basic, Zero)
+DEFINE_TEST_NEON_2SAME_FP_FP16_SCALAR(fcvtps, Conversions)
 // FCVTZS(vector, integer) covered by FCVTZS(vector, fixed point) with fbits 0.
-DEFINE_TEST_NEON_2SAME_FP_SCALAR(frecpe, Basic)
-DEFINE_TEST_NEON_2SAME_FP_SCALAR(frecpx, Basic)
+DEFINE_TEST_NEON_2SAME_FP_FP16_SCALAR(frecpe, Basic)
+DEFINE_TEST_NEON_2SAME_FP_FP16_SCALAR(frecpx, Basic)
 DEFINE_TEST_NEON_2SAME_SCALAR(usqadd, Basic)
 DEFINE_TEST_NEON_2SAME_SCALAR(sqneg, Basic)
 DEFINE_TEST_NEON_2OPIMM_SCALAR_D(cmge, Basic, Zero)
@@ -4393,15 +4751,15 @@ DEFINE_TEST_NEON_2DIFF_SCALAR_NARROW(uqxtn, Basic)
 TEST(fcvtxn_SCALAR) {
   CALL_TEST_NEON_HELPER_2DIFF(fcvtxn, S, D, kInputDoubleConversions);
 }
-DEFINE_TEST_NEON_2SAME_FP_SCALAR(fcvtnu, Conversions)
-DEFINE_TEST_NEON_2SAME_FP_SCALAR(fcvtmu, Conversions)
-DEFINE_TEST_NEON_2SAME_FP_SCALAR(fcvtau, Conversions)
+DEFINE_TEST_NEON_2SAME_FP_FP16_SCALAR(fcvtnu, Conversions)
+DEFINE_TEST_NEON_2SAME_FP_FP16_SCALAR(fcvtmu, Conversions)
+DEFINE_TEST_NEON_2SAME_FP_FP16_SCALAR(fcvtau, Conversions)
 // UCVTF (vector, integer) covered by UCVTF(vector, fixed point) with fbits 0.
-DEFINE_TEST_NEON_2OPIMM_FP_SCALAR_SD(fcmge, Basic, Zero)
-DEFINE_TEST_NEON_2OPIMM_FP_SCALAR_SD(fcmle, Basic, Zero)
-DEFINE_TEST_NEON_2SAME_FP_SCALAR(fcvtpu, Conversions)
+DEFINE_TEST_NEON_2OPIMM_FP_SCALAR_HSD(fcmge, Basic, Zero)
+DEFINE_TEST_NEON_2OPIMM_FP_SCALAR_HSD(fcmle, Basic, Zero)
+DEFINE_TEST_NEON_2SAME_FP_FP16_SCALAR(fcvtpu, Conversions)
 // FCVTZU(vector, integer) covered by FCVTZU(vector, fixed point) with fbits 0.
-DEFINE_TEST_NEON_2SAME_FP_SCALAR(frsqrte, Basic)
+DEFINE_TEST_NEON_2SAME_FP_FP16_SCALAR(frsqrte, Basic)
 
 
 // Advanced SIMD across lanes.
@@ -4437,6 +4795,10 @@ DEFINE_TEST_NEON_BYELEMENT_DIFF(smull, Basic, Basic, Basic)
 DEFINE_TEST_NEON_BYELEMENT_DIFF(sqdmull, Basic, Basic, Basic)
 DEFINE_TEST_NEON_BYELEMENT(sqdmulh, Basic, Basic, Basic)
 DEFINE_TEST_NEON_BYELEMENT(sqrdmulh, Basic, Basic, Basic)
+DEFINE_TEST_NEON_BYELEMENT(sqrdmlah, Basic, Basic, Basic)
+DEFINE_TEST_NEON_BYELEMENT(sqrdmlsh, Basic, Basic, Basic)
+DEFINE_TEST_NEON_BYELEMENT_DOT_PRODUCT(udot, Basic, Basic, Basic)
+DEFINE_TEST_NEON_BYELEMENT_DOT_PRODUCT(sdot, Basic, Basic, Basic)
 DEFINE_TEST_NEON_FP_BYELEMENT(fmla, Basic, Basic, Basic)
 DEFINE_TEST_NEON_FP_BYELEMENT(fmls, Basic, Basic, Basic)
 DEFINE_TEST_NEON_FP_BYELEMENT(fmul, Basic, Basic, Basic)
@@ -4454,6 +4816,8 @@ DEFINE_TEST_NEON_BYELEMENT_DIFF_SCALAR(sqdmlsl, Basic, Basic, Basic)
 DEFINE_TEST_NEON_BYELEMENT_DIFF_SCALAR(sqdmull, Basic, Basic, Basic)
 DEFINE_TEST_NEON_BYELEMENT_SCALAR(sqdmulh, Basic, Basic, Basic)
 DEFINE_TEST_NEON_BYELEMENT_SCALAR(sqrdmulh, Basic, Basic, Basic)
+DEFINE_TEST_NEON_BYELEMENT_SCALAR(sqrdmlah, Basic, Basic, Basic)
+DEFINE_TEST_NEON_BYELEMENT_SCALAR(sqrdmlsh, Basic, Basic, Basic)
 DEFINE_TEST_NEON_FP_BYELEMENT_SCALAR(fmla, Basic, Basic, Basic)
 DEFINE_TEST_NEON_FP_BYELEMENT_SCALAR(fmls, Basic, Basic, Basic)
 DEFINE_TEST_NEON_FP_BYELEMENT_SCALAR(fmul, Basic, Basic, Basic)
