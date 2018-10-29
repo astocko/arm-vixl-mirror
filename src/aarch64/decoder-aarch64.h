@@ -74,6 +74,7 @@
   V(LoadStorePairPreIndex)              \
   V(LoadStorePostIndex)                 \
   V(LoadStorePreIndex)                  \
+  V(LoadStoreRCpcUnscaledOffset)        \
   V(LoadStoreRegisterOffset)            \
   V(LoadStoreUnscaledOffset)            \
   V(LoadStoreUnsignedOffset)            \
