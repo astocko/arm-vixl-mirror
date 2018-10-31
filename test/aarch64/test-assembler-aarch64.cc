@@ -2904,7 +2904,12 @@ TEST(return_to_reg_auth_fail) {
   __ Retab();
 
   __ Bind(&after_fn1);
-  __ Bl(&fn1);
+  // There is a small but not negligible chance (1 in 127 runs) that the PAC
+  // codes for keys A and B will collide and RETAB won't abort. To mitigate
+  // this, we simply repeat the test a few more times.
+  for (unsigned i = 0; i < 32; i++) {
+    __ Bl(&fn1);
+  }
 
   __ Mov(sp, x28);
   __ Mov(lr, x29);
