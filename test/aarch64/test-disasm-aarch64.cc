@@ -7708,5 +7708,25 @@ TEST(bti) {
   CLEANUP();
 }
 
+TEST(udf) {
+  SETUP();
+
+  COMPARE(udf(0), "udf #0x0");
+  COMPARE(udf(0x1234), "udf #0x1234");
+  COMPARE(udf(0xffff), "udf #0xffff");
+
+  // UDF gives the useful property that zero-initialised memory is guaranteed to
+  // generate undefined instruction exceptions.
+  COMPARE(dc(0), "udf #0x0");
+
+  // Check related unallocated bit patterns from the reserved block.
+  COMPARE(dc(0x00010000), "unallocated (Unallocated)");
+  COMPARE(dc(0x01000000), "unallocated (Unallocated)");
+  COMPARE(dc(0x20000000), "unallocated (Unallocated)");
+  COMPARE(dc(0x80000000), "unallocated (Unallocated)");
+
+  CLEANUP();
+}
+
 }  // namespace aarch64
 }  // namespace vixl
