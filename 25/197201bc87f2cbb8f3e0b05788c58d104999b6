@@ -1,0 +1,7 @@
+Code-Review+2: Martyn Capewell <martyn.capewell@arm.com>
+Verified+1: Martyn Capewell <martyn.capewell@arm.com>
+Submitted-by: Martyn Capewell <martyn.capewell@arm.com>
+Submitted-at: Sun, 10 Feb 2019 13:58:38 +0000
+Reviewed-on: https://review.linaro.org/30226
+Project: arm/vixl
+Branch: refs/heads/sve
