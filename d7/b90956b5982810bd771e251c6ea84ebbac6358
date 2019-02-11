@@ -1,0 +1,7 @@
+Code-Review+2: Jacob Bramley <jacob.bramley@arm.com>
+Verified+1: Jacob Bramley <jacob.bramley@arm.com>
+Submitted-by: Jacob Bramley <jacob.bramley@arm.com>
+Submitted-at: Mon, 11 Feb 2019 15:11:59 +0000
+Reviewed-on: https://review.linaro.org/30242
+Project: arm/vixl
+Branch: refs/heads/sve
