@@ -5408,12 +5408,12 @@ class MacroAssembler : public Assembler, public MacroAssemblerInterface {
     SingleEmissionCheckScope guard(this);
     ldnt1w(zt, pg, xn, imm4);
   }
-  void Ldr(const PRegisterWithLaneSize& pt, const Register& xn) {
+  void Ldr(const PRegister& pt, const Register& xn) {
     VIXL_ASSERT(allow_macro_instructions_);
     SingleEmissionCheckScope guard(this);
     ldr(pt, xn);
   }
-  void Ldr(const ZRegister& zt, const Register& xn) {
+  void Ldr(const ZRegisterNoLaneSize& zt, const Register& xn) {
     VIXL_ASSERT(allow_macro_instructions_);
     SingleEmissionCheckScope guard(this);
     ldr(zt, xn);
@@ -5760,10 +5760,14 @@ class MacroAssembler : public Assembler, public MacroAssemblerInterface {
     SingleEmissionCheckScope guard(this);
     rdffrs(pd, pg);
   }
-  void Rdvl(const Register& rd, int imm6) {
+  void Rdvl(const Register& rd, int multiplier) {
     VIXL_ASSERT(allow_macro_instructions_);
     SingleEmissionCheckScope guard(this);
-    rdvl(rd, imm6);
+    if (IsInt6(multiplier)) {
+      rdvl(rd.X(), multiplier);
+    } else {
+      VIXL_UNIMPLEMENTED();
+    }
   }
   void Rev(const PRegisterWithLaneSize& pd, const PRegisterWithLaneSize& pn) {
     VIXL_ASSERT(allow_macro_instructions_);
@@ -6491,15 +6495,23 @@ class MacroAssembler : public Assembler, public MacroAssemblerInterface {
     SingleEmissionCheckScope guard(this);
     stnt1w(zt, pg, xn, imm4);
   }
-  void Str(const PRegisterWithLaneSize& pt, const Register& xn) {
+  void Str(const PRegister& pt, const MemOperand& dst) {
     VIXL_ASSERT(allow_macro_instructions_);
-    SingleEmissionCheckScope guard(this);
-    str(pt, xn);
+    if (dst.IsEquivalentToPlainRegister()) {
+      SingleEmissionCheckScope guard(this);
+      str(pt, dst.GetBaseRegister());
+    } else {
+      VIXL_UNIMPLEMENTED();
+    }
   }
-  void Str(const ZRegister& zt, const Register& xn) {
+  void Str(const ZRegisterNoLaneSize& zt, const MemOperand& dst) {
     VIXL_ASSERT(allow_macro_instructions_);
-    SingleEmissionCheckScope guard(this);
-    str(zt, xn);
+    if (dst.IsEquivalentToPlainRegister()) {
+      SingleEmissionCheckScope guard(this);
+      str(zt, dst.GetBaseRegister());
+    } else {
+      VIXL_UNIMPLEMENTED();
+    }
   }
   void Sub(const ZRegister& zd,
            const PRegisterM& pg,
