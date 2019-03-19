@@ -119,6 +119,7 @@
   V(UnconditionalBranch)                \
   V(UnconditionalBranchToRegister)
 
+<<<<<<< HEAD   (e3d059 [sve] Add Z register infrastructure for simulation.)
 #define VISITOR_LIST_THAT_DONT_RETURN(V)   \
   V(SVEAddressGeneration)                  \
   V(SVEBitwiseImm)                         \
@@ -174,11 +175,26 @@
   V(SVEVectorSelect)                       \
   V(SVEWriteFFR)                           \
   V(Unallocated)                           \
+=======
+// TODO: We shouldn't expose debug-only behaviour like this. Instead, we should
+// use release-mode aborts where appropriate, and merge thse into a single
+// no-return list.
+#define VISITOR_LIST_THAT_DONT_RETURN_IN_DEBUG_MODE(V) \
+  V(Unallocated)                                       \
+>>>>>>> BRANCH (cff5a2 Silence -Wmissing-noreturn.)
   V(Unimplemented)
 
+<<<<<<< HEAD   (e3d059 [sve] Add Z register infrastructure for simulation.)
 
 #define VISITOR_LIST(V)       \
   VISITOR_LIST_THAT_RETURN(V) \
+=======
+#define VISITOR_LIST_THAT_DONT_RETURN(V) V(Reserved)
+
+#define VISITOR_LIST(V)                          \
+  VISITOR_LIST_THAT_RETURN(V)                    \
+  VISITOR_LIST_THAT_DONT_RETURN_IN_DEBUG_MODE(V) \
+>>>>>>> BRANCH (cff5a2 Silence -Wmissing-noreturn.)
   VISITOR_LIST_THAT_DONT_RETURN(V)
 
 namespace vixl {

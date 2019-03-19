@@ -57,6 +57,7 @@ class SwitchAddSubRegisterSources : public DecoderVisitor {
   }
 
 // Define the remaining visitors to do nothing.
+<<<<<<< HEAD   (e3d059 [sve] Add Z register infrastructure for simulation.)
 #define UNUSED_VISITOR_LIST(V)             \
   V(PCRelAddressing)                       \
   V(AddSubImmediate)                       \
@@ -190,6 +191,89 @@ class SwitchAddSubRegisterSources : public DecoderVisitor {
   V(SVEVectorSelect)                       \
   V(SVEWriteFFR)                           \
   V(Unallocated)                           \
+=======
+#define UNUSED_VISITOR_LIST(V)          \
+  V(PCRelAddressing)                    \
+  V(AddSubImmediate)                    \
+  V(LogicalImmediate)                   \
+  V(MoveWideImmediate)                  \
+  V(Bitfield)                           \
+  V(Extract)                            \
+  V(UnconditionalBranch)                \
+  V(UnconditionalBranchToRegister)      \
+  V(CompareBranch)                      \
+  V(TestBranch)                         \
+  V(ConditionalBranch)                  \
+  V(System)                             \
+  V(Exception)                          \
+  V(RotateRightIntoFlags)               \
+  V(EvaluateIntoFlags)                  \
+  V(LoadStorePAC)                       \
+  V(LoadStorePairPostIndex)             \
+  V(LoadStorePairOffset)                \
+  V(LoadStorePairPreIndex)              \
+  V(LoadStorePairNonTemporal)           \
+  V(LoadStoreRCpcUnscaledOffset)        \
+  V(LoadLiteral)                        \
+  V(LoadStoreUnscaledOffset)            \
+  V(LoadStorePostIndex)                 \
+  V(LoadStorePreIndex)                  \
+  V(LoadStoreRegisterOffset)            \
+  V(LoadStoreUnsignedOffset)            \
+  V(LoadStoreExclusive)                 \
+  V(AtomicMemory)                       \
+  V(LogicalShifted)                     \
+  V(AddSubExtended)                     \
+  V(AddSubWithCarry)                    \
+  V(ConditionalCompareRegister)         \
+  V(ConditionalCompareImmediate)        \
+  V(ConditionalSelect)                  \
+  V(DataProcessing1Source)              \
+  V(DataProcessing2Source)              \
+  V(DataProcessing3Source)              \
+  V(FPCompare)                          \
+  V(FPConditionalCompare)               \
+  V(FPConditionalSelect)                \
+  V(FPImmediate)                        \
+  V(FPDataProcessing1Source)            \
+  V(FPDataProcessing2Source)            \
+  V(FPDataProcessing3Source)            \
+  V(FPIntegerConvert)                   \
+  V(FPFixedPointConvert)                \
+  V(Crypto2RegSHA)                      \
+  V(Crypto3RegSHA)                      \
+  V(CryptoAES)                          \
+  V(NEON2RegMisc)                       \
+  V(NEON2RegMiscFP16)                   \
+  V(NEON3Different)                     \
+  V(NEON3Same)                          \
+  V(NEON3SameFP16)                      \
+  V(NEONAcrossLanes)                    \
+  V(NEONByIndexedElement)               \
+  V(NEONCopy)                           \
+  V(NEONExtract)                        \
+  V(NEONLoadStoreMultiStruct)           \
+  V(NEONLoadStoreMultiStructPostIndex)  \
+  V(NEONLoadStoreSingleStruct)          \
+  V(NEONLoadStoreSingleStructPostIndex) \
+  V(NEONModifiedImmediate)              \
+  V(NEONScalar2RegMisc)                 \
+  V(NEONScalar2RegMiscFP16)             \
+  V(NEONScalar3Diff)                    \
+  V(NEONScalar3Same)                    \
+  V(NEONScalar3SameFP16)                \
+  V(NEONScalar3SameExtra)               \
+  V(NEON3SameExtra)                     \
+  V(NEONScalarByIndexedElement)         \
+  V(NEONScalarCopy)                     \
+  V(NEONScalarPairwise)                 \
+  V(NEONScalarShiftImmediate)           \
+  V(NEONShiftImmediate)                 \
+  V(NEONTable)                          \
+  V(NEONPerm)                           \
+  V(Reserved)                           \
+  V(Unallocated)                        \
+>>>>>>> BRANCH (cff5a2 Silence -Wmissing-noreturn.)
   V(Unimplemented)
 #define DEFINE_UNUSED_VISITOR(Name)                                  \
   virtual void Visit##Name(const Instruction* i) VIXL_OVERRIDE {     \

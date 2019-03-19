@@ -38,12 +38,23 @@ namespace aarch64 {
 static const DecodeMapping kDecodeMapping[] = {
   { "Root",
     {28, 27, 26, 25},
+<<<<<<< HEAD   (e3d059 [sve] Add Z register infrastructure for simulation.)
     { {"0010", "DecodeSVE"},
+=======
+    { {"0000", "DecodeReserved"},
+>>>>>>> BRANCH (cff5a2 Silence -Wmissing-noreturn.)
       {"100x", "DecodeDataProcessingImmediate"},
       {"101x", "DecodeBranchesExceptionAndSystem"},
       {"x1x0", "DecodeLoadsAndStores"},
       {"x101", "DecodeDataProcessingRegister"},
       {"x111", "DecodeDataProcessingFPAndNEON"},
+    },
+  },
+
+  { "DecodeReserved",
+    {31, 30, 29, 24, 23, 22, 21, 20, 19, 18, 17, 16},
+    { {"000000000000", "VisitReserved"},
+      {"otherwise", "VisitUnallocated"},
     },
   },
 
