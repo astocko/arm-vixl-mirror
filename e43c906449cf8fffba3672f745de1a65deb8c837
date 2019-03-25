@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "99976332_84175f01",
+        "filename": "test/aarch64/test-trace-aarch64.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2751,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2019-03-25T17:47:44Z",
+      "side": 1,
+      "message": "I\u0027d prefer to have a way to match the 0x1b character if possible, but I can\u0027t find a way to express that with POSIX regex syntax.\n\nI note that encoding the character directly (with a literal \"\\x1b\") works for me on Linux. Does that work for AOSP? If so, we could try it here. Otherwise, we\u0027ll take the patch as it is.",
+      "revId": "e43c906449cf8fffba3672f745de1a65deb8c837",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": true
+    }
+  ]
+}
