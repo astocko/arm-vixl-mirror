@@ -16,6 +16,24 @@
       "revId": "e43c906449cf8fffba3672f745de1a65deb8c837",
       "serverId": "f33910f19b7abb192b83adbd000000bf",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4f8bc57_6071ae20",
+        "filename": "test/aarch64/test-trace-aarch64.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2751,
+      "author": {
+        "id": 1000446
+      },
+      "writtenOn": "2019-03-26T16:39:55Z",
+      "side": 1,
+      "message": "\u003e I note that encoding the character directly (with a literal \"\\x1b\") works for me on Linux. \n\u003e Does that work for AOSP?\n\nIt works. I updated the CL.\nLet\u0027s wait for CI testing results, especially from Mac.",
+      "parentUuid": "99976332_84175f01",
+      "revId": "e43c906449cf8fffba3672f745de1a65deb8c837",
+      "serverId": "f33910f19b7abb192b83adbd000000bf",
+      "unresolved": false
     }
   ]
 }
