@@ -10719,6 +10719,7 @@ TEST(fmax_fmin_h) {
   }
 }
 
+<<<<<<< HEAD   (f20f24 [sve] Add predicate condition testing functions in the simul)
 TEST(neon_tbl) {
   SETUP_WITH_FEATURES(CPUFeatures::kNEON);
 
@@ -10792,6 +10793,128 @@ TEST(neon_tbl) {
 
   TEARDOWN();
 }
+=======
+TEST(neon_frint_saturating) {
+  SETUP_WITH_FEATURES(CPUFeatures::kNEON,
+                      CPUFeatures::kFP,
+                      CPUFeatures::kFrintToFixedSizedInt);
+
+  START();
+
+  __ Movi(v0.V2D(), 0x3f8000003f8ccccd, 0x3fc000003ff33333);
+  __ Movi(v1.V2D(), 0x3e200000be200000, 0x7f800000ff800000);
+  __ Movi(v2.V2D(), 0xfff0000000000000, 0x7ff0000000000000);
+  __ Frint32x(v16.V2S(), v0.V2S());
+  __ Frint32x(v17.V4S(), v1.V4S());
+  __ Frint32x(v18.V2D(), v2.V2D());
+  __ Frint64x(v19.V2S(), v0.V2S());
+  __ Frint64x(v20.V4S(), v1.V4S());
+  __ Frint64x(v21.V2D(), v2.V2D());
+  __ Frint32z(v22.V2S(), v0.V2S());
+  __ Frint32z(v23.V4S(), v1.V4S());
+  __ Frint32z(v24.V2D(), v2.V2D());
+  __ Frint64z(v25.V2S(), v0.V2S());
+  __ Frint64z(v26.V4S(), v1.V4S());
+  __ Frint64z(v27.V2D(), v2.V2D());
+
+  END();
+
+#ifdef VIXL_INCLUDE_SIMULATOR_AARCH64
+  RUN();
+
+  ASSERT_EQUAL_128(0x0000000000000000, 0x4000000040000000, q16);
+  ASSERT_EQUAL_128(0x0000000080000000, 0xcf000000cf000000, q17);
+  ASSERT_EQUAL_128(0xc1e0000000000000, 0xc1e0000000000000, q18);
+  ASSERT_EQUAL_128(0x0000000000000000, 0x4000000040000000, q19);
+  ASSERT_EQUAL_128(0x0000000080000000, 0xdf000000df000000, q20);
+  ASSERT_EQUAL_128(0xc3e0000000000000, 0xc3e0000000000000, q21);
+  ASSERT_EQUAL_128(0x0000000000000000, 0x3f8000003f800000, q22);
+  ASSERT_EQUAL_128(0x0000000080000000, 0xcf000000cf000000, q23);
+  ASSERT_EQUAL_128(0xc1e0000000000000, 0xc1e0000000000000, q24);
+  ASSERT_EQUAL_128(0x0000000000000000, 0x3f8000003f800000, q25);
+  ASSERT_EQUAL_128(0x0000000080000000, 0xdf000000df000000, q26);
+  ASSERT_EQUAL_128(0xc3e0000000000000, 0xc3e0000000000000, q27);
+#endif
+
+  TEARDOWN();
+}
+
+
+TEST(neon_tbl) {
+  SETUP_WITH_FEATURES(CPUFeatures::kNEON);
+
+  START();
+  __ Movi(v30.V2D(), 0xbf561e188b1280e9, 0xbd542b8cbd24e8e8);
+  __ Movi(v31.V2D(), 0xb5e9883d2c88a46d, 0x12276d5b614c915e);
+  __ Movi(v0.V2D(), 0xc45b7782bc5ecd72, 0x5dd4fe5a4bc6bf5e);
+  __ Movi(v1.V2D(), 0x1e3254094bd1746a, 0xf099ecf50e861c80);
+
+  __ Movi(v4.V2D(), 0xf80c030100031f16, 0x00070504031201ff);
+  __ Movi(v5.V2D(), 0x1f01001afc14202a, 0x2a081e1b0c02020c);
+  __ Movi(v6.V2D(), 0x353f1a13022a2360, 0x2c464a00203a0a33);
+  __ Movi(v7.V2D(), 0x64801a1c054cf30d, 0x793a2c052e213739);
+
+  __ Movi(v8.V2D(), 0xb7f60ad7d7d88f13, 0x13eefc240496e842);
+  __ Movi(v9.V2D(), 0x1be199c7c69b47ec, 0x8e4b9919f6eed443);
+  __ Movi(v10.V2D(), 0x9bd2e1654c69e48f, 0x2143d089e426c6d2);
+  __ Movi(v11.V2D(), 0xc31dbdc4a0393065, 0x1ecc2077caaf64d8);
+  __ Movi(v12.V2D(), 0x29b24463967bc6eb, 0xdaf59970df01c93b);
+  __ Movi(v13.V2D(), 0x3e20a4a4cb6813f4, 0x20a5832713dae669);
+  __ Movi(v14.V2D(), 0xc5ff9a94041b1fdf, 0x2f46cde38cba2682);
+  __ Movi(v15.V2D(), 0xd8cc5b0e61f387e6, 0xe69d6d314971e8fd);
+
+  __ Tbl(v8.V16B(), v1.V16B(), v4.V16B());
+  __ Tbl(v9.V16B(), v0.V16B(), v1.V16B(), v5.V16B());
+  __ Tbl(v10.V16B(), v31.V16B(), v0.V16B(), v1.V16B(), v6.V16B());
+  __ Tbl(v11.V16B(), v30.V16B(), v31.V16B(), v0.V16B(), v1.V16B(), v7.V16B());
+  __ Tbl(v12.V8B(), v1.V16B(), v4.V8B());
+  __ Tbl(v13.V8B(), v0.V16B(), v1.V16B(), v5.V8B());
+  __ Tbl(v14.V8B(), v31.V16B(), v0.V16B(), v1.V16B(), v6.V8B());
+  __ Tbl(v15.V8B(), v30.V16B(), v31.V16B(), v0.V16B(), v1.V16B(), v7.V8B());
+
+  __ Movi(v16.V2D(), 0xb7f60ad7d7d88f13, 0x13eefc240496e842);
+  __ Movi(v17.V2D(), 0x1be199c7c69b47ec, 0x8e4b9919f6eed443);
+  __ Movi(v18.V2D(), 0x9bd2e1654c69e48f, 0x2143d089e426c6d2);
+  __ Movi(v19.V2D(), 0xc31dbdc4a0393065, 0x1ecc2077caaf64d8);
+  __ Movi(v20.V2D(), 0x29b24463967bc6eb, 0xdaf59970df01c93b);
+  __ Movi(v21.V2D(), 0x3e20a4a4cb6813f4, 0x20a5832713dae669);
+  __ Movi(v22.V2D(), 0xc5ff9a94041b1fdf, 0x2f46cde38cba2682);
+  __ Movi(v23.V2D(), 0xd8cc5b0e61f387e6, 0xe69d6d314971e8fd);
+
+  __ Tbx(v16.V16B(), v1.V16B(), v4.V16B());
+  __ Tbx(v17.V16B(), v0.V16B(), v1.V16B(), v5.V16B());
+  __ Tbx(v18.V16B(), v31.V16B(), v0.V16B(), v1.V16B(), v6.V16B());
+  __ Tbx(v19.V16B(), v30.V16B(), v31.V16B(), v0.V16B(), v1.V16B(), v7.V16B());
+  __ Tbx(v20.V8B(), v1.V16B(), v4.V8B());
+  __ Tbx(v21.V8B(), v0.V16B(), v1.V16B(), v5.V8B());
+  __ Tbx(v22.V8B(), v31.V16B(), v0.V16B(), v1.V16B(), v6.V8B());
+  __ Tbx(v23.V8B(), v30.V16B(), v31.V16B(), v0.V16B(), v1.V16B(), v7.V8B());
+  END();
+
+  RUN();
+
+  ASSERT_EQUAL_128(0x00090e1c800e0000, 0x80f0ecf50e001c00, v8);
+  ASSERT_EQUAL_128(0x1ebf5ed100f50000, 0x0072324b82c6c682, v9);
+  ASSERT_EQUAL_128(0x00005e4b4cd10e00, 0x0900005e80008800, v10);
+  ASSERT_EQUAL_128(0x0000883d2b00001e, 0x00d1822b5bbff074, v11);
+  ASSERT_EQUAL_128(0x0000000000000000, 0x80f0ecf50e001c00, v12);
+  ASSERT_EQUAL_128(0x0000000000000000, 0x0072324b82c6c682, v13);
+  ASSERT_EQUAL_128(0x0000000000000000, 0x0900005e80008800, v14);
+  ASSERT_EQUAL_128(0x0000000000000000, 0x00d1822b5bbff074, v15);
+
+  ASSERT_EQUAL_128(0xb7090e1c800e8f13, 0x80f0ecf50e961c42, v16);
+  ASSERT_EQUAL_128(0x1ebf5ed1c6f547ec, 0x8e72324b82c6c682, v17);
+  ASSERT_EQUAL_128(0x9bd25e4b4cd10e8f, 0x0943d05e802688d2, v18);
+  ASSERT_EQUAL_128(0xc31d883d2b39301e, 0x1ed1822b5bbff074, v19);
+  ASSERT_EQUAL_128(0x0000000000000000, 0x80f0ecf50e011c3b, v20);
+  ASSERT_EQUAL_128(0x0000000000000000, 0x2072324b82c6c682, v21);
+  ASSERT_EQUAL_128(0x0000000000000000, 0x0946cd5e80ba8882, v22);
+  ASSERT_EQUAL_128(0x0000000000000000, 0xe6d1822b5bbff074, v23);
+
+  TEARDOWN();
+}
+
+>>>>>>> BRANCH (6af2cf Split assembler tests)
 
 }  // namespace aarch64
 }  // namespace vixl

@@ -81,6 +81,25 @@ TEST(fp_dp1) {
   COMPARE(fsqrt(s31, s30), "fsqrt s31, s30");
   COMPARE(fsqrt(d10, d11), "fsqrt d10, d11");
   COMPARE(fsqrt(d31, d30), "fsqrt d31, d30");
+<<<<<<< HEAD   (f20f24 [sve] Add predicate condition testing functions in the simul)
+=======
+  COMPARE(frint32x(s10, s11), "frint32x s10, s11");
+  COMPARE(frint32x(s31, s30), "frint32x s31, s30");
+  COMPARE(frint32x(d12, d13), "frint32x d12, d13");
+  COMPARE(frint32x(d31, d30), "frint32x d31, d30");
+  COMPARE(frint32z(s10, s11), "frint32z s10, s11");
+  COMPARE(frint32z(s31, s30), "frint32z s31, s30");
+  COMPARE(frint32z(d12, d13), "frint32z d12, d13");
+  COMPARE(frint32z(d31, d30), "frint32z d31, d30");
+  COMPARE(frint64x(s10, s11), "frint64x s10, s11");
+  COMPARE(frint64x(s31, s30), "frint64x s31, s30");
+  COMPARE(frint64x(d12, d13), "frint64x d12, d13");
+  COMPARE(frint64x(d31, d30), "frint64x d31, d30");
+  COMPARE(frint64z(s10, s11), "frint64z s10, s11");
+  COMPARE(frint64z(s31, s30), "frint64z s31, s30");
+  COMPARE(frint64z(d12, d13), "frint64z d12, d13");
+  COMPARE(frint64z(d31, d30), "frint64z d31, d30");
+>>>>>>> BRANCH (6af2cf Split assembler tests)
   COMPARE(frinta(s10, s11), "frinta s10, s11");
   COMPARE(frinta(s31, s30), "frinta s31, s30");
   COMPARE(frinta(d12, d13), "frinta d12, d13");
