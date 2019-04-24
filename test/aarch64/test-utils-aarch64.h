@@ -130,7 +130,7 @@ class RegisterDump {
     return dump_.x_[code];
   }
 
-  // FPRegister accessors.
+  // VRegister accessors.
   inline uint16_t hreg_bits(unsigned code) const {
     VIXL_ASSERT(VRegAliasesMatch(code));
     return dump_.h_[code];
@@ -228,6 +228,7 @@ class RegisterDump {
   bool VRegAliasesMatch(unsigned code) const {
     VIXL_ASSERT(IsComplete());
     VIXL_ASSERT(code < kNumberOfVRegisters);
+<<<<<<< HEAD   (03c0b5 [sve] Z register tools for assembler tests.)
     bool match = ((dump_.q_[code].GetLane<uint64_t>(0) == dump_.d_[code]) &&
                   ((dump_.d_[code] & kSRegMask) == dump_.s_[code]) &&
                   ((dump_.s_[code] & kHRegMask) == dump_.h_[code]));
@@ -248,6 +249,10 @@ class RegisterDump {
               CPUFeatures::Feature feature2 = CPUFeatures::kNone,
               CPUFeatures::Feature feature3 = CPUFeatures::kNone) const {
     return dump_cpu_features_.Has(feature0, feature1, feature2, feature3);
+=======
+    return (((dump_.d_[code] & kSRegMask) == dump_.s_[code]) ||
+            ((dump_.s_[code] & kHRegMask) == dump_.h_[code]));
+>>>>>>> BRANCH (2fb52c Only assume baseline features if InferFromOS fails.)
   }
 
   // Store all the dumped elements in a simple struct so the implementation can
@@ -258,9 +263,9 @@ class RegisterDump {
     uint32_t w_[kNumberOfRegisters];
 
     // Floating-point registers, as raw bits.
-    uint64_t d_[kNumberOfFPRegisters];
-    uint32_t s_[kNumberOfFPRegisters];
-    uint16_t h_[kNumberOfFPRegisters];
+    uint64_t d_[kNumberOfVRegisters];
+    uint32_t s_[kNumberOfVRegisters];
+    uint16_t h_[kNumberOfVRegisters];
 
     // Vector registers.
     QRegisterValue q_[kNumberOfVRegisters];
@@ -318,13 +323,13 @@ bool Equal64(uint64_t expected,
 
 bool EqualFP16(Float16 expected,
                const RegisterDump* core,
-               const FPRegister& fpreg);
+               const VRegister& fpreg);
 bool EqualFP32(float expected,
                const RegisterDump* core,
-               const FPRegister& fpreg);
+               const VRegister& fpreg);
 bool EqualFP64(double expected,
                const RegisterDump* core,
-               const FPRegister& fpreg);
+               const VRegister& fpreg);
 
 bool Equal64(const Register& reg0,
              const RegisterDump* core,
@@ -379,12 +384,12 @@ RegList PopulateRegisterArray(Register* w,
                               RegList allowed);
 
 // As PopulateRegisterArray, but for floating-point registers.
-RegList PopulateFPRegisterArray(FPRegister* s,
-                                FPRegister* d,
-                                FPRegister* v,
-                                int reg_size,
-                                int reg_count,
-                                RegList allowed);
+RegList PopulateVRegisterArray(VRegister* s,
+                               VRegister* d,
+                               VRegister* v,
+                               int reg_size,
+                               int reg_count,
+                               RegList allowed);
 
 // Ovewrite the contents of the specified registers. This enables tests to
 // check that register contents are written in cases where it's likely that the

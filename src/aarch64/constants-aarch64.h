@@ -34,13 +34,17 @@ namespace aarch64 {
 
 const unsigned kNumberOfRegisters = 32;
 const unsigned kNumberOfVRegisters = 32;
+<<<<<<< HEAD   (03c0b5 [sve] Z register tools for assembler tests.)
 const unsigned kNumberOfFPRegisters = kNumberOfVRegisters;
 const unsigned kNumberOfZRegisters = kNumberOfVRegisters;
 const unsigned kNumberOfPRegisters = 16;
+=======
+>>>>>>> BRANCH (2fb52c Only assume baseline features if InferFromOS fails.)
 // Callee saved registers are x21-x30(lr).
 const int kNumberOfCalleeSavedRegisters = 10;
 const int kFirstCalleeSavedRegisterIndex = 21;
-// Callee saved FP registers are d8-d15.
+// Callee saved FP registers are d8-d15. Note that the high parts of v8-v15 are
+// still caller-saved.
 const int kNumberOfCalleeSavedFPRegisters = 8;
 const int kFirstCalleeSavedFPRegisterIndex = 8;
 
