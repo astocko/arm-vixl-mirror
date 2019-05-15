@@ -223,7 +223,11 @@ class CPURegList {
 
   bool IncludesAliasOf(const CPURegister& other) const {
     VIXL_ASSERT(IsValid());
+<<<<<<< HEAD   (2a2499 [sve] Fix a comment in the test infrastructure.)
     return (GetBank() == other.GetBank()) && ((other.GetBit() & list_) != 0);
+=======
+    return (type_ == other.GetType()) && IncludesAliasOf(other.GetCode());
+>>>>>>> BRANCH (a5b3ce Allow throwing exceptions from destructors for testing.)
   }
 
   bool IncludesAliasOf(int code) const {
