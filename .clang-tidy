@@ -1,0 +1,7 @@
+---
+Checks:          '-*,bugprone-assert-side-effect'
+HeaderFilterRegex: ''
+AnalyzeTemporaryDtors: false
+CheckOptions:
+...
+
