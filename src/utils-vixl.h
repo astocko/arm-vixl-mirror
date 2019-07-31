@@ -211,6 +211,10 @@ inline int64_t ExtractSignedBitfield64(int msb, int lsb, uint64_t x) {
   return result;
 }
 
+<<<<<<< HEAD   (302729 [sve] Add support for the SVEIntCompare{Signed|Unsigned}Imm )
+=======
+
+>>>>>>> BRANCH (1d925c Add some more substantial benchmarks.)
 inline int32_t ExtractSignedBitfield32(int msb, int lsb, uint32_t x) {
   VIXL_ASSERT((static_cast<size_t>(msb) < sizeof(x) * 8) && (lsb >= 0) &&
               (msb >= lsb));
